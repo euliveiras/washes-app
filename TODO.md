@@ -2,7 +2,11 @@
 
 ### pages
 - login/register 
+	- clerk provider
 - homepage
+	- table filter's
+		- date range
+		- input to search a vehicle licensePlate 
 
 #### functionalities
 - export table to CSV
