@@ -2,7 +2,7 @@ export type DriverProps = {
     id: String;
     name: String;
     vehicleIds: String[];
-    phones: Number[];
+    phones: String[];
 };
 
 export class Driver {
@@ -18,6 +18,14 @@ export class Driver {
         }
 
         return true;
+    }
+
+    public addPhoneNumber(num: String) {
+        this._props.phones.push(num);
+    }
+
+    public addVehicleId(id: String) {
+        this._props.vehicleIds.push(id);
     }
 
     public get id() {
@@ -36,15 +44,7 @@ export class Driver {
         return this._props.vehicleIds;
     }
 
-    private set vehicleIds(ids: String[]) {
-        this._props.vehicleIds = ids;
-    }
-
     public get phones() {
         return this._props.phones;
-    }
-
-    private set phones(phones: Number[]) {
-        this._props.phones = phones;
     }
 }
