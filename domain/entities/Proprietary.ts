@@ -19,6 +19,7 @@ export class Proprietary {
     public get type() {
         return this._props.type;
     }
+
     public get name() {
         return this._props.name;
     }

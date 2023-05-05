@@ -7,7 +7,7 @@ export function makeDriver(override?: OverrideProps) {
     return new Driver({
         id: "some-id",
         name: "John Doe",
-        phones: [12312321313],
+        phones: ["12313131"],
         vehicleIds: ["some-id"],
         ...override,
     });
