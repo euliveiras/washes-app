@@ -1,4 +1,4 @@
-type VehicleProps = {
+export type VehicleProps = {
     id: String;
     licensePlate: String;
     proprietaryId: String;
