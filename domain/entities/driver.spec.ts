@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { Driver } from "./Driver";
+import { makeVehicle } from "test/factories/makeVehicle";
+import { makeDriver } from "test/factories/makeDriver";
 
 describe("Driver", () => {
     it("should create a Driver", () => {
@@ -22,5 +24,13 @@ describe("Driver", () => {
                     vehicleIds: ["vehicle-id-1, vehicle-id-2"],
                 })
         ).toThrow();
+    });
+    it("should create a driver with a given vehicle id", () => {
+        const driver = makeDriver({ id: "john-doe-id" });
+        const vehicle = makeVehicle({ driverId: driver.id });
+
+        driver.vehicleIds.push(vehicle.id)
+
+        expect(driver.vehicleIds).toContain(vehicle.id)
     });
 });
