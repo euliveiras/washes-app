@@ -3,7 +3,7 @@ import { Vehicle } from "domain/entities/Vehicle";
 
 type OverrideProps = Partial<VehicleProps>;
 
-export function makeVehicle(override: OverrideProps) {
+export function makeVehicle(override?: OverrideProps) {
     return new Vehicle({
         driverId: "some-driver-id",
         id: "some-id",
