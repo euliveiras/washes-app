@@ -1,14 +1,14 @@
-interface DriverProps {
+export type DriverProps = {
     id: String;
     name: String;
     vehicleIds: String[];
     phones: Number[];
-}
+};
 
 export class Driver {
     private _props: DriverProps;
     constructor(props: DriverProps) {
-		this.validateName(props.name)
+        this.validateName(props.name);
         this._props = props;
     }
 
@@ -18,6 +18,10 @@ export class Driver {
         }
 
         return true;
+    }
+
+    public get id() {
+        return this._props.id;
     }
 
     public get name() {
