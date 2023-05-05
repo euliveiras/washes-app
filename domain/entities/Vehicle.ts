@@ -18,6 +18,7 @@ export class Vehicle {
         if (!driverId) {
             throw new Error("It must have at least one driverId");
         }
+        return true
     }
 
     public get id() {
