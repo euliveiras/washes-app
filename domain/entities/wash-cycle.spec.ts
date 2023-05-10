@@ -15,4 +15,18 @@ describe("Wash Cycle", () => {
 
         expect(cycle).toBeInstanceOf(WashCycle);
     });
+    it("should not create a wash cycle with end date before start date", () => {
+        expect(
+            () =>
+                new WashCycle({
+                    completedWashes: [],
+                    startDate: new Date().toISOString(),
+                    endDate: new Date("2023-04-07").toISOString(),
+                    id: "some-id",
+                    note: null,
+                    vehicleId: "some-id",
+                    washesId: [],
+                })
+        ).toThrow();
+    });
 });
