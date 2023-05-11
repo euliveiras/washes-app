@@ -5,12 +5,7 @@ import { describe, expect, it } from "vitest";
 
 describe("Driver", () => {
     it("should create a Driver", () => {
-        const driver = new Driver({
-            id: "some-id",
-            name: "John Doe",
-            phones: ["123131313"],
-            vehicleIds: ["vehicle-id-1, vehicle-id-2"],
-        });
+        const driver = makeDriver();
 
         expect(driver).toHaveProperty("name", "John Doe");
     });
@@ -22,12 +17,13 @@ describe("Driver", () => {
                     name: "as",
                     phones: ["123213213"],
                     vehicleIds: ["vehicle-id-1, vehicle-id-2"],
+                    organizationId: "some-id"
                 })
         ).toThrow();
     });
     it("should create a driver with a given vehicle id", () => {
         const driver = makeDriver({ id: "john-doe-id" });
-        const vehicle = makeVehicle({id: "custom-id"});
+        const vehicle = makeVehicle({ id: "custom-id" });
 
         driver.addVehicleId(vehicle.id);
 

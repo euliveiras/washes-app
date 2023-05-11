@@ -1,8 +1,8 @@
 export type VehicleProps = {
-    id: String;
-    licensePlate: String;
-    driverId: String;
-    vehicleType: String;
+    id: string;
+    licensePlate: string;
+    driverId: string;
+    vehicleType: string;
 };
 
 export class Vehicle {
@@ -13,7 +13,7 @@ export class Vehicle {
         this._props = props;
     }
 
-    private validateDriverId(driverId: String) {
+    private validateDriverId(driverId: string) {
         if (!driverId) {
             throw new Error("It must have at least one driverId");
         }
