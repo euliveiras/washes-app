@@ -1,7 +1,6 @@
 import { Vehicle } from "domain/modules/vehicle/entities/Vehicle";
 import type { CreateVehicleProps } from "domain/modules/vehicle/interfaces/create-vehicle";
 import type { VehicleRepository } from "domain/modules/vehicle/repositories/vehicle-repository";
-import { makeVehicle } from "test/factories/makeVehicle";
 
 export class InMemoryVehicleRepository implements VehicleRepository {
     private data: Vehicle[] = [];
