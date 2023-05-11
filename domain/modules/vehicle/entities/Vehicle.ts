@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
 
 export type VehicleProps = {
-    id: string;
+    id?: string;
     licensePlate: string;
     driverId: string;
     vehicleType: string;
