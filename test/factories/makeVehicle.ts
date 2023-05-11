@@ -8,7 +8,7 @@ export function makeVehicle(override?: OverrideProps) {
         driverId: "some-driver-id",
         id: "some-id",
         licensePlate: "some-license-plate",
-        vehicleType: "some-type",
+        vehicleType: "Bitruck",
         ...override,
     });
 }
