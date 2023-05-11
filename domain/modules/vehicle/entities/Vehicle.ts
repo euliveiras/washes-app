@@ -4,7 +4,7 @@ export type VehicleProps = {
     id?: string;
     licensePlate: string;
     driverId?: string;
-    vehicleType: string;
+    vehicleType: "Extra leve" | "Leve" | "Vuc" | "Toco" | "Truck" | "Bitruck" | "Carreta";
 };
 
 export class Vehicle {
