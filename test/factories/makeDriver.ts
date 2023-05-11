@@ -9,6 +9,7 @@ export function makeDriver(override?: OverrideProps) {
         name: "John Doe",
         phones: ["12313131"],
         vehicleIds: ["some-id"],
+        organizationId: "some-organization",
         ...override,
     });
 }
