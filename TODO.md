@@ -41,7 +41,7 @@
     >> telefone, nome, id do veículo (pode ter mais de um caminhão)
     - responsável direto pelo caminhão
 
-- owner
+- organization
     > entity
     >> [ "EMPRESA", "COOPERATIVA" ]
     - Há um supervisor para cada cooperativa. 
