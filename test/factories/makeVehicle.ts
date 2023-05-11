@@ -1,5 +1,5 @@
-import type { VehicleProps } from "domain/entities/Vehicle";
-import { Vehicle } from "domain/entities/Vehicle";
+import type { VehicleProps } from "domain/modules/vehicle/entities/Vehicle";
+import { Vehicle } from "domain/modules/vehicle/entities/Vehicle";
 
 type OverrideProps = Partial<VehicleProps>;
 

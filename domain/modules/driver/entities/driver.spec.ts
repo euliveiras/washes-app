@@ -1,7 +1,7 @@
-import { describe, expect, it } from "vitest";
 import { Driver } from "./Driver";
 import { makeVehicle } from "test/factories/makeVehicle";
 import { makeDriver } from "test/factories/makeDriver";
+import { describe, expect, it } from "vitest";
 
 describe("Driver", () => {
     it("should create a Driver", () => {

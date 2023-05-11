@@ -1,5 +1,5 @@
-import type { ProprietaryProps } from "domain/entities/Proprietary";
-import { Proprietary } from "domain/entities/Proprietary";
+import type { ProprietaryProps } from "domain/modules/proprietary/entities/Proprietary";
+import { Proprietary } from "domain/modules/proprietary/entities/Proprietary";
 
 type OverrideProps = Partial<ProprietaryProps>;
 

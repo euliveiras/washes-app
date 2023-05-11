@@ -1,5 +1,5 @@
-import type { DriverProps } from "domain/entities/Driver";
-import { Driver } from "domain/entities/Driver";
+import type { DriverProps } from "domain/modules/driver/entities/Driver";
+import { Driver } from "domain/modules/driver/entities/Driver";
 
 type OverrideProps = Partial<DriverProps>;
 
