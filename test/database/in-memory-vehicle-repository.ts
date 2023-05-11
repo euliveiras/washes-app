@@ -8,13 +8,11 @@ export class InMemoryVehicleRepository implements VehicleRepository {
 
     async create(data: CreateVehicleProps): Promise<Vehicle> {
         const vehicle = new Vehicle(data);
+        this.data.push(vehicle);
         return vehicle;
     }
 
     async findByLicensePlate(plate: string): Promise<Vehicle | null> {
-        const vehicle = makeVehicle();
-        this.data.push(vehicle);
-
         const findedVehicle = this.data.find((i) => i.licensePlate === plate);
 
         if (!findedVehicle) {
