@@ -4,6 +4,7 @@ import type { VehicleRepository } from "../repositories/vehicle-repository";
 export class CreateVehicle {
     constructor(private db: VehicleRepository) {}
     async execute(data: CreateVehicleProps) {
-        throw new Error("Not implemented");
+        const vehicle = await this.db.create(data);
+        return { vehicle };
     }
 }
