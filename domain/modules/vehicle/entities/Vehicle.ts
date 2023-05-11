@@ -1,7 +1,6 @@
 export type VehicleProps = {
     id: String;
     licensePlate: String;
-    proprietaryId: String;
     driverId: String;
     vehicleType: String;
 };
@@ -18,7 +17,7 @@ export class Vehicle {
         if (!driverId) {
             throw new Error("It must have at least one driverId");
         }
-        return true
+        return true;
     }
 
     public get id() {
@@ -27,10 +26,6 @@ export class Vehicle {
 
     public get licensePlate() {
         return this._props.licensePlate;
-    }
-
-    public get proprietaryId() {
-        return this._props.proprietaryId;
     }
 
     public get vehicleType() {
