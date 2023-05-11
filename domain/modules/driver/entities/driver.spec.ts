@@ -17,7 +17,7 @@ describe("Driver", () => {
                     name: "as",
                     phones: ["123213213"],
                     vehicleIds: ["vehicle-id-1, vehicle-id-2"],
-                    organizationId: "some-id"
+                    organizationId: "some-id",
                 })
         ).toThrow();
     });
@@ -25,7 +25,7 @@ describe("Driver", () => {
         const driver = makeDriver({ id: "john-doe-id" });
         const vehicle = makeVehicle({ id: "custom-id" });
 
-        driver.addVehicleId(vehicle.id);
+        driver.addVehicleId(vehicle.id || "");
 
         expect(driver.vehicleIds).toContain(vehicle.id);
     });
