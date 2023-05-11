@@ -1,8 +1,9 @@
 export type DriverProps = {
-    id: String;
-    name: String;
-    vehicleIds: String[];
-    phones: String[];
+    id: string;
+    name: string;
+    vehicleIds: string[];
+    phones: string[];
+    organizationId: string;
 };
 
 export class Driver {
@@ -12,7 +13,7 @@ export class Driver {
         this._props = props;
     }
 
-    private validateName(name: String) {
+    private validateName(name: string) {
         if (name.length < 3) {
             throw new Error("Name must have more than 2 words");
         }
@@ -20,11 +21,11 @@ export class Driver {
         return true;
     }
 
-    public addPhoneNumber(num: String) {
+    public addPhoneNumber(num: string) {
         this._props.phones.push(num);
     }
 
-    public addVehicleId(id: String) {
+    public addVehicleId(id: string) {
         this._props.vehicleIds.push(id);
     }
 
@@ -46,5 +47,13 @@ export class Driver {
 
     public get phones() {
         return this._props.phones;
+    }
+
+    public get organizationId() {
+        return this._props.organizationId;
+    }
+
+    public set organizationId(id: string) {
+        this._props.organizationId = id;
     }
 }
