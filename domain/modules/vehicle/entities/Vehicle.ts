@@ -1,3 +1,5 @@
+import { randomUUID } from "crypto";
+
 export type VehicleProps = {
     id: string;
     licensePlate: string;
@@ -9,6 +11,9 @@ export class Vehicle {
     private _props: VehicleProps;
 
     constructor(props: VehicleProps) {
+        if (!props.id) {
+            props.id = randomUUID();
+        }
         this.validateDriverId(props.driverId);
         this._props = props;
     }
