@@ -3,7 +3,7 @@ import { randomUUID } from "crypto";
 export type VehicleProps = {
     id?: string;
     licensePlate: string;
-    driverId: string;
+    driverId: string | null;
     vehicleType: string;
 };
 
@@ -14,15 +14,7 @@ export class Vehicle {
         if (!props.id) {
             props.id = randomUUID();
         }
-        this.validateDriverId(props.driverId);
         this._props = props;
-    }
-
-    private validateDriverId(driverId: string) {
-        if (!driverId) {
-            throw new Error("It must have at least one driverId");
-        }
-        return true;
     }
 
     public get id() {
