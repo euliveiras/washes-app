@@ -5,7 +5,7 @@ export type WashProps = {
     vehicleId: string;
     scheduleDate: string;
     cycleId: string;
-    note: string;
+    note?: string;
     isCompleted: boolean;
 };
 
@@ -43,7 +43,7 @@ export class Wash {
         return this._props.note;
     }
 
-    public set note(note: string) {
+    public set note(note: string | undefined) {
         this._props.note = note;
     }
 
