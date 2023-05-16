@@ -9,4 +9,8 @@ export class InMemoryWashCycleRepository implements WashCycleRepository {
 
         return washCycle;
     }
+    async find(id: string): Promise<WashCycle | null> {
+        const washCycle = this.cycles.find(cycle => cycle.id === id)
+        return washCycle ?? null
+    }
 }
