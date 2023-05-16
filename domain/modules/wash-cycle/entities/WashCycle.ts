@@ -1,3 +1,5 @@
+import { randomUUID } from "crypto";
+
 export type WashCycleProps = {
     id: string;
     vehicleId: string;
@@ -12,6 +14,9 @@ export class WashCycle {
     private _props: WashCycleProps;
 
     constructor(props: WashCycleProps) {
+        if (!props.id) {
+            props.id = randomUUID();
+        }
         this.validateStartDate(props.startDate);
         this.validateEndDate(props.endDate);
         this._props = props;
