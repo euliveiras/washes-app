@@ -29,6 +29,10 @@ export class WashCycle {
         };
     }
 
+    public get id(){
+        return this._props.id
+    }
+
     public get vehicleId() {
         return this._props.vehicleId;
     }
