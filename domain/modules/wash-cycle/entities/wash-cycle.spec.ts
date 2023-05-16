@@ -8,7 +8,6 @@ describe("Wash Cycle", () => {
             startDate: new Date().toISOString(),
             endDate: new Date("2070-05-07").toISOString(),
             id: "some-id",
-            note: null,
             vehicleId: "some-id",
             washesId: [],
         });
@@ -23,7 +22,6 @@ describe("Wash Cycle", () => {
                     startDate: new Date().toISOString(),
                     endDate: new Date("2023-04-07").toISOString(),
                     id: "some-id",
-                    note: null,
                     vehicleId: "some-id",
                     washesId: [],
                 })
