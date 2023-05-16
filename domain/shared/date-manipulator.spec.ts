@@ -15,7 +15,7 @@ describe("Date manipulation", () => {
 
     it("should add a number of months to given date", () => {
         const date = dateManipulator.parseDateToString(new Date());
-        const withMonthsAdd = dateManipulator.addMonthsToDate(date, 1).toISOString();
+        const withMonthsAdd = dateManipulator.addMonthsToDate(date, 1);
 
         expect(dateManipulator.isBefore(date, withMonthsAdd)).toBeTruthy();
     });
