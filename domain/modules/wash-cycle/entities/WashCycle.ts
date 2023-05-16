@@ -2,7 +2,7 @@ import { randomUUID } from "crypto";
 import { dateManipulator } from "domain/shared/date-manipulator";
 
 export type WashCycleProps = {
-    id?: string;
+    id: string;
     vehicleId: string;
     startDate: string;
     endDate: string;
@@ -17,7 +17,10 @@ export class WashCycle {
     private _props: WashCycleProps;
 
     constructor(
-        props: Replace<WashCycleProps, { washesId?: string[]; completedWashes?: string[] }>
+        props: Replace<
+            WashCycleProps,
+            { id?: string; washesId?: string[]; completedWashes?: string[] }
+        >
     ) {
         this.validateStartDate(props.startDate, props.endDate);
         this.validateEndDate(props.endDate, props.startDate);
@@ -29,8 +32,8 @@ export class WashCycle {
         };
     }
 
-    public get id(){
-        return this._props.id
+    public get id() {
+        return this._props.id;
     }
 
     public get vehicleId() {
