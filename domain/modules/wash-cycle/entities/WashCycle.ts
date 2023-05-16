@@ -1,4 +1,5 @@
 import { randomUUID } from "crypto";
+import { dateManipulator } from "domain/shared/date-manipulator";
 
 export type WashCycleProps = {
     id?: string;
@@ -37,13 +38,13 @@ export class WashCycle {
     }
 
     public set startDate(date: string) {
+        this.validateStartDate(date)
         this._props.startDate = date;
     }
 
     private validateStartDate(date: string) {
-        const newStartDate = new Date(date);
-        const presentDate = new Date();
-        if (presentDate > newStartDate) {
+        const presentDate = new Date().toISOString();
+        if (dateManipulator.isAfter(date, presentDate)) {
             throw new Error("Date cannot be before today");
         }
     }
@@ -58,9 +59,8 @@ export class WashCycle {
     }
 
     private validateEndDate(date: string) {
-        const newEndDate = new Date(date);
-        const startDate = new Date();
-        if (startDate > newEndDate) {
+        const startDate = new Date().toISOString();
+        if (dateManipulator.isBefore(date, startDate)) {
             throw new Error("End date cannot be before start date");
         }
     }
