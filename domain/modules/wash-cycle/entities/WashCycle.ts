@@ -5,21 +5,27 @@ export type WashCycleProps = {
     vehicleId: string;
     startDate: string;
     endDate: string;
-    note: string | null;
+    note?: string;
     washesId: string[];
     completedWashes: string[];
 };
 
+export type Replace<T, R> = Omit<T, keyof R> & R;
+
 export class WashCycle {
     private _props: WashCycleProps;
 
-    constructor(props: WashCycleProps) {
-        if (!props.id) {
-            props.id = randomUUID();
-        }
+    constructor(
+        props: Replace<WashCycleProps, { washesId?: string[]; completedWashes?: string[] }>
+    ) {
         this.validateStartDate(props.startDate);
         this.validateEndDate(props.endDate);
-        this._props = props;
+        this._props = {
+            ...props,
+            id: props.id ?? randomUUID(),
+            washesId: props.washesId ?? [],
+            completedWashes: props.completedWashes ?? [],
+        };
     }
 
     public get vehicleId() {
@@ -63,7 +69,7 @@ export class WashCycle {
         return this._props.note;
     }
 
-    public set note(note: string | null) {
+    public set note(note: string | undefined) {
         this._props.note = note;
     }
 
