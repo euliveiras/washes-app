@@ -3,6 +3,7 @@ import { isAfter, isBefore, parseISO } from "date-fns";
 type DateManipulator = {
     isAfter(dateX: string, dateY: string): boolean;
     isBefore(dateX: string, dateY: string): boolean;
+    parseISOStringToDate(str: string): Date;
 };
 
 function wrapper(): DateManipulator {
@@ -17,6 +18,9 @@ function wrapper(): DateManipulator {
             const y = parseISO(dateToCompare);
             return isBefore(x, y);
         },
+        parseISOStringToDate(str: string): Date {
+            return parseISO(str)
+        }
     };
 }
 
