@@ -19,8 +19,8 @@ export class WashCycle {
     constructor(
         props: Replace<WashCycleProps, { washesId?: string[]; completedWashes?: string[] }>
     ) {
-        this.validateStartDate(props.startDate);
-        this.validateEndDate(props.endDate);
+        this.validateStartDate(props.startDate, props.endDate);
+        this.validateEndDate(props.endDate, props.startDate);
         this._props = {
             ...props,
             id: props.id ?? randomUUID(),
@@ -38,13 +38,12 @@ export class WashCycle {
     }
 
     public set startDate(date: string) {
-        this.validateStartDate(date)
+        this.validateStartDate(date);
         this._props.startDate = date;
     }
 
-    private validateStartDate(date: string) {
-        const presentDate = new Date().toISOString();
-        if (dateManipulator.isAfter(date, presentDate)) {
+    private validateStartDate(date: string, endDate?: string) {
+        if (dateManipulator.isAfter(date, this._props?.endDate ?? endDate)) {
             throw new Error("Date cannot be before today");
         }
     }
@@ -58,9 +57,8 @@ export class WashCycle {
         this._props.endDate = date;
     }
 
-    private validateEndDate(date: string) {
-        const startDate = new Date().toISOString();
-        if (dateManipulator.isBefore(date, startDate)) {
+    private validateEndDate(date: string, startDate?: string) {
+        if (dateManipulator.isBefore(date, this._props?.endDate ?? startDate)) {
             throw new Error("End date cannot be before start date");
         }
     }
