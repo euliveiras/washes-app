@@ -27,4 +27,17 @@ describe("Wash Cycle", () => {
                 })
         ).toThrow();
     });
+    it("should not create a wash cycle with start date after end date", () => {
+        expect(
+            () =>
+                new WashCycle({
+                    completedWashes: [],
+                    endDate: new Date().toISOString(),
+                    startDate: new Date("2090-04-07").toISOString(),
+                    id: "some-id",
+                    vehicleId: "some-id",
+                    washesId: [],
+                })
+        ).toThrow();
+    });
 });
