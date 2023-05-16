@@ -1,5 +1,5 @@
 export type InitializeCycleProps = {
-    vehicleId?: string;
+    vehicleId: string;
     startDate: string;
     endDate: string;
     note?: string;
