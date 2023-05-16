@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
 
 export type WashCycleProps = {
-    id: string;
+    id?: string;
     vehicleId: string;
     startDate: string;
     endDate: string;
