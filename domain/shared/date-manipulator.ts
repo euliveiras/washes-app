@@ -3,7 +3,7 @@ type IDateManipulator = {
     isBefore(dateX: string, dateY: string): boolean;
 };
 
-export function dateManipulator(): IDateManipulator {
+function wrapper(): IDateManipulator {
     return {
         isAfter(dateX: string, dateY: string): boolean {
             return true;
@@ -13,3 +13,5 @@ export function dateManipulator(): IDateManipulator {
         },
     };
 }
+
+export const dateManipulator = wrapper()
