@@ -1,8 +1,11 @@
-import type { Wash } from "domain/modules/wash/entities/Wash";
+import { Wash } from "domain/modules/wash/entities/Wash";
 import type { WashRepository } from "domain/modules/wash/repositories/wash-repository";
 
 export class InMemoryWashRepository implements WashRepository {
+    private washes: Wash[] = [];
     async create(data: Wash): Promise<Wash> {
-        throw new Error("Method not implemented.");
+        const wash = new Wash(data);
+        this.washes.push(wash);
+        return wash;
     }
 }
