@@ -1,4 +1,4 @@
-import { addMonths, formatISO, isAfter, isBefore, parseISO } from "date-fns";
+import { addMonths, formatISO, isAfter, isBefore, isDate, parseISO } from "date-fns";
 
 type DateManipulator = {
     isAfter(dateX: string, dateY: string): boolean;
@@ -16,11 +16,15 @@ function wrapper(): DateManipulator {
             return isAfter(x, y);
         },
         isBefore(date: string, dateToCompare: string): boolean {
-            const x = parseISO(date);
-            const y = parseISO(dateToCompare);
+            const x = this.parseISOStringToDate(date);
+            const y = this.parseISOStringToDate(dateToCompare);
+
             return isBefore(x, y);
         },
         parseISOStringToDate(str: string): Date {
+            if (!str) {
+                throw new Error("Date string is undefined");
+            }
             return parseISO(str);
         },
         addMonthsToDate(date: string, amount: number): string {
