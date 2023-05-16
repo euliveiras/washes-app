@@ -12,4 +12,15 @@ describe("Date manipulation", () => {
         const dateY = new Date().toISOString();
         expect(dateManipulator.isBefore(dateY, dateX)).toBeTruthy();
     });
+
+    it("should add a number of months to given date", () => {
+        const date = dateManipulator.parseDateToString(new Date());
+        const withMonthsAdd = dateManipulator.addMonthsToDate(date, 1).toISOString();
+
+        expect(dateManipulator.isBefore(date, withMonthsAdd)).toBeTruthy();
+    });
+
+    it("should parse a date to string", () => {
+        expect(dateManipulator.parseDateToString(new Date())).toBeTypeOf("string");
+    });
 });
