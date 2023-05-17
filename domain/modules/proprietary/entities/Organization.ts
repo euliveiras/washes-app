@@ -1,3 +1,5 @@
+import { randomUUID } from "crypto";
+
 export type OrganizationProps = {
     id: string;
     type: "Cooperativa" | "Empresa";
@@ -9,6 +11,10 @@ export class Organization {
     private _props: OrganizationProps;
 
     constructor(props: OrganizationProps) {
+        this._props = {
+            ...props,
+            id: props.id ?? randomUUID(),
+        };
         this._props = props;
     }
 
