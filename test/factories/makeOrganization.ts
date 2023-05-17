@@ -8,7 +8,7 @@ export function makeOrganization(override?: OverrideProps) {
         id: "some-id",
         name: "some-name",
         phone: ["12313213"],
-        type: "some-type",
+        type: "Cooperativa",
         ...override,
     });
 }
