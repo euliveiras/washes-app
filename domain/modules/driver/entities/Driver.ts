@@ -1,19 +1,25 @@
 import { randomUUID } from "crypto";
 
+export type Replace<T, R> = Omit<T, keyof R> & R;
+
 export type DriverProps = {
     id: string;
     name: string;
     vehicleIds: string[];
     phones: string[];
-    organizationId: string;
+    organizationId?: string;
 };
 
 export class Driver {
     private _props: DriverProps;
-    constructor(props: DriverProps) {
+    constructor(
+        props: Replace<DriverProps, { id?: string; vehicleIds?: string[]; phones?: string[] }>
+    ) {
         this.validateName(props.name);
         this._props = {
             ...props,
+            vehicleIds: props.vehicleIds ?? [],
+            phones: props.phones ?? [],
             id: props.id ?? randomUUID(),
         };
     }
@@ -58,7 +64,7 @@ export class Driver {
         return this._props.organizationId;
     }
 
-    public set organizationId(id: string) {
+    public set organizationId(id: string | undefined) {
         this._props.organizationId = id;
     }
 }
