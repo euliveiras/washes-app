@@ -17,28 +17,37 @@
 
 ## backend 
 
+### todo
+    [ ] transform driver module into a Vehicle prop
+    [ ] search a active wash-cycle for the given licensePlate. 
+        if founded active wash-cycle
+        [ ] search for most recently scheduled wash for the given licensePlate.
+    [ ] create organization use case
+    [ ] find organization use case
+    [ ] create organization repository
 ### modules
+
 
 #### application 
 - wash
     > entity
-    >> id, vehicleId, scheduleDate, cycleId, note, completed
+    >> id, vehicleId, scheduledDate, cycleId, note, isCompleted
     - it not need to quantify washes. this is made by wash cycle module
     - não completa, completa
 
 - wash-cycle
     > entity
-    >> id, numberOfWashes, vehicleId, rangeDate, completedWashes e note 
+    >> id, numberOfWashes, vehicleId, startDate, endDate, completedWashes e note 
 
 - vehicle
     > entity
-    >> id, licensePlate, proprietary(empresa, cooperativa), motorista(dono do caminhão), vehicleType
+    >> id, licensePlate, driver, vehicleType
     - proprietary may be a separated class, with a name and contact field.
     - [ "Extra leve", "Leve", "Vuc", "Toco", "Truck", "Bitruck", "Carreta" ]
     
-- motorista
+- driver
     > entity
-    >> telefone, nome, id do veículo (pode ter mais de um caminhão)
+    >> phones, name, vehicleIds, organizationId (pode ter mais de um caminhão)
     - responsável direto pelo caminhão
 
 - organization
@@ -72,4 +81,6 @@
 
 #### notifications
     cron job function from **vercel**
+
+
 
