@@ -1,5 +1,5 @@
-import type { OrganizationProps } from "domain/modules/proprietary/entities/Organization";
-import { Organization } from "domain/modules/proprietary/entities/Organization";
+import type { OrganizationProps } from "domain/modules/organization/entities/Organization";
+import { Organization } from "domain/modules/organization/entities/Organization";
 
 type OverrideProps = Partial<OrganizationProps>;
 
