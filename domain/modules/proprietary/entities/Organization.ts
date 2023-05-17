@@ -1,8 +1,8 @@
 export type OrganizationProps = {
-    id: String;
-    type: String;
-    name: String;
-    phone: String[];
+    id: string;
+    type: "Cooperativa" | "Empresa";
+    name: string;
+    phone: string[];
 };
 
 export class Organization {
