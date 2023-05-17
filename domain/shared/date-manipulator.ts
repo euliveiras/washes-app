@@ -1,4 +1,4 @@
-import { addMonths, formatISO, isAfter, isBefore, isDate, parseISO } from "date-fns";
+import { addMonths, formatISO, isAfter, isBefore, addDays, parseISO } from "date-fns";
 
 type DateManipulator = {
     isAfter(dateX: string, dateY: string): boolean;
@@ -6,6 +6,7 @@ type DateManipulator = {
     parseISOStringToDate(str: string): Date;
     addMonthsToDate(date: string, month: number): string;
     parseDateToString(date: Date): string;
+    addDaysToDate(date: string, days: number): string;
 };
 
 function wrapper(): DateManipulator {
@@ -32,6 +33,9 @@ function wrapper(): DateManipulator {
         },
         parseDateToString(date: Date): string {
             return formatISO(date);
+        },
+        addDaysToDate(date: string, amount): string {
+            return this.parseDateToString(addDays(this.parseISOStringToDate(date), amount));
         },
     };
 }
