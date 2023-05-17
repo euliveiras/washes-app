@@ -1,14 +1,14 @@
-export type ProprietaryProps = {
+export type OrganizationProps = {
     id: String;
     type: String;
     name: String;
     phone: String[];
 };
 
-export class Proprietary {
-    private _props: ProprietaryProps;
+export class Organization {
+    private _props: OrganizationProps;
 
-    constructor(props: ProprietaryProps) {
+    constructor(props: OrganizationProps) {
         this._props = props;
     }
 
