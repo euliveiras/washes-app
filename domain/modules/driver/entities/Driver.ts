@@ -1,3 +1,5 @@
+import { randomUUID } from "crypto";
+
 export type DriverProps = {
     id: string;
     name: string;
@@ -10,7 +12,10 @@ export class Driver {
     private _props: DriverProps;
     constructor(props: DriverProps) {
         this.validateName(props.name);
-        this._props = props;
+        this._props = {
+            ...props,
+            id: props.id ?? randomUUID(),
+        };
     }
 
     private validateName(name: string) {
