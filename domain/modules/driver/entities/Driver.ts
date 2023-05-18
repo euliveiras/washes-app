@@ -2,7 +2,7 @@ export type Replace<T, R> = Omit<T, keyof R> & R;
 
 export type DriverProps = {
     name: string;
-    phones: string[];
+    phones?: string[];
     organizationId?: string;
 };
 
@@ -27,6 +27,10 @@ export class Driver {
 
     public get phones() {
         return this._props.phones;
+    }
+
+    public addPhone(phone: string) {
+        this._props.phones?.push(phone);
     }
 
     public get organizationId() {
