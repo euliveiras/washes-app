@@ -18,6 +18,30 @@
 ## backend 
 
 ### todo
+    [ ] search for license plate
+        if founded
+            [ ] search for active wash cycle
+            if founded
+                [ ] search for a wash
+                if founded
+                     [ ] prompt user to confirm wash
+                else
+                    [ ] create a wash
+            else
+                [ ] create wash cycle
+
+        else 
+            driver???
+            [ ] create vehicle
+            [ ] prompt user to create a organization
+                [ ] search for organization
+                    if not founded
+                        [ ] create organization
+            [ ] prompt user to create wash cycle
+            [ ] prompt user to create wash
+            [ ] create wash-cycle
+            [ ] create wash
+
     [ ] transform driver module into a Vehicle prop
     [ ] search a active wash-cycle for the given licensePlate. 
         if founded active wash-cycle
