@@ -11,9 +11,9 @@ describe("Vehicle", () => {
     });
 
     it("should create a Vehicle with given driver id", () => {
-        const driver = makeDriver({ id: "john-doe-id" });
-        const vehicle = makeVehicle({ driverId: driver.id });
+        const driver = makeDriver();
+        const vehicle = makeVehicle({ driver: driver });
 
-        expect(vehicle).toHaveProperty("driverId", driver.id);
+        expect(vehicle).toHaveProperty("driver", driver);
     });
 });
