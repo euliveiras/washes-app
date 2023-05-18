@@ -1,9 +1,10 @@
 import { randomUUID } from "crypto";
+import type { Driver } from "domain/modules/driver/entities/Driver";
 
 export type VehicleProps = {
     id?: string;
     licensePlate: string;
-    driverId?: string;
+    driver: Driver;
     vehicleType: "Extra leve" | "Leve" | "Vuc" | "Toco" | "Truck" | "Bitruck" | "Carreta";
 };
 
@@ -29,7 +30,7 @@ export class Vehicle {
         return this._props.vehicleType;
     }
 
-    public get driverId() {
-        return this._props.driverId;
+    public get driver() {
+        return this._props.driver;
     }
 }
