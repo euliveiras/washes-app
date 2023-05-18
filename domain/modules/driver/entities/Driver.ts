@@ -8,9 +8,7 @@ export type DriverProps = {
 
 export class Driver {
     private _props: DriverProps;
-    constructor(
-        props: Replace<DriverProps, { id?: string; vehicleIds?: string[]; phones?: string[] }>
-    ) {
+    constructor(props: Replace<DriverProps, { phones?: string[] }>) {
         this._props = {
             ...props,
             phones: props.phones ?? [],
