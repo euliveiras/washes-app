@@ -1,14 +1,12 @@
-import { Vehicle } from "domain/modules/vehicle/entities/Vehicle";
-import type { CreateVehicleProps } from "domain/modules/vehicle/interfaces/create-vehicle";
+import type { Vehicle } from "domain/modules/vehicle/entities/Vehicle";
 import type { VehicleRepository } from "domain/modules/vehicle/repositories/vehicle-repository";
 
 export class InMemoryVehicleRepository implements VehicleRepository {
     private data: Vehicle[] = [];
 
-    async create(data: CreateVehicleProps): Promise<Vehicle> {
-        const vehicle = new Vehicle(data);
-        this.data.push(vehicle);
-        return vehicle;
+    async create(data: Vehicle): Promise<Vehicle> {
+        this.data.push(data);
+        return data;
     }
 
     async findByLicensePlate(plate: string): Promise<Vehicle | null> {
