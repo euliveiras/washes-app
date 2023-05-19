@@ -18,9 +18,9 @@
 ## backend 
 
 ### todo
-    [ ] search for license plate
+    [x] search for license plate
         if founded
-            [ ] search for active wash cycle
+            [x] search for active wash cycle
             if founded
                 [ ] search for a wash
                 if founded
@@ -42,7 +42,7 @@
             [ ] create wash-cycle
             [ ] create wash
 
-    [ ] transform driver module into a Vehicle prop
+    [x] transform driver module into a Vehicle prop
     [ ] search a active wash-cycle for the given licensePlate. 
         if founded active wash-cycle
         [ ] search for most recently scheduled wash for the given licensePlate.
