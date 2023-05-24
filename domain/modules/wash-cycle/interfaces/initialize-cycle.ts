@@ -3,4 +3,5 @@ export type InitializeCycleProps = {
     startDate: string;
     endDate: string;
     note?: string;
+    washesId?: string[]
 };
