@@ -14,4 +14,8 @@ export class InMemoryWashCycleRepository implements WashCycleRepository {
         const findedCycle = this.cycles.find((c) => c.vehicleId === id);
         return findedCycle ?? null;
     }
+    async update(washCycle: WashCycle): Promise<void> {
+        const index = this.cycles.findIndex((c) => c.id === washCycle.id);
+        this.cycles[index] = washCycle;
+    }
 }
