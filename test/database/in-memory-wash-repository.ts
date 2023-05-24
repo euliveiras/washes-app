@@ -8,4 +8,9 @@ export class InMemoryWashRepository implements WashRepository {
         this.washes.push(wash);
         return wash;
     }
+
+    async findById(id: string): Promise<Wash | null> {
+        const findedWash = this.washes.find((w) => w.id === id);
+        return findedWash || null;
+    }
 }
