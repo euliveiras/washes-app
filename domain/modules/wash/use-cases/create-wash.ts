@@ -34,6 +34,10 @@ export class CreateWash {
 
         await this.washesRepo.create(wash);
 
+        findedWashCycle.washesId.push(wash.id)
+
+        await this.washesCycleRepo.update(findedWashCycle)
+
         return { wash };
     }
 }
