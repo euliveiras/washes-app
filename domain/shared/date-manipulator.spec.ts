@@ -23,4 +23,8 @@ describe("Date manipulation", () => {
     it("should parse a date to string", () => {
         expect(dateManipulator.parseDateToString(new Date())).toBeTypeOf("string");
     });
+    it("should return true if date is sunday", () => {
+        const date = dateManipulator.parseDateToString(new Date(2023, 4, 28));
+        expect(dateManipulator.isSunday(date)).toBeTruthy();
+    });
 });
