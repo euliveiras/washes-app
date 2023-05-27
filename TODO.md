@@ -22,7 +22,7 @@
         if founded
             [x] search for active wash cycle
             if founded
-                [ ] search for a wash
+                [ ] search for the wash-cycle washes
                 if founded
 		    [ ] prompt user to confirm wash
                 else
@@ -50,7 +50,15 @@
     [ ] find organization use case
     [ ] create organization repository
 ### modules
+#### wash-cycle
 
+##### use-cases
+    - create wash-cycle
+        - initialize with a wash schedule every 7 day's
+#### wash
+##### use-cases
+    - create wash
+        - verify if has a wash to the given schedule date
 
 #### application 
 - wash
