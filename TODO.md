@@ -22,13 +22,13 @@
         if founded
             [x] search for active wash cycle
             if founded
-                [ ] search for the wash-cycle washes
+                [x] search for the wash-cycle washes
                 if founded
 		    [ ] prompt user to confirm wash
                 else
 		    [ ] create a wash
             else
-                [ ] create wash cycle
+                [x] initialize wash cycle
 
         else 
             driver???
@@ -54,8 +54,9 @@
 
 ##### use-cases
     - create wash-cycle
-        - initialize with a wash schedule every 7 day's
+        - initialize with optional washes embed
 #### wash
+    - it needs to verify if already has a wash to given scheduled date
 ##### use-cases
     - create wash
         - verify if has a wash to the given schedule date
