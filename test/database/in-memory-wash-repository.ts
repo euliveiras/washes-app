@@ -12,4 +12,18 @@ export class InMemoryWashRepository implements WashRepository {
         const findedWash = this.washes.find((w) => w.id === id);
         return findedWash || null;
     }
+    async update(
+        id: string,
+        { isCompleted, note, scheduleDate }: Partial<Wash>
+    ): Promise<Wash | null> {
+        const i = this.washes.findIndex((w) => w.id === id);
+
+        this.washes[i].isCompleted =
+            typeof isCompleted === "boolean" ? isCompleted : this.washes[i].isCompleted;
+        this.washes[i].note = note;
+        this.washes[i].scheduleDate =
+            typeof scheduleDate === "string" ? scheduleDate : this.washes[i].scheduleDate;
+
+        return this.washes[i];
+    }
 }
