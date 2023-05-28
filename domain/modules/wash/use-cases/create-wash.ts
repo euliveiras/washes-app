@@ -21,6 +21,17 @@ export class CreateWash {
             throw new Error("Wash schedule date must be after wash cycle start date");
         }
 
+        await Promise.all(
+            findedWashCycle.washesId.map(async (w) => {
+                const wash = await this.washesRepo.findById(w);
+                const isSameDay =
+                    wash && dateManipulator.isSameDay(wash?.scheduleDate, data.scheduleDate);
+                if (isSameDay) {
+                    throw new Error("There is already a wash for this date");
+                }
+            })
+        )
+
         const isScheduledDateAfterCycleEnd = dateManipulator.isAfter(
             data.scheduleDate,
             findedWashCycle.endDate
@@ -34,9 +45,9 @@ export class CreateWash {
 
         await this.washesRepo.create(wash);
 
-        findedWashCycle.washesId.push(wash.id)
+        findedWashCycle.washesId.push(wash.id);
 
-        await this.washesCycleRepo.update(findedWashCycle)
+        await this.washesCycleRepo.update(findedWashCycle);
 
         return { wash };
     }
