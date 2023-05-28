@@ -12,7 +12,7 @@ describe("Find wash by id", () => {
         const inMemoryWashRepository = new InMemoryWashRepository();
         const inMemoryWashCycleRepository = new InMemoryWashCycleRepository();
         const createWash = new CreateWash(inMemoryWashRepository, inMemoryWashCycleRepository);
-        const initializeCycle = new InitializeCycle(inMemoryWashCycleRepository);
+        const initializeCycle = new InitializeCycle(inMemoryWashCycleRepository, inMemoryWashRepository);
         const findWashById = new FindWashById(inMemoryWashRepository);
 
         const { washCycle } = await initializeCycle.execute({
