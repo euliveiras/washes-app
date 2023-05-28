@@ -24,7 +24,7 @@
             if founded
                 [x] search for the wash-cycle washes
                 if founded
-		    [ ] prompt user to confirm wash
+		    [x] prompt user to confirm wash
                 else
 		    [ ] create a wash
             else
