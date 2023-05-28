@@ -30,7 +30,7 @@ export class CreateWash {
                     throw new Error("There is already a wash for this date");
                 }
             })
-        )
+        );
 
         const isScheduledDateAfterCycleEnd = dateManipulator.isAfter(
             data.scheduleDate,
@@ -47,7 +47,9 @@ export class CreateWash {
 
         findedWashCycle.washesId.push(wash.id);
 
-        await this.washesCycleRepo.update(findedWashCycle);
+        await this.washesCycleRepo.update(findedWashCycle.id, {
+            washesId: findedWashCycle.washesId,
+        });
 
         return { wash };
     }
