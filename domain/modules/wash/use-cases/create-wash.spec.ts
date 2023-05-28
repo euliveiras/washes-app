@@ -18,7 +18,7 @@ describe("New wash", () => {
         inMemoryWashRepo = new InMemoryWashRepository();
         inMemoryWashCycleRepo = new InMemoryWashCycleRepository();
         createWash = new CreateWash(inMemoryWashRepo, inMemoryWashCycleRepo);
-        initializeCycle = new InitializeCycle(inMemoryWashCycleRepo);
+        initializeCycle = new InitializeCycle(inMemoryWashCycleRepo, inMemoryWashRepo);
         date = new Date();
         parsedDateToISOString = dateManipulator.parseDateToString(date);
     });
@@ -76,6 +76,26 @@ describe("New wash", () => {
             cycleId: washCycle.id,
         });
 
-        expect(washCycle.washesId).contains(wash.id)
+        expect(washCycle.washesId).contains(wash.id);
+    });
+    it("it should throw an error when given date already has a scheduled wash", async () => {
+        const { washCycle } = await initializeCycle.execute({
+            startDate: parsedDateToISOString,
+            endDate: dateManipulator.addMonthsToDate(parsedDateToISOString, 1),
+            vehicleId: "some-vehicle-id",
+        });
+        await createWash.execute({
+            scheduleDate: dateManipulator.addDaysToDate(parsedDateToISOString, 7),
+            vehicleId: "some-vehicle-id",
+            cycleId: washCycle.id,
+        });
+
+        await expect(() =>
+            createWash.execute({
+                scheduleDate: dateManipulator.addDaysToDate(parsedDateToISOString, 7),
+                vehicleId: "some-vehicle-id",
+                cycleId: washCycle.id,
+            })
+        ).rejects.toThrow();
     });
 });
