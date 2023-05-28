@@ -4,6 +4,7 @@ import { InMemoryWashCycleRepository } from "test/database/in-memory-wash-cycle-
 import { InitializeCycle } from "./initialize-cycle";
 import { dateManipulator } from "domain/shared/date-manipulator";
 import { makeVehicle } from "test/factories/makeVehicle";
+import { InMemoryWashRepository } from "test/database/in-memory-wash-repository";
 
 describe("Find next wash cycle by license plate", () => {
     it("should find the most recent wash cycle by license plate", async () => {
@@ -11,7 +12,8 @@ describe("Find next wash cycle by license plate", () => {
         const findNextWashCycleByLicensePlate = new FindNextCycleByLicensePlate(
             inMemoryWashCycleRepo
         );
-        const initializeWashCycle = new InitializeCycle(inMemoryWashCycleRepo);
+        const inMemoryWashRepo = new InMemoryWashRepository()
+        const initializeWashCycle = new InitializeCycle(inMemoryWashCycleRepo, inMemoryWashRepo);
         const startDate = dateManipulator.parseDateToString(new Date());
         const endDate = dateManipulator.addMonthsToDate(
             dateManipulator.parseDateToString(new Date()),
