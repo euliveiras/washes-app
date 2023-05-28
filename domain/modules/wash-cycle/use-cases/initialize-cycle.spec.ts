@@ -2,9 +2,8 @@ import { describe, expect, it } from "vitest";
 import { InitializeCycle } from "./initialize-cycle";
 import { InMemoryWashCycleRepository } from "test/database/in-memory-wash-cycle-repository.ts";
 import { dateManipulator } from "domain/shared/date-manipulator";
-import { Wash } from "domain/modules/wash/entities/Wash";
-import { FindWashById } from "domain/modules/wash/use-cases/find-wash-by-id";
 import { InMemoryWashRepository } from "test/database/in-memory-wash-repository";
+
 
 describe("New wash", () => {
     it("should initialize a wash cycle", async () => {

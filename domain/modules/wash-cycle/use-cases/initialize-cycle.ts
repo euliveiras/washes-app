@@ -1,4 +1,4 @@
-import { WashRepository } from "domain/modules/wash/repositories/wash-repository";
+import type { WashRepository } from "domain/modules/wash/repositories/wash-repository";
 import { WashCycle } from "../entities/WashCycle";
 import type { InitializeCycleProps } from "../interfaces/initialize-cycle";
 import type { WashCycleRepository } from "../repositories/wash-cycle-repository";
