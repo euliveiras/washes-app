@@ -2,7 +2,6 @@ import { beforeAll, describe, expect, it } from "vitest";
 import { CreateWash } from "./create-wash";
 import { InMemoryWashRepository } from "test/database/in-memory-wash-repository";
 import { InMemoryWashCycleRepository } from "test/database/in-memory-wash-cycle-repository.ts";
-import { Wash } from "../entities/Wash";
 import { InitializeCycle } from "domain/modules/wash-cycle/use-cases/initialize-cycle";
 import { dateManipulator } from "domain/shared/date-manipulator";
 import { ConfirmWash } from "./confirm-wash";
