@@ -1,4 +1,4 @@
-import type { WashCycle } from "domain/modules/wash-cycle/entities/WashCycle";
+import { WashCycle } from "domain/modules/wash-cycle/entities/WashCycle";
 import type { WashCycleRepository } from "domain/modules/wash-cycle/repositories/wash-cycle-repository";
 
 export class InMemoryWashCycleRepository implements WashCycleRepository {
@@ -14,8 +14,19 @@ export class InMemoryWashCycleRepository implements WashCycleRepository {
         const findedCycle = this.cycles.find((c) => c.vehicleId === id);
         return findedCycle ?? null;
     }
-    async update(washCycle: WashCycle): Promise<void> {
-        const index = this.cycles.findIndex((c) => c.id === washCycle.id);
-        this.cycles[index] = washCycle;
+    async update(washCycleId: string, data: Partial<WashCycle>): Promise<void> {
+        const index = this.cycles.findIndex((c) => c.id === washCycleId);
+        const cycle = this.cycles[index];
+
+        this.cycles[index] = new WashCycle({
+            id: cycle.id,
+            completedWashes: cycle.completedWashes,
+            endDate: cycle.endDate,
+            note: cycle.note,
+            startDate: cycle.startDate,
+            vehicleId: cycle.vehicleId,
+            washesId: cycle.washesId,
+            ...data,
+        });
     }
 }
