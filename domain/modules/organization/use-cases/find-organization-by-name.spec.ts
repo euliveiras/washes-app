@@ -4,7 +4,7 @@ import { InMemoryOrganizationRepository } from "test/database/in-memory-organiza
 import { FindOrganizationByName } from "./find-organization-by-name";
 
 describe("Find organization by name", () => {
-    it("should create a organization", async () => {
+    it("should find a organization by name", async () => {
         const inMemoryOrganizationRepository = new InMemoryOrganizationRepository();
         const createOrganization = new CreateOrganization(inMemoryOrganizationRepository);
         const findByName = new FindOrganizationByName(inMemoryOrganizationRepository);
