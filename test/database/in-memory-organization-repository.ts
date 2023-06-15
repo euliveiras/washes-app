@@ -2,9 +2,14 @@ import type { Organization } from "domain/modules/organization/entities/Organiza
 import type { OrganizationRepository } from "domain/modules/organization/repositories/organization-repository";
 
 export class InMemoryOrganizationRepository implements OrganizationRepository {
-    private organization: Organization[] = [];
+    private organizations: Organization[] = [];
 
     async create(organization: Organization): Promise<void> {
-        this.organization.push(organization);
+        this.organizations.push(organization);
+    }
+
+    async findByName(name: string): Promise<Organization | null> {
+        const organization = this.organizations.find((org) => org.name === name);
+        return organization ?? null;
     }
 }
