@@ -7,15 +7,15 @@ export type OrganizationProps = {
     phone: string[];
 };
 
+type Replace<T, R> = Omit<T, keyof R> & R;
 export class Organization {
     private _props: OrganizationProps;
 
-    constructor(props: OrganizationProps) {
+    constructor(props: Replace<OrganizationProps, { id?: string }>) {
         this._props = {
             ...props,
             id: props.id ?? randomUUID(),
         };
-        this._props = props;
     }
 
     public get id() {
