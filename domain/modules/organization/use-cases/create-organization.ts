@@ -9,9 +9,11 @@ type CreateOrganizationDTO = {
 export class CreateOrganization {
     constructor(private organizationDb: OrganizationRepository) {}
 
-    async execute(data: CreateOrganizationDTO): Promise<void> {
-        const organization = new Organization(data)
+    async execute(data: CreateOrganizationDTO): Promise<{ organization: Organization }> {
+        const organization = new Organization(data);
 
-        await this.organizationDb.create(organization)
+        await this.organizationDb.create(organization);
+
+        return { organization };
     }
 }
