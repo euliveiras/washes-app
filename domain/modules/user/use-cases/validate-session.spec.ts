@@ -4,8 +4,8 @@ import { InMemoryUserRepository } from "test/database/in-memory-user-repository"
 import { CreateSession } from "./create-session";
 import { ValidateSession } from "./validate-session";
 
-describe("Validate token", () => {
-    it("should validate token", async () => {
+describe("Validate session token", () => {
+    it("should validate session token", async () => {
         const inMemoryUserRepository = new InMemoryUserRepository();
         const createUser = new CreateUser(inMemoryUserRepository);
         const createSession = new CreateSession(inMemoryUserRepository);
@@ -24,7 +24,7 @@ describe("Validate token", () => {
 
         expect(isTokenValid).toBeTruthy();
     });
-    it("should throw if token is invalid", async () => {
+    it("should throw if session token is invalid", async () => {
         const inMemoryUserRepository = new InMemoryUserRepository();
         const createUser = new CreateUser(inMemoryUserRepository);
         const createSession = new CreateSession(inMemoryUserRepository);

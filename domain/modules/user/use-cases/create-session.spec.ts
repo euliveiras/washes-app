@@ -3,8 +3,8 @@ import { CreateUser } from "./create-user";
 import { InMemoryUserRepository } from "test/database/in-memory-user-repository";
 import { CreateSession } from "./create-session";
 
-describe("Create user session", () => {
-    it("should create a user session", async () => {
+describe("Create user session token", () => {
+    it("should create a user session token", async () => {
         const inMemoryUserRepository = new InMemoryUserRepository();
         const createUser = new CreateUser(inMemoryUserRepository);
         const createSession = new CreateSession(inMemoryUserRepository);

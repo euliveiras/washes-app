@@ -4,7 +4,7 @@ import { InMemoryUserRepository } from "test/database/in-memory-user-repository"
 import { CreateSession } from "./create-session";
 import { RemoveSession } from "./remove-session";
 
-describe("Remove session", () => {
+describe("Remove session token", () => {
     it("should remove session token", async () => {
         const inMemoryUserRepository = new InMemoryUserRepository();
         const createUser = new CreateUser(inMemoryUserRepository);
