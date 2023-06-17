@@ -13,11 +13,13 @@ type UserProps = {
 
 export class User {
     private _props: UserProps;
-    constructor(data: Replace<Omit<UserProps, "sessions">, { id?: string; createdAt?: string }>) {
+    constructor(
+        data: Replace<UserProps, { id?: string; createdAt?: string; sessions?: string[] }>
+    ) {
         this._props = {
             ...data,
             id: data.id ?? randomUUID(),
-            sessions: [],
+            sessions: data.sessions ?? [],
             createdAt: new Date().toISOString(),
         };
     }
@@ -76,7 +78,7 @@ export class User {
         return this._props.createdAt;
     }
 
-    get sessions(){
-        return this._props.sessions
+    get sessions() {
+        return this._props.sessions;
     }
 }
