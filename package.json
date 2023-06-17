@@ -6,7 +6,7 @@
     "dev": "remix dev",
     "typecheck": "tsc",
     "test": "vitest",
-    "test:watch": "vitest watch"
+    "test:watch": "vitest watch --no-threads"
   },
   "dependencies": {
     "@remix-run/css-bundle": "^1.16.0",
@@ -14,6 +14,7 @@
     "@remix-run/react": "^1.16.0",
     "@remix-run/vercel": "^1.16.0",
     "@vercel/node": "^2.10.3",
+    "bcrypt": "^5.1.0",
     "date-fns": "^2.30.0",
     "isbot": "^3.6.8",
     "react": "^18.2.0",
@@ -23,6 +24,7 @@
     "@remix-run/dev": "^1.16.0",
     "@remix-run/eslint-config": "^1.16.0",
     "@remix-run/serve": "^1.16.0",
+    "@types/bcrypt": "^5.0.0",
     "@types/node": "^20.1.2",
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
