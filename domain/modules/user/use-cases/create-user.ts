@@ -14,6 +14,8 @@ export class CreateUser {
     async execute(data: CreateUserDTO): Promise<{ user: User }> {
         const user = new User(data);
 
+        // verify if password is already in use
+        
         await this.userDB.create(user);
 
         return { user };

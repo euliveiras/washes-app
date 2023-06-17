@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { User } from "./user";
+import { User } from "./User";
 
 describe("User", () => {
     it("should create a user", () => {
