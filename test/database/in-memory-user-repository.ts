@@ -1,4 +1,4 @@
-import type { User } from "domain/modules/user/entities/User";
+import { User } from "domain/modules/user/entities/User";
 import type { UserRepository } from "domain/modules/user/repositories/user-repository";
 
 export class InMemoryUserRepository implements UserRepository {
@@ -17,6 +17,22 @@ export class InMemoryUserRepository implements UserRepository {
     }
 
     async update(userId: string, data: Partial<User>): Promise<void> {
-        throw new Error("Method not implemented.");
+        const i = this.data.findIndex((u) => u.id === userId);
+        const findedUser = this.data[i];
+
+        if (i < 0) {
+            throw new Error("User not finded");
+        }
+
+        this.data[i] = new User({
+            id: findedUser.id,
+            username: findedUser.username,
+            password: findedUser.password,
+            email: findedUser.email,
+            sessions: findedUser.sessions,
+            role: findedUser.role,
+            createdAt: findedUser.createdAt,
+            ...data,
+        });
     }
 }
