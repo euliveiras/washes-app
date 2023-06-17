@@ -75,4 +75,8 @@ export class User {
     get createdAt() {
         return this._props.createdAt;
     }
+
+    get sessions(){
+        return this._props.sessions
+    }
 }
