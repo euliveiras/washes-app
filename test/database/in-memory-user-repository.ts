@@ -15,4 +15,8 @@ export class InMemoryUserRepository implements UserRepository {
 
         return findedUser ?? null;
     }
+
+    async update(userId: string, data: Partial<User>): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
 }
