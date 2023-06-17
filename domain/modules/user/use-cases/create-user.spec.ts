@@ -17,4 +17,24 @@ describe("Create user", () => {
 
         expect(user).toBeInstanceOf(User);
     });
+    it("should not create a user if email is already in use", async () => {
+        const inMemoryUserRepository = new InMemoryUserRepository();
+        const createUser = new CreateUser(inMemoryUserRepository);
+
+        await createUser.execute({
+            username: "euliveiras",
+            password: "123456",
+            email: "matheus.skm@hotmail.com",
+            role: "ADMIN",
+        });
+
+        await expect(
+            createUser.execute({
+                username: "euliveiras",
+                password: "123456",
+                email: "matheus.skm@hotmail.com",
+                role: "ADMIN",
+            })
+        ).rejects.toThrow();
+    });
 });
