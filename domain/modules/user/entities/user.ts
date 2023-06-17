@@ -1,6 +1,5 @@
 import { randomUUID } from "crypto";
 import type { Replace } from "../../driver/entities/Driver";
-import { hashManipulator } from "domain/shared/utils/hash-manipulator";
 
 type UserProps = {
     id: string;
@@ -14,12 +13,12 @@ type UserProps = {
 
 export class User {
     private _props: UserProps;
-    constructor(data: Replace<UserProps, { id?: string }>) {
+    constructor(data: Replace<Omit<UserProps, "sessions">, { id?: string; createdAt?: string }>) {
         this._props = {
             ...data,
             id: data.id ?? randomUUID(),
             sessions: [],
-            createdAt: new Date().toUTCString(),
+            createdAt: new Date().toISOString(),
         };
     }
     createSession() {
@@ -33,9 +32,8 @@ export class User {
         return session;
     }
 
-    hashString(pwd: string): Promise<string> {
-        const hash = hashManipulator.generateHashFromStr(pwd)
-        return hash;
+    removeSession(id: string) {
+        this._props.sessions = this._props.sessions.filter((sess) => sess !== id);
     }
 
     get username() {
@@ -51,11 +49,7 @@ export class User {
     }
 
     set password(password: string) {
-        this.hashString(password)
-            .then((p) => (this._props.password = p))
-            .catch((err) => {
-                throw new Error("error in setting password hashed");
-            });
+        this._props.password = password;
     }
 
     get email() {
