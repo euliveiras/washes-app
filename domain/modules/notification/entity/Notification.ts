@@ -1,4 +1,5 @@
 import { randomUUID } from "crypto";
+import { dateManipulator } from "domain/shared/date-manipulator";
 import type { Replace } from "domain/shared/types/replace";
 
 type NotificationProps = {
@@ -13,11 +14,17 @@ type NotificationProps = {
 export class Notification {
     private _props: NotificationProps;
 
-    constructor(data: Replace<NotificationProps, { id?: string; createdAt?: string }>) {
+    constructor(
+        data: Replace<
+            NotificationProps,
+            { id?: string; createdAt?: Date | string; date: Date | string }
+        >
+    ) {
         this._props = {
             ...data,
             id: data.id ?? randomUUID(),
-            createdAt: data.createdAt ?? new Date().toISOString(),
+            createdAt: this.formatDate(data.createdAt ?? new Date()),
+            date: this.formatDate(data.date),
         };
     }
 
@@ -46,7 +53,12 @@ export class Notification {
         return this._props.readAt;
     }
 
-    set readAt(date: string | null | undefined) {
+    set readAt(date: Date | string | null | undefined) {
+        if (date instanceof Date || typeof date === "string") {
+            this._props.readAt = this.formatDate(date);
+            return;
+        }
+
         this._props.readAt = date;
     }
 
@@ -58,7 +70,14 @@ export class Notification {
         return this._props.date;
     }
 
-    set date(date: string) {
-        this._props.date = date;
+    set date(value: Date | string) {
+        this._props.date = this.formatDate(value);
+    }
+
+    formatDate(date: Date | string) {
+        if (date instanceof Date) {
+            return dateManipulator.parseDateToString(date);
+        }
+        return date;
     }
 }
