@@ -8,10 +8,11 @@ export abstract class NotificationRepository {
             date?: string;
         };
     }): Promise<Notification[]>;
+    abstract findByIdAndUpdate(id: string, data: Partial<Notification>): Promise<Notification>;
     abstract updateMany(
         query: {
-            where: { recipientId: string; date: string };
+            where: { recipientId?: string; date?: string };
         },
         data: Partial<Notification>
-    ): Promise<void>;
+    ): Promise<Notification>;
 }
