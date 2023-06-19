@@ -1,3 +1,5 @@
+import type { Notification } from "../entity/Notification";
+
 export abstract class NotificationRepository {
     abstract create(notification: Notification): Promise<void>;
     abstract findMany(query: {
