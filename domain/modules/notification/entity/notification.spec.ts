@@ -6,7 +6,7 @@ describe("Notification entity", () => {
         const notification = new Notification({
             content: "Lavagem hoje, quarta-feira, às 4 da tarde",
             recipientId: "fake-id",
-            date: new Date().toISOString(),
+            date: new Date(),
         });
 
         expect(notification).toBeInstanceOf(Notification);
