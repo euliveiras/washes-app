@@ -17,7 +17,12 @@ export class Notification {
     constructor(
         data: Replace<
             NotificationProps,
-            { id?: string; createdAt?: Date | string; date: Date | string }
+            {
+                id?: string;
+                createdAt?: Date | string;
+                date: Date | string;
+                readAt?: Date | string | null;
+            }
         >
     ) {
         this._props = {
@@ -25,6 +30,7 @@ export class Notification {
             id: data.id ?? randomUUID(),
             createdAt: this.formatDate(data.createdAt ?? new Date()),
             date: this.formatDate(data.date),
+            readAt: data.readAt && this.formatDate(data.readAt),
         };
     }
 
