@@ -5,6 +5,7 @@ type NotificationProps = {
     id: string;
     recipientId: string;
     content: string;
+    date: string;
     readAt?: string | null;
     createdAt: string;
 };
@@ -51,5 +52,13 @@ export class Notification {
 
     get createdAt() {
         return this._props.createdAt;
+    }
+
+    get date() {
+        return this._props.date;
+    }
+
+    set date(date: string) {
+        this._props.date = date;
     }
 }
