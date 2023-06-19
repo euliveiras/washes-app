@@ -6,10 +6,19 @@ export class InMemoryNotificationRepository implements NotificationRepository {
     async create(notification: Notification): Promise<void> {
         this.data.push(notification);
     }
-    findMany(query: {
+    async findMany(query: {
         where: { recipientId: string; date: string };
-    }): Promise<Notification[] | null> {
-        throw new Error("Method not implemented.");
+    }): Promise<Notification[]> {
+        const notifications = this.data.filter((notification) => {
+            if (query.where.date) {
+                return query.where.date === notification.date ? notification : null;
+            } else if (query.where.recipientId) {
+                return query.where.recipientId === notification.recipientId ? notification : null;
+            } else {
+                return null;
+            }
+        });
+        return notifications ?? [];
     }
     updateMany(
         query: { where: { recipientId: string; date: string } },
