@@ -4,8 +4,8 @@ import { InMemoryNotificationRepository } from "test/database/in-memory-notifica
 import { SendNotification } from "./send-notification";
 import { makeNotification } from "test/factories/makeNotification";
 
-describe("Send notification", () => {
-    it("should send a notification", async () => {
+describe("Read notification", () => {
+    it("should mark notification as readed", async () => {
         const inMemoryNotificationRepo = new InMemoryNotificationRepository();
         const sendNotification = new SendNotification(inMemoryNotificationRepo);
         const readNotification = new ReadNotification(inMemoryNotificationRepo);
