@@ -2,7 +2,7 @@ import type { NotificationRepository } from "../repository/notification-reposito
 import { Notification } from "../entity/Notification";
 
 type SendNotificationProps = {
-    date: Date;
+    date: Date | string;
     recipientId: string;
     content: string;
 };
