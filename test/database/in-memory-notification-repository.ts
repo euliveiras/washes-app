@@ -11,14 +11,16 @@ export class InMemoryNotificationRepository implements NotificationRepository {
         where: { recipientId: string; date: string };
     }): Promise<Notification[]> {
         const notifications = this.data.filter((notification) => {
-            if (query.where.date) {
-                return query.where.date === notification.date ? notification : null;
-            } else if (query.where.recipientId) {
-                return query.where.recipientId === notification.recipientId ? notification : null;
+            if (
+                query.where.recipientId === notification.recipientId &&
+                query.where.date === notification.date
+            ) {
+                return notification;
             } else {
                 return null;
             }
         });
+
         return notifications ?? [];
     }
 
@@ -42,8 +44,6 @@ export class InMemoryNotificationRepository implements NotificationRepository {
         });
 
         this.data[index] = updatedNotification;
-
-        console.log(this.data)
 
         return updatedNotification;
     }
