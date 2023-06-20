@@ -2,7 +2,6 @@ import { expect, it, describe } from "vitest";
 import { InMemoryNotificationRepository } from "test/database/in-memory-notification-repository";
 import { GetNotificationsByDate } from "./get-notifications-by-date";
 import { SendNotification } from "./send-notification";
-import { makeNotification } from "test/factories/makeNotification";
 
 describe("Get notifications", () => {
     it("get all notifications from the given date", async () => {
@@ -10,13 +9,27 @@ describe("Get notifications", () => {
         const getNotifications = new GetNotificationsByDate(inMemoryNotificationRepo);
         const sendNotification = new SendNotification(inMemoryNotificationRepo);
 
-        await sendNotification.execute(makeNotification({ date: new Date(2018, 5, 6) }));
-        await sendNotification.execute(makeNotification({ date: new Date(2018, 5, 6) }));
-        await sendNotification.execute(makeNotification({ date: new Date(2018, 5, 6) }));
-        await sendNotification.execute(makeNotification());
+        await sendNotification.execute({
+            date: new Date(2018, 5, 6),
+            recipientId: "john-doe-id",
+            content: "some-content",
+        });
+        await sendNotification.execute({
+            date: new Date(2018, 5, 6),
+            recipientId: "john-doe-id",
+            content: "some-content",
+        });
+        await sendNotification.execute({
+            date: new Date(2018, 5, 6),
+            recipientId: "john-oliver-id",
+            content: "some-content",
+        });
 
-        const { notifications } = await getNotifications.execute({ date: new Date(2018, 5, 6) });
+        const { notifications } = await getNotifications.execute({
+            date: new Date(2018, 5, 6),
+            recipiendId: "john-doe-id",
+        });
 
-        expect(notifications).toHaveLength(3);
+        expect(notifications).toHaveLength(2);
     });
 });
