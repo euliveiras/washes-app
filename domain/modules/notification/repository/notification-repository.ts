@@ -4,7 +4,7 @@ export abstract class NotificationRepository {
     abstract create(notification: Notification): Promise<void>;
     abstract findMany(query: {
         where: {
-            recipientId?: string;
+            recipientId: string;
             date?: string;
         };
     }): Promise<Notification[]>;
