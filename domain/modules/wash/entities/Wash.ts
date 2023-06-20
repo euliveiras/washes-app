@@ -9,6 +9,7 @@ export type WashProps = {
     cycleId: string;
     note?: string;
     isCompleted: boolean;
+    createdBy: string;
 };
 
 export class Wash {
@@ -56,5 +57,9 @@ export class Wash {
 
     public set isCompleted(bool: boolean) {
         this._props.isCompleted = bool;
+    }
+
+    public get createdBy() {
+        return this._props.createdBy
     }
 }

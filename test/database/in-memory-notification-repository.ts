@@ -13,7 +13,7 @@ export class InMemoryNotificationRepository implements NotificationRepository {
         const notifications = this.data.filter((notification) => {
             if (
                 query.where.recipientId === notification.recipientId &&
-                query.where.date === notification.date
+                query.where.date === notification.createdAt
             ) {
                 return notification;
             } else {
@@ -36,7 +36,6 @@ export class InMemoryNotificationRepository implements NotificationRepository {
         const updatedNotification = new Notification({
             id,
             content: notification?.content,
-            date: notification?.date,
             recipientId: notification?.recipientId,
             createdAt: notification?.createdAt,
             readAt: notification?.readAt,

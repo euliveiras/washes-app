@@ -6,7 +6,6 @@ type NotificationProps = {
     id: string;
     recipientId: string;
     content: string;
-    date: string;
     readAt?: string | null;
     createdAt: string;
 };
@@ -20,7 +19,6 @@ export class Notification {
             {
                 id?: string;
                 createdAt?: Date | string;
-                date: Date | string;
                 readAt?: Date | string | null;
             }
         >
@@ -29,7 +27,6 @@ export class Notification {
             ...data,
             id: data.id ?? randomUUID(),
             createdAt: this.formatDate(data.createdAt ?? new Date()),
-            date: this.formatDate(data.date),
             readAt: data.readAt && this.formatDate(data.readAt),
         };
     }
@@ -70,14 +67,6 @@ export class Notification {
 
     get createdAt() {
         return this._props.createdAt;
-    }
-
-    get date() {
-        return this._props.date;
-    }
-
-    set date(value: Date | string) {
-        this._props.date = this.formatDate(value);
     }
 
     formatDate(date: Date | string) {

@@ -9,7 +9,6 @@ describe("Send notification", () => {
 
         await expect(
             sendNotification.execute({
-                date: new Date(),
                 content: "some-content",
                 recipientId: "some-id",
             })

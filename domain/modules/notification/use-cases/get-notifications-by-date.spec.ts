@@ -10,23 +10,20 @@ describe("Get notifications", () => {
         const sendNotification = new SendNotification(inMemoryNotificationRepo);
 
         await sendNotification.execute({
-            date: new Date(2018, 5, 6),
             recipientId: "john-doe-id",
             content: "some-content",
         });
         await sendNotification.execute({
-            date: new Date(2018, 5, 6),
             recipientId: "john-doe-id",
             content: "some-content",
         });
         await sendNotification.execute({
-            date: new Date(2018, 5, 6),
             recipientId: "john-oliver-id",
             content: "some-content",
         });
 
         const { notifications } = await getNotifications.execute({
-            date: new Date(2018, 5, 6),
+            date: new Date(),
             recipiendId: "john-doe-id",
         });
 
