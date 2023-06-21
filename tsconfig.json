@@ -15,7 +15,7 @@
     "paths": {
       "~/*": ["./app/*"],
       "test/*": ["./test/*"],
-      "domain/*": ["./domain/*"]
+      "domain/*": ["./src/domain/*"]
     },
 
     // Remix takes care of building everything in `remix build`.
