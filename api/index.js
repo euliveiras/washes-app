@@ -34,7 +34,7 @@ __export(assets_manifest_exports, {
 });
 var assets_manifest_default, init_assets_manifest = __esm({
   "server-assets-manifest:@remix-run/dev/assets-manifest"() {
-    assets_manifest_default = { version: "a95bf243", entry: { module: "/build/entry.client-YR7H6232.js", imports: ["/build/_shared/chunk-6AILATTA.js", "/build/_shared/chunk-NLQNPAAV.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-GKDO45BZ.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-YGWKB4MK.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/home": { id: "routes/home", parentId: "root", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/home-7DFKBM5C.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-ZVFIF2OB.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-MMBKR24X.js", imports: void 0, hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-A95BF243.js" };
+    assets_manifest_default = { version: "91c03e51", entry: { module: "/build/entry.client-YR7H6232.js", imports: ["/build/_shared/chunk-6AILATTA.js", "/build/_shared/chunk-NLQNPAAV.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-GKDO45BZ.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-YGWKB4MK.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/home": { id: "routes/home", parentId: "root", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/home-T4JWOWJB.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-HXOBYGCX.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-MMBKR24X.js", imports: void 0, hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-91C03E51.js" };
   }
 });
 
@@ -277,7 +277,7 @@ var CreateSession = class {
     ))
       throw console.log("password not valid"), new Error("Credentials not valid");
     let token = user.createSession();
-    return await this.userDB.update(user.id, { sessions: user.sessions }), { token };
+    return await this.userDB.update(user.id, { sessions: user.sessions }), { token, user };
   }
 };
 
@@ -407,34 +407,18 @@ var PrismaUserRepository = class {
 // src/infra/http/controllers/sign-in-user-controller.ts
 async function signInUserController({ email, password }) {
   try {
-    let prismaUserRepository = new PrismaUserRepository(), createSession = new CreateSession(prismaUserRepository), { token } = await createSession.execute({ email, password });
-    return { token };
+    let prismaUserRepository = new PrismaUserRepository(), createSession = new CreateSession(prismaUserRepository), { token, user } = await createSession.execute({ email, password });
+    return { token, user };
   } catch (err) {
     return err instanceof Error ? { error: err.message } : { error: "something went wrong" };
   }
 }
 
 // app/sessions.ts
-var import_node2 = require("@remix-run/node"), sessionUserId = (0, import_node2.createCookieSessionStorage)({
+var import_node2 = require("@remix-run/node"), { commitSession, destroySession, getSession } = (0, import_node2.createCookieSessionStorage)({
   // a Cookie from `createCookie` or the CookieOptions to create one
   cookie: {
-    name: "__session__id",
-    // all of these are optional
-    // Expires can also be set (although maxAge overrides it when used in combination).
-    // Note that this method is NOT recommended as `new Date` creates only one date on each server deployment, not a dynamic date in the future!
-    //
-    // expires: new Date(Date.now() + 60_000),
-    httpOnly: !0,
-    maxAge: 60 * 60 * 24 * 7,
-    path: "/",
-    sameSite: "lax",
-    secrets: ["s3cret1"],
-    secure: !1
-  }
-}), sessionToken = (0, import_node2.createCookieSessionStorage)({
-  // a Cookie from `createCookie` or the CookieOptions to create one
-  cookie: {
-    name: "__session__id",
+    name: "__session",
     // all of these are optional
     // Expires can also be set (although maxAge overrides it when used in combination).
     // Note that this method is NOT recommended as `new Date` creates only one date on each server deployment, not a dynamic date in the future!
@@ -452,7 +436,7 @@ var import_node2 = require("@remix-run/node"), sessionUserId = (0, import_node2.
 // app/routes/sign-in.tsx
 var import_jsx_dev_runtime3 = require("react/jsx-dev-runtime");
 async function action({ request }) {
-  let form = await request.formData(), email = form.get("email"), password = form.get("password"), session = await sessionToken.getSession(request.headers.get("Cookie"));
+  let form = await request.formData(), email = form.get("email"), password = form.get("password"), session = await getSession(request.headers.get("Cookie"));
   if (typeof password != "string" || typeof email != "string")
     return new Response(JSON.stringify({ error: "credentials is invalid" }), {
       status: 400,
@@ -460,18 +444,18 @@ async function action({ request }) {
         "Content-Type": "application/json"
       }
     });
-  let { error, token } = await signInUserController({ email, password });
+  let { error, token, user } = await signInUserController({ email, password });
   return error || !token ? (console.log(error), new Response(null, {
     status: 400,
     statusText: error
-  })) : (session.set("token", token), (0, import_node3.redirect)("/home", {
+  })) : (session.set("token", token), session.set("userId", user.id), (0, import_node3.redirect)("/home", {
     headers: {
-      "Set-Cookie": await sessionToken.commitSession(session)
+      "Set-Cookie": await commitSession(session)
     }
   }));
 }
 async function loader({ request }) {
-  return (await sessionToken.getSession(request.headers.get("Cookie"))).has("token") ? (0, import_node3.redirect)("/") : (0, import_node3.json)({});
+  return (await getSession(request.headers.get("Cookie"))).has("token") ? (0, import_node3.redirect)("/") : (0, import_node3.json)({});
 }
 function sign_in_default() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react3.Form, { method: "POST", children: [
@@ -479,39 +463,39 @@ function sign_in_default() {
       "email",
       /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("input", { type: "text", name: "email" }, void 0, !1, {
         fileName: "app/routes/sign-in.tsx",
-        lineNumber: 58,
+        lineNumber: 59,
         columnNumber: 17
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/sign-in.tsx",
-      lineNumber: 56,
+      lineNumber: 57,
       columnNumber: 13
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("label", { children: [
       "password",
       /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("input", { type: "password", name: "password" }, void 0, !1, {
         fileName: "app/routes/sign-in.tsx",
-        lineNumber: 62,
+        lineNumber: 63,
         columnNumber: 17
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/sign-in.tsx",
-      lineNumber: 60,
+      lineNumber: 61,
       columnNumber: 13
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("button", { type: "submit", children: "Logar" }, void 0, !1, {
       fileName: "app/routes/sign-in.tsx",
-      lineNumber: 64,
+      lineNumber: 65,
       columnNumber: 13
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react3.Link, { to: "/sign-up", children: "cadastre-se" }, void 0, !1, {
       fileName: "app/routes/sign-in.tsx",
-      lineNumber: 65,
+      lineNumber: 66,
       columnNumber: 13
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/sign-in.tsx",
-    lineNumber: 55,
+    lineNumber: 56,
     columnNumber: 9
   }, this);
 }
@@ -544,7 +528,7 @@ async function createUserController({ username, email, password }) {
       username,
       password: hashedPassword,
       email,
-      role: "ADMIN"
+      role: "COLAB"
     });
     return { user };
   } catch (err) {
@@ -665,12 +649,12 @@ __export(home_exports, {
 var import_node5 = require("@remix-run/node");
 var import_jsx_dev_runtime6 = require("react/jsx-dev-runtime");
 async function loader2({ request }) {
-  return (await sessionToken.getSession(request.headers.get("Cookie"))).has("token") ? (0, import_node5.json)({}) : (0, import_node5.redirect)("/sign-in");
+  return (await getSession(request.headers.get("Cookie"))).has("token") ? (0, import_node5.json)({}) : (0, import_node5.redirect)("/sign-in");
 }
 function home_default() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("h1", { children: "home" }, void 0, !1, {
     fileName: "app/routes/home.tsx",
-    lineNumber: 15,
+    lineNumber: 14,
     columnNumber: 12
   }, this);
 }

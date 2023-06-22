@@ -18,7 +18,7 @@ export async function createUserController({ username, email, password }: Create
             username,
             password: hashedPassword,
             email,
-            role: "ADMIN",
+            role: "COLAB",
         });
 
         return { user };

@@ -1,15 +1,15 @@
-import type { LoaderArgs} from "@remix-run/node";
+import type { LoaderArgs } from "@remix-run/node";
 import { redirect, type ActionArgs, json } from "@remix-run/node";
 import { Form, Link } from "@remix-run/react";
 import { signInUserController } from "src/infra/http/controllers/sign-in-user-controller";
-import { sessionToken } from "~/sessions";
+import { getSession, commitSession } from "~/sessions";
 
 export async function action({ request }: ActionArgs) {
     const form = await request.formData();
     const email = form.get("email");
     const password = form.get("password");
 
-    const session = await sessionToken.getSession(request.headers.get("Cookie"));
+    const session = await getSession(request.headers.get("Cookie"));
 
     if (typeof password !== "string" || typeof email !== "string") {
         return new Response(JSON.stringify({ error: "credentials is invalid" }), {
@@ -20,7 +20,7 @@ export async function action({ request }: ActionArgs) {
         });
     }
 
-    const { error, token } = await signInUserController({ email, password });
+    const { error, token, user } = await signInUserController({ email, password });
 
     if (error || !token) {
         console.log(error);
@@ -31,16 +31,17 @@ export async function action({ request }: ActionArgs) {
     }
 
     session.set("token", token);
+    session.set("userId", user.id);
 
     return redirect("/home", {
         headers: {
-            "Set-Cookie": await sessionToken.commitSession(session),
+            "Set-Cookie": await commitSession(session),
         },
     });
 }
 
 export async function loader({ request }: LoaderArgs) {
-    const session = await sessionToken.getSession(request.headers.get("Cookie"));
+    const session = await getSession(request.headers.get("Cookie"));
 
     if (session.has("token")) {
         // Redirect to the home page if they are already signed in.

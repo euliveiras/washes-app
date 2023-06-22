@@ -1,6 +1,6 @@
 import { hashManipulator } from "domain/shared/utils/hash-manipulator";
-import type { User } from "../entities/User";
 import type { UserRepository } from "../repositories/user-repository";
+import { User } from "../entities/User";
 
 export class CreateSession {
     constructor(private userDB: UserRepository) {}
@@ -11,7 +11,7 @@ export class CreateSession {
     }: {
         email: string;
         password: string;
-    }): Promise<{ token: string }> {
+    }): Promise<{ token: string; user: User }> {
         const user = await this.userDB.find({ email });
 
         if (!user) {
@@ -33,6 +33,6 @@ export class CreateSession {
 
         await this.userDB.update(user.id, { sessions: user.sessions });
 
-        return { token };
+        return { token, user };
     }
 }
