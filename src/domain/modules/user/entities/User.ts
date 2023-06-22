@@ -51,7 +51,7 @@ export class User {
     }
 
     get password() {
-        return this._props.username;
+        return this._props.password;
     }
 
     set password(password: string) {
