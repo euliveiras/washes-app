@@ -14,7 +14,6 @@ const sessionUserId = createCookieSessionStorage<SessionData, SessionFlashData>(
         name: "__session__id",
 
         // all of these are optional
-        domain: "washes__app",
         // Expires can also be set (although maxAge overrides it when used in combination).
         // Note that this method is NOT recommended as `new Date` creates only one date on each server deployment, not a dynamic date in the future!
         //
@@ -24,7 +23,7 @@ const sessionUserId = createCookieSessionStorage<SessionData, SessionFlashData>(
         path: "/",
         sameSite: "lax",
         secrets: ["s3cret1"],
-        secure: true,
+        secure: false,
     },
 });
 
@@ -38,7 +37,6 @@ const sessionToken = createCookieSessionStorage<SessionToken, SessionFlashData>(
         name: "__session__id",
 
         // all of these are optional
-        domain: "washes__app",
         // Expires can also be set (although maxAge overrides it when used in combination).
         // Note that this method is NOT recommended as `new Date` creates only one date on each server deployment, not a dynamic date in the future!
         //
@@ -48,7 +46,7 @@ const sessionToken = createCookieSessionStorage<SessionToken, SessionFlashData>(
         path: "/",
         sameSite: "lax",
         secrets: ["s3cret1"],
-        secure: true,
+        secure: false,
     },
 });
 
