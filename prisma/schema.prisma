@@ -16,7 +16,7 @@ model User {
   username     String
   password     String         @unique
   email        String         @unique
-  sessions     Json
+  sessions     String
   role         String
   createdAt    String
   Notification Notification[]
