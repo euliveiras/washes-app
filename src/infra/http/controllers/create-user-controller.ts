@@ -1,6 +1,6 @@
 import { CreateUser } from "domain/modules/user/use-cases/create-user";
 import { PrismaUserRepository } from "../../database/prisma/repositories/user-repository";
-import { hashManipulator } from "domain/shared/utils/hash-manipulator";
+import { HashManipulator } from "domain/shared/utils/hash-manipulator";
 
 type CreateUserController = {
     username: string;
@@ -12,7 +12,7 @@ export async function createUserController({ username, email, password }: Create
     try {
         const prismaUserRepository = new PrismaUserRepository();
         const createUser = new CreateUser(prismaUserRepository);
-        const hashedPassword = await hashManipulator.generateHashFromStr(password);
+        const hashedPassword = await HashManipulator.generateHashFromStr(password);
 
         const { user } = await createUser.execute({
             username,

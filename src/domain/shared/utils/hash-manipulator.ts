@@ -1,12 +1,7 @@
 import crypt from "bcrypt";
 
-type HashManipulator = {
-    compareStrToHashedStr(str1: string, hash: string): Promise<boolean>;
-    generateHashFromStr(str: string): Promise<string>;
-};
-
-class wrapper implements HashManipulator {
-    async compareStrToHashedStr(str1: string, hash: string): Promise<boolean> {
+export class HashManipulator {
+    static async compareStrToHashedStr(str1: string, hash: string): Promise<boolean> {
         const bool = await crypt.compare(str1, hash);
 
         if (typeof bool === "undefined") {
@@ -14,7 +9,7 @@ class wrapper implements HashManipulator {
         }
         return bool;
     }
-    async generateHashFromStr(str: string): Promise<string> {
+    static async generateHashFromStr(str: string): Promise<string> {
         const hash = await crypt.hash(str, 10);
 
         if (!hash) {
@@ -23,5 +18,3 @@ class wrapper implements HashManipulator {
         return hash;
     }
 }
-
-export const hashManipulator = new wrapper();

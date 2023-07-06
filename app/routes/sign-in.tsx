@@ -2,6 +2,7 @@ import type { LoaderArgs } from "@remix-run/node";
 import { redirect, type ActionArgs, json } from "@remix-run/node";
 import { Form, Link } from "@remix-run/react";
 import { signInUserController } from "src/infra/http/controllers/sign-in-user-controller";
+import { validateSessionId } from "src/infra/http/helpers/validate-session-id";
 import { getSession, commitSession } from "~/sessions";
 
 export async function action({ request }: ActionArgs) {
@@ -20,9 +21,9 @@ export async function action({ request }: ActionArgs) {
         });
     }
 
-    const { error, token, user } = await signInUserController({ email, password });
+    const { error, sessionId } = await signInUserController({ email, password });
 
-    if (error || !token) {
+    if (error || !sessionId) {
         console.log(error);
         return new Response(null, {
             status: 400,
@@ -30,8 +31,7 @@ export async function action({ request }: ActionArgs) {
         });
     }
 
-    session.set("token", token);
-    session.set("userId", user.id);
+    session.set("token", sessionId);
 
     return redirect("/home", {
         headers: {
@@ -43,9 +43,17 @@ export async function action({ request }: ActionArgs) {
 export async function loader({ request }: LoaderArgs) {
     const session = await getSession(request.headers.get("Cookie"));
 
-    if (session.has("token")) {
+    const token = session.get("token");
+
+    if (!token) {
         // Redirect to the home page if they are already signed in.
-        return redirect("/");
+        return redirect("/sign-in");
+    }
+
+    const { error, user } = await validateSessionId({ sessionId: token });
+
+    if (user) {
+        return redirect("/home");
     }
 
     return json({});

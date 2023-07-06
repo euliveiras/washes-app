@@ -41,9 +41,22 @@ export class PrismaUserRepository implements UserRepository {
             where: {
                 id: userId,
             },
-            data: {
-                sessions: data.sessions?.toString(),
+            data,
+        });
+    }
+    async findBySessionId(sessionId: string): Promise<User | null> {
+        const user = await prisma.user.findUnique({
+            where: {
+                sessionId: sessionId,
             },
+        });
+
+        if (!user) {
+            return null;
+        }
+
+        return this.userMapper.toDomain({
+            ...user,
         });
     }
 }

@@ -1,15 +1,21 @@
-import { expect, it, describe } from "vitest";
+import { expect, it, describe, vi } from "vitest";
 import { CreateUser } from "./create-user";
 import { InMemoryUserRepository } from "test/database/in-memory-user-repository";
 import { CreateSession } from "./create-session";
 import { ValidateSession } from "./validate-session";
+import { HashManipulator } from "domain/shared/utils/hash-manipulator";
 
 describe("Validate session token", () => {
+    vi.spyOn(HashManipulator, "compareStrToHashedStr").mockImplementation(
+        async (str1: string, str2: string) => {
+            return str1 === str2;
+        }
+    );
     it("should validate session token", async () => {
         const inMemoryUserRepository = new InMemoryUserRepository();
         const createUser = new CreateUser(inMemoryUserRepository);
         const createSession = new CreateSession(inMemoryUserRepository);
-        const validateSession = new ValidateSession();
+        const validateSession = new ValidateSession(inMemoryUserRepository);
 
         const { user } = await createUser.execute({
             username: "euliveiras",
@@ -18,17 +24,17 @@ describe("Validate session token", () => {
             role: "ADMIN",
         });
 
-        const { token } = await createSession.execute(user);
+        const { sessionId } = await createSession.execute(user);
 
-        const isTokenValid = validateSession.execute(token, user);
+        const { user: findedUser } = await validateSession.execute(sessionId);
 
-        expect(isTokenValid).toBeTruthy();
+        expect(findedUser).toBeTruthy();
     });
     it("should throw if session token is invalid", async () => {
         const inMemoryUserRepository = new InMemoryUserRepository();
         const createUser = new CreateUser(inMemoryUserRepository);
         const createSession = new CreateSession(inMemoryUserRepository);
-        const validateSession = new ValidateSession();
+        const validateSession = new ValidateSession(inMemoryUserRepository);
 
         const { user } = await createUser.execute({
             username: "euliveiras",
@@ -39,6 +45,6 @@ describe("Validate session token", () => {
 
         await createSession.execute(user);
 
-        expect(() => validateSession.execute("fake-id", user)).toThrow();
+        expect(() => validateSession.execute("")).rejects.toThrow();
     });
 });

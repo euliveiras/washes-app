@@ -1,6 +1,6 @@
-import { hashManipulator } from "domain/shared/utils/hash-manipulator";
+import { HashManipulator } from "domain/shared/utils/hash-manipulator";
 import type { UserRepository } from "../repositories/user-repository";
-import { User } from "../entities/User";
+import type { User } from "../entities/User";
 
 export class CreateSession {
     constructor(private userDB: UserRepository) {}
@@ -11,7 +11,7 @@ export class CreateSession {
     }: {
         email: string;
         password: string;
-    }): Promise<{ token: string; user: User }> {
+    }): Promise<{ sessionId: string; user: User }> {
         const user = await this.userDB.find({ email });
 
         if (!user) {
@@ -19,7 +19,7 @@ export class CreateSession {
             throw new Error("Credentials not valid");
         }
 
-        const isPasswordValid = await hashManipulator.compareStrToHashedStr(
+        const isPasswordValid = await HashManipulator.compareStrToHashedStr(
             password,
             user.password
         );
@@ -29,10 +29,14 @@ export class CreateSession {
             throw new Error("Credentials not valid");
         }
 
-        const token = user.createSession();
+        user.createSession();
 
-        await this.userDB.update(user.id, { sessions: user.sessions });
+        if (!user.sessionId) throw new Error("Something went wrong with creation of token");
 
-        return { token, user };
+        console.log(user)
+
+        await this.userDB.update(user.id, { sessionId: user.sessionId });
+
+        return { sessionId: user.sessionId, user };
     }
 }

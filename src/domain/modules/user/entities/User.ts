@@ -6,36 +6,32 @@ type UserProps = {
     username: string;
     password: string;
     email: string;
-    sessions: string[];
+    sessionId?: string | null;
     role: "ADMIN" | "COLAB";
     createdAt: string;
 };
 
 export class User {
     private _props: UserProps;
-    constructor(
-        data: Replace<UserProps, { id?: string; createdAt?: string; sessions?: string[] }>
-    ) {
+    constructor(data: Replace<UserProps, { id?: string; createdAt?: string }>) {
         this._props = {
             ...data,
             id: data.id ?? randomUUID(),
-            sessions: data.sessions ?? [],
             createdAt: new Date().toISOString(),
         };
     }
+
     createSession() {
-        const token = randomUUID();
-        this._props.sessions.push(token);
-        return token;
+        this._props.sessionId = randomUUID();
     }
 
-    getSession(id: string) {
-        const session = this._props.sessions.find((t) => t === id);
-        return session;
-    }
+    // getSession(id: string) {
+    //     const session = this._props.sessions.find((t) => t === id);
+    //     return session;
+    // }
 
-    removeSession(id: string) {
-        this._props.sessions = this._props.sessions.filter((sess) => sess !== id);
+    removeSession() {
+        this._props.sessionId = null;
     }
 
     get id() {
@@ -78,7 +74,7 @@ export class User {
         return this._props.createdAt;
     }
 
-    get sessions() {
-        return this._props.sessions;
+    get sessionId() {
+        return this._props.sessionId;
     }
 }

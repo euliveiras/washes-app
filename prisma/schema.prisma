@@ -16,7 +16,7 @@ model User {
   username     String
   password     String         @unique
   email        String         @unique
-  sessions     String
+  sessionId    String?         @unique
   role         String
   createdAt    String
   Notification Notification[]
@@ -32,8 +32,8 @@ model Vehicle {
 }
 
 model Notification {
-  id          String @id
-  user        User   @relation(fields: [recipientId], references: [id])
+  id          String  @id
+  user        User    @relation(fields: [recipientId], references: [id])
   recipientId String
   content     String
   readAt      String?

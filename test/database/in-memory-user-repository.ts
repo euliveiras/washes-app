@@ -29,10 +29,15 @@ export class InMemoryUserRepository implements UserRepository {
             username: findedUser.username,
             password: findedUser.password,
             email: findedUser.email,
-            sessions: findedUser.sessions,
+            sessionId: findedUser.sessionId,
             role: findedUser.role,
             createdAt: findedUser.createdAt,
             ...data,
         });
+    }
+    async findBySessionId(sessionId: string): Promise<User | null> {
+        const user = this.data.find((u) => u.sessionId === sessionId);
+
+        return user ?? null;
     }
 }

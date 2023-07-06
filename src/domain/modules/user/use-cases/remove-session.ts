@@ -4,10 +4,10 @@ import type { UserRepository } from "../repositories/user-repository";
 export class RemoveSession {
     constructor(private userDB: UserRepository) {}
 
-    async execute(token: string, user: User): Promise<{ user: User }> {
-        user.removeSession(token);
+    async execute(user: User): Promise<{ user: User }> {
+        user.removeSession();
 
-        await this.userDB.update(user.id, { sessions: user.sessions });
+        await this.userDB.update(user.id, { sessionId: user.sessionId });
 
         return { user };
     }

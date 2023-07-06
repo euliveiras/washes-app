@@ -34,7 +34,7 @@ __export(assets_manifest_exports, {
 });
 var assets_manifest_default, init_assets_manifest = __esm({
   "server-assets-manifest:@remix-run/dev/assets-manifest"() {
-    assets_manifest_default = { version: "91c03e51", entry: { module: "/build/entry.client-YR7H6232.js", imports: ["/build/_shared/chunk-6AILATTA.js", "/build/_shared/chunk-NLQNPAAV.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-GKDO45BZ.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-YGWKB4MK.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/home": { id: "routes/home", parentId: "root", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/home-T4JWOWJB.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-HXOBYGCX.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-MMBKR24X.js", imports: void 0, hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-91C03E51.js" };
+    assets_manifest_default = { version: "b9740344", entry: { module: "/build/entry.client-ZJG3XCQT.js", imports: ["/build/_shared/chunk-WUFWPLXX.js", "/build/_shared/chunk-NLQNPAAV.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-I77FHOE6.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-YGWKB4MK.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/home": { id: "routes/home", parentId: "root", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/home-PXYP7RNS.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-ZAMKKIRT.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-N53YQ4SI.js", imports: void 0, hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-B9740344.js" };
   }
 });
 
@@ -244,20 +244,20 @@ __export(sign_in_exports, {
 var import_node3 = require("@remix-run/node"), import_react3 = require("@remix-run/react");
 
 // src/domain/shared/utils/hash-manipulator.ts
-var import_bcrypt = __toESM(require("bcrypt")), wrapper = class {
-  async compareStrToHashedStr(str1, hash) {
+var import_bcrypt = __toESM(require("bcrypt")), HashManipulator = class {
+  static async compareStrToHashedStr(str1, hash) {
     let bool = await import_bcrypt.default.compare(str1, hash);
     if (typeof bool > "u")
       throw new Error("Something went wrong in hash process");
     return bool;
   }
-  async generateHashFromStr(str) {
+  static async generateHashFromStr(str) {
     let hash = await import_bcrypt.default.hash(str, 10);
     if (!hash)
       throw new Error("Something went wrong in hash process");
     return hash;
   }
-}, hashManipulator = new wrapper();
+};
 
 // src/domain/modules/user/use-cases/create-session.ts
 var CreateSession = class {
@@ -271,13 +271,14 @@ var CreateSession = class {
     let user = await this.userDB.find({ email });
     if (!user)
       throw console.log("user not founded"), new Error("Credentials not valid");
-    if (!await hashManipulator.compareStrToHashedStr(
+    if (!await HashManipulator.compareStrToHashedStr(
       password,
       user.password
     ))
       throw console.log("password not valid"), new Error("Credentials not valid");
-    let token = user.createSession();
-    return await this.userDB.update(user.id, { sessions: user.sessions }), { token, user };
+    if (user.createSession(), !user.sessionId)
+      throw new Error("Something went wrong with creation of token");
+    return console.log(user), await this.userDB.update(user.id, { sessionId: user.sessionId }), { sessionId: user.sessionId, user };
   }
 };
 
@@ -291,19 +292,18 @@ var import_crypto = require("crypto"), User = class {
     this._props = {
       ...data,
       id: data.id ?? (0, import_crypto.randomUUID)(),
-      sessions: data.sessions ?? [],
       createdAt: (/* @__PURE__ */ new Date()).toISOString()
     };
   }
   createSession() {
-    let token = (0, import_crypto.randomUUID)();
-    return this._props.sessions.push(token), token;
+    this._props.sessionId = (0, import_crypto.randomUUID)();
   }
-  getSession(id) {
-    return this._props.sessions.find((t) => t === id);
-  }
-  removeSession(id) {
-    this._props.sessions = this._props.sessions.filter((sess) => sess !== id);
+  // getSession(id: string) {
+  //     const session = this._props.sessions.find((t) => t === id);
+  //     return session;
+  // }
+  removeSession() {
+    this._props.sessionId = null;
   }
   get id() {
     return this._props.id;
@@ -335,8 +335,8 @@ var import_crypto = require("crypto"), User = class {
   get createdAt() {
     return this._props.createdAt;
   }
-  get sessions() {
-    return this._props.sessions;
+  get sessionId() {
+    return this._props.sessionId;
   }
 };
 
@@ -350,7 +350,7 @@ var PrismaUserMapper = class {
       email: raw.email,
       role: raw.role,
       createdAt: raw.createdAt,
-      sessions: raw.sessions.split(",")
+      sessionId: raw.sessionId
     });
   }
   toPrisma(user) {
@@ -360,7 +360,7 @@ var PrismaUserMapper = class {
       email: user.email,
       password: user.password,
       role: user.role,
-      sessions: user.sessions.toString(),
+      sessionId: user.sessionId,
       username: user.username
     };
   }
@@ -392,23 +392,53 @@ var PrismaUserRepository = class {
     }) : null;
   }
   async update(userId, data) {
-    var _a;
     await prisma.user.update({
       where: {
         id: userId
       },
-      data: {
-        sessions: (_a = data.sessions) == null ? void 0 : _a.toString()
+      data
+    });
+  }
+  async findBySessionId(sessionId) {
+    let user = await prisma.user.findUnique({
+      where: {
+        sessionId
       }
     });
+    return user ? this.userMapper.toDomain({
+      ...user
+    }) : null;
   }
 };
 
 // src/infra/http/controllers/sign-in-user-controller.ts
 async function signInUserController({ email, password }) {
   try {
-    let prismaUserRepository = new PrismaUserRepository(), createSession = new CreateSession(prismaUserRepository), { token, user } = await createSession.execute({ email, password });
-    return { token, user };
+    let prismaUserRepository = new PrismaUserRepository(), createSession = new CreateSession(prismaUserRepository), { sessionId, user } = await createSession.execute({ email, password });
+    return { sessionId, user };
+  } catch (err) {
+    return err instanceof Error ? { error: err.message } : { error: "something went wrong" };
+  }
+}
+
+// src/domain/modules/user/use-cases/validate-session.ts
+var ValidateSession = class {
+  constructor(userDB) {
+    this.userDB = userDB;
+  }
+  async execute(sessionId) {
+    let user = await this.userDB.findBySessionId(sessionId);
+    if (!user)
+      throw new Error("Token is invalid");
+    return { user };
+  }
+};
+
+// src/infra/http/helpers/validate-session-id.ts
+async function validateSessionId({ sessionId }) {
+  try {
+    let prismaUserRepository = new PrismaUserRepository(), validateSession = new ValidateSession(prismaUserRepository), { user } = await validateSession.execute(sessionId);
+    return { user };
   } catch (err) {
     return err instanceof Error ? { error: err.message } : { error: "something went wrong" };
   }
@@ -444,18 +474,22 @@ async function action({ request }) {
         "Content-Type": "application/json"
       }
     });
-  let { error, token, user } = await signInUserController({ email, password });
-  return error || !token ? (console.log(error), new Response(null, {
+  let { error, sessionId } = await signInUserController({ email, password });
+  return error || !sessionId ? (console.log(error), new Response(null, {
     status: 400,
     statusText: error
-  })) : (session.set("token", token), session.set("userId", user.id), (0, import_node3.redirect)("/home", {
+  })) : (session.set("token", sessionId), (0, import_node3.redirect)("/home", {
     headers: {
       "Set-Cookie": await commitSession(session)
     }
   }));
 }
 async function loader({ request }) {
-  return (await getSession(request.headers.get("Cookie"))).has("token") ? (0, import_node3.redirect)("/") : (0, import_node3.json)({});
+  let token = (await getSession(request.headers.get("Cookie"))).get("token");
+  if (!token)
+    return (0, import_node3.redirect)("/sign-in");
+  let { error, user } = await validateSessionId({ sessionId: token });
+  return user ? (0, import_node3.redirect)("/home") : (0, import_node3.json)({});
 }
 function sign_in_default() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react3.Form, { method: "POST", children: [
@@ -463,39 +497,39 @@ function sign_in_default() {
       "email",
       /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("input", { type: "text", name: "email" }, void 0, !1, {
         fileName: "app/routes/sign-in.tsx",
-        lineNumber: 59,
+        lineNumber: 67,
         columnNumber: 17
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/sign-in.tsx",
-      lineNumber: 57,
+      lineNumber: 65,
       columnNumber: 13
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("label", { children: [
       "password",
       /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("input", { type: "password", name: "password" }, void 0, !1, {
         fileName: "app/routes/sign-in.tsx",
-        lineNumber: 63,
+        lineNumber: 71,
         columnNumber: 17
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/sign-in.tsx",
-      lineNumber: 61,
+      lineNumber: 69,
       columnNumber: 13
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("button", { type: "submit", children: "Logar" }, void 0, !1, {
       fileName: "app/routes/sign-in.tsx",
-      lineNumber: 65,
+      lineNumber: 73,
       columnNumber: 13
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react3.Link, { to: "/sign-up", children: "cadastre-se" }, void 0, !1, {
       fileName: "app/routes/sign-in.tsx",
-      lineNumber: 66,
+      lineNumber: 74,
       columnNumber: 13
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/sign-in.tsx",
-    lineNumber: 56,
+    lineNumber: 64,
     columnNumber: 9
   }, this);
 }
@@ -524,7 +558,7 @@ var CreateUser = class {
 // src/infra/http/controllers/create-user-controller.ts
 async function createUserController({ username, email, password }) {
   try {
-    let prismaUserRepository = new PrismaUserRepository(), createUser = new CreateUser(prismaUserRepository), hashedPassword = await hashManipulator.generateHashFromStr(password), { user } = await createUser.execute({
+    let prismaUserRepository = new PrismaUserRepository(), createUser = new CreateUser(prismaUserRepository), hashedPassword = await HashManipulator.generateHashFromStr(password), { user } = await createUser.execute({
       username,
       password: hashedPassword,
       email,
@@ -646,15 +680,27 @@ __export(home_exports, {
   default: () => home_default,
   loader: () => loader2
 });
-var import_node5 = require("@remix-run/node");
+var import_node5 = require("@remix-run/node"), import_react5 = require("@remix-run/react");
 var import_jsx_dev_runtime6 = require("react/jsx-dev-runtime");
 async function loader2({ request }) {
-  return (await getSession(request.headers.get("Cookie"))).has("token") ? (0, import_node5.json)({}) : (0, import_node5.redirect)("/sign-in");
+  let session = await getSession(request.headers.get("Cookie")), token = session.get("token");
+  if (!token)
+    throw (0, import_node5.redirect)("/sign-in");
+  let { error, user } = await validateSessionId({ sessionId: token });
+  if (error || !user)
+    throw session.unset("token"), (0, import_node5.redirect)("/sign-in", {
+      status: 401,
+      headers: {
+        "Set-Cookie": await commitSession(session)
+      }
+    });
+  return (0, import_node5.json)({ user });
 }
 function home_default() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("h1", { children: "home" }, void 0, !1, {
+  let data = (0, import_react5.useLoaderData)();
+  return console.log(data), /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("h1", { children: "home" }, void 0, !1, {
     fileName: "app/routes/home.tsx",
-    lineNumber: 14,
+    lineNumber: 33,
     columnNumber: 12
   }, this);
 }

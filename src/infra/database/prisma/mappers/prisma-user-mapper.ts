@@ -10,7 +10,7 @@ export class PrismaUserMapper {
             email: raw.email,
             role: raw.role as "ADMIN" | "COLAB",
             createdAt: raw.createdAt,
-            sessions: raw.sessions.split(","),
+            sessionId: raw.sessionId,
         });
     }
     toPrisma(user: User) {
@@ -20,7 +20,7 @@ export class PrismaUserMapper {
             email: user.email,
             password: user.password,
             role: user.role,
-            sessions: user.sessions.toString(),
+            sessionId: user.sessionId,
             username: user.username,
         };
     }
