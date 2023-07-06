@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:routes/$.tsx?browser", "../../../app/routes/$.tsx"],
+  "sourcesContent": ["export { default } from \"./routes/$.tsx\";", "export default function () {\n\treturn <h1>hello</h1>\n}\n"],
+  "mappings": ";;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;;;ACAA;AAAA;AAAA;AAAA;AAAA;AACQ;AADO,SAAR,YAAoB;AAC1B,SAAO,mDAAC,QAAG,qBAAJ;AAAA;AAAA;AAAA;AAAA,SAAS;AACjB;",
+  "names": []
+}

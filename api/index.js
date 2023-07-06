@@ -34,7 +34,7 @@ __export(assets_manifest_exports, {
 });
 var assets_manifest_default, init_assets_manifest = __esm({
   "server-assets-manifest:@remix-run/dev/assets-manifest"() {
-    assets_manifest_default = { version: "b9740344", entry: { module: "/build/entry.client-ZJG3XCQT.js", imports: ["/build/_shared/chunk-WUFWPLXX.js", "/build/_shared/chunk-NLQNPAAV.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-I77FHOE6.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-YGWKB4MK.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/home": { id: "routes/home", parentId: "root", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/home-PXYP7RNS.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-ZAMKKIRT.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-N53YQ4SI.js", imports: void 0, hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-B9740344.js" };
+    assets_manifest_default = { version: "ec210bba", entry: { module: "/build/entry.client-ZJG3XCQT.js", imports: ["/build/_shared/chunk-WUFWPLXX.js", "/build/_shared/chunk-NLQNPAAV.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-I77FHOE6.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-7675IMXD.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/home": { id: "routes/home", parentId: "root", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/home-QRZODPI3.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-SKKIHCXS.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-N53YQ4SI.js", imports: void 0, hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-EC210BBA.js" };
   }
 });
 
@@ -276,9 +276,9 @@ var CreateSession = class {
       user.password
     ))
       throw console.log("password not valid"), new Error("Credentials not valid");
-    if (user.createSession(), !user.sessionId)
+    if (user.sessionId || user.createSession(), !user.sessionId)
       throw new Error("Something went wrong with creation of token");
-    return console.log(user), await this.userDB.update(user.id, { sessionId: user.sessionId }), { sessionId: user.sessionId, user };
+    return await this.userDB.update(user.id, { sessionId: user.sessionId }), { sessionId: user.sessionId, user };
   }
 };
 
@@ -487,8 +487,8 @@ async function action({ request }) {
 async function loader({ request }) {
   let token = (await getSession(request.headers.get("Cookie"))).get("token");
   if (!token)
-    return (0, import_node3.redirect)("/sign-in");
-  let { error, user } = await validateSessionId({ sessionId: token });
+    return (0, import_node3.json)({});
+  let { user } = await validateSessionId({ sessionId: token });
   return user ? (0, import_node3.redirect)("/home") : (0, import_node3.json)({});
 }
 function sign_in_default() {
@@ -659,21 +659,6 @@ function sign_up_default() {
   }, this);
 }
 
-// app/routes/_index.tsx
-var index_exports = {};
-__export(index_exports, {
-  default: () => Index,
-  meta: () => meta
-});
-var import_jsx_dev_runtime5 = require("react/jsx-dev-runtime"), meta = () => [{ title: "New Remix App" }];
-function Index() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime5.jsxDEV)("div", { style: { fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }, children: "hello" }, void 0, !1, {
-    fileName: "app/routes/_index.tsx",
-    lineNumber: 8,
-    columnNumber: 12
-  }, this);
-}
-
 // app/routes/home.tsx
 var home_exports = {};
 __export(home_exports, {
@@ -681,7 +666,7 @@ __export(home_exports, {
   loader: () => loader2
 });
 var import_node5 = require("@remix-run/node"), import_react5 = require("@remix-run/react");
-var import_jsx_dev_runtime6 = require("react/jsx-dev-runtime");
+var import_jsx_dev_runtime5 = require("react/jsx-dev-runtime");
 async function loader2({ request }) {
   let session = await getSession(request.headers.get("Cookie")), token = session.get("token");
   if (!token)
@@ -689,7 +674,6 @@ async function loader2({ request }) {
   let { error, user } = await validateSessionId({ sessionId: token });
   if (error || !user)
     throw session.unset("token"), (0, import_node5.redirect)("/sign-in", {
-      status: 401,
       headers: {
         "Set-Cookie": await commitSession(session)
       }
@@ -698,10 +682,24 @@ async function loader2({ request }) {
 }
 function home_default() {
   let data = (0, import_react5.useLoaderData)();
-  return console.log(data), /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("h1", { children: "home" }, void 0, !1, {
+  return console.log(data), /* @__PURE__ */ (0, import_jsx_dev_runtime5.jsxDEV)("h1", { children: "home" }, void 0, !1, {
     fileName: "app/routes/home.tsx",
-    lineNumber: 33,
+    lineNumber: 32,
     columnNumber: 12
+  }, this);
+}
+
+// app/routes/$.tsx
+var __exports = {};
+__export(__exports, {
+  default: () => __default
+});
+var import_jsx_dev_runtime6 = require("react/jsx-dev-runtime");
+function __default() {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime6.jsxDEV)("h1", { children: "hello" }, void 0, !1, {
+    fileName: "app/routes/$.tsx",
+    lineNumber: 2,
+    columnNumber: 9
   }, this);
 }
 
@@ -732,14 +730,6 @@ var assetsBuildDirectory = "public/build", future = { unstable_dev: !1, unstable
     caseSensitive: void 0,
     module: sign_up_exports
   },
-  "routes/_index": {
-    id: "routes/_index",
-    parentId: "root",
-    path: void 0,
-    index: !0,
-    caseSensitive: void 0,
-    module: index_exports
-  },
   "routes/home": {
     id: "routes/home",
     parentId: "root",
@@ -747,6 +737,14 @@ var assetsBuildDirectory = "public/build", future = { unstable_dev: !1, unstable
     index: void 0,
     caseSensitive: void 0,
     module: home_exports
+  },
+  "routes/$": {
+    id: "routes/$",
+    parentId: "root",
+    path: "*",
+    index: void 0,
+    caseSensitive: void 0,
+    module: __exports
   }
 };
 // Annotate the CommonJS export names for ESM import in node:
