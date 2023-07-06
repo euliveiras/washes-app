@@ -29,11 +29,9 @@ export class CreateSession {
             throw new Error("Credentials not valid");
         }
 
-        user.createSession();
+	if(!user.sessionId) user.createSession();
 
         if (!user.sessionId) throw new Error("Something went wrong with creation of token");
-
-        console.log(user)
 
         await this.userDB.update(user.id, { sessionId: user.sessionId });
 
