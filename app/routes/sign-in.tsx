@@ -47,10 +47,10 @@ export async function loader({ request }: LoaderArgs) {
 
     if (!token) {
         // Redirect to the home page if they are already signed in.
-        return redirect("/sign-in");
+        return json({});
     }
 
-    const { error, user } = await validateSessionId({ sessionId: token });
+    const { user } = await validateSessionId({ sessionId: token });
 
     if (user) {
         return redirect("/home");

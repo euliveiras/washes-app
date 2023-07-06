@@ -17,8 +17,7 @@ export async function loader({ request }: LoaderArgs) {
 
     if (error || !user) {
         session.unset("token")
-        throw redirect("/sign-in", {
-            status: 401,
+	throw redirect("/sign-in", {
             headers: {
                 "Set-Cookie": await commitSession(session),
             },
