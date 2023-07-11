@@ -9,6 +9,10 @@
     "test:watch": "vitest watch --no-threads"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.7.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/server": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
     "@prisma/client": "^4.16.0",
     "@remix-run/css-bundle": "^1.16.0",
     "@remix-run/node": "^1.16.0",
@@ -17,9 +21,11 @@
     "@vercel/node": "^2.10.3",
     "bcrypt": "^5.1.0",
     "date-fns": "^2.30.0",
+    "framer-motion": "^6.5.1",
     "isbot": "^3.6.8",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.10.1"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.16.0",
@@ -30,6 +36,7 @@
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
     "eslint": "^8.38.0",
+    "prettier": "3.0.0",
     "prisma": "^4.16.0",
     "typescript": "^5.0.4",
     "vite-tsconfig-paths": "^4.2.0",

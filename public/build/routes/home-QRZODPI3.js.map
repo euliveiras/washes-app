@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["browser-route-module:routes/home.tsx?browser", "../../../app/routes/home.tsx"],
-  "sourcesContent": ["export { default } from \"./routes/home.tsx\";", "import type { LoaderArgs } from \"@remix-run/node\";\nimport { Response, json, redirect } from \"@remix-run/node\";\nimport { useLoaderData } from \"@remix-run/react\";\nimport { validateSessionId } from \"src/infra/http/helpers/validate-session-id\";\nimport { commitSession, getSession } from \"~/sessions\";\n\nexport async function loader({ request }: LoaderArgs) {\n    const session = await getSession(request.headers.get(\"Cookie\"));\n\n    const token = session.get(\"token\");\n\n    if (!token) {\n        throw redirect(\"/sign-in\");\n    }\n\n    const { error, user } = await validateSessionId({ sessionId: token });\n\n    if (error || !user) {\n        session.unset(\"token\")\n\tthrow redirect(\"/sign-in\", {\n            headers: {\n                \"Set-Cookie\": await commitSession(session),\n            },\n        });\n    }\n\n    return json({ user });\n}\nexport default function () {\n    const data = useLoaderData<typeof loader>();\n    console.log(data);\n    return <h1>home</h1>;\n}\n"],
-  "mappings": ";;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;;;ACAA;AAAA;AAAA;AAAA;AAAA;AA+BW;AAHI,SAAR,eAAoB;AACvB,QAAM,OAAO,cAA6B;AAC1C,UAAQ,IAAI,IAAI;AAChB,SAAO,mDAAC,QAAG,oBAAJ;AAAA;AAAA;AAAA;AAAA,SAAQ;AACnB;",
-  "names": []
-}
