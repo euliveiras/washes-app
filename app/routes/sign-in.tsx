@@ -77,13 +77,44 @@ export async function loader({ request }: LoaderArgs) {
   return json({});
 }
 
+type CustomInputGroupProps = {
+  icon: React.ReactNode;
+  inputName: string;
+  inputType: string;
+  isError: boolean;
+};
+
+function CustomInputGroup({
+  icon,
+  inputName,
+  inputType,
+  isError,
+}: CustomInputGroupProps) {
+  return (
+    <InputGroup sx={{ "--clr": isError ? "#E53E3E" : "#3182ce" }}>
+      <InputRightElement fontSize={26}>{icon}</InputRightElement>
+      <Input
+        _focusVisible={{
+          borderColor: "var(--clr)",
+          boxShadow: "0 0 0 1px var(--clr)",
+        }}
+        type={inputType}
+        border={"2px"}
+        borderColor={isError ? "var(--clr)" : ""}
+        borderRadius={"xl"}
+        name={inputName}
+      />
+    </InputGroup>
+  );
+}
+
 export default function () {
   const data = useActionData<typeof action>();
 
   return (
     <Box h="100dvh" w="100%">
       <Grid h="100%" w="100%" templateRows="1fr auto">
-        <VStack paddingBlockStart={20}>
+        <VStack paddingBlockStart={[32, 20]}>
           <HStack spacing={"4px"}>
             <BsPerson size="20px" color="#000000" strokeWidth={"0.8px"} />
             <Text fontWeight={"bold"} fontSize={"md"}>
@@ -98,45 +129,27 @@ export default function () {
             borderRadius={"sm"}
             boxShadow={"dark-lg"}
             minBlockSize={96}
+            maxInlineSize={[72, "none"]}
             padding={8}
             method="POST"
           >
             <FormControl isRequired>
               <FormLabel fontSize={"sm"}>email</FormLabel>
-              <InputGroup sx={{ "--clr": data?.error ? "#E53E3E" : "#3182ce" }}>
-                <InputRightElement fontSize={26}>
-                  <MdOutlineEmail color={data?.error && "var(--clr)"} />
-                </InputRightElement>
-                <Input
-                  _focusVisible={{
-                    borderColor: "var(--clr)",
-                    boxShadow: "0 0 0 1px var(--clr)",
-                  }}
-                  type="email"
-                  border={"2px"}
-                  borderColor={data?.error && "var(--clr)"}
-                  borderRadius={"xl"}
-                  name="email"
-                />
-              </InputGroup>
+              <CustomInputGroup
+                icon={<MdOutlineEmail color={data?.error && "var(--clr)"} />}
+                inputName="email"
+                inputType="email"
+                isError={data?.error}
+              />
             </FormControl>
             <FormControl isRequired>
               <FormLabel fontSize={"sm"}>password</FormLabel>
-              <InputGroup sx={{ "--clr": data?.error ? "#E53E3E" : "#3182ce" }}>
-                <InputRightElement fontSize={26}>
-                  <MdLockOutline color={data?.error && "var(--clr)"} />
-                </InputRightElement>
-                <Input
-                  _focusVisible={{
-                    borderColor: "var(--clr)",
-                    boxShadow: "0 0 0 1px var(--clr)",
-                  }}
-                  border={"2px"}
-                  borderColor={data?.error && "var(--clr)"}
-                  borderRadius={"xl"}
-                  name="password"
-                />
-              </InputGroup>
+              <CustomInputGroup
+                icon={<MdLockOutline color={data?.error && "var(--clr)"} />}
+                inputType="password"
+                inputName="password"
+                isError={data?.error}
+              />
             </FormControl>
             {data?.error && <Text color="red.500">{data?.error}</Text>}
             <Button
