@@ -26,6 +26,7 @@ var stdin_exports = {};
 __export(stdin_exports, {
   assets: () => assets_manifest_default,
   assetsBuildDirectory: () => assetsBuildDirectory,
+  dev: () => dev,
   entry: () => entry,
   future: () => future,
   publicPath: () => publicPath,
@@ -491,24 +492,78 @@ async function loader({ request }) {
   let { user } = await validateSessionId({ sessionId: token });
   return user ? (0, import_node2.redirect)("/home") : (0, import_node2.json)({});
 }
+function CustomInputGroup({
+  icon,
+  name,
+  type,
+  isError,
+  isIdle,
+  isSubmitting
+}) {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(
+    import_react10.InputGroup,
+    {
+      sx: {
+        "--clr": isError ? "#E53E3E" : isSubmitting ? "#48BB78" : isIdle ? "#000000" : "#3182ce"
+      },
+      children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.InputRightElement, { fontSize: 26, children: icon }, void 0, !1, {
+          fileName: "app/routes/sign-in.tsx",
+          lineNumber: 109,
+          columnNumber: 7
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(
+          import_react10.Input,
+          {
+            _focusVisible: {
+              borderColor: "var(--clr)",
+              boxShadow: "0 0 0 1px var(--clr)"
+            },
+            type,
+            border: "2px",
+            borderColor: "var(--clr)",
+            borderRadius: "xl",
+            name
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/sign-in.tsx",
+            lineNumber: 110,
+            columnNumber: 7
+          },
+          this
+        )
+      ]
+    },
+    void 0,
+    !0,
+    {
+      fileName: "app/routes/sign-in.tsx",
+      lineNumber: 98,
+      columnNumber: 5
+    },
+    this
+  );
+}
 function sign_in_default() {
-  let data = (0, import_react11.useActionData)();
+  let errors = (0, import_react11.useActionData)(), navigation = (0, import_react11.useNavigation)();
   return /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.Box, { h: "100dvh", w: "100%", children: /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.Grid, { h: "100%", w: "100%", templateRows: "1fr auto", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.VStack, { paddingBlockStart: 20, children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.VStack, { paddingBlockStart: [32, 20], children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.HStack, { spacing: "4px", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_bs2.BsPerson, { size: "20px", color: "#000000", strokeWidth: "0.8px" }, void 0, !1, {
           fileName: "app/routes/sign-in.tsx",
-          lineNumber: 88,
+          lineNumber: 134,
           columnNumber: 13
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.Text, { fontWeight: "bold", fontSize: "md", children: "/ login" }, void 0, !1, {
           fileName: "app/routes/sign-in.tsx",
-          lineNumber: 89,
+          lineNumber: 135,
           columnNumber: 13
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/sign-in.tsx",
-        lineNumber: 87,
+        lineNumber: 133,
         columnNumber: 11
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(
@@ -521,108 +576,82 @@ function sign_in_default() {
           borderRadius: "sm",
           boxShadow: "dark-lg",
           minBlockSize: 96,
+          maxInlineSize: [72, "none"],
           padding: 8,
           method: "POST",
           children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.FormControl, { isRequired: !0, children: [
               /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.FormLabel, { fontSize: "sm", children: "email" }, void 0, !1, {
                 fileName: "app/routes/sign-in.tsx",
-                lineNumber: 105,
+                lineNumber: 152,
                 columnNumber: 15
               }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.InputGroup, { sx: { "--clr": data != null && data.error ? "#E53E3E" : "#3182ce" }, children: [
-                /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.InputRightElement, { fontSize: 26, children: /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_md.MdOutlineEmail, { color: (data == null ? void 0 : data.error) && "var(--clr)" }, void 0, !1, {
-                  fileName: "app/routes/sign-in.tsx",
-                  lineNumber: 108,
-                  columnNumber: 19
-                }, this) }, void 0, !1, {
-                  fileName: "app/routes/sign-in.tsx",
-                  lineNumber: 107,
-                  columnNumber: 17
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(
-                  import_react10.Input,
-                  {
-                    _focusVisible: {
-                      borderColor: "var(--clr)",
-                      boxShadow: "0 0 0 1px var(--clr)"
-                    },
-                    type: "email",
-                    border: "2px",
-                    borderColor: (data == null ? void 0 : data.error) && "var(--clr)",
-                    borderRadius: "xl",
-                    name: "email"
-                  },
-                  void 0,
-                  !1,
-                  {
+              /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(
+                CustomInputGroup,
+                {
+                  icon: /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_md.MdOutlineEmail, { color: "var(--clr)" }, void 0, !1, {
                     fileName: "app/routes/sign-in.tsx",
-                    lineNumber: 110,
-                    columnNumber: 17
-                  },
-                  this
-                )
-              ] }, void 0, !0, {
-                fileName: "app/routes/sign-in.tsx",
-                lineNumber: 106,
-                columnNumber: 15
-              }, this)
+                    lineNumber: 154,
+                    columnNumber: 23
+                  }, this),
+                  name: "email",
+                  type: "email",
+                  isError: errors == null ? void 0 : errors.error,
+                  isSubmitting: navigation.state === "submitting",
+                  isIdle: navigation.state === "idle"
+                },
+                void 0,
+                !1,
+                {
+                  fileName: "app/routes/sign-in.tsx",
+                  lineNumber: 153,
+                  columnNumber: 15
+                },
+                this
+              )
             ] }, void 0, !0, {
               fileName: "app/routes/sign-in.tsx",
-              lineNumber: 104,
+              lineNumber: 151,
               columnNumber: 13
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.FormControl, { isRequired: !0, children: [
               /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.FormLabel, { fontSize: "sm", children: "password" }, void 0, !1, {
                 fileName: "app/routes/sign-in.tsx",
-                lineNumber: 124,
+                lineNumber: 163,
                 columnNumber: 15
               }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.InputGroup, { sx: { "--clr": data != null && data.error ? "#E53E3E" : "#3182ce" }, children: [
-                /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.InputRightElement, { fontSize: 26, children: /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_md.MdLockOutline, { color: (data == null ? void 0 : data.error) && "var(--clr)" }, void 0, !1, {
-                  fileName: "app/routes/sign-in.tsx",
-                  lineNumber: 127,
-                  columnNumber: 19
-                }, this) }, void 0, !1, {
-                  fileName: "app/routes/sign-in.tsx",
-                  lineNumber: 126,
-                  columnNumber: 17
-                }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(
-                  import_react10.Input,
-                  {
-                    _focusVisible: {
-                      borderColor: "var(--clr)",
-                      boxShadow: "0 0 0 1px var(--clr)"
-                    },
-                    border: "2px",
-                    borderColor: (data == null ? void 0 : data.error) && "var(--clr)",
-                    borderRadius: "xl",
-                    name: "password"
-                  },
-                  void 0,
-                  !1,
-                  {
+              /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(
+                CustomInputGroup,
+                {
+                  icon: /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_md.MdLockOutline, { color: "var(--clr)" }, void 0, !1, {
                     fileName: "app/routes/sign-in.tsx",
-                    lineNumber: 129,
-                    columnNumber: 17
-                  },
-                  this
-                )
-              ] }, void 0, !0, {
-                fileName: "app/routes/sign-in.tsx",
-                lineNumber: 125,
-                columnNumber: 15
-              }, this)
+                    lineNumber: 165,
+                    columnNumber: 23
+                  }, this),
+                  type: "password",
+                  name: "password",
+                  isError: errors == null ? void 0 : errors.error,
+                  isSubmitting: navigation.state === "submitting",
+                  isIdle: navigation.state === "idle"
+                },
+                void 0,
+                !1,
+                {
+                  fileName: "app/routes/sign-in.tsx",
+                  lineNumber: 164,
+                  columnNumber: 15
+                },
+                this
+              )
             ] }, void 0, !0, {
               fileName: "app/routes/sign-in.tsx",
-              lineNumber: 123,
+              lineNumber: 162,
               columnNumber: 13
             }, this),
-            (data == null ? void 0 : data.error) && /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.Text, { color: "red.500", children: data == null ? void 0 : data.error }, void 0, !1, {
+            (errors == null ? void 0 : errors.error) && /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(import_react10.Text, { color: "red.500", children: errors == null ? void 0 : errors.error }, void 0, !1, {
               fileName: "app/routes/sign-in.tsx",
-              lineNumber: 141,
-              columnNumber: 29
+              lineNumber: 173,
+              columnNumber: 31
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(
               import_react10.Button,
@@ -640,7 +669,7 @@ function sign_in_default() {
               !1,
               {
                 fileName: "app/routes/sign-in.tsx",
-                lineNumber: 142,
+                lineNumber: 174,
                 columnNumber: 13
               },
               this
@@ -651,28 +680,28 @@ function sign_in_default() {
         !0,
         {
           fileName: "app/routes/sign-in.tsx",
-          lineNumber: 93,
+          lineNumber: 139,
           columnNumber: 11
         },
         this
       )
     ] }, void 0, !0, {
       fileName: "app/routes/sign-in.tsx",
-      lineNumber: 86,
+      lineNumber: 132,
       columnNumber: 9
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(Footer, {}, void 0, !1, {
       fileName: "app/routes/sign-in.tsx",
-      lineNumber: 155,
+      lineNumber: 187,
       columnNumber: 9
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/sign-in.tsx",
-    lineNumber: 85,
+    lineNumber: 131,
     columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/routes/sign-in.tsx",
-    lineNumber: 84,
+    lineNumber: 130,
     columnNumber: 5
   }, this);
 }
@@ -802,26 +831,36 @@ function sign_up_default() {
   }, this);
 }
 
+// app/routes/_index.tsx
+var index_exports = {};
+__export(index_exports, {
+  loader: () => loader2
+});
+var import_node4 = require("@remix-run/node");
+async function loader2() {
+  return (0, import_node4.redirect)("/home");
+}
+
 // app/routes/home.tsx
 var home_exports = {};
 __export(home_exports, {
   default: () => home_default,
-  loader: () => loader2
+  loader: () => loader3
 });
-var import_node4 = require("@remix-run/node"), import_react13 = require("@remix-run/react");
+var import_node5 = require("@remix-run/node"), import_react13 = require("@remix-run/react");
 var import_jsx_dev_runtime6 = require("react/jsx-dev-runtime");
-async function loader2({ request }) {
+async function loader3({ request }) {
   let session = await getSession(request.headers.get("Cookie")), token = session.get("token");
   if (!token)
-    throw (0, import_node4.redirect)("/sign-in");
+    throw (0, import_node5.redirect)("/sign-in");
   let { error, user } = await validateSessionId({ sessionId: token });
   if (error || !user)
-    throw session.unset("token"), (0, import_node4.redirect)("/sign-in", {
+    throw session.unset("token"), (0, import_node5.redirect)("/sign-in", {
       headers: {
         "Set-Cookie": await commitSession(session)
       }
     });
-  return (0, import_node4.json)({ user });
+  return (0, import_node5.json)({ user });
 }
 function home_default() {
   let data = (0, import_react13.useLoaderData)();
@@ -837,24 +876,131 @@ var __exports = {};
 __export(__exports, {
   default: () => __default
 });
-var import_react14 = require("@chakra-ui/react"), import_jsx_dev_runtime7 = require("react/jsx-dev-runtime");
+var import_react14 = require("@chakra-ui/react"), import_react_router_dom = require("react-router-dom"), import_jsx_dev_runtime7 = require("react/jsx-dev-runtime");
 function __default() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react14.Box, { width: 4, children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react14.Text, { children: "Go back to home" }, void 0, !1, {
-    fileName: "app/routes/$.tsx",
-    lineNumber: 6,
-    columnNumber: 4
-  }, this) }, void 0, !1, {
-    fileName: "app/routes/$.tsx",
-    lineNumber: 5,
-    columnNumber: 3
-  }, this);
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
+    import_react14.Grid,
+    {
+      placeContent: "center",
+      placeItems: "center",
+      blockSize: "100dvh",
+      inlineSize: "100%",
+      gap: 4,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react14.Text, { fontSize: "lg", children: "Essa p\xE1gina n\xE3o existe :(" }, void 0, !1, {
+          fileName: "app/routes/$.tsx",
+          lineNumber: 13,
+          columnNumber: 7
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react14.HStack, { spacing: 1, children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react14.Text, { fontSize: "lg", children: "Go back" }, void 0, !1, {
+            fileName: "app/routes/$.tsx",
+            lineNumber: 15,
+            columnNumber: 9
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react14.Link, { as: import_react_router_dom.Link, to: "/home", children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
+            import_react14.Box,
+            {
+              position: "relative",
+              zIndex: 1,
+              _before: {
+                content: "''",
+                position: "absolute",
+                width: "calc(100% + 4px)",
+                height: "60%",
+                left: "-2px",
+                bottom: "0",
+                zIndex: "-1",
+                transform: "rotate(-2deg)",
+                bgColor: "#D6BCFA"
+              },
+              children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react14.Text, { fontSize: "lg", children: "/ home" }, void 0, !1, {
+                fileName: "app/routes/$.tsx",
+                lineNumber: 32,
+                columnNumber: 13
+              }, this)
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/$.tsx",
+              lineNumber: 17,
+              columnNumber: 11
+            },
+            this
+          ) }, void 0, !1, {
+            fileName: "app/routes/$.tsx",
+            lineNumber: 16,
+            columnNumber: 9
+          }, this)
+        ] }, void 0, !0, {
+          fileName: "app/routes/$.tsx",
+          lineNumber: 14,
+          columnNumber: 7
+        }, this)
+      ]
+    },
+    void 0,
+    !0,
+    {
+      fileName: "app/routes/$.tsx",
+      lineNumber: 6,
+      columnNumber: 5
+    },
+    this
+  );
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { version: "d784fefa", entry: { module: "/build/entry.client-NQT2FLS3.js", imports: ["/build/_shared/chunk-OCVKQUTK.js", "/build/_shared/chunk-YZWU2AVJ.js", "/build/_shared/chunk-DUUI3OIW.js", "/build/_shared/chunk-CQXRBETP.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-KOIK3FHN.js", imports: ["/build/_shared/chunk-AIDZYHE6.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-HBLYV2HN.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/home": { id: "routes/home", parentId: "root", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/home-7VVRVDJX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-XHWQTZED.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-DTH2SDPU.js", imports: void 0, hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: void 0, url: "/build/manifest-D784FEFA.js" };
+var assets_manifest_default = { version: "1277108d", entry: { module: "http://localhost:3001/build/entry.client-KGO76GHK.js", imports: ["http://localhost:3001/build/_shared/chunk-EYPFEEA2.js", "http://localhost:3001/build/_shared/chunk-ANXL52AQ.js", "http://localhost:3001/build/_shared/chunk-DC5KBJVF.js", "http://localhost:3001/build/_shared/chunk-PKOMFC7F.js", "http://localhost:3001/build/_shared/chunk-OKS54H4S.js", "http://localhost:3001/build/_shared/chunk-6SJDMTBK.js", "http://localhost:3001/build/_shared/chunk-3YOGVSK4.js", "http://localhost:3001/build/_shared/chunk-KFR6H6JJ.js", "http://localhost:3001/build/_shared/chunk-I54TBTTL.js", "http://localhost:3001/build/_shared/chunk-CT6324V4.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/root-XHP2GVMM.js", imports: ["http://localhost:3001/build/_shared/chunk-3IKIBLBP.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/$-EV3V5LM7.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/_index-M23M7LSB.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/home": { id: "routes/home", parentId: "root", path: "home", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/home-4RQAIGHF.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/sign-in-42YR4CFK.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/sign-up-TS5WHRTR.js", imports: void 0, hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: { runtime: "http://localhost:3001/build/_shared/chunk-KFR6H6JJ.js", routes: { "app/routes/sign-in.tsx": { loaderHash: `export async function loader({
+  request
+}: LoaderArgs) {
+  const session = await getSession(request.headers.get("Cookie"));
+  const token = session.get("token");
+  if (!token) {
+    // Redirect to the home page if they are already signed in.
+    return json({});
+  }
+  const {
+    user
+  } = await validateSessionId({
+    sessionId: token
+  });
+  if (user) {
+    return redirect("/home");
+  }
+  return json({});
+}` }, "app/routes/_index.tsx": { loaderHash: `export async function loader() {
+  return redirect("/home");
+}` }, "app/routes/home.tsx": { loaderHash: `export async function loader({
+  request
+}: LoaderArgs) {
+  const session = await getSession(request.headers.get("Cookie"));
+  const token = session.get("token");
+  if (!token) {
+    throw redirect("/sign-in");
+  }
+  const {
+    error,
+    user
+  } = await validateSessionId({
+    sessionId: token
+  });
+  if (error || !user) {
+    session.unset("token");
+    throw redirect("/sign-in", {
+      headers: {
+        "Set-Cookie": await commitSession(session)
+      }
+    });
+  }
+  return json({
+    user
+  });
+}` } }, timestamp: 1689128776494 }, url: "http://localhost:3001/build/manifest-1277108D.js" };
 
 // server-entry-module:@remix-run/dev/server-build
-var assetsBuildDirectory = "public/build", future = { unstable_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
+var assetsBuildDirectory = "public/build", future = { unstable_dev: !0, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "http://localhost:3001/build/", entry = { module: entry_server_exports }, dev = { websocketPort: 3002 }, routes = {
   root: {
     id: "root",
     parentId: void 0,
@@ -879,6 +1025,14 @@ var assetsBuildDirectory = "public/build", future = { unstable_dev: !1, unstable
     caseSensitive: void 0,
     module: sign_up_exports
   },
+  "routes/_index": {
+    id: "routes/_index",
+    parentId: "root",
+    path: void 0,
+    index: !0,
+    caseSensitive: void 0,
+    module: index_exports
+  },
   "routes/home": {
     id: "routes/home",
     parentId: "root",
@@ -900,6 +1054,7 @@ var assetsBuildDirectory = "public/build", future = { unstable_dev: !1, unstable
 0 && (module.exports = {
   assets,
   assetsBuildDirectory,
+  dev,
   entry,
   future,
   publicPath,

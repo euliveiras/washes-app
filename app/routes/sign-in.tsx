@@ -16,7 +16,7 @@ import type { LoaderArgs } from "@remix-run/node";
 import { BsPerson } from "react-icons/bs";
 import { MdLockOutline, MdOutlineEmail } from "react-icons/md";
 import { redirect, type ActionArgs, json } from "@remix-run/node";
-import { Form, Link, useActionData } from "@remix-run/react";
+import { Form, Link, useActionData, useNavigation } from "@remix-run/react";
 import { signInUserController } from "src/infra/http/controllers/sign-in-user-controller";
 import { validateSessionId } from "src/infra/http/helpers/validate-session-id";
 import { Footer } from "~/components/footer";
@@ -79,37 +79,52 @@ export async function loader({ request }: LoaderArgs) {
 
 type CustomInputGroupProps = {
   icon: React.ReactNode;
-  inputName: string;
-  inputType: string;
+  name: string;
+  type: string;
+  isSubmitting: boolean;
+  isIdle: boolean;
   isError: boolean;
 };
 
 function CustomInputGroup({
   icon,
-  inputName,
-  inputType,
+  name,
+  type,
   isError,
+  isIdle,
+  isSubmitting,
 }: CustomInputGroupProps) {
   return (
-    <InputGroup sx={{ "--clr": isError ? "#E53E3E" : "#3182ce" }}>
+    <InputGroup
+      sx={{
+        "--clr": isError
+          ? "#E53E3E"
+          : isSubmitting
+          ? "#48BB78"
+          : isIdle
+          ? "#000000"
+          : "#3182ce",
+      }}
+    >
       <InputRightElement fontSize={26}>{icon}</InputRightElement>
       <Input
         _focusVisible={{
           borderColor: "var(--clr)",
           boxShadow: "0 0 0 1px var(--clr)",
         }}
-        type={inputType}
+        type={type}
         border={"2px"}
-        borderColor={isError ? "var(--clr)" : ""}
+        borderColor={"var(--clr)"}
         borderRadius={"xl"}
-        name={inputName}
+        name={name}
       />
     </InputGroup>
   );
 }
 
 export default function () {
-  const data = useActionData<typeof action>();
+  const errors = useActionData<typeof action>();
+  const navigation = useNavigation();
 
   return (
     <Box h="100dvh" w="100%">
@@ -136,22 +151,26 @@ export default function () {
             <FormControl isRequired>
               <FormLabel fontSize={"sm"}>email</FormLabel>
               <CustomInputGroup
-                icon={<MdOutlineEmail color={data?.error && "var(--clr)"} />}
-                inputName="email"
-                inputType="email"
-                isError={data?.error}
+                icon={<MdOutlineEmail color={"var(--clr)"} />}
+                name="email"
+                type="email"
+                isError={errors?.error}
+                isSubmitting={navigation.state === "submitting"}
+                isIdle={navigation.state === "idle"}
               />
             </FormControl>
             <FormControl isRequired>
               <FormLabel fontSize={"sm"}>password</FormLabel>
               <CustomInputGroup
-                icon={<MdLockOutline color={data?.error && "var(--clr)"} />}
-                inputType="password"
-                inputName="password"
-                isError={data?.error}
+                icon={<MdLockOutline color={"var(--clr)"} />}
+                type="password"
+                name="password"
+                isError={errors?.error}
+                isSubmitting={navigation.state === "submitting"}
+                isIdle={navigation.state === "idle"}
               />
             </FormControl>
-            {data?.error && <Text color="red.500">{data?.error}</Text>}
+            {errors?.error && <Text color="red.500">{errors?.error}</Text>}
             <Button
               marginBlockStart={4}
               colorScheme="blue"
