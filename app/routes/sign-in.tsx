@@ -9,7 +9,6 @@ import {
   Input,
   Button,
   InputGroup,
-  InputRightAddon,
   InputRightElement,
 } from "@chakra-ui/react";
 import type { LoaderArgs } from "@remix-run/node";

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["browser-route-module:routes/home.tsx"],
-  "sourcesContent": ["import { jsx } from \"react/jsx-runtime\";\nimport * as __hmr__ from \"remix:hmr\";\nif (import.meta) {\n  import.meta.hot = __hmr__.createHotContext(\n    //@ts-expect-error\n    \"app/routes/home.tsx\"\n  );\n}\nimport { useLoaderData } from \"@remix-run/react\";\nfunction stdin_default() {\n  const data = useLoaderData();\n  console.log(data);\n  return /* @__PURE__ */ jsx(\"h1\", { children: \"home\" });\n}\nexport {\n  stdin_default as default\n};\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,yBAAoB;AAEpB,IAAI,aAAa;AACf,cAAY,MAAc;AAAA;AAAA,IAExB;AAAA,EACF;AACF;AAEA,SAAS,gBAAgB;AACvB,QAAM,OAAO,cAAc;AAC3B,UAAQ,IAAI,IAAI;AAChB,SAAuB,4CAAI,MAAM,EAAE,UAAU,OAAO,CAAC;AACvD;",
-  "names": []
-}
