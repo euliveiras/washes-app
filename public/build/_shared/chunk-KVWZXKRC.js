@@ -23218,6 +23218,7 @@ ModalCloseButton.displayName = "ModalCloseButton";
 
 export {
   extendTheme,
+  Icon,
   ChakraProvider2 as ChakraProvider,
   Avatar,
   Button,
@@ -23262,4 +23263,4 @@ object-assign/index.js:
   @license MIT
   *)
 */
-//# sourceMappingURL=http://localhost:3001/build/_shared/chunk-H7L7MQMR.js.map
+//# sourceMappingURL=http://localhost:3001/build/_shared/chunk-KVWZXKRC.js.map

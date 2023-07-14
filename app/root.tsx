@@ -15,6 +15,7 @@ import {
 import type { LinksFunction, V2_MetaFunction } from '@remix-run/node' // Depends on the runtime you choose
 
 import { ServerStyleContext, ClientStyleContext } from './context'
+import {Header} from './components/header'
 
 export const meta: V2_MetaFunction = () => {
 	return [{

@@ -3,7 +3,7 @@ import {
 } from "http://localhost:3001/build/_shared/chunk-ANXL52AQ.js";
 import {
   Text
-} from "http://localhost:3001/build/_shared/chunk-H7L7MQMR.js";
+} from "http://localhost:3001/build/_shared/chunk-KVWZXKRC.js";
 import "http://localhost:3001/build/_shared/chunk-DC5KBJVF.js";
 import "http://localhost:3001/build/_shared/chunk-PKOMFC7F.js";
 import {
@@ -37,11 +37,18 @@ if (import.meta) {
     "app/routes/_auth.home.tsx"
   );
 }
+var headers = ({ parentHeaders }) => {
+  const maxAge = parentHeaders.get("Cache-control") ?? `max-age=${60 * 60}`;
+  return {
+    "Cache-Control": maxAge
+  };
+};
 function stdin_default() {
   const data = useLoaderData();
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Text, { children: "home" });
 }
 export {
-  stdin_default as default
+  stdin_default as default,
+  headers
 };
-//# sourceMappingURL=http://localhost:3001/build/routes/_auth.home-R5UEITEX.js.map
+//# sourceMappingURL=http://localhost:3001/build/routes/_auth.home-JTXCJPB6.js.map

@@ -120,12 +120,12 @@ var import_jsx_dev_runtime2 = require("react/jsx-dev-runtime"), meta = () => [{
       /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("head", { children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react8.Meta, {}, void 0, !1, {
           fileName: "app/root.tsx",
-          lineNumber: 64,
+          lineNumber: 65,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react8.Links, {}, void 0, !1, {
           fileName: "app/root.tsx",
-          lineNumber: 65,
+          lineNumber: 66,
           columnNumber: 11
         }, this),
         serverStyleData == null ? void 0 : serverStyleData.map(({ key, ids, css }) => /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(
@@ -138,41 +138,41 @@ var import_jsx_dev_runtime2 = require("react/jsx-dev-runtime"), meta = () => [{
           !1,
           {
             fileName: "app/root.tsx",
-            lineNumber: 67,
+            lineNumber: 68,
             columnNumber: 13
           },
           this
         ))
       ] }, void 0, !0, {
         fileName: "app/root.tsx",
-        lineNumber: 63,
+        lineNumber: 64,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)("body", { children: [
         children,
         /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react8.ScrollRestoration, {}, void 0, !1, {
           fileName: "app/root.tsx",
-          lineNumber: 76,
+          lineNumber: 77,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react8.Scripts, {}, void 0, !1, {
           fileName: "app/root.tsx",
-          lineNumber: 77,
+          lineNumber: 78,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react8.LiveReload, {}, void 0, !1, {
           fileName: "app/root.tsx",
-          lineNumber: 78,
+          lineNumber: 79,
           columnNumber: 11
         }, this)
       ] }, void 0, !0, {
         fileName: "app/root.tsx",
-        lineNumber: 74,
+        lineNumber: 75,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/root.tsx",
-      lineNumber: 62,
+      lineNumber: 63,
       columnNumber: 7
     }, this);
   }
@@ -191,15 +191,15 @@ var import_jsx_dev_runtime2 = require("react/jsx-dev-runtime"), meta = () => [{
 function App() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(Document, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react6.ChakraProvider, { theme, resetCSS: !0, children: /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(import_react8.Outlet, {}, void 0, !1, {
     fileName: "app/root.tsx",
-    lineNumber: 102,
+    lineNumber: 103,
     columnNumber: 9
   }, this) }, void 0, !1, {
     fileName: "app/root.tsx",
-    lineNumber: 101,
+    lineNumber: 102,
     columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/root.tsx",
-    lineNumber: 100,
+    lineNumber: 101,
     columnNumber: 5
   }, this);
 }
@@ -208,6 +208,7 @@ function App() {
 var auth_home_exports = {};
 __export(auth_home_exports, {
   default: () => auth_home_default,
+  headers: () => headers,
   loader: () => loader
 });
 var import_react9 = require("@chakra-ui/react"), import_node2 = require("@remix-run/node"), import_react10 = require("@remix-run/react");
@@ -354,11 +355,20 @@ var PrismaUserRepository = class {
   }
 };
 
+// src/infra/http/mappers/http-mapper.ts
+function toHttp(user) {
+  return {
+    email: user.email,
+    role: user.role,
+    username: user.username
+  };
+}
+
 // src/infra/http/helpers/validate-session-id.ts
 async function validateSessionId({ sessionId }) {
   try {
     let prismaUserRepository = new PrismaUserRepository(), validateSession = new ValidateSession(prismaUserRepository), { user } = await validateSession.execute(sessionId);
-    return { user };
+    return { user: toHttp(user) };
   } catch (err) {
     return err instanceof Error ? { error: err.message } : { error: "something went wrong" };
   }
@@ -384,7 +394,9 @@ var import_node = require("@remix-run/node"), { commitSession, destroySession, g
 });
 
 // app/routes/_auth.home.tsx
-var import_jsx_dev_runtime3 = require("react/jsx-dev-runtime");
+var import_jsx_dev_runtime3 = require("react/jsx-dev-runtime"), headers = ({ parentHeaders }) => ({
+  "Cache-Control": parentHeaders.get("Cache-control") ?? "max-age=3600"
+});
 async function loader({ request }) {
   let session = await getSession(request.headers.get("Cookie")), token = session.get("token");
   if (!token)
@@ -396,13 +408,15 @@ async function loader({ request }) {
         "Set-Cookie": await commitSession(session)
       }
     });
-  return (0, import_node2.json)({ user });
+  return (0, import_node2.json)(
+    { user }
+  );
 }
 function auth_home_default() {
   let data = (0, import_react10.useLoaderData)();
   return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react9.Text, { children: "home" }, void 0, !1, {
     fileName: "app/routes/_auth.home.tsx",
-    lineNumber: 33,
+    lineNumber: 44,
     columnNumber: 10
   }, this);
 }
@@ -877,112 +891,299 @@ async function loader3() {
 var auth_exports = {};
 __export(auth_exports, {
   default: () => auth_default,
+  headers: () => headers2,
   loader: () => loader4
 });
-var import_node6 = require("@remix-run/node"), import_react18 = require("@remix-run/react");
+var import_node6 = require("@remix-run/node"), import_node7 = require("@remix-run/node"), import_react21 = require("@remix-run/react");
 
 // app/components/header.tsx
-var import_react15 = require("@chakra-ui/react"), import_md2 = require("react-icons/md"), import_lu = require("react-icons/lu"), import_react16 = require("@remix-run/react"), import_react17 = require("react"), import_jsx_dev_runtime7 = require("react/jsx-dev-runtime");
-function Header({ label }) {
-  let { isOpen, onOpen, onClose } = (0, import_react15.useDisclosure)(), btnRef = (0, import_react17.useRef)(null);
+var import_react18 = require("@chakra-ui/react"), import_md3 = require("react-icons/md"), import_lu = require("react-icons/lu"), import_react19 = require("@remix-run/react"), import_react20 = require("react");
+
+// app/components/SearchInput.tsx
+var import_react15 = require("@chakra-ui/react"), import_md2 = require("react-icons/md"), import_jsx_dev_runtime7 = require("react/jsx-dev-runtime");
+function SearchInput() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
-    import_react15.Grid,
+    import_react15.InputGroup,
     {
-      outline: "1px solid pink",
+      display: ["none", "none", "block"],
+      role: "group",
+      sx: { "input:focus ~ div": { svg: { color: "blackAlpha.900" } } },
+      maxInlineSize: 96,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
+          import_react15.Input,
+          {
+            placeholder: "Procure qualquer coisa",
+            borderRadius: "full",
+            focusBorderColor: "blackAlpha.900",
+            type: "search",
+            name: "query"
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/components/SearchInput.tsx",
+            lineNumber: 12,
+            columnNumber: 7
+          },
+          this
+        ),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.InputRightElement, { pointerEvents: "none", fontSize: 26, children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
+          import_react15.Icon,
+          {
+            color: "gray.200",
+            as: import_md2.MdOutlineSearch,
+            transitionDuration: "200ms",
+            transitionProperty: "all",
+            _groupHover: { color: "gray.300" }
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/components/SearchInput.tsx",
+            lineNumber: 20,
+            columnNumber: 9
+          },
+          this
+        ) }, void 0, !1, {
+          fileName: "app/components/SearchInput.tsx",
+          lineNumber: 19,
+          columnNumber: 7
+        }, this)
+      ]
+    },
+    void 0,
+    !0,
+    {
+      fileName: "app/components/SearchInput.tsx",
+      lineNumber: 6,
+      columnNumber: 5
+    },
+    this
+  );
+}
+
+// app/components/Drawer.tsx
+var import_react17 = require("@chakra-ui/react");
+
+// app/components/Avatar.tsx
+var import_react16 = require("@chakra-ui/react"), import_jsx_dev_runtime8 = require("react/jsx-dev-runtime");
+function Avatar({
+  containerProps,
+  textProps,
+  avatarProps,
+  user
+}) {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)(
+    import_react16.HStack,
+    {
+      paddingInline: 2,
+      display: ["none", "none", "flex"],
+      ...containerProps,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)(import_react16.Avatar, { size: "md", name: "Natan", ...avatarProps }, void 0, !1, {
+          fileName: "app/components/Avatar.tsx",
+          lineNumber: 24,
+          columnNumber: 7
+        }, this),
+        user && /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)(import_react16.Text, { fontWeight: "bold", ...textProps, children: user.username }, void 0, !1, {
+          fileName: "app/components/Avatar.tsx",
+          lineNumber: 26,
+          columnNumber: 9
+        }, this)
+      ]
+    },
+    void 0,
+    !0,
+    {
+      fileName: "app/components/Avatar.tsx",
+      lineNumber: 19,
+      columnNumber: 5
+    },
+    this
+  );
+}
+
+// app/components/Drawer.tsx
+var import_jsx_dev_runtime9 = require("react/jsx-dev-runtime");
+function Drawer({ isOpen, onClose, finalFocusRef }) {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(
+    import_react17.Drawer,
+    {
+      isOpen,
+      placement: "right",
+      onClose,
+      finalFocusRef,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react17.DrawerOverlay, {}, void 0, !1, {
+          fileName: "app/components/Drawer.tsx",
+          lineNumber: 30,
+          columnNumber: 7
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react17.DrawerContent, { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react17.DrawerCloseButton, { top: 4 }, void 0, !1, {
+            fileName: "app/components/Drawer.tsx",
+            lineNumber: 32,
+            columnNumber: 9
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(
+            import_react17.DrawerHeader,
+            {
+              as: import_react17.HStack,
+              inlineSize: "min-content",
+              paddingBlock: 2,
+              paddingInline: 4,
+              children: /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(
+                Avatar,
+                {
+                  containerProps: {
+                    display: "flex"
+                  }
+                },
+                void 0,
+                !1,
+                {
+                  fileName: "app/components/Drawer.tsx",
+                  lineNumber: 39,
+                  columnNumber: 11
+                },
+                this
+              )
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/components/Drawer.tsx",
+              lineNumber: 33,
+              columnNumber: 9
+            },
+            this
+          ),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react17.DrawerBody, {}, void 0, !1, {
+            fileName: "app/components/Drawer.tsx",
+            lineNumber: 46,
+            columnNumber: 9
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react17.DrawerFooter, { children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react17.Button, { variant: "outline", mr: 3, onClick: onClose, children: "Cancel" }, void 0, !1, {
+              fileName: "app/components/Drawer.tsx",
+              lineNumber: 49,
+              columnNumber: 11
+            }, this),
+            /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react17.Button, { colorScheme: "blue", children: "Save" }, void 0, !1, {
+              fileName: "app/components/Drawer.tsx",
+              lineNumber: 52,
+              columnNumber: 11
+            }, this)
+          ] }, void 0, !0, {
+            fileName: "app/components/Drawer.tsx",
+            lineNumber: 48,
+            columnNumber: 9
+          }, this)
+        ] }, void 0, !0, {
+          fileName: "app/components/Drawer.tsx",
+          lineNumber: 31,
+          columnNumber: 7
+        }, this)
+      ]
+    },
+    void 0,
+    !0,
+    {
+      fileName: "app/components/Drawer.tsx",
+      lineNumber: 24,
+      columnNumber: 5
+    },
+    this
+  );
+}
+
+// app/components/header.tsx
+var import_jsx_dev_runtime10 = require("react/jsx-dev-runtime");
+function Header({ label, user }) {
+  let { isOpen, onOpen, onClose } = (0, import_react18.useDisclosure)(), btnRef = (0, import_react20.useRef)(null);
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
+    import_react18.Grid,
+    {
       maxH: "120px",
       inlineSize: "100%",
       gridAutoFlow: "column",
       gridAutoRows: "min-content",
       paddingInline: 2,
-      paddingBlock: 1,
+      paddingBlock: 4,
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.HStack, { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.HStack, { spacing: 1, children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
-              import_react15.IconButton,
+        /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react18.HStack, { spacing: [6], children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react18.HStack, { spacing: 1, children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
+              import_react18.IconButton,
               {
                 variant: "ghost",
                 "aria-label": "go to home",
                 fontSize: "32px",
                 isRound: !0,
-                icon: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_md2.MdOutlineHome, {}, void 0, !1, {
+                icon: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_md3.MdOutlineHome, {}, void 0, !1, {
                   fileName: "app/components/header.tsx",
-                  lineNumber: 53,
-                  columnNumber: 31
+                  lineNumber: 47,
+                  columnNumber: 19
                 }, this),
-                as: import_react16.Link,
+                as: import_react19.Link,
                 to: "/home"
               },
               void 0,
               !1,
               {
                 fileName: "app/components/header.tsx",
-                lineNumber: 48,
-                columnNumber: 21
+                lineNumber: 42,
+                columnNumber: 11
               },
               this
             ),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.Text, { fontWeight: "bold", fontSize: "md", children: label }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react18.Text, { fontWeight: "bold", fontSize: "md", children: label }, void 0, !1, {
               fileName: "app/components/header.tsx",
-              lineNumber: 57,
-              columnNumber: 21
+              lineNumber: 51,
+              columnNumber: 11
             }, this)
           ] }, void 0, !0, {
             fileName: "app/components/header.tsx",
-            lineNumber: 47,
-            columnNumber: 17
+            lineNumber: 41,
+            columnNumber: 9
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.InputGroup, { display: ["none", "block"], children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.InputRightElement, { fontSize: 26, children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_md2.MdOutlineSearch, {}, void 0, !1, {
-              fileName: "app/components/header.tsx",
-              lineNumber: 63,
-              columnNumber: 25
-            }, this) }, void 0, !1, {
-              fileName: "app/components/header.tsx",
-              lineNumber: 62,
-              columnNumber: 21
-            }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.Input, { type: "search", name: "query" }, void 0, !1, {
-              fileName: "app/components/header.tsx",
-              lineNumber: 65,
-              columnNumber: 21
-            }, this)
-          ] }, void 0, !0, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(SearchInput, {}, void 0, !1, {
             fileName: "app/components/header.tsx",
-            lineNumber: 61,
-            columnNumber: 17
+            lineNumber: 55,
+            columnNumber: 9
           }, this)
         ] }, void 0, !0, {
           fileName: "app/components/header.tsx",
-          lineNumber: 46,
-          columnNumber: 13
+          lineNumber: 40,
+          columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.HStack, { justifySelf: "flex-end", spacing: 0, children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
-            import_react15.IconButton,
+        /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react18.HStack, { justifySelf: "flex-end", spacing: 1, children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
+            import_react18.IconButton,
             {
               variant: "ghost",
               colorScheme: "blackAlpha",
               "aria-label": "open notifications",
               fontSize: "26px",
               isRound: !0,
-              icon: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_md2.MdOutlineNotificationsNone, {}, void 0, !1, {
+              icon: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_md3.MdOutlineNotificationsNone, {}, void 0, !1, {
                 fileName: "app/components/header.tsx",
-                lineNumber: 75,
-                columnNumber: 27
+                lineNumber: 64,
+                columnNumber: 17
               }, this)
             },
             void 0,
             !1,
             {
               fileName: "app/components/header.tsx",
-              lineNumber: 69,
-              columnNumber: 17
+              lineNumber: 58,
+              columnNumber: 9
             },
             this
           ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
-            import_react15.Button,
+          /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
+            import_react18.Button,
             {
               marginInline: 1,
               variant: "solid",
@@ -991,53 +1192,42 @@ function Header({ label }) {
               blockSize: 10,
               inlineSize: [10, "auto"],
               sx: { span: { marginInlineEnd: ["0"] } },
-              leftIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_lu.LuPlus, { size: "1.25em" }, void 0, !1, {
+              leftIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_lu.LuPlus, { size: "1.25em" }, void 0, !1, {
                 fileName: "app/components/header.tsx",
-                lineNumber: 85,
-                columnNumber: 31
-              }, this),
-              children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.Text, { display: ["none", "block"], children: "Nova lavagem" }, void 0, !1, {
-                fileName: "app/components/header.tsx",
-                lineNumber: 86,
+                lineNumber: 74,
                 columnNumber: 21
+              }, this),
+              children: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react18.Text, { display: ["none", "block"], children: "Nova lavagem" }, void 0, !1, {
+                fileName: "app/components/header.tsx",
+                lineNumber: 76,
+                columnNumber: 11
               }, this)
             },
             void 0,
             !1,
             {
               fileName: "app/components/header.tsx",
-              lineNumber: 77,
-              columnNumber: 17
+              lineNumber: 66,
+              columnNumber: 9
             },
             this
           ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.HStack, { display: ["none", "none", "block"], children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.Avatar, { size: "sm", name: "Natan" }, void 0, !1, {
-              fileName: "app/components/header.tsx",
-              lineNumber: 89,
-              columnNumber: 21
-            }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.Text, { children: "Natan" }, void 0, !1, {
-              fileName: "app/components/header.tsx",
-              lineNumber: 90,
-              columnNumber: 21
-            }, this)
-          ] }, void 0, !0, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(Avatar, { user }, void 0, !1, {
             fileName: "app/components/header.tsx",
-            lineNumber: 88,
-            columnNumber: 17
+            lineNumber: 78,
+            columnNumber: 2
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(
-            import_react15.IconButton,
+          /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
+            import_react18.IconButton,
             {
               display: ["flex", "flex", "none"],
               variant: "ghost",
               "aria-label": "open side menu",
               fontSize: "24px",
-              icon: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_md2.MdDensityMedium, {}, void 0, !1, {
+              icon: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_md3.MdDensityMedium, {}, void 0, !1, {
                 fileName: "app/components/header.tsx",
-                lineNumber: 97,
-                columnNumber: 27
+                lineNumber: 84,
+                columnNumber: 17
               }, this),
               onClick: onOpen,
               ref: btnRef
@@ -1046,78 +1236,20 @@ function Header({ label }) {
             !1,
             {
               fileName: "app/components/header.tsx",
-              lineNumber: 92,
-              columnNumber: 17
+              lineNumber: 79,
+              columnNumber: 9
             },
             this
-          )
-        ] }, void 0, !0, {
-          fileName: "app/components/header.tsx",
-          lineNumber: 68,
-          columnNumber: 13
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.Drawer, { isOpen, placement: "right", onClose, finalFocusRef: btnRef, children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.DrawerOverlay, {}, void 0, !1, {
+          ),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(Drawer, { finalFocusRef: btnRef, isOpen, onClose }, void 0, !1, {
             fileName: "app/components/header.tsx",
-            lineNumber: 103,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.DrawerContent, { children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.DrawerCloseButton, { top: 4 }, void 0, !1, {
-              fileName: "app/components/header.tsx",
-              lineNumber: 105,
-              columnNumber: 21
-            }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.DrawerHeader, { as: import_react15.HStack, inlineSize: "min-content", paddingBlock: 2, paddingInline: 4, children: [
-              /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.Avatar, { size: "md", name: "Natan" }, void 0, !1, {
-                fileName: "app/components/header.tsx",
-                lineNumber: 107,
-                columnNumber: 25
-              }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.Text, { children: "Natan" }, void 0, !1, {
-                fileName: "app/components/header.tsx",
-                lineNumber: 108,
-                columnNumber: 25
-              }, this)
-            ] }, void 0, !0, {
-              fileName: "app/components/header.tsx",
-              lineNumber: 106,
-              columnNumber: 21
-            }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.DrawerBody, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.Input, { placeholder: "Type here..." }, void 0, !1, {
-              fileName: "app/components/header.tsx",
-              lineNumber: 112,
-              columnNumber: 25
-            }, this) }, void 0, !1, {
-              fileName: "app/components/header.tsx",
-              lineNumber: 111,
-              columnNumber: 21
-            }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.DrawerFooter, { children: [
-              /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.Button, { variant: "outline", mr: 3, onClick: onClose, children: "Cancel" }, void 0, !1, {
-                fileName: "app/components/header.tsx",
-                lineNumber: 116,
-                columnNumber: 25
-              }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime7.jsxDEV)(import_react15.Button, { colorScheme: "blue", children: "Save" }, void 0, !1, {
-                fileName: "app/components/header.tsx",
-                lineNumber: 119,
-                columnNumber: 25
-              }, this)
-            ] }, void 0, !0, {
-              fileName: "app/components/header.tsx",
-              lineNumber: 115,
-              columnNumber: 21
-            }, this)
-          ] }, void 0, !0, {
-            fileName: "app/components/header.tsx",
-            lineNumber: 104,
-            columnNumber: 17
+            lineNumber: 88,
+            columnNumber: 9
           }, this)
         ] }, void 0, !0, {
           fileName: "app/components/header.tsx",
-          lineNumber: 102,
-          columnNumber: 13
+          lineNumber: 57,
+          columnNumber: 7
         }, this)
       ]
     },
@@ -1125,36 +1257,54 @@ function Header({ label }) {
     !0,
     {
       fileName: "app/components/header.tsx",
-      lineNumber: 38,
-      columnNumber: 9
+      lineNumber: 32,
+      columnNumber: 5
     },
     this
   );
 }
 
 // app/routes/_auth.tsx
-var import_jsx_dev_runtime8 = require("react/jsx-dev-runtime");
+var import_jsx_dev_runtime11 = require("react/jsx-dev-runtime"), headers2 = ({ loaderHeaders }) => ({
+  "Cache-Control": loaderHeaders.get("Cache-control") ?? "max-age=3600"
+});
 async function loader4({ request }) {
-  let url = new URL(request.url);
-  return (0, import_node6.json)({ path: url.pathname });
+  let session = await getSession(request.headers.get("Cookie")), url = new URL(request.url), token = session.get("token");
+  if (!token)
+    throw (0, import_node6.redirect)("/sign-in");
+  let { error, user } = await validateSessionId({ sessionId: token });
+  if (error || !user)
+    throw session.unset("token"), (0, import_node6.redirect)("/sign-in", {
+      headers: {
+        "Set-Cookie": await commitSession(session)
+      }
+    });
+  return (0, import_node7.json)(
+    { path: url.pathname, user },
+    {
+      headers: {
+        "Cache-Control": `max-age=${60 * 60}`
+      }
+    }
+  );
 }
 function auth_default() {
-  let { path } = (0, import_react18.useLoaderData)();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)(import_jsx_dev_runtime8.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)(Header, { label: path ?? "/" }, void 0, !1, {
+  let { path, user } = (0, import_react21.useLoaderData)();
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_jsx_dev_runtime11.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(Header, { label: path ?? "/", user }, void 0, !1, {
       fileName: "app/routes/_auth.tsx",
-      lineNumber: 15,
-      columnNumber: 13
+      lineNumber: 52,
+      columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime8.jsxDEV)(import_react18.Outlet, {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime11.jsxDEV)(import_react21.Outlet, {}, void 0, !1, {
       fileName: "app/routes/_auth.tsx",
-      lineNumber: 16,
-      columnNumber: 13
+      lineNumber: 53,
+      columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/_auth.tsx",
-    lineNumber: 14,
-    columnNumber: 9
+    lineNumber: 51,
+    columnNumber: 5
   }, this);
 }
 
@@ -1163,10 +1313,10 @@ var __exports = {};
 __export(__exports, {
   default: () => __default
 });
-var import_react19 = require("@chakra-ui/react"), import_react_router_dom = require("react-router-dom"), import_jsx_dev_runtime9 = require("react/jsx-dev-runtime");
+var import_react22 = require("@chakra-ui/react"), import_react_router_dom = require("react-router-dom"), import_jsx_dev_runtime12 = require("react/jsx-dev-runtime");
 function __default() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(
-    import_react19.Grid,
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(
+    import_react22.Grid,
     {
       placeContent: "center",
       placeItems: "center",
@@ -1174,19 +1324,19 @@ function __default() {
       inlineSize: "100%",
       gap: 4,
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react19.Text, { fontSize: "lg", children: "Essa p\xE1gina n\xE3o existe :(" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react22.Text, { fontSize: "lg", children: "Essa p\xE1gina n\xE3o existe :(" }, void 0, !1, {
           fileName: "app/routes/$.tsx",
           lineNumber: 13,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react19.HStack, { spacing: 1, children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react19.Text, { fontSize: "lg", children: "Go back" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react22.HStack, { spacing: 1, children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react22.Text, { fontSize: "lg", children: "Go back" }, void 0, !1, {
             fileName: "app/routes/$.tsx",
             lineNumber: 15,
             columnNumber: 9
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react19.Link, { as: import_react_router_dom.Link, to: "/home", children: /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(
-            import_react19.Box,
+          /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react22.Link, { as: import_react_router_dom.Link, to: "/home", children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(
+            import_react22.Box,
             {
               position: "relative",
               zIndex: 1,
@@ -1201,7 +1351,7 @@ function __default() {
                 transform: "rotate(-2deg)",
                 bgColor: "#D6BCFA"
               },
-              children: /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react19.Text, { fontSize: "lg", children: "/ home" }, void 0, !1, {
+              children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react22.Text, { fontSize: "lg", children: "/ home" }, void 0, !1, {
                 fileName: "app/routes/$.tsx",
                 lineNumber: 32,
                 columnNumber: 13
@@ -1239,25 +1389,7 @@ function __default() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { version: "9eb09e82", entry: { module: "http://localhost:3001/build/entry.client-KGO76GHK.js", imports: ["http://localhost:3001/build/_shared/chunk-EYPFEEA2.js", "http://localhost:3001/build/_shared/chunk-ANXL52AQ.js", "http://localhost:3001/build/_shared/chunk-DC5KBJVF.js", "http://localhost:3001/build/_shared/chunk-PKOMFC7F.js", "http://localhost:3001/build/_shared/chunk-OKS54H4S.js", "http://localhost:3001/build/_shared/chunk-6SJDMTBK.js", "http://localhost:3001/build/_shared/chunk-3YOGVSK4.js", "http://localhost:3001/build/_shared/chunk-KFR6H6JJ.js", "http://localhost:3001/build/_shared/chunk-I54TBTTL.js", "http://localhost:3001/build/_shared/chunk-CT6324V4.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/root-D7LICQI4.js", imports: ["http://localhost:3001/build/_shared/chunk-H7L7MQMR.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/$-67T54LCW.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/_auth-VWTLETQA.js", imports: ["http://localhost:3001/build/_shared/chunk-QGLAYPUA.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/_auth.home-R5UEITEX.js", imports: ["http://localhost:3001/build/_shared/chunk-H7L7MQMR.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/_index-M23M7LSB.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/sign-in-DWG3SLOI.js", imports: ["http://localhost:3001/build/_shared/chunk-QGLAYPUA.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/sign-up-TS5WHRTR.js", imports: void 0, hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: { runtime: "http://localhost:3001/build/_shared/chunk-KFR6H6JJ.js", routes: { "app/routes/sign-in.tsx": { loaderHash: `export async function loader({
-  request
-}: LoaderArgs) {
-  const session = await getSession(request.headers.get("Cookie"));
-  const token = session.get("token");
-  if (!token) {
-    // Redirect to the home page if they are already signed in.
-    return json({});
-  }
-  const {
-    user
-  } = await validateSessionId({
-    sessionId: token
-  });
-  if (user) {
-    return redirect("/home");
-  }
-  return json({});
-}` }, "app/routes/_auth.home.tsx": { loaderHash: `export async function loader({
+var assets_manifest_default = { version: "9dfb089b", entry: { module: "http://localhost:3001/build/entry.client-KGO76GHK.js", imports: ["http://localhost:3001/build/_shared/chunk-EYPFEEA2.js", "http://localhost:3001/build/_shared/chunk-ANXL52AQ.js", "http://localhost:3001/build/_shared/chunk-DC5KBJVF.js", "http://localhost:3001/build/_shared/chunk-PKOMFC7F.js", "http://localhost:3001/build/_shared/chunk-OKS54H4S.js", "http://localhost:3001/build/_shared/chunk-6SJDMTBK.js", "http://localhost:3001/build/_shared/chunk-3YOGVSK4.js", "http://localhost:3001/build/_shared/chunk-KFR6H6JJ.js", "http://localhost:3001/build/_shared/chunk-I54TBTTL.js", "http://localhost:3001/build/_shared/chunk-CT6324V4.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/root-5HHXVBZ7.js", imports: ["http://localhost:3001/build/_shared/chunk-KVWZXKRC.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/$-TR4MX2SL.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/_auth-TLT7DRD2.js", imports: ["http://localhost:3001/build/_shared/chunk-QGLAYPUA.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/_auth.home-JTXCJPB6.js", imports: ["http://localhost:3001/build/_shared/chunk-KVWZXKRC.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/_index-M23M7LSB.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/sign-in-QCBQXKKN.js", imports: ["http://localhost:3001/build/_shared/chunk-QGLAYPUA.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/sign-up-TS5WHRTR.js", imports: void 0, hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: { runtime: "http://localhost:3001/build/_shared/chunk-KFR6H6JJ.js", routes: { "app/routes/_auth.home.tsx": { loaderHash: `export async function loader({
   request
 }: LoaderArgs) {
   const session = await getSession(request.headers.get("Cookie"));
@@ -1282,16 +1414,58 @@ var assets_manifest_default = { version: "9eb09e82", entry: { module: "http://lo
   return json({
     user
   });
-}` }, "app/routes/_index.tsx": { loaderHash: `export async function loader() {
-  return redirect("/home");
+}` }, "app/routes/sign-in.tsx": { loaderHash: `export async function loader({
+  request
+}: LoaderArgs) {
+  const session = await getSession(request.headers.get("Cookie"));
+  const token = session.get("token");
+  if (!token) {
+    // Redirect to the home page if they are already signed in.
+    return json({});
+  }
+  const {
+    user
+  } = await validateSessionId({
+    sessionId: token
+  });
+  if (user) {
+    return redirect("/home");
+  }
+  return json({});
 }` }, "app/routes/_auth.tsx": { loaderHash: `export async function loader({
   request
 }: LoaderArgs) {
+  const session = await getSession(request.headers.get("Cookie"));
   const url = new URL(request.url);
-  return json({
-    path: url.pathname
+  const token = session.get("token");
+  if (!token) {
+    throw redirect("/sign-in");
+  }
+  const {
+    error,
+    user
+  } = await validateSessionId({
+    sessionId: token
   });
-}` } }, timestamp: 1689220561130 }, url: "http://localhost:3001/build/manifest-9EB09E82.js" };
+  if (error || !user) {
+    session.unset("token");
+    throw redirect("/sign-in", {
+      headers: {
+        "Set-Cookie": await commitSession(session)
+      }
+    });
+  }
+  return json({
+    path: url.pathname,
+    user
+  }, {
+    headers: {
+      "Cache-Control": \`max-age=\${60 * 60}\`
+    }
+  });
+}` }, "app/routes/_index.tsx": { loaderHash: `export async function loader() {
+  return redirect("/home");
+}` } }, timestamp: 1689301432397 }, url: "http://localhost:3001/build/manifest-9DFB089B.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { unstable_dev: !0, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "http://localhost:3001/build/", entry = { module: entry_server_exports }, dev = { websocketPort: 3002 }, routes = {

@@ -12,7 +12,7 @@ import {
 import {
   ChakraProvider,
   extendTheme
-} from "http://localhost:3001/build/_shared/chunk-H7L7MQMR.js";
+} from "http://localhost:3001/build/_shared/chunk-KVWZXKRC.js";
 import {
   withEmotionCache
 } from "http://localhost:3001/build/_shared/chunk-DC5KBJVF.js";
@@ -154,4 +154,4 @@ export {
   links,
   meta
 };
-//# sourceMappingURL=http://localhost:3001/build/root-D7LICQI4.js.map
+//# sourceMappingURL=http://localhost:3001/build/root-5HHXVBZ7.js.map
