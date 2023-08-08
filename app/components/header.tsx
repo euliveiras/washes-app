@@ -1,5 +1,6 @@
 import {
   Button,
+  Divider,
   Grid,
   HStack,
   IconButton,
@@ -17,6 +18,7 @@ import { useRef } from "react";
 import { SearchInput } from "./SearchInput";
 import { Drawer } from "./Drawer";
 import { Avatar } from "./Avatar";
+import { useNewWashModal } from "./NewWashModal";
 
 type HeaderProps = {
   label: string;
@@ -26,6 +28,13 @@ type HeaderProps = {
 };
 export function Header({ label, user }: HeaderProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isNewWashModalOpen,
+    NewWashModal,
+    onNewWashModalClose,
+    newWashModalRef,
+    onNewWashModalOpen,
+  } = useNewWashModal();
   const btnRef = useRef<HTMLButtonElement>(null);
 
   return (
@@ -55,14 +64,6 @@ export function Header({ label, user }: HeaderProps) {
         <SearchInput />
       </HStack>
       <HStack justifySelf={"flex-end"} spacing={1}>
-        <IconButton
-          variant="ghost"
-          colorScheme="blackAlpha"
-          aria-label="open notifications"
-          fontSize="26px"
-          isRound
-          icon={<MdOutlineNotificationsNone />}
-        />
         <Button
           marginInline={1}
           variant={"solid"}
@@ -72,10 +73,21 @@ export function Header({ label, user }: HeaderProps) {
           inlineSize={[10, "auto"]}
           sx={{ span: { marginInlineEnd: ["0"] } }}
           leftIcon={<LuPlus size={"1.25em"} />}
+          onClick={onNewWashModalOpen}
+          ref={newWashModalRef}
         >
           <Text display={["none", "block"]}>Nova lavagem</Text>
         </Button>
-	<Avatar user={user} />
+        <IconButton
+          variant="ghost"
+          colorScheme="blackAlpha"
+          aria-label="open notifications"
+          fontSize="26px"
+          isRound
+          icon={<MdOutlineNotificationsNone />}
+        />
+        <Divider borderLeftWidth={2} orientation="vertical" />
+        <Avatar user={user} />
         <IconButton
           display={["flex", "flex", "none"]}
           variant="ghost"
@@ -85,7 +97,17 @@ export function Header({ label, user }: HeaderProps) {
           onClick={onOpen}
           ref={btnRef}
         />
-        <Drawer finalFocusRef={btnRef} isOpen={isOpen} onClose={onClose} />
+        <Drawer
+          finalFocusRef={btnRef}
+          isOpen={isOpen}
+          onClose={onClose}
+          user={user}
+        />
+        <NewWashModal
+          finalFocusRef={newWashModalRef}
+          isOpen={isNewWashModalOpen}
+          onClose={onNewWashModalClose}
+        />
       </HStack>
     </Grid>
   );

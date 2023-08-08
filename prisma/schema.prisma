@@ -16,10 +16,11 @@ model User {
   username     String
   password     String         @unique
   email        String         @unique
-  sessionId    String?         @unique
+  sessionId    String?        @unique
   role         String
   createdAt    String
   Notification Notification[]
+  Wash         Wash[]
 }
 
 model Vehicle {
@@ -48,8 +49,8 @@ model WashCycle {
   vehicle         Vehicle @relation(fields: [vehicleId], references: [id])
   startDate       String
   endDate         String
-  washesId        Json
-  completedWashes Json
+  washesId        String
+  completedWashes String
   Wash            Wash[]
 
   @@index([vehicleId])
@@ -62,7 +63,12 @@ model Wash {
   scheduleDate String
   washCycle    WashCycle @relation(fields: [cycleId], references: [id])
   cycleId      String
+  isCompleted  Boolean   @default(false)
+  createdBy    String
+  user         User      @relation(fields: [createdBy], references: [id])
+  note         String
 
   @@index([vehicleId])
   @@index([cycleId])
+  @@index([createdBy])
 }

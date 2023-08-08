@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["browser-route-module:routes/washes-search/route.ts"],
+  "sourcesContent": ["import * as __hmr__ from \"remix:hmr\";\nif (import.meta) {\n  import.meta.hot = __hmr__.createHotContext(\n    //@ts-expect-error\n    \"app/routes/washes-search/route.ts\"\n  );\n}\n"],
+  "mappings": ";;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AACA,IAAI,aAAa;AACf,cAAY,MAAc;AAAA;AAAA,IAExB;AAAA,EACF;AACF;",
+  "names": []
+}

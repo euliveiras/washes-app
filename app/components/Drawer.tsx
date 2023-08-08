@@ -17,9 +17,12 @@ type DrawerProps = {
   isOpen: boolean;
   onClose(): void;
   finalFocusRef: RefObject<HTMLElement>;
+  user: {
+    username: string;
+  };
 };
 
-export function Drawer({ isOpen, onClose, finalFocusRef }: DrawerProps) {
+export function Drawer({ isOpen, onClose, finalFocusRef, user }: DrawerProps) {
   return (
     <ChakraDrawer
       isOpen={isOpen}
@@ -40,6 +43,7 @@ export function Drawer({ isOpen, onClose, finalFocusRef }: DrawerProps) {
             containerProps={{
               display: "flex",
             }}
+            user={user}
           />
         </DrawerHeader>
 

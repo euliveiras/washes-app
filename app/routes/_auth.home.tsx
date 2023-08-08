@@ -19,6 +19,7 @@ export async function loader({ request }: LoaderArgs) {
 
   const token = session.get("token");
 
+console.log("home loader")
   if (!token) {
     throw redirect("/sign-in");
   }
