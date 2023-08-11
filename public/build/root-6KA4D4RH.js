@@ -5,11 +5,12 @@ import {
 import {
   ChakraProvider,
   extendTheme
-} from "http://localhost:3001/build/_shared/chunk-DLDEEFXR.js";
+} from "http://localhost:3001/build/_shared/chunk-XR6MOOZN.js";
 import {
   withEmotionCache
 } from "http://localhost:3001/build/_shared/chunk-DC5KBJVF.js";
 import "http://localhost:3001/build/_shared/chunk-PKOMFC7F.js";
+import "http://localhost:3001/build/_shared/chunk-IJA4GF5B.js";
 import {
   Links,
   LiveReload,
@@ -154,4 +155,4 @@ export {
   links,
   meta
 };
-//# sourceMappingURL=http://localhost:3001/build/root-6QS4OETA.js.map
+//# sourceMappingURL=http://localhost:3001/build/root-6KA4D4RH.js.map

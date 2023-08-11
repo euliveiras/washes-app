@@ -3,12 +3,12 @@ import { json } from "react-router";
 
 const vehicles = [
   {
-    licensePlate: "12KJS0",
+    licensePlate: "HUHDWQE",
     type: "Leve",
   },
 
   {
-    licensePlate: "KYHAS0",
+    licensePlate: "LAPW123",
     type: "Leve",
   },
   {

@@ -2,6 +2,6 @@
   "version": 3,
   "sources": ["browser-route-module:routes/_auth.home.tsx"],
   "sourcesContent": ["import { jsx } from \"react/jsx-runtime\";\nimport * as __hmr__ from \"remix:hmr\";\nif (import.meta) {\n  import.meta.hot = __hmr__.createHotContext(\n    //@ts-expect-error\n    \"app/routes/_auth.home.tsx\"\n  );\n}\nimport { Text } from \"@chakra-ui/react\";\nimport { useLoaderData } from \"@remix-run/react\";\nconst headers = ({ parentHeaders }) => {\n  const maxAge = parentHeaders.get(\"Cache-control\") ?? `max-age=${60 * 60}`;\n  return {\n    \"Cache-Control\": maxAge\n  };\n};\nfunction stdin_default() {\n  const data = useLoaderData();\n  return /* @__PURE__ */ jsx(Text, { children: \"home\" });\n}\nexport {\n  stdin_default as default,\n  headers\n};\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,yBAAoB;AAEpB,IAAI,aAAa;AACf,cAAY,MAAc;AAAA;AAAA,IAExB;AAAA,EACF;AACF;AAGA,IAAM,UAAU,CAAC,EAAE,cAAc,MAAM;AACrC,QAAM,SAAS,cAAc,IAAI,eAAe,KAAK,WAAW,KAAK;AACrE,SAAO;AAAA,IACL,iBAAiB;AAAA,EACnB;AACF;AACA,SAAS,gBAAgB;AACvB,QAAM,OAAO,cAAc;AAC3B,SAAuB,4CAAI,MAAM,EAAE,UAAU,OAAO,CAAC;AACvD;",
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,yBAAoB;AAEpB,IAAI,aAAa;AACf,cAAY,MAAc;AAAA;AAAA,IAExB;AAAA,EACF;AACF;AAGA,IAAM,UAAU,CAAC,EAAE,cAAc,MAAM;AACrC,QAAM,SAAS,cAAc,IAAI,eAAe,KAAK,WAAW,KAAK;AACrE,SAAO;AAAA,IACL,iBAAiB;AAAA,EACnB;AACF;AACA,SAAS,gBAAgB;AACvB,QAAM,OAAO,cAAc;AAC3B,SAAuB,4CAAI,MAAM,EAAE,UAAU,OAAO,CAAC;AACvD;",
   "names": []
 }

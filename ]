@@ -147,7 +147,6 @@ export function VehicleContent() {
         gap={4}
         gridAutoFlow={["row", "row", "column"]}
         placeItems={["center", "center", "start"]}
-placeContent={["center", "center", "space-between"]}
       >
         <Flex
           flexDir={["column"]}
@@ -187,7 +186,7 @@ placeContent={["center", "center", "space-between"]}
                 <Text
                   inlineSize={"fit-content"}
                   marginInline="auto"
-                  marginBlock={4}
+                  marginBlockEnd={4}
                   fontSize={"sm"}
                   color="gray.400"
                 >
@@ -254,11 +253,14 @@ placeContent={["center", "center", "space-between"]}
         <Grid gridAutoRows={"min-content"} placeContent="center" gap={4}>
           <createVehicleFetcher.Form onChange={onNewVehicleFormChange}>
             <FormControl
-              as={Flex}
+              as={Grid}
               blockSize="min-content"
+              gridTemplateColumns={"auto 1fr"}
+              gridTemplateRows={"min-content"}
+              gridAutoFlow="column"
+              placeItems={"center"}
               gap={4}
               paddingBlockStart={[0, 0, 1]}
-align="center"
             >
               <FormLabel margin={0} htmlFor="vehicle_create">
                 Adicionar novo veículo?

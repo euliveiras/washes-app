@@ -126,11 +126,16 @@ export function Modal({ isOpen, onClose, finalFocusRef }: ModalProps) {
             <Box marginInline={[0, 0, 4]}>
               {steps[activeStep].label === "vehicle" && (
                 <VehicleContent
+                  vehicleData={vehicleData}
                   setVehicleFn={setVehicle}
                   setVehicleErrors={setVehicleErrors}
                 />
               )}
-              {steps[activeStep].label === "washes" && <WashesContent />}
+              {steps[activeStep].label === "washes" && (
+                <WashesContent
+                  licensePlate={vehicleData.licensePlate ?? undefined}
+                />
+              )}
             </Box>
           </ModalBody>
 

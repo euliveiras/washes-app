@@ -22,4 +22,4 @@ if (import.meta) {
     "app/routes/vehicle-search/route.ts"
   );
 }
-//# sourceMappingURL=http://localhost:3001/build/routes/vehicle-search-QWXIDT3P.js.map
+//# sourceMappingURL=http://localhost:3001/build/routes/vehicle-search-6CUZ7OJ2.js.map

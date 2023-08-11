@@ -65,6 +65,7 @@ export function Header({ label, user }: HeaderProps) {
       </HStack>
       <HStack justifySelf={"flex-end"} spacing={1}>
         <Button
+          as={Link}
           marginInline={1}
           variant={"solid"}
           colorScheme="blue"
@@ -73,8 +74,9 @@ export function Header({ label, user }: HeaderProps) {
           inlineSize={[10, "auto"]}
           sx={{ span: { marginInlineEnd: ["0"] } }}
           leftIcon={<LuPlus size={"1.25em"} />}
-          onClick={onNewWashModalOpen}
-          ref={newWashModalRef}
+          // onClick={onNewWashModalOpen}
+          to="/new-wash"
+          // ref={newWashModalRef}
         >
           <Text display={["none", "block"]}>Nova lavagem</Text>
         </Button>

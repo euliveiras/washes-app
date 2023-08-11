@@ -1,11 +1,7 @@
 import {
   GenIcon,
   MdCheck,
-  MdDensityMedium,
   MdDirectionsCarFilled,
-  MdOutlineHome,
-  MdOutlineNotificationsNone,
-  MdOutlineSearch,
   MdPerson2,
   MdWaterDrop
 } from "http://localhost:3001/build/_shared/chunk-DXSXC535.js";
@@ -13,34 +9,14 @@ import {
   AbsoluteCenter,
   Alert,
   AlertIcon,
-  Avatar,
   Box,
-  Button,
   Checkbox,
   Divider,
-  Drawer,
-  DrawerContent,
   Flex,
   FormControl,
   FormLabel,
   Grid,
-  HStack,
-  Icon,
-  IconButton,
   Input,
-  InputGroup,
-  InputRightElement,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   Select,
   Step,
   StepIcon,
@@ -50,20 +26,15 @@ import {
   StepTitle,
   Stepper,
   Text,
-  useDisclosure,
   useSteps
-} from "http://localhost:3001/build/_shared/chunk-DLDEEFXR.js";
-import "http://localhost:3001/build/_shared/chunk-DC5KBJVF.js";
-import "http://localhost:3001/build/_shared/chunk-PKOMFC7F.js";
+} from "http://localhost:3001/build/_shared/chunk-XR6MOOZN.js";
 import {
-  Link,
-  useFetcher as useFetcher2,
-  useLoaderData
+  useFetcher as useFetcher2
 } from "http://localhost:3001/build/_shared/chunk-ANXL52AQ.js";
 import {
-  Outlet,
   init_dist2 as init_dist,
-  useFetcher
+  useFetcher,
+  useSearchParams
 } from "http://localhost:3001/build/_shared/chunk-6SJDMTBK.js";
 import {
   require_jsx_runtime
@@ -74,7 +45,6 @@ import {
 import {
   createHotContext
 } from "http://localhost:3001/build/_shared/chunk-KFR6H6JJ.js";
-import "http://localhost:3001/build/_shared/chunk-I54TBTTL.js";
 import {
   __toESM,
   init_buffer,
@@ -83,265 +53,6 @@ import {
   init_global,
   init_process
 } from "http://localhost:3001/build/_shared/chunk-CT6324V4.js";
-
-// browser-route-module:routes/_auth.tsx
-init_global();
-init_dirname();
-init_filename();
-init_buffer();
-init_process();
-var import_jsx_runtime10 = __toESM(require_jsx_runtime());
-
-// app/components/header.tsx
-init_global();
-init_dirname();
-init_filename();
-init_buffer();
-init_process();
-var import_jsx_runtime9 = __toESM(require_jsx_runtime());
-
-// node_modules/react-icons/lu/index.esm.js
-init_global();
-init_dirname();
-init_filename();
-init_buffer();
-init_process();
-function LuPlus(props) {
-  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24", "fill": "none", "stroke": "currentColor", "strokeWidth": "2", "strokeLinecap": "round", "strokeLinejoin": "round" }, "child": [{ "tag": "line", "attr": { "x1": "12", "x2": "12", "y1": "5", "y2": "19" } }, { "tag": "line", "attr": { "x1": "5", "x2": "19", "y1": "12", "y2": "12" } }] })(props);
-}
-
-// app/components/header.tsx
-var import_react19 = __toESM(require_react());
-
-// app/components/SearchInput.tsx
-init_global();
-init_dirname();
-init_filename();
-init_buffer();
-init_process();
-var import_jsx_runtime = __toESM(require_jsx_runtime());
-if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
-  console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
-} else {
-  prevRefreshReg = window.$RefreshReg$;
-  prevRefreshSig = window.$RefreshSig$;
-  window.$RefreshReg$ = (type, id) => {
-    window.$RefreshRuntime$.register(type, '"app/components/SearchInput.tsx"' + id);
-  };
-  window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
-}
-var prevRefreshReg;
-var prevRefreshSig;
-if (import.meta) {
-  import.meta.hot = createHotContext(
-    //@ts-expect-error
-    "app/components/SearchInput.tsx"
-  );
-  import.meta.hot.lastModified = "1689301431545.1545";
-}
-function SearchInput() {
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(InputGroup, {
-    display: ["none", "none", "block"],
-    role: "group",
-    sx: {
-      "input:focus ~ div": {
-        svg: {
-          color: "blackAlpha.900"
-        }
-      }
-    },
-    maxInlineSize: 96,
-    children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-      placeholder: "Procure qualquer coisa",
-      borderRadius: "full",
-      focusBorderColor: "blackAlpha.900",
-      type: "search",
-      name: "query"
-    }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(InputRightElement, {
-      pointerEvents: "none",
-      fontSize: 26,
-      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, {
-        color: "gray.200",
-        as: MdOutlineSearch,
-        transitionDuration: "200ms",
-        transitionProperty: "all",
-        _groupHover: {
-          color: "gray.300"
-        }
-      })
-    })]
-  });
-}
-_c = SearchInput;
-var _c;
-$RefreshReg$(_c, "SearchInput");
-window.$RefreshReg$ = prevRefreshReg;
-window.$RefreshSig$ = prevRefreshSig;
-
-// app/components/Drawer.tsx
-init_global();
-init_dirname();
-init_filename();
-init_buffer();
-init_process();
-var import_jsx_runtime3 = __toESM(require_jsx_runtime());
-
-// app/components/Avatar.tsx
-init_global();
-init_dirname();
-init_filename();
-init_buffer();
-init_process();
-var import_jsx_runtime2 = __toESM(require_jsx_runtime());
-
-// node_modules/react-icons/rx/index.esm.js
-init_global();
-init_dirname();
-init_filename();
-init_buffer();
-init_process();
-function RxChevronDown(props) {
-  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 15 15", "fill": "none" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z", "fill": "currentColor" } }] })(props);
-}
-
-// app/components/Avatar.tsx
-if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
-  console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
-} else {
-  prevRefreshReg = window.$RefreshReg$;
-  prevRefreshSig = window.$RefreshSig$;
-  window.$RefreshReg$ = (type, id) => {
-    window.$RefreshRuntime$.register(type, '"app/components/Avatar.tsx"' + id);
-  };
-  window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
-}
-var prevRefreshReg;
-var prevRefreshSig;
-if (import.meta) {
-  import.meta.hot = createHotContext(
-    //@ts-expect-error
-    "app/components/Avatar.tsx"
-  );
-  import.meta.hot.lastModified = "1689458964709.8198";
-}
-function Avatar2({
-  containerProps,
-  avatarProps,
-  user
-}) {
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(HStack, {
-    paddingInline: 2,
-    display: ["none", "none", "flex"],
-    ...containerProps,
-    children: [user && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(Menu, {
-      children: [/* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MenuButton, {
-        as: Button,
-        variant: "ghost",
-        rightIcon: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(RxChevronDown, {}),
-        children: user.username
-      }), /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(MenuList, {
-        children: [/* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MenuItem, {
-          children: "Configura\xE7\xF5es"
-        }), /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MenuItem, {
-          as: Text,
-          color: "red.400",
-          children: "Sair"
-        })]
-      })]
-    }), /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Avatar, {
-      size: "md",
-      name: "Natan",
-      ...avatarProps
-    })]
-  });
-}
-_c2 = Avatar2;
-var _c2;
-$RefreshReg$(_c2, "Avatar");
-window.$RefreshReg$ = prevRefreshReg;
-window.$RefreshSig$ = prevRefreshSig;
-
-// app/components/Drawer.tsx
-if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
-  console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
-} else {
-  prevRefreshReg = window.$RefreshReg$;
-  prevRefreshSig = window.$RefreshSig$;
-  window.$RefreshReg$ = (type, id) => {
-    window.$RefreshRuntime$.register(type, '"app/components/Drawer.tsx"' + id);
-  };
-  window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
-}
-var prevRefreshReg;
-var prevRefreshSig;
-if (import.meta) {
-  import.meta.hot = createHotContext(
-    //@ts-expect-error
-    "app/components/Drawer.tsx"
-  );
-  import.meta.hot.lastModified = "1689458931621.039";
-}
-function Drawer2({
-  isOpen,
-  onClose,
-  finalFocusRef,
-  user
-}) {
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(Drawer, {
-    isOpen,
-    placement: "right",
-    onClose,
-    finalFocusRef,
-    children: [/* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ModalOverlay, {}), /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(DrawerContent, {
-      children: [/* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ModalCloseButton, {
-        top: 4
-      }), /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ModalHeader, {
-        as: HStack,
-        inlineSize: "min-content",
-        paddingBlock: 2,
-        paddingInline: 4,
-        children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Avatar2, {
-          containerProps: {
-            display: "flex"
-          },
-          user
-        })
-      }), /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(ModalBody, {}), /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(ModalFooter, {
-        children: [/* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Button, {
-          variant: "outline",
-          mr: 3,
-          onClick: onClose,
-          children: "Cancel"
-        }), /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Button, {
-          colorScheme: "blue",
-          children: "Save"
-        })]
-      })]
-    })]
-  });
-}
-_c3 = Drawer2;
-var _c3;
-$RefreshReg$(_c3, "Drawer");
-window.$RefreshReg$ = prevRefreshReg;
-window.$RefreshSig$ = prevRefreshSig;
-
-// app/components/NewWashModal/index.ts
-init_global();
-init_dirname();
-init_filename();
-init_buffer();
-init_process();
-var import_react16 = __toESM(require_react());
-
-// app/components/NewWashModal/Modal.tsx
-init_global();
-init_dirname();
-init_filename();
-init_buffer();
-init_process();
-var import_jsx_runtime8 = __toESM(require_jsx_runtime());
-var import_react14 = __toESM(require_react());
 
 // app/components/NewWashModal/Stepper/index.ts
 init_global();
@@ -366,7 +77,7 @@ init_dirname();
 init_filename();
 init_buffer();
 init_process();
-var import_jsx_runtime4 = __toESM(require_jsx_runtime());
+var import_jsx_runtime = __toESM(require_jsx_runtime());
 if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
   console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
 } else {
@@ -384,40 +95,46 @@ if (import.meta) {
     //@ts-expect-error
     "app/components/NewWashModal/Stepper/Stepper.tsx"
   );
-  import.meta.hot.lastModified = "1691093591277.786";
+  import.meta.hot.lastModified = "1691704591501.3708";
 }
 function Stepper2({
   steps: steps2,
   activeStep
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Stepper, {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Stepper, {
     index: activeStep,
     orientation: "vertical",
     blockSize: "100%",
+    size: "lg",
     children: steps2.map(({
       IconIncomplete,
       IconActive,
       label
-    }, index) => /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(Step, {
-      children: [/* @__PURE__ */ (0, import_jsx_runtime4.jsx)(StepIndicator, {
-        children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(StepStatus, {
-          complete: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(StepIcon, {}),
-          incomplete: IconIncomplete,
-          active: IconActive
+    }, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Step, {
+      children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(StepIndicator, {
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StepStatus, {
+          complete: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StepIcon, {}),
+          incomplete: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(IconIncomplete, {
+            size: 20
+          }),
+          active: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(IconActive, {
+            size: 20
+          })
         })
-      }), /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Box, {
+      }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Box, {
         flexShrink: "0",
+        paddingBlockStart: 1,
         display: ["none", "none", "none", "block"],
-        children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(StepTitle, {
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StepTitle, {
           children: label
         })
-      }), /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(StepSeparator, {})]
+      }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StepSeparator, {})]
     }, index))
   });
 }
-_c4 = Stepper2;
-var _c4;
-$RefreshReg$(_c4, "Stepper");
+_c = Stepper2;
+var _c;
+$RefreshReg$(_c, "Stepper");
 window.$RefreshReg$ = prevRefreshReg;
 window.$RefreshSig$ = prevRefreshSig;
 
@@ -427,7 +144,7 @@ if (import.meta) {
     //@ts-expect-error
     "app/components/NewWashModal/Stepper/index.ts"
   );
-  import.meta.hot.lastModified = "1691185850079.5996";
+  import.meta.hot.lastModified = "1691628455749.3152";
 }
 var steps = [
   {
@@ -445,21 +162,21 @@ var steps = [
     modalTitle: "Cadastrar lavagens"
   },
   {
-    label: "Motorista",
+    label: "driver",
     IconIncomplete: MdPerson2,
     IconActive: MdPerson2,
     isNullable: true,
     modalTitle: "Escolher motorista"
   },
   {
-    label: "Organiza\xE7\xE3o",
+    label: "organization",
     IconIncomplete: GoOrganization,
     IconActive: GoOrganization,
     isNullable: true,
     modalTitle: "Escolher organiza\xE7\xE3o"
   },
   {
-    label: "Finalizar",
+    label: "summary",
     IconIncomplete: MdCheck,
     IconActive: MdCheck,
     isNullable: false,
@@ -487,7 +204,7 @@ init_dirname();
 init_filename();
 init_buffer();
 init_process();
-var import_jsx_runtime6 = __toESM(require_jsx_runtime());
+var import_jsx_runtime2 = __toESM(require_jsx_runtime());
 
 // node_modules/react-hook-form/dist/index.esm.mjs
 init_global();
@@ -495,7 +212,7 @@ init_dirname();
 init_filename();
 init_buffer();
 init_process();
-var import_react6 = __toESM(require_react(), 1);
+var import_react3 = __toESM(require_react(), 1);
 var isCheckBoxInput = (element) => element.type === "checkbox";
 var isDateObject = (value) => value instanceof Date;
 var isNullOrUndefined = (value) => value == null;
@@ -562,7 +279,7 @@ var INPUT_VALIDATION_RULES = {
   required: "required",
   validate: "validate"
 };
-var HookFormContext = import_react6.default.createContext(null);
+var HookFormContext = import_react3.default.createContext(null);
 var getProxyFormState = (formState, control, localProxyFormState, isRoot = true) => {
   const result = {
     defaultValues: control._defaultValues
@@ -589,9 +306,9 @@ var shouldRenderFormState = (formStateData, _proxyFormState, updateFormState, is
 };
 var convertToArrayPayload = (value) => Array.isArray(value) ? value : [value];
 function useSubscribe(props) {
-  const _props = import_react6.default.useRef(props);
+  const _props = import_react3.default.useRef(props);
   _props.current = props;
-  import_react6.default.useEffect(() => {
+  import_react3.default.useEffect(() => {
     const subscription = !props.disabled && _props.current.subject && _props.current.subject.subscribe({
       next: _props.current.next
     });
@@ -1783,9 +1500,9 @@ function createFormControl(props = {}, flushRootRender) {
   };
 }
 function useForm(props = {}) {
-  const _formControl = import_react6.default.useRef();
-  const _values = import_react6.default.useRef();
-  const [formState, updateFormState] = import_react6.default.useState({
+  const _formControl = import_react3.default.useRef();
+  const _values = import_react3.default.useRef();
+  const [formState, updateFormState] = import_react3.default.useState({
     isDirty: false,
     isValidating: false,
     isLoading: isFunction(props.defaultValues),
@@ -1815,7 +1532,7 @@ function useForm(props = {}) {
       }
     }
   });
-  import_react6.default.useEffect(() => {
+  import_react3.default.useEffect(() => {
     if (props.values && !deepEqual(props.values, _values.current)) {
       control._reset(props.values, control._options.resetOptions);
       _values.current = props.values;
@@ -1823,7 +1540,7 @@ function useForm(props = {}) {
       control._resetDefaultValues();
     }
   }, [props.values, control]);
-  import_react6.default.useEffect(() => {
+  import_react3.default.useEffect(() => {
     if (!control._state.mount) {
       control._updateValid();
       control._state.mount = true;
@@ -1845,81 +1562,22 @@ init_filename();
 init_buffer();
 init_process();
 init_dist();
-
-// app/components/SearchEntity/SearchInput.tsx
-init_global();
-init_dirname();
-init_filename();
-init_buffer();
-init_process();
-var import_jsx_runtime5 = __toESM(require_jsx_runtime());
-var import_react8 = __toESM(require_react());
-if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
-  console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
-} else {
-  prevRefreshReg = window.$RefreshReg$;
-  prevRefreshSig = window.$RefreshSig$;
-  window.$RefreshReg$ = (type, id) => {
-    window.$RefreshRuntime$.register(type, '"app/components/SearchEntity/SearchInput.tsx"' + id);
-  };
-  window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
-}
-var prevRefreshReg;
-var prevRefreshSig;
-var _s = $RefreshSig$();
-if (import.meta) {
-  import.meta.hot = createHotContext(
-    //@ts-expect-error
-    "app/components/SearchEntity/SearchInput.tsx"
-  );
-  import.meta.hot.lastModified = "1691168298822.1536";
-}
-function SearchInput2(searchInputProps) {
-  _s();
-  const timeoutId = (0, import_react8.useRef)(null);
-  function onInputQueryChange(e) {
-    if (!e.target.form)
-      return;
-    timeoutId.current && clearTimeout(timeoutId.current);
-    timeoutId.current = setTimeout(() => searchInputProps.onInputQueryChange(e.target.form), 1e3);
-  }
-  return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(FormControl, {
-    children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(InputGroup, {
-      children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(Input, {
-        name: "query",
-        rounded: "full",
-        onChange: onInputQueryChange,
-        ...searchInputProps
-      })
-    })
-  });
-}
-_s(SearchInput2, "5QBhy9IqvyfR8O0G07NTugK3hzU=");
-_c5 = SearchInput2;
-var _c5;
-$RefreshReg$(_c5, "SearchInput");
-window.$RefreshReg$ = prevRefreshReg;
-window.$RefreshSig$ = prevRefreshSig;
-
-// app/components/SearchEntity/index.ts
 if (import.meta) {
   import.meta.hot = createHotContext(
     //@ts-expect-error
     "app/components/SearchEntity/index.ts"
   );
-  import.meta.hot.lastModified = "1691019168282.1218";
+  import.meta.hot.lastModified = "1691618911942.902";
 }
 function useSearchEntity() {
   const fetcher = useFetcher();
-  const useFormProps = useForm();
   return {
-    fetcher,
-    useFormProps
+    fetcher
   };
 }
 
 // app/components/NewWashModal/VehicleContent/index.tsx
-var import_react10 = __toESM(require_react());
+var import_react5 = __toESM(require_react());
 if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
   console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
 } else {
@@ -1932,131 +1590,128 @@ if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
 }
 var prevRefreshReg;
 var prevRefreshSig;
-var _s2 = $RefreshSig$();
+var _s = $RefreshSig$();
 if (import.meta) {
   import.meta.hot = createHotContext(
     //@ts-expect-error
     "app/components/NewWashModal/VehicleContent/index.tsx"
   );
-  import.meta.hot.lastModified = "1691508076404.319";
+  import.meta.hot.lastModified = "1691704479580.6772";
 }
 var selectOptions = ["Extra leve", "Leve", "Vuc", "Toco", "Truck", "Bitruck", "Carreta"];
-function VehicleContent({
-  searchInputProps,
-  setVehicleErrors,
-  setVehicleFn
-}) {
-  _s2();
+function VehicleContent() {
+  var _a, _b, _c3;
+  _s();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const vehicle = JSON.parse((_a = searchParams.get("vehicle")) != null ? _a : "[]");
   const {
     fetcher
   } = useSearchEntity();
+  const timeoutId = (0, import_react5.useRef)(null);
   const {
     watch,
     setValue,
-    register,
-    setError,
-    clearErrors,
     formState: {
       errors
     }
   } = useForm({
     defaultValues: {
-      create: void 0,
-      licensePlate: void 0,
-      type: void 0
+      create: vehicle == null ? void 0 : vehicle.create,
+      licensePlate: vehicle == null ? void 0 : vehicle.licensePlate,
+      type: vehicle == null ? void 0 : vehicle.type,
+      queried: {
+        licensePlate: void 0,
+        type: void 0
+      }
     }
   });
   const createVehicleFetcher = useFetcher2();
   const data = fetcher.data;
-  const timeoutId = (0, import_react10.useRef)(null);
   const isCreateVehicleTrue = watch("create");
-  const licensePlate = watch("licensePlate");
-  const type = watch("type");
-  const plaqueAlreadyExistsMessage = "Essa placa j\xE1 existe";
-  const vehicleIsRequiredMessage = "Placa e tipo do ve\xEDculo s\xE3o obrigat\xF3rios";
+  const newVehicle = {
+    licensePlate: watch("licensePlate"),
+    type: watch("type")
+  };
+  const queried = watch("queried");
   function setVehicleData({
-    licensePlate: licensePlate2,
-    type: type2
+    licensePlate,
+    type,
+    create
   }) {
-    setValue("licensePlate", licensePlate2);
-    setValue("type", type2);
-    setVehicleFn({
-      licensePlate: licensePlate2,
-      type: type2,
-      create: isCreateVehicleTrue
+    setValue("licensePlate", licensePlate);
+    setValue("type", type);
+    setSearchParams((p) => {
+      const vehicle2 = p.get("vehicle");
+      if (!vehicle2) {
+        p.append("vehicle", JSON.stringify({
+          licensePlate,
+          type,
+          create
+        }));
+      } else if (!create && (!licensePlate || !type)) {
+        p.delete("vehicle");
+        return p;
+      } else {
+        const obj = JSON.parse(vehicle2);
+        p.set("vehicle", JSON.stringify({
+          ...obj,
+          licensePlate,
+          type,
+          create
+        }));
+      }
+      return p;
     });
   }
-  function setCreateVehicle(v) {
-    setValue("create", v);
-  }
-  function onCheckboxChange(e) {
-    setVehicleData({
-      licensePlate: null,
-      type: null
-    });
-    setCreateVehicle(e.target.checked);
-    clearErrors("licensePlate");
-    if (!e.target.checked) {
-      createVehicleFetcher.submit({
-        query: ""
-      }, {
-        action: "/vehicle-search",
-        method: "get"
+  function onNewVehicleFormChange(e) {
+    var _a2, _b2, _c4, _d, _e;
+    const form = new FormData(e.target.form);
+    const create = ((_a2 = form.get("create")) == null ? void 0 : _a2.toString()) === "";
+    const licensePlate = (_c4 = (_b2 = form.get("licensePlate")) == null ? void 0 : _b2.toString()) != null ? _c4 : newVehicle == null ? void 0 : newVehicle.licensePlate;
+    const type = (_e = (_d = form.get("type")) == null ? void 0 : _d.toString()) != null ? _e : newVehicle == null ? void 0 : newVehicle.type;
+    if (!create) {
+      setVehicleData({
+        create,
+        licensePlate: queried == null ? void 0 : queried.licensePlate,
+        type: queried == null ? void 0 : queried.type
+      });
+    } else if (create && licensePlate && type) {
+      setVehicleData({
+        create,
+        licensePlate,
+        type
       });
     }
+    setValue("licensePlate", licensePlate);
+    setValue("type", type);
+    setValue("create", create);
   }
-  function onFormChange(e) {
-    var _a;
+  function onQueryFormChange(e) {
+    var _a2, _b2;
     const form = new FormData(e.target.form);
-    const licensePlate2 = (_a = form.get("licensePlate")) == null ? void 0 : _a.toString();
-    const type2 = form.get("type");
+    const query = (_b2 = (_a2 = form.get("query")) == null ? void 0 : _a2.toString()) != null ? _b2 : "";
     timeoutId.current && clearTimeout(timeoutId.current);
-    timeoutId.current = setTimeout(() => {
-      setVehicleData({
-        licensePlate: licensePlate2,
-        type: type2
-      });
-      createVehicleFetcher.submit({
-        query: e.target.value
-      }, {
-        action: "/vehicle-search",
-        method: "get"
-      });
-    }, 1e3);
+    timeoutId.current = setTimeout(() => fetcher.submit({
+      query
+    }, {
+      action: "/vehicle-search",
+      method: "get"
+    }), 1e3);
   }
   function onInputClick(v) {
-    setVehicleErrors(vehicleIsRequiredMessage, "REMOVE");
+    setValue("queried.licensePlate", v.licensePlate);
+    setValue("queried.type", v.type);
     setVehicleData(v);
   }
-  (0, import_react10.useEffect)(() => {
-    var _a;
-    if (((_a = createVehicleFetcher.data) == null ? void 0 : _a.length) > 0) {
-      setError("licensePlate", {
-        type: "custom",
-        message: plaqueAlreadyExistsMessage
-      });
-      setVehicleErrors(plaqueAlreadyExistsMessage, "ADD");
-    } else if (!(createVehicleFetcher == null ? void 0 : createVehicleFetcher.data) || (createVehicleFetcher == null ? void 0 : createVehicleFetcher.data.length) === 0) {
-      clearErrors("licensePlate");
-      setVehicleErrors(plaqueAlreadyExistsMessage, "REMOVE");
-    }
-  }, [setError, createVehicleFetcher.data, clearErrors, setVehicleErrors]);
-  (0, import_react10.useEffect)(() => {
-    const hasAInvalidField = licensePlate === void 0 || licensePlate === "" || licensePlate === null || type === void 0 || type === "" || type === null;
-    if (hasAInvalidField) {
-      setVehicleErrors(vehicleIsRequiredMessage, "ADD");
-    } else {
-      setVehicleErrors(vehicleIsRequiredMessage, "REMOVE");
-    }
-  }, [licensePlate, type, setVehicleErrors]);
-  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_jsx_runtime6.Fragment, {
-    children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(Grid, {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, {
+    children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(Grid, {
       gridAutoRows: "min-content",
       paddingBlockEnd: [8],
       gap: 4,
       gridAutoFlow: ["row", "row", "column"],
       placeItems: ["center", "center", "start"],
-      children: [/* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(Flex, {
+      placeContent: ["center", "center", "space-between"],
+      children: [/* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Flex, {
         flexDir: ["column"],
         position: "relative",
         _after: typeof data !== "undefined" && (data == null ? void 0 : data.length) > 0 ? {
@@ -2071,548 +1726,155 @@ function VehicleContent({
           blockSize: 4
         } : {},
         gap: 4,
-        children: [/* @__PURE__ */ (0, import_jsx_runtime6.jsx)(fetcher.Form, {
-          action: "/vehicle-search",
-          method: "get",
-          children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(SearchInput2, {
-            onInputQueryChange: fetcher.submit,
-            placeholder: "procurar entidade",
-            _placeholder: {
-              textAlign: "center"
-            },
-            maxInlineSize: "280px",
-            marginInline: "auto",
-            isDisabled: isCreateVehicleTrue,
-            ...searchInputProps
-          })
-        }), !isCreateVehicleTrue && data && (data == null ? void 0 : data.length) >= 0 && /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(import_jsx_runtime6.Fragment, {
-          children: [/* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Text, {
-            inlineSize: "fit-content",
-            marginInline: "auto",
-            marginBlockEnd: 4,
-            fontSize: "sm",
-            color: "gray.400",
-            children: (data == null ? void 0 : data.length) === 0 ? "nenhum resultado encontrado :(" : `mostrando ${data == null ? void 0 : data.length} resultados`
-          }), /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Grid, {
-            gap: 4,
-            maxBlockSize: "240px",
-            overflow: "scroll",
-            children: data == null ? void 0 : data.map((v, i) => {
-              return /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(Flex, {
-                inlineSize: "100%",
-                flexDir: "column",
-                gap: 6,
-                children: [/* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(FormControl, {
-                  as: Flex,
-                  flexDir: "column",
-                  alignItems: "center",
-                  children: [/* @__PURE__ */ (0, import_jsx_runtime6.jsx)(FormLabel, {
-                    children: "Placa"
-                  }), /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Input, {
-                    maxInlineSize: "200px",
-                    marginBlockEnd: data.length - 1 === i ? 4 : 0,
-                    type: "button",
-                    defaultValue: v.licensePlate,
-                    borderColor: watch("licensePlate") === v.licensePlate ? "blue.400" : "gray.200",
-                    _hover: {
-                      borderColor: watch("licensePlate") === v.licensePlate ? "blue.400" : "gray.300"
-                    },
-                    focusBorderColor: watch("licensePlate") === v.licensePlate ? "blue.400" : "gray.300",
-                    onClick: () => onInputClick(v)
-                  })]
-                }), data.length - 1 !== i && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Divider, {
-                  alignSelf: "center",
-                  inlineSize: "80%"
-                })]
-              }, `${v.licensePlate} + ${i}`);
+        children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(fetcher.Form, {
+          onChange: onQueryFormChange,
+          children: [/* @__PURE__ */ (0, import_jsx_runtime2.jsx)(FormControl, {
+            children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Input, {
+              name: "query",
+              placeholder: "procurar entidade",
+              _placeholder: {
+                textAlign: "center"
+              },
+              maxInlineSize: "280px",
+              marginInline: "auto",
+              isDisabled: isCreateVehicleTrue,
+              rounded: "full"
             })
+          }), !isCreateVehicleTrue && data && (data == null ? void 0 : data.length) >= 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(import_jsx_runtime2.Fragment, {
+            children: [/* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Text, {
+              inlineSize: "fit-content",
+              marginInline: "auto",
+              marginBlock: 4,
+              fontSize: "sm",
+              color: "gray.400",
+              children: (data == null ? void 0 : data.length) === 0 ? "nenhum resultado encontrado :(" : `mostrando ${data == null ? void 0 : data.length} resultados`
+            }), /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Grid, {
+              gap: 4,
+              maxBlockSize: "240px",
+              overflow: "scroll",
+              children: data == null ? void 0 : data.map((v, i) => {
+                return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(Flex, {
+                  inlineSize: "100%",
+                  flexDir: "column",
+                  gap: 6,
+                  children: [/* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(FormControl, {
+                    as: Flex,
+                    flexDir: "column",
+                    alignItems: "center",
+                    children: [/* @__PURE__ */ (0, import_jsx_runtime2.jsx)(FormLabel, {
+                      children: "Placa"
+                    }), /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Input, {
+                      maxInlineSize: "200px",
+                      marginBlockEnd: data.length - 1 === i ? 4 : 0,
+                      type: "button",
+                      defaultValue: v.licensePlate,
+                      borderColor: (queried == null ? void 0 : queried.licensePlate) === v.licensePlate ? "blue.400" : "gray.200",
+                      _hover: {
+                        borderColor: (queried == null ? void 0 : queried.licensePlate) === v.licensePlate ? "blue.400" : "gray.300"
+                      },
+                      focusBorderColor: (queried == null ? void 0 : queried.licensePlate) === v.licensePlate ? "blue.400" : "gray.300",
+                      onClick: () => onInputClick(v)
+                    })]
+                  }), data.length - 1 !== i && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Divider, {
+                    alignSelf: "center",
+                    inlineSize: "80%"
+                  })]
+                }, `${v.licensePlate} + ${i}`);
+              })
+            })]
           })]
-        })]
-      }), /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(Box, {
+        })
+      }), /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(Box, {
         position: "relative",
         padding: 4,
         inlineSize: "60%",
-        children: [/* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Divider, {}), /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(AbsoluteCenter, {
+        children: [/* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Divider, {}), /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(AbsoluteCenter, {
           bg: "white",
           px: "4",
           children: "ou"
         })]
-      }), /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(Grid, {
+      }), /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Grid, {
         gridAutoRows: "min-content",
         placeContent: "center",
         gap: 4,
-        children: [/* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(FormControl, {
-          as: Grid,
-          blockSize: "min-content",
-          gridTemplateColumns: "auto 1fr",
-          gridTemplateRows: "min-content",
-          gridAutoFlow: "column",
-          placeItems: "center",
-          gap: 4,
-          paddingBlockStart: [0, 0, 1],
-          children: [/* @__PURE__ */ (0, import_jsx_runtime6.jsx)(FormLabel, {
-            margin: 0,
-            htmlFor: "vehicle_create",
-            children: "Adicionar novo ve\xEDculo?"
-          }), /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Checkbox, {
-            id: "vehicle_create",
-            size: "lg",
-            justifySelf: "center",
-            ...register("create"),
-            onChange: onCheckboxChange
-          })]
-        }), isCreateVehicleTrue && /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(createVehicleFetcher.Form, {
-          onChange: onFormChange,
-          children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(Flex, {
+        children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(createVehicleFetcher.Form, {
+          onChange: onNewVehicleFormChange,
+          children: [/* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(FormControl, {
+            as: Flex,
+            blockSize: "min-content",
+            gap: 4,
+            paddingBlockStart: [0, 0, 1],
+            align: "center",
+            children: [/* @__PURE__ */ (0, import_jsx_runtime2.jsx)(FormLabel, {
+              margin: 0,
+              htmlFor: "vehicle_create",
+              children: "Adicionar novo ve\xEDculo?"
+            }), /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Checkbox, {
+              id: "vehicle_create",
+              name: "create",
+              size: "lg",
+              justifySelf: "center",
+              defaultChecked: isCreateVehicleTrue
+            })]
+          }), /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(Flex, {
             flexDir: "column",
             gap: 6,
-            children: [/* @__PURE__ */ (0, import_jsx_runtime6.jsx)(FormControl, {
+            children: [/* @__PURE__ */ (0, import_jsx_runtime2.jsx)(FormControl, {
               as: Grid,
               gridTemplateRows: "min-content",
               gridAutoFlow: ["row", "row", "column"],
               placeItems: "center",
               marginBlockStart: 8,
               gap: 4,
-              children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(Flex, {
+              children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(Flex, {
                 flexDir: "column",
                 gap: 4,
-                children: [/* @__PURE__ */ (0, import_jsx_runtime6.jsx)(FormLabel, {
+                children: [/* @__PURE__ */ (0, import_jsx_runtime2.jsx)(FormLabel, {
                   margin: 0,
                   htmlFor: "vehicle_licensePlate",
                   children: "Ve\xEDculo"
-                }), /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Input, {
+                }), /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Input, {
                   id: "vehicle_licensePlate",
                   name: "licensePlate",
-                  placeholder: "Placa"
-                }), (errors == null ? void 0 : errors.licensePlate) && /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(Alert, {
+                  placeholder: "Placa",
+                  defaultValue: (_b = newVehicle == null ? void 0 : newVehicle.licensePlate) != null ? _b : "",
+                  isDisabled: !isCreateVehicleTrue
+                }), (errors == null ? void 0 : errors.licensePlate) && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(Alert, {
                   status: "error",
                   marginBlock: 4,
-                  children: [/* @__PURE__ */ (0, import_jsx_runtime6.jsx)(AlertIcon, {}), errors.licensePlate.message]
+                  children: [/* @__PURE__ */ (0, import_jsx_runtime2.jsx)(AlertIcon, {}), errors.licensePlate.message]
                 })]
               })
-            }), /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(FormControl, {
-              children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Select, {
+            }), /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(FormControl, {
+              children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Select, {
+                defaultValue: (_c3 = newVehicle == null ? void 0 : newVehicle.type) != null ? _c3 : void 0,
                 id: "type",
                 name: "type",
                 placeholder: "Tipo do ve\xEDculo",
-                children: selectOptions.map((o) => /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("option", {
+                isDisabled: !isCreateVehicleTrue,
+                children: selectOptions.map((o) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("option", {
                   value: o == null ? void 0 : o.toString(),
                   children: o
                 }, o))
               })
             })]
-          })
-        })]
-      })]
-    })
-  });
-}
-_s2(VehicleContent, "GYe1ip9y+KCeCDXArm7+pEkidco=", false, function() {
-  return [useSearchEntity, useForm, useFetcher2];
-});
-_c6 = VehicleContent;
-var _c6;
-$RefreshReg$(_c6, "VehicleContent");
-window.$RefreshReg$ = prevRefreshReg;
-window.$RefreshSig$ = prevRefreshSig;
-
-// app/components/NewWashModal/WashesContent/index.tsx
-init_global();
-init_dirname();
-init_filename();
-init_buffer();
-init_process();
-var import_jsx_runtime7 = __toESM(require_jsx_runtime());
-if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
-  console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
-} else {
-  prevRefreshReg = window.$RefreshReg$;
-  prevRefreshSig = window.$RefreshSig$;
-  window.$RefreshReg$ = (type, id) => {
-    window.$RefreshRuntime$.register(type, '"app/components/NewWashModal/WashesContent/index.tsx"' + id);
-  };
-  window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
-}
-var prevRefreshReg;
-var prevRefreshSig;
-if (import.meta) {
-  import.meta.hot = createHotContext(
-    //@ts-expect-error
-    "app/components/NewWashModal/WashesContent/index.tsx"
-  );
-  import.meta.hot.lastModified = "1691107262680.8203";
-}
-function WashesContent(props) {
-  return /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(import_jsx_runtime7.Fragment, {
-    children: /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Text, {
-      children: "washes content"
-    })
-  });
-}
-_c7 = WashesContent;
-var _c7;
-$RefreshReg$(_c7, "WashesContent");
-window.$RefreshReg$ = prevRefreshReg;
-window.$RefreshSig$ = prevRefreshSig;
-
-// app/components/NewWashModal/Modal.tsx
-if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
-  console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
-} else {
-  prevRefreshReg = window.$RefreshReg$;
-  prevRefreshSig = window.$RefreshSig$;
-  window.$RefreshReg$ = (type, id) => {
-    window.$RefreshRuntime$.register(type, '"app/components/NewWashModal/Modal.tsx"' + id);
-  };
-  window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
-}
-var prevRefreshReg;
-var prevRefreshSig;
-var _s3 = $RefreshSig$();
-if (import.meta) {
-  import.meta.hot = createHotContext(
-    //@ts-expect-error
-    "app/components/NewWashModal/Modal.tsx"
-  );
-  import.meta.hot.lastModified = "1691512659490.0159";
-}
-function Modal2({
-  isOpen,
-  onClose,
-  finalFocusRef
-}) {
-  var _a, _b, _c10, _d;
-  _s3();
-  const [errors, setErrors] = (0, import_react14.useState)({
-    vehicle: {
-      errors: ["Required"],
-      label: "vehicle"
-    },
-    washes: {
-      errors: ["Required"],
-      label: "washes"
-    },
-    summary: {
-      errors: ["Required"],
-      label: "summary"
-    }
-  });
-  const [vehicleData, setVehicleData] = (0, import_react14.useState)({});
-  const {
-    activeStep,
-    goToNext,
-    goToPrevious,
-    Stepper: Stepper3,
-    steps: steps2,
-    setActiveStep
-  } = useStepper();
-  function setVehicle(v) {
-    const {
-      licensePlate,
-      type
-    } = v;
-    if (!licensePlate || !type) {
-      setVehicleErrors("Required", "ADD");
-    } else {
-      setVehicleErrors("Required", "REMOVE");
-    }
-    setVehicleData(v);
-  }
-  function onStepperFinish() {
-    var _a2;
-    setActiveStep(0);
-    onClose();
-    (_a2 = finalFocusRef.current) == null ? void 0 : _a2.focus();
-  }
-  function setVehicleErrors(e, action) {
-    if (action === "ADD") {
-      setErrors((s) => {
-        var _a2, _b2, _c11, _d2;
-        const error = (_b2 = (_a2 = s.vehicle) == null ? void 0 : _a2.errors) == null ? void 0 : _b2.find((str) => str === e);
-        if (error)
-          return s;
-        const vehicle = s.vehicle;
-        (_c11 = vehicle == null ? void 0 : vehicle.errors) == null ? void 0 : _c11.push(e);
-        return {
-          ...s,
-          vehicle: {
-            label: "vehicle",
-            errors: (_d2 = vehicle == null ? void 0 : vehicle.errors) != null ? _d2 : [e]
-          }
-        };
-      });
-    } else if (action === "REMOVE") {
-      setErrors((s) => {
-        var _a2, _b2, _c11, _d2;
-        const error = (_b2 = (_a2 = s.vehicle) == null ? void 0 : _a2.errors) == null ? void 0 : _b2.find((str) => str === e);
-        if (!error)
-          return s;
-        const {
-          vehicle
-        } = s;
-        const errors2 = (_d2 = (_c11 = vehicle == null ? void 0 : vehicle.errors) == null ? void 0 : _c11.filter((str) => str !== e)) != null ? _d2 : [];
-        return {
-          ...s,
-          vehicle: {
-            label: "vehicle",
-            errors: errors2
-          }
-        };
-      });
-    }
-    return;
-  }
-  const canProceed = ((_b = (_a = errors[steps2[activeStep].label]) == null ? void 0 : _a.errors) == null ? void 0 : _b.length) > 0 ? false : true;
-  console.log("errors:", errors);
-  return /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(import_jsx_runtime8.Fragment, {
-    children: /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(Modal, {
-      isCentered: true,
-      size: ["xs", "md", "2xl", "3xl"],
-      isOpen,
-      onClose,
-      children: [/* @__PURE__ */ (0, import_jsx_runtime8.jsx)(ModalOverlay, {}), /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(ModalContent, {
-        blockSize: "90%",
-        children: [/* @__PURE__ */ (0, import_jsx_runtime8.jsx)(ModalHeader, {
-          alignSelf: "center",
-          children: steps2[activeStep].modalTitle
-        }), /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(ModalCloseButton, {
-          top: 4
-        }), /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(ModalBody, {
-          display: "grid",
-          gridAutoFlow: "column",
-          gap: "1.125em",
-          gridTemplateColumns: "auto 1fr",
-          gridTemplateRows: "100%",
-          marginInline: [0, 0, 4],
-          paddingBlockStart: [4, 4, 8],
-          children: [/* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Stepper3, {
-            activeStep,
-            steps: steps2
-          }), /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(Box, {
-            marginInline: [0, 0, 4],
-            children: [steps2[activeStep].label === "vehicle" && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(VehicleContent, {
-              setVehicleFn: setVehicle,
-              setVehicleErrors
-            }), steps2[activeStep].label === "washes" && /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(WashesContent, {})]
           })]
-        }), /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(ModalFooter, {
-          children: [/* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Button, {
-            isDisabled: !steps2[activeStep].isNullable || steps2[activeStep].label === ((_d = errors[(_c10 = steps2[activeStep]) == null ? void 0 : _c10.label]) == null ? void 0 : _d.label),
-            colorScheme: "purple",
-            variant: "ghost",
-            mr: 3,
-            size: "sm",
-            onClick: goToNext,
-            children: "pular"
-          }, "jump-btn"), /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Button, {
-            colorScheme: "gray",
-            variant: "ghost",
-            mr: 3,
-            onClick: goToPrevious,
-            marginInlineEnd: "0",
-            children: "voltar"
-          }, "back-btn"), /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Divider, {
-            orientation: "vertical",
-            inlineSize: "8px",
-            borderColor: "gray.400"
-          }), activeStep === steps2.length - 1 ? /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Button, {
-            variant: "ghost",
-            colorScheme: "blue",
-            onClick: onStepperFinish,
-            children: "finalizar"
-          }, "finish-btn") : /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Button, {
-            isDisabled: steps2[activeStep].isNullable || !canProceed,
-            variant: "ghost",
-            colorScheme: "blue",
-            onClick: goToNext,
-            children: "pr\xF3ximo"
-          }, "next-btn")]
-        })]
+        })
       })]
     })
   });
 }
-_s3(Modal2, "WsrXzjK3bUnWIl21irfroXjShag=", false, function() {
-  return [useStepper];
+_s(VehicleContent, "uF/OucOgzXXX1MTAVyH+v6cwmtw=", false, function() {
+  return [useSearchParams, useSearchEntity, useForm, useFetcher2];
 });
-_c8 = Modal2;
-var _c8;
-$RefreshReg$(_c8, "Modal");
+_c2 = VehicleContent;
+var _c2;
+$RefreshReg$(_c2, "VehicleContent");
 window.$RefreshReg$ = prevRefreshReg;
 window.$RefreshSig$ = prevRefreshSig;
 
-// app/components/NewWashModal/index.ts
-if (import.meta) {
-  import.meta.hot = createHotContext(
-    //@ts-expect-error
-    "app/components/NewWashModal/index.ts"
-  );
-  import.meta.hot.lastModified = "1689460988898.617";
-}
-function useNewWashModal() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const ref = (0, import_react16.useRef)(null);
-  return {
-    isNewWashModalOpen: isOpen,
-    onNewWashModalOpen: onOpen,
-    onNewWashModalClose: onClose,
-    newWashModalRef: ref,
-    NewWashModal: Modal2
-  };
-}
-
-// app/components/header.tsx
-if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
-  console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
-} else {
-  prevRefreshReg = window.$RefreshReg$;
-  prevRefreshSig = window.$RefreshSig$;
-  window.$RefreshReg$ = (type, id) => {
-    window.$RefreshRuntime$.register(type, '"app/components/header.tsx"' + id);
-  };
-  window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
-}
-var prevRefreshReg;
-var prevRefreshSig;
-var _s4 = $RefreshSig$();
-if (import.meta) {
-  import.meta.hot = createHotContext(
-    //@ts-expect-error
-    "app/components/header.tsx"
-  );
-  import.meta.hot.lastModified = "1689460964666.3843";
-}
-function Header({
-  label,
-  user
-}) {
-  _s4();
-  const {
-    isOpen,
-    onOpen,
-    onClose
-  } = useDisclosure();
-  const {
-    isNewWashModalOpen,
-    NewWashModal,
-    onNewWashModalClose,
-    newWashModalRef,
-    onNewWashModalOpen
-  } = useNewWashModal();
-  const btnRef = (0, import_react19.useRef)(null);
-  return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(Grid, {
-    maxH: "120px",
-    inlineSize: "100%",
-    gridAutoFlow: "column",
-    gridAutoRows: "min-content",
-    paddingInline: 2,
-    paddingBlock: 4,
-    children: [/* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(HStack, {
-      spacing: [6],
-      children: [/* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(HStack, {
-        spacing: 1,
-        children: [/* @__PURE__ */ (0, import_jsx_runtime9.jsx)(IconButton, {
-          variant: "ghost",
-          "aria-label": "go to home",
-          fontSize: "32px",
-          isRound: true,
-          icon: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(MdOutlineHome, {}),
-          as: Link,
-          to: "/home"
-        }), /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(Text, {
-          fontWeight: "bold",
-          fontSize: "md",
-          children: label
-        })]
-      }), /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(SearchInput, {})]
-    }), /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(HStack, {
-      justifySelf: "flex-end",
-      spacing: 1,
-      children: [/* @__PURE__ */ (0, import_jsx_runtime9.jsx)(Button, {
-        marginInline: 1,
-        variant: "solid",
-        colorScheme: "blue",
-        borderRadius: "full",
-        blockSize: 10,
-        inlineSize: [10, "auto"],
-        sx: {
-          span: {
-            marginInlineEnd: ["0"]
-          }
-        },
-        leftIcon: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(LuPlus, {
-          size: "1.25em"
-        }),
-        onClick: onNewWashModalOpen,
-        ref: newWashModalRef,
-        children: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(Text, {
-          display: ["none", "block"],
-          children: "Nova lavagem"
-        })
-      }), /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(IconButton, {
-        variant: "ghost",
-        colorScheme: "blackAlpha",
-        "aria-label": "open notifications",
-        fontSize: "26px",
-        isRound: true,
-        icon: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(MdOutlineNotificationsNone, {})
-      }), /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(Divider, {
-        borderLeftWidth: 2,
-        orientation: "vertical"
-      }), /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(Avatar2, {
-        user
-      }), /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(IconButton, {
-        display: ["flex", "flex", "none"],
-        variant: "ghost",
-        "aria-label": "open side menu",
-        fontSize: "24px",
-        icon: /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(MdDensityMedium, {}),
-        onClick: onOpen,
-        ref: btnRef
-      }), /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(Drawer2, {
-        finalFocusRef: btnRef,
-        isOpen,
-        onClose,
-        user
-      }), /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(NewWashModal, {
-        finalFocusRef: newWashModalRef,
-        isOpen: isNewWashModalOpen,
-        onClose: onNewWashModalClose
-      })]
-    })]
-  });
-}
-_s4(Header, "HOSdJNnR9/O/an+AtwU71OkbW9M=", false, function() {
-  return [useDisclosure, useNewWashModal];
-});
-_c9 = Header;
-var _c9;
-$RefreshReg$(_c9, "Header");
-window.$RefreshReg$ = prevRefreshReg;
-window.$RefreshSig$ = prevRefreshSig;
-
-// browser-route-module:routes/_auth.tsx
-if (import.meta) {
-  import.meta.hot = createHotContext(
-    //@ts-expect-error
-    "app/routes/_auth.tsx"
-  );
-}
-var headers = ({ loaderHeaders }) => {
-  const maxAge = loaderHeaders.get("Cache-control") ?? `max-age=${60 * 60}`;
-  return {
-    "Cache-Control": maxAge
-  };
-};
-function stdin_default() {
-  const { path, user } = useLoaderData();
-  return /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(import_jsx_runtime10.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Header, { label: path ?? "/", user }),
-    /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(Outlet, {})
-  ] });
-}
 export {
-  stdin_default as default,
-  headers
+  useStepper,
+  VehicleContent
 };
-//# sourceMappingURL=http://localhost:3001/build/routes/_auth-WMRE4PIX.js.map
+//# sourceMappingURL=http://localhost:3001/build/_shared/chunk-7ANU4K4S.js.map
