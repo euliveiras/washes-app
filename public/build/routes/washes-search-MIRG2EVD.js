@@ -602,4 +602,7 @@ var mocks = {
     }
   ]
 };
-//# sourceMappingURL=http://localhost:3001/build/routes/washes-search-R5XZVBGN.js.map
+export {
+  mocks
+};
+//# sourceMappingURL=http://localhost:3001/build/routes/washes-search-MIRG2EVD.js.map

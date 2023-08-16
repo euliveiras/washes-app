@@ -71,30 +71,25 @@ export function VehicleContent() {
   };
   const queried = watch("queried");
 
-  function setVehicleData({
-    licensePlate,
-    type,
-    create,
-  }: {
+  function deleteVehicleParam() {
+    setSearchParams((p) => {
+      p.delete("vehicle");
+      return p;
+    });
+  }
+
+  function setVehicleParams(params: {
     licensePlate?: string | null;
     type?: Vehicle["type"] | null;
     create?: boolean;
   }) {
-    setValue("licensePlate", licensePlate);
-    setValue("type", type);
     setSearchParams((p) => {
       const vehicle = p.get("vehicle");
       if (!vehicle) {
-        p.append("vehicle", JSON.stringify({ licensePlate, type, create }));
-      } else if (!create && (!licensePlate || !type)) {
-        p.delete("vehicle");
-        return p;
+        p.set("vehicle", JSON.stringify(params));
       } else {
         const obj = JSON.parse(vehicle);
-        p.set(
-          "vehicle",
-          JSON.stringify({ ...obj, licensePlate, type, create }),
-        );
+        p.set("vehicle", JSON.stringify({ ...obj, ...params }));
       }
       return p;
     });
@@ -107,36 +102,52 @@ export function VehicleContent() {
       form.get("licensePlate")?.toString() ?? newVehicle?.licensePlate;
     const type =
       (form.get("type")?.toString() as Vehicle["type"]) ?? newVehicle?.type;
-
-    if (!create) {
-      setVehicleData({
-        create,
-        licensePlate: queried?.licensePlate,
-        type: queried?.type,
-      });
-    } else if (create && licensePlate && type) {
-      setVehicleData({ create, licensePlate, type });
-    }
     setValue("licensePlate", licensePlate);
     setValue("type", type);
     setValue("create", create);
+
+    if (create && licensePlate && type) {
+      setVehicleParams({ licensePlate, type, create });
+      return;
+    }
+    if (create && (!licensePlate || !type)) {
+      deleteVehicleParam();
+      return;
+    }
+    if (!create && queried.licensePlate && queried.type) {
+      setVehicleParams({
+        licensePlate: queried.licensePlate,
+        type: queried.type,
+      });
+      return;
+    }
   }
 
   function onQueryFormChange(e: ChangeEvent<HTMLFormElement>) {
     const form = new FormData(e.target.form);
     const query = form.get("query")?.toString() ?? "";
     timeoutId.current && clearTimeout(timeoutId.current);
-    timeoutId.current = setTimeout(
-      () =>
-        fetcher.submit({ query }, { action: "/vehicle-search", method: "get" }),
-      1000,
-    );
+    timeoutId.current = setTimeout(() => {
+      fetcher.submit({ query }, { action: "/vehicle-search", method: "get" });
+      setValue("queried", { licensePlate: null, type: null });
+      deleteVehicleParam();
+    }, 1000);
   }
 
   function onInputClick(v: Vehicle) {
     setValue("queried.licensePlate", v.licensePlate);
     setValue("queried.type", v.type);
-    setVehicleData(v);
+    setValue("create", false);
+    setSearchParams((p) => {
+      const vehicle = p.get("vehicle");
+      if (!vehicle) {
+        p.append("vehicle", JSON.stringify(v));
+      } else {
+        const obj = JSON.parse(vehicle);
+        p.set("vehicle", JSON.stringify({ ...obj, ...v }));
+      }
+      return p;
+    });
   }
 
   return (
@@ -147,7 +158,7 @@ export function VehicleContent() {
         gap={4}
         gridAutoFlow={["row", "row", "column"]}
         placeItems={["center", "center", "start"]}
-placeContent={["center", "center", "space-between"]}
+        placeContent={["center", "center", "space-between"]}
       >
         <Flex
           flexDir={["column"]}
@@ -258,7 +269,7 @@ placeContent={["center", "center", "space-between"]}
               blockSize="min-content"
               gap={4}
               paddingBlockStart={[0, 0, 1]}
-align="center"
+              align="center"
             >
               <FormLabel margin={0} htmlFor="vehicle_create">
                 Adicionar novo veículo?

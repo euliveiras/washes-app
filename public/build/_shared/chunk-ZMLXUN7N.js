@@ -1,4 +1,7 @@
 import {
+  LinkHighlighted
+} from "http://localhost:3001/build/_shared/chunk-EOXYKIW2.js";
+import {
   GenIcon,
   MdCheck,
   MdDirectionsCarFilled,
@@ -27,11 +30,12 @@ import {
   Stepper,
   Text,
   useSteps
-} from "http://localhost:3001/build/_shared/chunk-XR6MOOZN.js";
+} from "http://localhost:3001/build/_shared/chunk-WSTLIJHY.js";
 import {
   useFetcher as useFetcher2
 } from "http://localhost:3001/build/_shared/chunk-ANXL52AQ.js";
 import {
+  Link,
   init_dist2 as init_dist,
   useFetcher,
   useSearchParams
@@ -95,7 +99,7 @@ if (import.meta) {
     //@ts-expect-error
     "app/components/NewWashModal/Stepper/Stepper.tsx"
   );
-  import.meta.hot.lastModified = "1691704591501.3708";
+  import.meta.hot.lastModified = "1691704591000";
 }
 function Stepper2({
   steps: steps2,
@@ -144,7 +148,7 @@ if (import.meta) {
     //@ts-expect-error
     "app/components/NewWashModal/Stepper/index.ts"
   );
-  import.meta.hot.lastModified = "1691628455749.3152";
+  import.meta.hot.lastModified = "1691628455000";
 }
 var steps = [
   {
@@ -1567,7 +1571,7 @@ if (import.meta) {
     //@ts-expect-error
     "app/components/SearchEntity/index.ts"
   );
-  import.meta.hot.lastModified = "1691618911942.902";
+  import.meta.hot.lastModified = "1691618911000";
 }
 function useSearchEntity() {
   const fetcher = useFetcher();
@@ -1596,11 +1600,11 @@ if (import.meta) {
     //@ts-expect-error
     "app/components/NewWashModal/VehicleContent/index.tsx"
   );
-  import.meta.hot.lastModified = "1691704479580.6772";
+  import.meta.hot.lastModified = "1692135431511.719";
 }
 var selectOptions = ["Extra leve", "Leve", "Vuc", "Toco", "Truck", "Bitruck", "Carreta"];
 function VehicleContent() {
-  var _a, _b, _c3;
+  var _a, _b, _c6;
   _s();
   const [searchParams, setSearchParams] = useSearchParams();
   const vehicle = JSON.parse((_a = searchParams.get("vehicle")) != null ? _a : "[]");
@@ -1633,75 +1637,92 @@ function VehicleContent() {
     type: watch("type")
   };
   const queried = watch("queried");
-  function setVehicleData({
-    licensePlate,
-    type,
-    create
-  }) {
-    setValue("licensePlate", licensePlate);
-    setValue("type", type);
+  function deleteVehicleParam() {
+    setSearchParams((p) => {
+      p.delete("vehicle");
+      return p;
+    });
+  }
+  function setVehicleParams(params) {
     setSearchParams((p) => {
       const vehicle2 = p.get("vehicle");
       if (!vehicle2) {
-        p.append("vehicle", JSON.stringify({
-          licensePlate,
-          type,
-          create
-        }));
-      } else if (!create && (!licensePlate || !type)) {
-        p.delete("vehicle");
-        return p;
+        p.set("vehicle", JSON.stringify(params));
       } else {
         const obj = JSON.parse(vehicle2);
         p.set("vehicle", JSON.stringify({
           ...obj,
-          licensePlate,
-          type,
-          create
+          ...params
         }));
       }
       return p;
     });
   }
   function onNewVehicleFormChange(e) {
-    var _a2, _b2, _c4, _d, _e;
+    var _a2, _b2, _c7, _d, _e;
     const form = new FormData(e.target.form);
     const create = ((_a2 = form.get("create")) == null ? void 0 : _a2.toString()) === "";
-    const licensePlate = (_c4 = (_b2 = form.get("licensePlate")) == null ? void 0 : _b2.toString()) != null ? _c4 : newVehicle == null ? void 0 : newVehicle.licensePlate;
+    const licensePlate = (_c7 = (_b2 = form.get("licensePlate")) == null ? void 0 : _b2.toString()) != null ? _c7 : newVehicle == null ? void 0 : newVehicle.licensePlate;
     const type = (_e = (_d = form.get("type")) == null ? void 0 : _d.toString()) != null ? _e : newVehicle == null ? void 0 : newVehicle.type;
-    if (!create) {
-      setVehicleData({
-        create,
-        licensePlate: queried == null ? void 0 : queried.licensePlate,
-        type: queried == null ? void 0 : queried.type
-      });
-    } else if (create && licensePlate && type) {
-      setVehicleData({
-        create,
-        licensePlate,
-        type
-      });
-    }
     setValue("licensePlate", licensePlate);
     setValue("type", type);
     setValue("create", create);
+    if (create && licensePlate && type) {
+      setVehicleParams({
+        licensePlate,
+        type,
+        create
+      });
+      return;
+    }
+    if (create && (!licensePlate || !type)) {
+      deleteVehicleParam();
+      return;
+    }
+    if (!create && queried.licensePlate && queried.type) {
+      setVehicleParams({
+        licensePlate: queried.licensePlate,
+        type: queried.type
+      });
+      return;
+    }
   }
   function onQueryFormChange(e) {
     var _a2, _b2;
     const form = new FormData(e.target.form);
     const query = (_b2 = (_a2 = form.get("query")) == null ? void 0 : _a2.toString()) != null ? _b2 : "";
     timeoutId.current && clearTimeout(timeoutId.current);
-    timeoutId.current = setTimeout(() => fetcher.submit({
-      query
-    }, {
-      action: "/vehicle-search",
-      method: "get"
-    }), 1e3);
+    timeoutId.current = setTimeout(() => {
+      fetcher.submit({
+        query
+      }, {
+        action: "/vehicle-search",
+        method: "get"
+      });
+      setValue("queried", {
+        licensePlate: null,
+        type: null
+      });
+      deleteVehicleParam();
+    }, 1e3);
   }
   function onInputClick(v) {
     setValue("queried.licensePlate", v.licensePlate);
     setValue("queried.type", v.type);
-    setVehicleData(v);
+    setValue("create", false);
+    setSearchParams((p) => {
+      const vehicle2 = p.get("vehicle");
+      if (!vehicle2) {
+        p.append("vehicle", JSON.stringify(v));
+      } else {
+        const obj = JSON.parse(vehicle2);
+        p.set("vehicle", JSON.stringify({
+          ...obj,
+          ...v
+        }));
+      }
+      return p;
+    });
   }
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, {
     children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(Grid, {
@@ -1847,7 +1868,7 @@ function VehicleContent() {
               })
             }), /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(FormControl, {
               children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Select, {
-                defaultValue: (_c3 = newVehicle == null ? void 0 : newVehicle.type) != null ? _c3 : void 0,
+                defaultValue: (_c6 = newVehicle == null ? void 0 : newVehicle.type) != null ? _c6 : void 0,
                 id: "type",
                 name: "type",
                 placeholder: "Tipo do ve\xEDculo",
@@ -1873,8 +1894,145 @@ $RefreshReg$(_c2, "VehicleContent");
 window.$RefreshReg$ = prevRefreshReg;
 window.$RefreshSig$ = prevRefreshSig;
 
+// app/components/NewWashModal/WashesContent/index.tsx
+init_global();
+init_dirname();
+init_filename();
+init_buffer();
+init_process();
+var import_jsx_runtime3 = __toESM(require_jsx_runtime());
+init_dist();
+
+// node_modules/react-icons/fa/index.esm.js
+init_global();
+init_dirname();
+init_filename();
+init_buffer();
+init_process();
+function FaExternalLinkAlt(props) {
+  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 512 512" }, "child": [{ "tag": "path", "attr": { "d": "M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z" } }] })(props);
+}
+
+// app/components/NewWashModal/WashesContent/index.tsx
+if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
+  console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
+} else {
+  prevRefreshReg = window.$RefreshReg$;
+  prevRefreshSig = window.$RefreshSig$;
+  window.$RefreshReg$ = (type, id) => {
+    window.$RefreshRuntime$.register(type, '"app/components/NewWashModal/WashesContent/index.tsx"' + id);
+  };
+  window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
+}
+var prevRefreshReg;
+var prevRefreshSig;
+if (import.meta) {
+  import.meta.hot = createHotContext(
+    //@ts-expect-error
+    "app/components/NewWashModal/WashesContent/index.tsx"
+  );
+  import.meta.hot.lastModified = "1692154262886.5989";
+}
+function BoxTitle({
+  children
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Text, {
+    color: "gray.500",
+    fontSize: "md",
+    fontWeight: "bold",
+    children
+  });
+}
+_c3 = BoxTitle;
+function BoxContent({
+  children
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Box, {
+    blockSize: "100%",
+    children
+  });
+}
+_c22 = BoxContent;
+function BoxIcon({
+  icon
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Flex, {
+    blockSize: "100%",
+    justify: "center",
+    align: "center",
+    children: icon
+  });
+}
+_c32 = BoxIcon;
+function BoxContainer({
+  to,
+  children
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Grid, {
+    minInlineSize: "180px",
+    paddingBlock: 4,
+    gridTemplateColumns: "80% 20%",
+    gridTemplateRows: "1fr",
+    as: Link,
+    to,
+    children
+  });
+}
+_c4 = BoxContainer;
+function WashesContent({
+  washes,
+  washCycle
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(Grid, {
+    blockSize: "100%",
+    gridTemplateRows: "1fr auto",
+    children: [/* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Box, {
+      children: washCycle && washes && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(Alert, {
+        status: "info",
+        children: [/* @__PURE__ */ (0, import_jsx_runtime3.jsx)(AlertIcon, {}), /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(Text, {
+          children: ["H\xE1 lavagens ativas para o ve\xEDculo com placa", " ", /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(LinkHighlighted, {
+            to: `/vehicle/${washCycle.vehicleId}`,
+            children: washCycle.vehicleId
+          })]
+        })]
+      })
+    }), /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Box, {
+      children: washes.map((w) => {
+        return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(BoxContainer, {
+          to: `/wash/${w.id}`,
+          children: [/* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(BoxContent, {
+            children: [/* @__PURE__ */ (0, import_jsx_runtime3.jsx)(BoxTitle, {
+              children: w.scheduleDate
+            }), /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Text, {
+              children: w.note
+            })]
+          }), /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(BoxIcon, {
+            icon: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(FaExternalLinkAlt, {
+              size: 16
+            })
+          })]
+        }, w.id);
+      })
+    })]
+  });
+}
+_c5 = WashesContent;
+var _c3;
+var _c22;
+var _c32;
+var _c4;
+var _c5;
+$RefreshReg$(_c3, "BoxTitle");
+$RefreshReg$(_c22, "BoxContent");
+$RefreshReg$(_c32, "BoxIcon");
+$RefreshReg$(_c4, "BoxContainer");
+$RefreshReg$(_c5, "WashesContent");
+window.$RefreshReg$ = prevRefreshReg;
+window.$RefreshSig$ = prevRefreshSig;
+
 export {
   useStepper,
-  VehicleContent
+  VehicleContent,
+  WashesContent
 };
-//# sourceMappingURL=http://localhost:3001/build/_shared/chunk-7ANU4K4S.js.map
+//# sourceMappingURL=http://localhost:3001/build/_shared/chunk-ZMLXUN7N.js.map

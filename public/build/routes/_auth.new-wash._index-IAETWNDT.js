@@ -1,7 +1,9 @@
 import {
   VehicleContent,
+  WashesContent,
   useStepper
-} from "http://localhost:3001/build/_shared/chunk-7ANU4K4S.js";
+} from "http://localhost:3001/build/_shared/chunk-ZMLXUN7N.js";
+import "http://localhost:3001/build/_shared/chunk-EOXYKIW2.js";
 import "http://localhost:3001/build/_shared/chunk-DXSXC535.js";
 import {
   Box,
@@ -10,12 +12,13 @@ import {
   Flex,
   Grid,
   Text
-} from "http://localhost:3001/build/_shared/chunk-XR6MOOZN.js";
+} from "http://localhost:3001/build/_shared/chunk-WSTLIJHY.js";
 import "http://localhost:3001/build/_shared/chunk-DC5KBJVF.js";
 import "http://localhost:3001/build/_shared/chunk-PKOMFC7F.js";
 import "http://localhost:3001/build/_shared/chunk-IJA4GF5B.js";
 import {
-  Link
+  Link,
+  useLoaderData
 } from "http://localhost:3001/build/_shared/chunk-ANXL52AQ.js";
 import {
   useSearchParams
@@ -50,8 +53,8 @@ if (import.meta) {
     "app/routes/_auth.new-wash._index.tsx"
   );
 }
-var content = [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(VehicleContent, {}, "vehicle-content")];
 function stdin_default() {
+  const data = useLoaderData();
   const [searchParams] = useSearchParams();
   const { Stepper, steps } = useStepper();
   const step = Number(searchParams.get("step") ?? 0);
@@ -92,13 +95,16 @@ function stdin_default() {
                     children: steps[step].modalTitle
                   }
                 ),
-                /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+                /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
                   Box,
                   {
                     inlineSize: "100%",
                     marginInline: "auto",
                     maxInlineSize: "container.md",
-                    children: content[step]
+                    children: [
+                      steps[step].label === "vehicle" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(VehicleContent, {}),
+                      steps[step].label === "washes" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(WashesContent, { washCycle: data.washCycle, washes: data.washes })
+                    ]
                   }
                 )
               ]
@@ -172,4 +178,4 @@ function stdin_default() {
 export {
   stdin_default as default
 };
-//# sourceMappingURL=http://localhost:3001/build/routes/_auth.new-wash._index-HLXPRSPB.js.map
+//# sourceMappingURL=http://localhost:3001/build/routes/_auth.new-wash._index-IAETWNDT.js.map

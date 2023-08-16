@@ -8,7 +8,7 @@ function getDate(date?: Date, days?: number) {
   return dateManipulator.addDaysToDate(parsedDate, days ?? 0);
 }
 
-const mocks = {
+export const mocks = {
   washCycles: [
     {
       id: "fake-cycle-id",
@@ -93,7 +93,6 @@ export async function loader({ request }: LoaderArgs) {
   const url = new URL(request.url);
   const query = url.searchParams.get("query");
 
-  console.log(query);
   if (typeof query !== "string" || query === "") return json(null);
 
   // const { error, washCycle, washes } = await getNextWashesAndCycle(query);

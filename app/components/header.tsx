@@ -105,11 +105,6 @@ export function Header({ label, user }: HeaderProps) {
           onClose={onClose}
           user={user}
         />
-        <NewWashModal
-          finalFocusRef={newWashModalRef}
-          isOpen={isNewWashModalOpen}
-          onClose={onNewWashModalClose}
-        />
       </HStack>
     </Grid>
   );

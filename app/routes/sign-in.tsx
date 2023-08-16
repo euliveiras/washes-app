@@ -126,7 +126,7 @@ export default function () {
   const navigation = useNavigation();
 
   return (
-    <Box h="100dvh" w="100%">
+    <Box h="100vh" w="100%">
       <Grid h="100%" w="100%" templateRows="1fr auto">
         <VStack paddingBlockStart={[32, 20]}>
           <HStack spacing={"4px"}>

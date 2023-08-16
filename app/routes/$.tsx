@@ -1,5 +1,5 @@
-import { Text, Link, Highlight, Grid, HStack, Box } from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
+import { Text, Grid, HStack, Box } from "@chakra-ui/react";
+import { LinkHighlighted } from "~/components/LinkHighlighted";
 
 export default function () {
   return (
@@ -13,25 +13,9 @@ export default function () {
       <Text fontSize="lg">Essa página não existe :(</Text>
       <HStack spacing={1}>
         <Text fontSize="lg">Go back</Text>
-        <Link as={RouterLink} to="/home">
-          <Box
-            position={"relative"}
-            zIndex={1}
-            _before={{
-              content: "''",
-              position: "absolute",
-              width: "calc(100% + 4px)",
-              height: "60%",
-              left: "-2px",
-              bottom: "0",
-              zIndex: "-1",
-              transform: "rotate(-2deg)",
-              bgColor: "#D6BCFA",
-            }}
-          >
-            <Text fontSize="lg">/ home</Text>
-          </Box>
-        </Link>
+        <LinkHighlighted to="/home">
+          <Text fontSize="lg">/ home</Text>
+        </LinkHighlighted>
       </HStack>
     </Grid>
   );

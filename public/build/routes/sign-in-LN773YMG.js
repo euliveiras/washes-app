@@ -17,7 +17,7 @@ import {
   Link,
   Text,
   VStack
-} from "http://localhost:3001/build/_shared/chunk-XR6MOOZN.js";
+} from "http://localhost:3001/build/_shared/chunk-WSTLIJHY.js";
 import "http://localhost:3001/build/_shared/chunk-DC5KBJVF.js";
 import "http://localhost:3001/build/_shared/chunk-PKOMFC7F.js";
 import "http://localhost:3001/build/_shared/chunk-IJA4GF5B.js";
@@ -90,7 +90,7 @@ if (import.meta) {
     //@ts-expect-error
     "app/components/footer.tsx"
   );
-  import.meta.hot.lastModified = "1689031804038.9783";
+  import.meta.hot.lastModified = "1689031804000";
 }
 function Footer() {
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Center, {
@@ -172,7 +172,7 @@ function stdin_default() {
   const errors = useActionData();
   const navigation = useNavigation();
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Box, {
-    h: "100dvh",
+    h: "100vh",
     w: "100%",
     children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(Grid, {
       h: "100%",
@@ -260,4 +260,4 @@ window.$RefreshSig$ = prevRefreshSig;
 export {
   stdin_default as default
 };
-//# sourceMappingURL=http://localhost:3001/build/routes/sign-in-MIDXHV4R.js.map
+//# sourceMappingURL=http://localhost:3001/build/routes/sign-in-LN773YMG.js.map

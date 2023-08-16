@@ -50,7 +50,7 @@ export async function loader({ request }: LoaderArgs) {
 export default function () {
   const { path, user } = useLoaderData<typeof loader>();
   return (
-    <Grid gridTemplateRows={"auto 1fr"} blockSize="100dvh">
+    <Grid gridTemplateRows={"auto 1fr"} blockSize="100vh">
       <Header label={path ?? "/"} user={user} />
       <Outlet />
     </Grid>

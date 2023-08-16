@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../app/context.tsx"],
-  "sourcesContent": ["import * as __hmr__ from \"remix:hmr\";\nif (import.meta) {\n  import.meta.hot = __hmr__.createHotContext(\n    //@ts-expect-error\n    \"app/context.tsx\"\n  );\n  import.meta.hot.lastModified = \"1688687203776.7803\";\n}\nimport { createContext } from \"react\";\nconst ServerStyleContext = createContext(null);\nconst ClientStyleContext = createContext(null);\nexport {\n  ClientStyleContext,\n  ServerStyleContext\n};\n"],
-  "mappings": ";;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAQA,mBAA8B;AAP9B,IAAI,aAAa;AACf,cAAY,MAAc;AAAA;AAAA,IAExB;AAAA,EACF;AACA,cAAY,IAAI,eAAe;AACjC;AAEA,IAAM,yBAAqB,4BAAc,IAAI;AAC7C,IAAM,yBAAqB,4BAAc,IAAI;",
-  "names": []
-}
