@@ -1,8 +1,8 @@
 import { Text, Box, Button, Divider, Grid, Flex } from "@chakra-ui/react";
 import { useSearchParams, Link, useLoaderData } from "@remix-run/react";
-import { useStepper } from "~/components/NewWashModal/Stepper";
-import { VehicleContent } from "~/components/NewWashModal/VehicleContent";
-import { WashesContent } from "~/components/NewWashModal/WashesContent";
+import { useStepper } from "~/components/NewWash/Stepper";
+import { VehicleContent } from "~/components/NewWash/VehicleContent";
+import { WashesContent } from "~/components/NewWash/WashesContent";
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { mocks } from "../routes/washes-search/route";

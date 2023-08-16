@@ -18,7 +18,6 @@ import { useRef } from "react";
 import { SearchInput } from "./SearchInput";
 import { Drawer } from "./Drawer";
 import { Avatar } from "./Avatar";
-import { useNewWashModal } from "./NewWashModal";
 
 type HeaderProps = {
   label: string;
@@ -28,13 +27,6 @@ type HeaderProps = {
 };
 export function Header({ label, user }: HeaderProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isNewWashModalOpen,
-    NewWashModal,
-    onNewWashModalClose,
-    newWashModalRef,
-    onNewWashModalOpen,
-  } = useNewWashModal();
   const btnRef = useRef<HTMLButtonElement>(null);
 
   return (

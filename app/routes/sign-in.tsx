@@ -14,11 +14,12 @@ import {
 import type { LoaderArgs } from "@remix-run/node";
 import { BsPerson } from "react-icons/bs";
 import { MdLockOutline, MdOutlineEmail } from "react-icons/md";
-import { redirect, type ActionArgs, json } from "@remix-run/node";
-import { Form, Link, useActionData, useNavigation } from "@remix-run/react";
+import { redirect, json } from "@remix-run/node";
+import type { ActionArgs } from "@remix-run/node";
+import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { signInUserController } from "src/infra/http/controllers/sign-in-user-controller";
 import { validateSessionId } from "src/infra/http/helpers/validate-session-id";
-import { Footer } from "~/components/footer";
+import { Footer } from "~/components/Footer";
 import { getSession, commitSession } from "~/sessions";
 
 export async function action({ request }: ActionArgs) {

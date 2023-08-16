@@ -13,15 +13,28 @@ import {
   AlertIcon,
   Select,
 } from "@chakra-ui/react";
-import type { InputProps } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import type { Vehicle } from "../Modal";
-import { SearchInput, useSearchEntity } from "../../SearchEntity";
-import { useEffect, useRef } from "react";
+import { useSearchEntity } from "../../SearchEntity";
+import { useRef } from "react";
 import type { ChangeEvent } from "react";
 import { useFetcher, useSearchParams } from "@remix-run/react";
 
-const selectOptions: Vehicle["type"][] = [
+type VehicleType =
+  | "Extra leve"
+  | "Leve"
+  | "Vuc"
+  | "Toco"
+  | "Truck"
+  | "Bitruck"
+  | "Carreta";
+
+type Vehicle = {
+  licensePlate: string;
+  type: VehicleType;
+  create: boolean;
+};
+
+const selectOptions: VehicleType[] = [
   "Extra leve",
   "Leve",
   "Vuc",
@@ -134,7 +147,7 @@ export function VehicleContent() {
     }, 1000);
   }
 
-  function onInputClick(v: Vehicle) {
+  function onInputClick(v: Partial<Vehicle>) {
     setValue("queried.licensePlate", v.licensePlate);
     setValue("queried.type", v.type);
     setValue("create", false);
@@ -241,7 +254,7 @@ export function VehicleContent() {
                               queried?.licensePlate === v.licensePlate
                                 ? "blue.400"
                                 : "gray.300"
-                            }
+				    }
                             onClick={() => onInputClick(v)}
                           />
                         </FormControl>

@@ -2,7 +2,7 @@ import type { LoaderArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
-import { Header } from "~/components/header";
+import { Header } from "~/components/Header";
 import type { HeadersFunction } from "@remix-run/node"; // or cloudflare/deno
 import { commitSession, getSession } from "~/sessions";
 import { validateSessionId } from "src/infra/http/helpers/validate-session-id";

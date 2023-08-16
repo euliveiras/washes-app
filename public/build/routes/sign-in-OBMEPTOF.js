@@ -17,7 +17,7 @@ import {
   Link,
   Text,
   VStack
-} from "http://localhost:3001/build/_shared/chunk-WSTLIJHY.js";
+} from "http://localhost:3001/build/_shared/chunk-JWF4XJQI.js";
 import "http://localhost:3001/build/_shared/chunk-DC5KBJVF.js";
 import "http://localhost:3001/build/_shared/chunk-PKOMFC7F.js";
 import "http://localhost:3001/build/_shared/chunk-IJA4GF5B.js";
@@ -66,7 +66,7 @@ function BsPerson(props) {
   return GenIcon({ "tag": "svg", "attr": { "fill": "currentColor", "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "d": "M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" } }] })(props);
 }
 
-// app/components/footer.tsx
+// app/components/Footer.tsx
 init_global();
 init_dirname();
 init_filename();
@@ -79,7 +79,7 @@ if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
   prevRefreshReg = window.$RefreshReg$;
   prevRefreshSig = window.$RefreshSig$;
   window.$RefreshReg$ = (type, id) => {
-    window.$RefreshRuntime$.register(type, '"app/components/footer.tsx"' + id);
+    window.$RefreshRuntime$.register(type, '"app/components/Footer.tsx"' + id);
   };
   window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
 }
@@ -88,7 +88,7 @@ var prevRefreshSig;
 if (import.meta) {
   import.meta.hot = createHotContext(
     //@ts-expect-error
-    "app/components/footer.tsx"
+    "app/components/Footer.tsx"
   );
   import.meta.hot.lastModified = "1689031804000";
 }
@@ -260,4 +260,4 @@ window.$RefreshSig$ = prevRefreshSig;
 export {
   stdin_default as default
 };
-//# sourceMappingURL=http://localhost:3001/build/routes/sign-in-LN773YMG.js.map
+//# sourceMappingURL=http://localhost:3001/build/routes/sign-in-OBMEPTOF.js.map

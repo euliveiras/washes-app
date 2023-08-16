@@ -1,6 +1,6 @@
 import {
   LinkHighlighted
-} from "http://localhost:3001/build/_shared/chunk-EOXYKIW2.js";
+} from "http://localhost:3001/build/_shared/chunk-MV2MUGWC.js";
 import {
   GenIcon,
   MdCheck,
@@ -13,6 +13,7 @@ import {
   Alert,
   AlertIcon,
   Box,
+  Button,
   Checkbox,
   Divider,
   Flex,
@@ -30,9 +31,14 @@ import {
   Stepper,
   Text,
   useSteps
-} from "http://localhost:3001/build/_shared/chunk-WSTLIJHY.js";
+} from "http://localhost:3001/build/_shared/chunk-JWF4XJQI.js";
+import "http://localhost:3001/build/_shared/chunk-DC5KBJVF.js";
+import "http://localhost:3001/build/_shared/chunk-PKOMFC7F.js";
+import "http://localhost:3001/build/_shared/chunk-IJA4GF5B.js";
 import {
-  useFetcher as useFetcher2
+  Link as Link2,
+  useFetcher as useFetcher2,
+  useLoaderData
 } from "http://localhost:3001/build/_shared/chunk-ANXL52AQ.js";
 import {
   Link,
@@ -49,6 +55,7 @@ import {
 import {
   createHotContext
 } from "http://localhost:3001/build/_shared/chunk-KFR6H6JJ.js";
+import "http://localhost:3001/build/_shared/chunk-I54TBTTL.js";
 import {
   __toESM,
   init_buffer,
@@ -58,7 +65,15 @@ import {
   init_process
 } from "http://localhost:3001/build/_shared/chunk-CT6324V4.js";
 
-// app/components/NewWashModal/Stepper/index.ts
+// browser-route-module:routes/_auth.new-wash._index.tsx
+init_global();
+init_dirname();
+init_filename();
+init_buffer();
+init_process();
+var import_jsx_runtime9 = __toESM(require_jsx_runtime());
+
+// app/components/NewWash/Stepper/index.ts
 init_global();
 init_dirname();
 init_filename();
@@ -75,7 +90,7 @@ function GoOrganization(props) {
   return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "d": "M6.25 12a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5h-.5ZM5.5 9.25a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1-.75-.75ZM6.25 5a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5h-.5ZM9 12.75a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1-.75-.75Zm.75-4.25a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5h-.5ZM9 5.75A.75.75 0 0 1 9.75 5h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 9 5.75ZM13.25 12a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5h-.5Zm-.75-2.75a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1-.75-.75ZM13.25 5a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5h-.5Z" } }, { "tag": "path", "attr": { "d": "M2 20V3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v17c0 .173-.022.34-.063.5H20a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.2-.4l-.5-.375a.75.75 0 0 1 .9-1.2l.5.375c.504.378.8.97.8 1.6v8a2 2 0 0 1-2 2h-3.562a.767.767 0 0 1-.166-.018c-.089.012-.18.018-.272.018h-3.75a.75.75 0 0 1-.75-.75V19h-3v2.25a.75.75 0 0 1-.75.75H4a2 2 0 0 1-2-2Zm2 .5h3v-2.25a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 .75.75v2.25h3a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H4a.5.5 0 0 0-.5.5v17a.5.5 0 0 0 .5.5Z" } }] })(props);
 }
 
-// app/components/NewWashModal/Stepper/Stepper.tsx
+// app/components/NewWash/Stepper/Stepper.tsx
 init_global();
 init_dirname();
 init_filename();
@@ -88,7 +103,7 @@ if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
   prevRefreshReg = window.$RefreshReg$;
   prevRefreshSig = window.$RefreshSig$;
   window.$RefreshReg$ = (type, id) => {
-    window.$RefreshRuntime$.register(type, '"app/components/NewWashModal/Stepper/Stepper.tsx"' + id);
+    window.$RefreshRuntime$.register(type, '"app/components/NewWash/Stepper/Stepper.tsx"' + id);
   };
   window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
 }
@@ -97,7 +112,7 @@ var prevRefreshSig;
 if (import.meta) {
   import.meta.hot = createHotContext(
     //@ts-expect-error
-    "app/components/NewWashModal/Stepper/Stepper.tsx"
+    "app/components/NewWash/Stepper/Stepper.tsx"
   );
   import.meta.hot.lastModified = "1691704591000";
 }
@@ -142,11 +157,11 @@ $RefreshReg$(_c, "Stepper");
 window.$RefreshReg$ = prevRefreshReg;
 window.$RefreshSig$ = prevRefreshSig;
 
-// app/components/NewWashModal/Stepper/index.ts
+// app/components/NewWash/Stepper/index.ts
 if (import.meta) {
   import.meta.hot = createHotContext(
     //@ts-expect-error
-    "app/components/NewWashModal/Stepper/index.ts"
+    "app/components/NewWash/Stepper/index.ts"
   );
   import.meta.hot.lastModified = "1691628455000";
 }
@@ -202,7 +217,7 @@ function useStepper() {
   };
 }
 
-// app/components/NewWashModal/VehicleContent/index.tsx
+// app/components/NewWash/VehicleContent/index.tsx
 init_global();
 init_dirname();
 init_filename();
@@ -1580,7 +1595,7 @@ function useSearchEntity() {
   };
 }
 
-// app/components/NewWashModal/VehicleContent/index.tsx
+// app/components/NewWash/VehicleContent/index.tsx
 var import_react5 = __toESM(require_react());
 if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
   console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
@@ -1588,7 +1603,7 @@ if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
   prevRefreshReg = window.$RefreshReg$;
   prevRefreshSig = window.$RefreshSig$;
   window.$RefreshReg$ = (type, id) => {
-    window.$RefreshRuntime$.register(type, '"app/components/NewWashModal/VehicleContent/index.tsx"' + id);
+    window.$RefreshRuntime$.register(type, '"app/components/NewWash/VehicleContent/index.tsx"' + id);
   };
   window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
 }
@@ -1598,13 +1613,13 @@ var _s = $RefreshSig$();
 if (import.meta) {
   import.meta.hot = createHotContext(
     //@ts-expect-error
-    "app/components/NewWashModal/VehicleContent/index.tsx"
+    "app/components/NewWash/VehicleContent/index.tsx"
   );
-  import.meta.hot.lastModified = "1692135431511.719";
+  import.meta.hot.lastModified = "1692190356074.3757";
 }
 var selectOptions = ["Extra leve", "Leve", "Vuc", "Toco", "Truck", "Bitruck", "Carreta"];
 function VehicleContent() {
-  var _a, _b, _c6;
+  var _a, _b, _c9;
   _s();
   const [searchParams, setSearchParams] = useSearchParams();
   const vehicle = JSON.parse((_a = searchParams.get("vehicle")) != null ? _a : "[]");
@@ -1659,10 +1674,10 @@ function VehicleContent() {
     });
   }
   function onNewVehicleFormChange(e) {
-    var _a2, _b2, _c7, _d, _e;
+    var _a2, _b2, _c10, _d, _e;
     const form = new FormData(e.target.form);
     const create = ((_a2 = form.get("create")) == null ? void 0 : _a2.toString()) === "";
-    const licensePlate = (_c7 = (_b2 = form.get("licensePlate")) == null ? void 0 : _b2.toString()) != null ? _c7 : newVehicle == null ? void 0 : newVehicle.licensePlate;
+    const licensePlate = (_c10 = (_b2 = form.get("licensePlate")) == null ? void 0 : _b2.toString()) != null ? _c10 : newVehicle == null ? void 0 : newVehicle.licensePlate;
     const type = (_e = (_d = form.get("type")) == null ? void 0 : _d.toString()) != null ? _e : newVehicle == null ? void 0 : newVehicle.type;
     setValue("licensePlate", licensePlate);
     setValue("type", type);
@@ -1868,7 +1883,7 @@ function VehicleContent() {
               })
             }), /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(FormControl, {
               children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Select, {
-                defaultValue: (_c6 = newVehicle == null ? void 0 : newVehicle.type) != null ? _c6 : void 0,
+                defaultValue: (_c9 = newVehicle == null ? void 0 : newVehicle.type) != null ? _c9 : void 0,
                 id: "type",
                 name: "type",
                 placeholder: "Tipo do ve\xEDculo",
@@ -1894,7 +1909,30 @@ $RefreshReg$(_c2, "VehicleContent");
 window.$RefreshReg$ = prevRefreshReg;
 window.$RefreshSig$ = prevRefreshSig;
 
-// app/components/NewWashModal/WashesContent/index.tsx
+// app/components/NewWash/WashesContent/index.tsx
+init_global();
+init_dirname();
+init_filename();
+init_buffer();
+init_process();
+var import_jsx_runtime8 = __toESM(require_jsx_runtime());
+
+// app/components/WashBox/index.tsx
+init_global();
+init_dirname();
+init_filename();
+init_buffer();
+init_process();
+var import_jsx_runtime7 = __toESM(require_jsx_runtime());
+
+// app/components/LinkBox/index.ts
+init_global();
+init_dirname();
+init_filename();
+init_buffer();
+init_process();
+
+// app/components/LinkBox/Container.tsx
 init_global();
 init_dirname();
 init_filename();
@@ -1902,25 +1940,13 @@ init_buffer();
 init_process();
 var import_jsx_runtime3 = __toESM(require_jsx_runtime());
 init_dist();
-
-// node_modules/react-icons/fa/index.esm.js
-init_global();
-init_dirname();
-init_filename();
-init_buffer();
-init_process();
-function FaExternalLinkAlt(props) {
-  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 512 512" }, "child": [{ "tag": "path", "attr": { "d": "M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z" } }] })(props);
-}
-
-// app/components/NewWashModal/WashesContent/index.tsx
 if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
   console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
 } else {
   prevRefreshReg = window.$RefreshReg$;
   prevRefreshSig = window.$RefreshSig$;
   window.$RefreshReg$ = (type, id) => {
-    window.$RefreshRuntime$.register(type, '"app/components/NewWashModal/WashesContent/index.tsx"' + id);
+    window.$RefreshRuntime$.register(type, '"app/components/LinkBox/Container.tsx"' + id);
   };
   window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
 }
@@ -1929,42 +1955,11 @@ var prevRefreshSig;
 if (import.meta) {
   import.meta.hot = createHotContext(
     //@ts-expect-error
-    "app/components/NewWashModal/WashesContent/index.tsx"
+    "app/components/LinkBox/Container.tsx"
   );
-  import.meta.hot.lastModified = "1692154262886.5989";
+  import.meta.hot.lastModified = "1692190810500.1528";
 }
-function BoxTitle({
-  children
-}) {
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Text, {
-    color: "gray.500",
-    fontSize: "md",
-    fontWeight: "bold",
-    children
-  });
-}
-_c3 = BoxTitle;
-function BoxContent({
-  children
-}) {
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Box, {
-    blockSize: "100%",
-    children
-  });
-}
-_c22 = BoxContent;
-function BoxIcon({
-  icon
-}) {
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Flex, {
-    blockSize: "100%",
-    justify: "center",
-    align: "center",
-    children: icon
-  });
-}
-_c32 = BoxIcon;
-function BoxContainer({
+function Container({
   to,
   children
 }) {
@@ -1978,61 +1973,394 @@ function BoxContainer({
     children
   });
 }
-_c4 = BoxContainer;
+_c3 = Container;
+var _c3;
+$RefreshReg$(_c3, "Container");
+window.$RefreshReg$ = prevRefreshReg;
+window.$RefreshSig$ = prevRefreshSig;
+
+// app/components/LinkBox/Content.tsx
+init_global();
+init_dirname();
+init_filename();
+init_buffer();
+init_process();
+var import_jsx_runtime4 = __toESM(require_jsx_runtime());
+if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
+  console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
+} else {
+  prevRefreshReg = window.$RefreshReg$;
+  prevRefreshSig = window.$RefreshSig$;
+  window.$RefreshReg$ = (type, id) => {
+    window.$RefreshRuntime$.register(type, '"app/components/LinkBox/Content.tsx"' + id);
+  };
+  window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
+}
+var prevRefreshReg;
+var prevRefreshSig;
+if (import.meta) {
+  import.meta.hot = createHotContext(
+    //@ts-expect-error
+    "app/components/LinkBox/Content.tsx"
+  );
+  import.meta.hot.lastModified = "1692190904574.133";
+}
+function Content({
+  children
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Box, {
+    blockSize: "100%",
+    children
+  });
+}
+_c4 = Content;
+var _c4;
+$RefreshReg$(_c4, "Content");
+window.$RefreshReg$ = prevRefreshReg;
+window.$RefreshSig$ = prevRefreshSig;
+
+// app/components/LinkBox/Icon.tsx
+init_global();
+init_dirname();
+init_filename();
+init_buffer();
+init_process();
+var import_jsx_runtime5 = __toESM(require_jsx_runtime());
+if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
+  console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
+} else {
+  prevRefreshReg = window.$RefreshReg$;
+  prevRefreshSig = window.$RefreshSig$;
+  window.$RefreshReg$ = (type, id) => {
+    window.$RefreshRuntime$.register(type, '"app/components/LinkBox/Icon.tsx"' + id);
+  };
+  window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
+}
+var prevRefreshReg;
+var prevRefreshSig;
+if (import.meta) {
+  import.meta.hot = createHotContext(
+    //@ts-expect-error
+    "app/components/LinkBox/Icon.tsx"
+  );
+  import.meta.hot.lastModified = "1692191178418.7026";
+}
+function Icon({
+  icon
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(Flex, {
+    blockSize: "100%",
+    justify: "center",
+    align: "center",
+    children: icon
+  });
+}
+_c5 = Icon;
+var _c5;
+$RefreshReg$(_c5, "Icon");
+window.$RefreshReg$ = prevRefreshReg;
+window.$RefreshSig$ = prevRefreshSig;
+
+// app/components/LinkBox/Title.tsx
+init_global();
+init_dirname();
+init_filename();
+init_buffer();
+init_process();
+var import_jsx_runtime6 = __toESM(require_jsx_runtime());
+if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
+  console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
+} else {
+  prevRefreshReg = window.$RefreshReg$;
+  prevRefreshSig = window.$RefreshSig$;
+  window.$RefreshReg$ = (type, id) => {
+    window.$RefreshRuntime$.register(type, '"app/components/LinkBox/Title.tsx"' + id);
+  };
+  window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
+}
+var prevRefreshReg;
+var prevRefreshSig;
+if (import.meta) {
+  import.meta.hot = createHotContext(
+    //@ts-expect-error
+    "app/components/LinkBox/Title.tsx"
+  );
+  import.meta.hot.lastModified = "1692191169610.6123";
+}
+function Title({
+  children
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(Text, {
+    color: "gray.500",
+    fontSize: "md",
+    fontWeight: "bold",
+    children
+  });
+}
+_c6 = Title;
+var _c6;
+$RefreshReg$(_c6, "Title");
+window.$RefreshReg$ = prevRefreshReg;
+window.$RefreshSig$ = prevRefreshSig;
+
+// app/components/LinkBox/index.ts
+if (import.meta) {
+  import.meta.hot = createHotContext(
+    //@ts-expect-error
+    "app/components/LinkBox/index.ts"
+  );
+  import.meta.hot.lastModified = "1692191335164.5112";
+}
+var LinkBox = {
+  Container,
+  Content,
+  Icon,
+  Title
+};
+
+// node_modules/react-icons/fa/index.esm.js
+init_global();
+init_dirname();
+init_filename();
+init_buffer();
+init_process();
+function FaExternalLinkAlt(props) {
+  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 512 512" }, "child": [{ "tag": "path", "attr": { "d": "M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z" } }] })(props);
+}
+
+// app/components/WashBox/index.tsx
+import { dateManipulator } from "domain/shared/date-manipulator";
+if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
+  console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
+} else {
+  prevRefreshReg = window.$RefreshReg$;
+  prevRefreshSig = window.$RefreshSig$;
+  window.$RefreshReg$ = (type, id) => {
+    window.$RefreshRuntime$.register(type, '"app/components/WashBox/index.tsx"' + id);
+  };
+  window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
+}
+var prevRefreshReg;
+var prevRefreshSig;
+if (import.meta) {
+  import.meta.hot = createHotContext(
+    //@ts-expect-error
+    "app/components/WashBox/index.tsx"
+  );
+  import.meta.hot.lastModified = "1692195229060.1326";
+}
+function WashBox({
+  wash
+}) {
+  const title = dateManipulator.format(wash.scheduleDate, "d/LL");
+  const date = dateManipulator.format(wash.scheduleDate, "d 'de' MMMM, eeee");
+  return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(LinkBox.Container, {
+    to: `/wash/${wash.id}`,
+    children: [/* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(LinkBox.Content, {
+      children: [/* @__PURE__ */ (0, import_jsx_runtime7.jsx)(LinkBox.Title, {
+        children: title
+      }), /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(Text, {
+        fontSize: "lg",
+        children: date
+      })]
+    }), /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(LinkBox.Icon, {
+      icon: /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(FaExternalLinkAlt, {
+        size: 16
+      })
+    })]
+  });
+}
+_c7 = WashBox;
+var _c7;
+$RefreshReg$(_c7, "WashBox");
+window.$RefreshReg$ = prevRefreshReg;
+window.$RefreshSig$ = prevRefreshSig;
+
+// app/components/NewWash/WashesContent/index.tsx
+if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
+  console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
+} else {
+  prevRefreshReg = window.$RefreshReg$;
+  prevRefreshSig = window.$RefreshSig$;
+  window.$RefreshReg$ = (type, id) => {
+    window.$RefreshRuntime$.register(type, '"app/components/NewWash/WashesContent/index.tsx"' + id);
+  };
+  window.$RefreshSig$ = window.$RefreshRuntime$.createSignatureFunctionForTransform;
+}
+var prevRefreshReg;
+var prevRefreshSig;
+if (import.meta) {
+  import.meta.hot = createHotContext(
+    //@ts-expect-error
+    "app/components/NewWash/WashesContent/index.tsx"
+  );
+  import.meta.hot.lastModified = "1692194843929.631";
+}
 function WashesContent({
   washes,
   washCycle
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(Grid, {
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(Grid, {
     blockSize: "100%",
     gridTemplateRows: "1fr auto",
-    children: [/* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Box, {
-      children: washCycle && washes && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(Alert, {
+    children: [/* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Box, {
+      children: washCycle && washes && /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(Alert, {
         status: "info",
-        children: [/* @__PURE__ */ (0, import_jsx_runtime3.jsx)(AlertIcon, {}), /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(Text, {
-          children: ["H\xE1 lavagens ativas para o ve\xEDculo com placa", " ", /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(LinkHighlighted, {
+        children: [/* @__PURE__ */ (0, import_jsx_runtime8.jsx)(AlertIcon, {}), /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(Text, {
+          children: ["H\xE1 lavagens ativas para o ve\xEDculo com placa", " ", /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(LinkHighlighted, {
             to: `/vehicle/${washCycle.vehicleId}`,
             children: washCycle.vehicleId
           })]
         })]
       })
-    }), /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Box, {
-      children: washes.map((w) => {
-        return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(BoxContainer, {
-          to: `/wash/${w.id}`,
-          children: [/* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(BoxContent, {
-            children: [/* @__PURE__ */ (0, import_jsx_runtime3.jsx)(BoxTitle, {
-              children: w.scheduleDate
-            }), /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Text, {
-              children: w.note
-            })]
-          }), /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(BoxIcon, {
-            icon: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(FaExternalLinkAlt, {
-              size: 16
-            })
-          })]
+    }), /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Flex, {
+      paddingBlockStart: 6,
+      flexDir: "column",
+      gap: 4,
+      children: washes && washes.map((w) => {
+        return /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(WashBox, {
+          wash: w
         }, w.id);
       })
     })]
   });
 }
-_c5 = WashesContent;
-var _c3;
-var _c22;
-var _c32;
-var _c4;
-var _c5;
-$RefreshReg$(_c3, "BoxTitle");
-$RefreshReg$(_c22, "BoxContent");
-$RefreshReg$(_c32, "BoxIcon");
-$RefreshReg$(_c4, "BoxContainer");
-$RefreshReg$(_c5, "WashesContent");
+_c8 = WashesContent;
+var _c8;
+$RefreshReg$(_c8, "WashesContent");
 window.$RefreshReg$ = prevRefreshReg;
 window.$RefreshSig$ = prevRefreshSig;
 
+// browser-route-module:routes/_auth.new-wash._index.tsx
+if (import.meta) {
+  import.meta.hot = createHotContext(
+    //@ts-expect-error
+    "app/routes/_auth.new-wash._index.tsx"
+  );
+}
+function stdin_default() {
+  const data = useLoaderData();
+  const [searchParams] = useSearchParams();
+  const { Stepper: Stepper3, steps: steps2 } = useStepper();
+  const step = Number(searchParams.get("step") ?? 0);
+  const stepValue = JSON.parse(searchParams.get(steps2[step].label) ?? "null");
+  const isEqualOrGreaterThanZero = step - 1 >= 0;
+  const isLowerThanStepLength = step < steps2.length - 1;
+  const previousUrlParams = new URLSearchParams(searchParams);
+  const nextUrlParams = new URLSearchParams(searchParams);
+  previousUrlParams.set("step", (step - 1).toString());
+  nextUrlParams.set("step", (step + 1).toString());
+  return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(Grid, { paddingInline: 8, gridTemplateRows: "1fr auto", inlineSize: "100%", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
+      Grid,
+      {
+        gridAutoFlow: "column",
+        gap: "1.125em",
+        gridTemplateColumns: "auto 1fr",
+        gridTemplateRows: "100%",
+        marginInline: [0, 0, 4],
+        paddingBlockStart: [4, 4, 8],
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(Stepper3, { activeStep: step, steps: steps2 }),
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
+            Grid,
+            {
+              blockSize: "100%",
+              inlineSize: "100%",
+              paddingInline: 4,
+              gridAutoRows: "min-content",
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+                  Text,
+                  {
+                    placeSelf: "center",
+                    as: "h1",
+                    fontSize: "2xl",
+                    marginBlockEnd: 4,
+                    children: steps2[step].modalTitle
+                  }
+                ),
+                /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
+                  Box,
+                  {
+                    inlineSize: "100%",
+                    marginInline: "auto",
+                    maxInlineSize: "container.md",
+                    children: [
+                      steps2[step].label === "vehicle" && /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(VehicleContent, {}),
+                      steps2[step].label === "washes" && /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(WashesContent, { washCycle: data.washCycle, washes: data.washes })
+                    ]
+                  }
+                )
+              ]
+            }
+          )
+        ]
+      }
+    ),
+    /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
+      Flex,
+      {
+        placeSelf: "flex-end",
+        blockSize: "100%",
+        align: "center",
+        paddingBlock: 8,
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+            Button,
+            {
+              as: Link2,
+              isDisabled: !steps2[step].isNullable,
+              colorScheme: "purple",
+              variant: "ghost",
+              mr: 3,
+              size: "sm",
+              to: `/new-wash?${nextUrlParams.toString()}`,
+              children: "pular"
+            },
+            "jump-btn"
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+            Button,
+            {
+              as: Link2,
+              colorScheme: "gray",
+              variant: "ghost",
+              mr: 3,
+              isDisabled: !isEqualOrGreaterThanZero,
+              to: `/new-wash?${previousUrlParams.toString()}`,
+              marginInlineEnd: "0",
+              children: "voltar"
+            },
+            "back-btn"
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+            Divider,
+            {
+              blockSize: "100%",
+              orientation: "vertical",
+              inlineSize: "8px",
+              borderColor: "gray.400"
+            }
+          ),
+          step === steps2.length - 1 ? /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(Button, { variant: "ghost", colorScheme: "blue", children: "finalizar" }, "finish-btn") : /* @__PURE__ */ (0, import_jsx_runtime9.jsx)(
+            Button,
+            {
+              as: Link2,
+              isDisabled: !stepValue || !isLowerThanStepLength,
+              variant: "ghost",
+              colorScheme: "blue",
+              to: `/new-wash?${nextUrlParams.toString()}`,
+              children: "pr\xF3ximo"
+            },
+            "next-btn"
+          )
+        ]
+      }
+    )
+  ] });
+}
 export {
-  useStepper,
-  VehicleContent,
-  WashesContent
+  stdin_default as default
 };
-//# sourceMappingURL=http://localhost:3001/build/_shared/chunk-ZMLXUN7N.js.map
+//# sourceMappingURL=http://localhost:3001/build/routes/_auth.new-wash._index-BUITSFJX.js.map
