@@ -1,15 +1,17 @@
 import { Link, Box } from "@chakra-ui/react";
+import type { LinkProps } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 type Props = {
   to: string;
   children: ReactNode;
+  LinkProps?: LinkProps;
 };
 
-export function LinkHighlighted({ to, children }: Props) {
+export function LinkHighlighted({ to, children, LinkProps }: Props) {
   return (
-    <Link as={RouterLink} to={to}>
+    <Link marginInline={1} {...LinkProps} as={RouterLink} to={to}>
       <Box
         position={"relative"}
         inlineSize="fit-content"

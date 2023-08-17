@@ -1,7 +1,7 @@
 import {
   Box,
   Link as Link2
-} from "http://localhost:3001/build/_shared/chunk-JWF4XJQI.js";
+} from "http://localhost:3001/build/_shared/chunk-R4JIXPPC.js";
 import {
   Link,
   init_dist2 as init_dist
@@ -46,13 +46,16 @@ if (import.meta) {
     //@ts-expect-error
     "app/components/LinkHighlighted.tsx"
   );
-  import.meta.hot.lastModified = "1692151602861.2983";
+  import.meta.hot.lastModified = "1692216742942.919";
 }
 function LinkHighlighted({
   to,
-  children
+  children,
+  LinkProps
 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link2, {
+    marginInline: 1,
+    ...LinkProps,
     as: Link,
     to,
     children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Box, {
@@ -83,4 +86,4 @@ window.$RefreshSig$ = prevRefreshSig;
 export {
   LinkHighlighted
 };
-//# sourceMappingURL=http://localhost:3001/build/_shared/chunk-MV2MUGWC.js.map
+//# sourceMappingURL=http://localhost:3001/build/_shared/chunk-EYUN7G26.js.map

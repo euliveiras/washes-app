@@ -1,7 +1,7 @@
 import { LinkBox } from "~/components/LinkBox";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { Text } from "@chakra-ui/react";
-import { dateManipulator } from "domain/shared/date-manipulator";
+import { dateManipulator } from "../.././../src/domain/shared/date-manipulator";
 
 type WashBoxProps = {
   wash: {
@@ -16,7 +16,7 @@ export function WashBox({ wash }: WashBoxProps) {
 
   return (
     <LinkBox.Container to={`/wash/${wash.id}`}>
-      <LinkBox.Content>
+      <LinkBox.Content >
         <LinkBox.Title>{title}</LinkBox.Title>
         <Text fontSize={"lg"}>{date}</Text>
       </LinkBox.Content>

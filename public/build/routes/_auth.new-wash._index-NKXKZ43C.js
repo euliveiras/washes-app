@@ -1,6 +1,9 @@
 import {
   LinkHighlighted
-} from "http://localhost:3001/build/_shared/chunk-MV2MUGWC.js";
+} from "http://localhost:3001/build/_shared/chunk-EYUN7G26.js";
+import {
+  dateManipulator
+} from "http://localhost:3001/build/_shared/chunk-I35CEAMW.js";
 import {
   GenIcon,
   MdCheck,
@@ -30,8 +33,9 @@ import {
   StepTitle,
   Stepper,
   Text,
+  Textarea,
   useSteps
-} from "http://localhost:3001/build/_shared/chunk-JWF4XJQI.js";
+} from "http://localhost:3001/build/_shared/chunk-R4JIXPPC.js";
 import "http://localhost:3001/build/_shared/chunk-DC5KBJVF.js";
 import "http://localhost:3001/build/_shared/chunk-PKOMFC7F.js";
 import "http://localhost:3001/build/_shared/chunk-IJA4GF5B.js";
@@ -1957,7 +1961,7 @@ if (import.meta) {
     //@ts-expect-error
     "app/components/LinkBox/Container.tsx"
   );
-  import.meta.hot.lastModified = "1692190810500.1528";
+  import.meta.hot.lastModified = "1692216207030.7793";
 }
 function Container({
   to,
@@ -1965,11 +1969,16 @@ function Container({
 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Grid, {
     minInlineSize: "180px",
-    paddingBlock: 4,
+    minBlockSize: "150px",
+    padding: 4,
     gridTemplateColumns: "80% 20%",
     gridTemplateRows: "1fr",
+    placeItems: "center",
     as: Link,
     to,
+    border: "2px",
+    borderColor: "blue.400",
+    borderRadius: "lg",
     children
   });
 }
@@ -2003,13 +2012,14 @@ if (import.meta) {
     //@ts-expect-error
     "app/components/LinkBox/Content.tsx"
   );
-  import.meta.hot.lastModified = "1692190904574.133";
+  import.meta.hot.lastModified = "1692216426967.9558";
 }
 function Content({
-  children
+  children,
+  ...rest
 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Box, {
-    blockSize: "100%",
+    ...rest,
     children
   });
 }
@@ -2129,7 +2139,6 @@ function FaExternalLinkAlt(props) {
 }
 
 // app/components/WashBox/index.tsx
-import { dateManipulator } from "domain/shared/date-manipulator";
 if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
   console.warn("remix:hmr: React Fast Refresh only works when the Remix compiler is running in development mode.");
 } else {
@@ -2147,7 +2156,7 @@ if (import.meta) {
     //@ts-expect-error
     "app/components/WashBox/index.tsx"
   );
-  import.meta.hot.lastModified = "1692195229060.1326";
+  import.meta.hot.lastModified = "1692216957537.4563";
 }
 function WashBox({
   wash
@@ -2189,45 +2198,176 @@ if (!window.$RefreshReg$ || !window.$RefreshSig$ || !window.$RefreshRuntime$) {
 }
 var prevRefreshReg;
 var prevRefreshSig;
+var _s2 = $RefreshSig$();
 if (import.meta) {
   import.meta.hot = createHotContext(
     //@ts-expect-error
     "app/components/NewWash/WashesContent/index.tsx"
   );
-  import.meta.hot.lastModified = "1692194843929.631";
+  import.meta.hot.lastModified = "1692225873876.8625";
 }
+function NewWashForm({
+  title,
+  defaultDate,
+  label
+}) {
+  _s2();
+  const [searchParams, setSearchParams] = useSearchParams();
+  function onFormChange(e) {
+    const form = new FormData(e.currentTarget);
+    const scheduleDate = form.get("scheduleDate");
+    const note = form.get("note");
+    const isCompleted = form.get("isCompleted") === "";
+    console.log(scheduleDate, note, isCompleted, label);
+  }
+  const dateFormatted = defaultDate;
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsx)("form", {
+    onChange: onFormChange,
+    style: {
+      blockSize: "100%",
+      inlineSize: "100%"
+    },
+    children: /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(Flex, {
+      maxInlineSize: "360px",
+      flexDir: "column",
+      gap: 6,
+      marginInline: "auto",
+      children: [/* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Text, {
+        marginInline: "auto",
+        marginBlockStart: 2,
+        fontSize: "lg",
+        children: title
+      }), /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(FormControl, {
+        as: Flex,
+        flexDir: "column",
+        align: "center",
+        children: [/* @__PURE__ */ (0, import_jsx_runtime8.jsx)(FormLabel, {
+          inlineSize: "fit-content",
+          children: "data"
+        }), /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Input, {
+          name: "scheduleDate",
+          inlineSize: "180px",
+          type: "date",
+          defaultValue: dateFormatted
+        })]
+      }), /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(FormControl, {
+        children: [/* @__PURE__ */ (0, import_jsx_runtime8.jsx)(FormLabel, {
+          inlineSize: "fit-content",
+          marginInline: "auto",
+          children: "notas"
+        }), /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Textarea, {
+          name: "note",
+          noOfLines: 6,
+          placeholder: "escreva notas sobre esta lavagem",
+          resize: "none"
+        })]
+      }), /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(FormControl, {
+        as: Flex,
+        inlineSize: "fit-content",
+        marginInline: "auto",
+        align: "center",
+        children: [/* @__PURE__ */ (0, import_jsx_runtime8.jsx)(FormLabel, {
+          marginBlock: 0,
+          marginInlineEnd: 6,
+          children: "lavagem feita?"
+        }), /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Checkbox, {
+          name: "isCompleted"
+        })]
+      })]
+    })
+  });
+}
+_s2(NewWashForm, "/eCs5CB4FLGAVLeprHBYLwBGf/Q=", false, function() {
+  return [useSearchParams];
+});
+_c8 = NewWashForm;
 function WashesContent({
   washes,
   washCycle
 }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(Grid, {
+  return /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Grid, {
     blockSize: "100%",
     gridTemplateRows: "1fr auto",
-    children: [/* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Box, {
-      children: washCycle && washes && /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(Alert, {
-        status: "info",
-        children: [/* @__PURE__ */ (0, import_jsx_runtime8.jsx)(AlertIcon, {}), /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(Text, {
-          children: ["H\xE1 lavagens ativas para o ve\xEDculo com placa", " ", /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(LinkHighlighted, {
-            to: `/vehicle/${washCycle.vehicleId}`,
-            children: washCycle.vehicleId
+    children: washCycle && washes ? /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(import_jsx_runtime8.Fragment, {
+      children: [/* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Box, {
+        children: /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(Alert, {
+          status: "info",
+          children: [/* @__PURE__ */ (0, import_jsx_runtime8.jsx)(AlertIcon, {}), /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(Text, {
+            children: ["H\xE1 lavagens ativas para o ve\xEDculo com placa", /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(LinkHighlighted, {
+              to: `/vehicle/${washCycle.vehicleId}`,
+              children: washCycle.vehicleId
+            })]
           })]
-        })]
-      })
-    }), /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Flex, {
-      paddingBlockStart: 6,
-      flexDir: "column",
-      gap: 4,
-      children: washes && washes.map((w) => {
-        return /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(WashBox, {
-          wash: w
-        }, w.id);
-      })
-    })]
+        })
+      }), /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Grid, {
+        paddingBlockStart: 6,
+        gridTemplateColumns: ["1fr", "1fr", "1fr 1fr"],
+        gap: 4,
+        children: washes && washes.map((w) => {
+          return /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(WashBox, {
+            wash: w
+          }, w.id);
+        })
+      })]
+    }) : /* @__PURE__ */ (0, import_jsx_runtime8.jsxs)(Grid, {
+      gridTemplateColumns: ["1fr", "1fr", "1fr 1fr"],
+      gap: 10,
+      paddingBlockEnd: 8,
+      placeItems: "center",
+      children: [/* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Box, {
+        maxInlineSize: "320px",
+        marginInline: [0, 8],
+        border: "4px",
+        borderColor: "blue.400",
+        borderRadius: "lg",
+        paddingInline: 4,
+        paddingBlock: 8,
+        children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(NewWashForm, {
+          title: "primeira lavagem",
+          label: "first"
+        }, "first")
+      }), /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Box, {
+        marginInline: [0, 8],
+        border: "4px",
+        borderColor: "blue.400",
+        borderRadius: "lg",
+        paddingInline: 4,
+        paddingBlock: 8,
+        children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(NewWashForm, {
+          title: "segunda lavagem",
+          label: "second"
+        }, "sec")
+      }), /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Box, {
+        marginInline: [0, 8],
+        border: "4px",
+        borderColor: "blue.400",
+        borderRadius: "lg",
+        paddingInline: 4,
+        paddingBlock: 8,
+        children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(NewWashForm, {
+          title: "terceira lavagem",
+          label: "third"
+        }, "third")
+      }), /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(Box, {
+        marginInline: [0, 8],
+        border: "4px",
+        borderColor: "blue.400",
+        borderRadius: "lg",
+        paddingInline: 4,
+        paddingBlock: 8,
+        children: /* @__PURE__ */ (0, import_jsx_runtime8.jsx)(NewWashForm, {
+          title: "quarta lavagem",
+          label: "fourth"
+        }, "fourth")
+      })]
+    })
   });
 }
-_c8 = WashesContent;
+_c22 = WashesContent;
 var _c8;
-$RefreshReg$(_c8, "WashesContent");
+var _c22;
+$RefreshReg$(_c8, "NewWashForm");
+$RefreshReg$(_c22, "WashesContent");
 window.$RefreshReg$ = prevRefreshReg;
 window.$RefreshSig$ = prevRefreshSig;
 
@@ -2250,7 +2390,7 @@ function stdin_default() {
   const nextUrlParams = new URLSearchParams(searchParams);
   previousUrlParams.set("step", (step - 1).toString());
   nextUrlParams.set("step", (step + 1).toString());
-  return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(Grid, { paddingInline: 8, gridTemplateRows: "1fr auto", inlineSize: "100%", children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(Grid, { paddingInline: [4, 8], gridTemplateRows: "1fr auto", inlineSize: "100%", children: [
     /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
       Grid,
       {
@@ -2277,6 +2417,7 @@ function stdin_default() {
                     as: "h1",
                     fontSize: "2xl",
                     marginBlockEnd: 4,
+                    whiteSpace: "nowrap",
                     children: steps2[step].modalTitle
                   }
                 ),
@@ -2363,4 +2504,4 @@ function stdin_default() {
 export {
   stdin_default as default
 };
-//# sourceMappingURL=http://localhost:3001/build/routes/_auth.new-wash._index-BUITSFJX.js.map
+//# sourceMappingURL=http://localhost:3001/build/routes/_auth.new-wash._index-NKXKZ43C.js.map

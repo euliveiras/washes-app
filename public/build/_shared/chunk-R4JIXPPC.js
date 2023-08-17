@@ -27749,14 +27749,14 @@ var import_react104 = __toESM(require_react(), 1);
 var import_jsx_runtime66 = __toESM(require_jsx_runtime(), 1);
 function split2(object2, keys2) {
   const picked = {};
-  const omitted = {};
+  const omitted2 = {};
   for (const [key, value] of Object.entries(object2)) {
     if (keys2.includes(key))
       picked[key] = value;
     else
-      omitted[key] = value;
+      omitted2[key] = value;
   }
-  return [picked, omitted];
+  return [picked, omitted2];
 }
 var Select = forwardRef((props, ref) => {
   var _a8;
@@ -28153,6 +28153,48 @@ var StepSeparator = forwardRef(function StepSeparator2(props, ref) {
   );
 });
 
+// node_modules/@chakra-ui/textarea/dist/index.mjs
+init_global();
+init_dirname();
+init_filename();
+init_buffer();
+init_process();
+
+// node_modules/@chakra-ui/textarea/dist/chunk-OEQDSMWZ.mjs
+init_global();
+init_dirname();
+init_filename();
+init_buffer();
+init_process();
+var import_jsx_runtime75 = __toESM(require_jsx_runtime(), 1);
+function omit4(object2, keysToOmit = []) {
+  const clone = Object.assign({}, object2);
+  for (const key of keysToOmit) {
+    if (key in clone) {
+      delete clone[key];
+    }
+  }
+  return clone;
+}
+var omitted = ["h", "minH", "height", "minHeight"];
+var Textarea = forwardRef((props, ref) => {
+  const styles2 = useStyleConfig("Textarea", props);
+  const { className, rows, ...rest } = omitThemingProps(props);
+  const textareaProps = useFormControl(rest);
+  const textareaStyles = rows ? omit4(styles2, omitted) : styles2;
+  return /* @__PURE__ */ (0, import_jsx_runtime75.jsx)(
+    chakra.textarea,
+    {
+      ref,
+      rows,
+      ...textareaProps,
+      className: cx("chakra-textarea", className),
+      __css: textareaStyles
+    }
+  );
+});
+Textarea.displayName = "Textarea";
+
 export {
   extendTheme,
   Icon,
@@ -28198,7 +28240,8 @@ export {
   StepStatus,
   StepIcon,
   StepIndicator,
-  StepSeparator
+  StepSeparator,
+  Textarea
 };
 /*! Bundled license information:
 
@@ -28219,4 +28262,4 @@ object-assign/index.js:
   @license MIT
   *)
 */
-//# sourceMappingURL=http://localhost:3001/build/_shared/chunk-JWF4XJQI.js.map
+//# sourceMappingURL=http://localhost:3001/build/_shared/chunk-R4JIXPPC.js.map

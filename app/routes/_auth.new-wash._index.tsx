@@ -38,7 +38,7 @@ export default function () {
   nextUrlParams.set("step", (step + 1).toString());
 
   return (
-    <Grid paddingInline={8} gridTemplateRows="1fr auto" inlineSize={"100%"}>
+    <Grid paddingInline={[4, 8]} gridTemplateRows="1fr auto" inlineSize={"100%"}>
       <Grid
         gridAutoFlow="column"
         gap="1.125em"
@@ -59,6 +59,7 @@ export default function () {
             as="h1"
             fontSize={"2xl"}
             marginBlockEnd={4}
+            whiteSpace="nowrap"
           >
             {steps[step].modalTitle}
           </Text>
