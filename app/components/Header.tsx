@@ -7,9 +7,9 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import { BiHomeAlt } from "react-icons/bi";
 import {
   MdOutlineNotificationsNone,
-  MdOutlineHome,
   MdDensityMedium,
 } from "react-icons/md";
 import { LuPlus } from "react-icons/lu";
@@ -45,11 +45,11 @@ export function Header({ label, user }: HeaderProps) {
             aria-label="go to home"
             fontSize="32px"
             isRound
-            icon={<MdOutlineHome />}
+            icon={<BiHomeAlt size={30} />}
             as={Link}
             to={"/home"}
           />
-          <Text fontWeight={"bold"} fontSize={"md"}>
+          <Text letterSpacing={"wider"} fontWeight={"bold"} fontSize={"md"}>
             {label}
           </Text>
         </HStack>
