@@ -1,12 +1,7 @@
-import { useFetcher } from "react-router-dom";
+import { Results } from "./Results";
 import { SearchInput } from "./SearchInput";
 
-export function useSearchEntity<T>() {
-  const fetcher = useFetcher<T[]>();
-
-  return {
-    fetcher,
-  };
-}
-
-export { SearchInput };
+export const searchEntity = {
+  Input: SearchInput,
+  Results: Results,
+};

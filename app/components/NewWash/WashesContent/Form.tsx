@@ -11,24 +11,34 @@ import {
 } from "@chakra-ui/react";
 import type { ChangeEvent, FormEvent } from "react";
 import { Form as RemixForm } from "@remix-run/react";
+import type { Wash } from "~/routes/_auth.new-wash._index";
 
 type FormProps = {
   id: string | number;
   title: string;
-  defaultDate?: string;
+  defaultDate: string;
   minDate?: string;
-  onChange(e: FormEvent<HTMLFormElement>): void;
+  onChange(w: Wash): void;
   note: string;
+  isCompleted: boolean;
 };
 
-export function Form({ id, onChange, title, defaultDate, minDate }: FormProps) {
+export function Form({
+  isCompleted,
+  id,
+  onChange,
+  note,
+  title,
+  defaultDate,
+  minDate,
+}: FormProps) {
   function onFormChange(e: ChangeEvent<HTMLFormElement>) {
     const form = new FormData(e.currentTarget);
-    const scheduleDate = form.get("scheduleDate");
-    const note = form.get("note");
+    const scheduleDate = form.get("scheduleDate")?.toString() ?? "";
+    const note = form.get("note")?.toString() ?? "";
     const isCompleted = form.get("isCompleted") === "";
-    const id = form.get("id");
-    console.log(id, isCompleted, note, scheduleDate);
+    const id = form.get("id")?.toString() ?? "";
+    onChange({ note, isCompleted, id: Number(id), scheduleDate, title });
   }
 
   return (
@@ -67,6 +77,7 @@ export function Form({ id, onChange, title, defaultDate, minDate }: FormProps) {
             noOfLines={6}
             placeholder="escreva notas sobre esta lavagem"
             resize="none"
+            defaultValue={note}
           />
         </FormControl>
         <FormControl
@@ -78,7 +89,7 @@ export function Form({ id, onChange, title, defaultDate, minDate }: FormProps) {
           <FormLabel marginBlock={0} marginInlineEnd={6}>
             lavagem feita?
           </FormLabel>
-          <Checkbox name="isCompleted" />
+          <Checkbox defaultChecked={isCompleted} name="isCompleted" />
         </FormControl>
       </Flex>
     </RemixForm>

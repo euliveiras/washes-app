@@ -1,45 +1,20 @@
 import { Text, Box, Grid } from "@chakra-ui/react";
 import { useStepper } from "~/components/NewWash/Stepper";
-import { VehicleContent } from "~/components/NewWash/VehicleContent";
 import { washContent } from "~/components/NewWash/WashesContent";
-import type { Vehicle } from "../components/NewWash/VehicleContent";
+import {
+  defaultVehicleState,
+  VehicleContent,
+} from "~/components/NewWash/VehicleContent/";
+import type { Vehicle } from "~/components/NewWash/VehicleContent/";
 import { useState } from "react";
 import { NewWashFooter } from "~/components/NewWash/footer";
 import { useDate } from "~/components/hooks/useDate";
 
-const vehicles = [
-  {
-    licensePlate: "HUHDWQE",
-    type: "Leve",
-  },
-
-  {
-    licensePlate: "LAPW123",
-    type: "Leve",
-  },
-  {
-    licensePlate: "PO6778",
-    type: "Truck",
-  },
-  {
-    licensePlate: "PO6778",
-    type: "Truck",
-  },
-  {
-    licensePlate: "PO6778",
-    type: "Truck",
-  },
-  {
-    licensePlate: "PO6778",
-    type: "Truck",
-  },
-];
-
 export type Wash = {
   id: string | number;
-  scheduleDate?: string;
-  note?: string;
-  isCompleted?: boolean;
+  scheduleDate: string;
+  note: string;
+  isCompleted: boolean;
   title: string;
 };
 
@@ -85,60 +60,61 @@ export default function () {
     },
   ];
 
-  const [vehicle, setVehicle] = useState<Vehicle | null | undefined>(undefined);
-  const [washes, setWashes] = useState<Wash[] | undefined>(defaultValues);
+  const [vehicle, setVehicle] = useState<Vehicle>(defaultVehicleState);
+  const [washes, setWashes] = useState<Wash[]>(defaultValues);
 
-  function setVehicleData(v: Vehicle | null) {
+  function setVehicleData(v: Vehicle) {
     setVehicle(v);
   }
 
-  function setWashesData(w: Wash[]) {
-    setWashes(w);
+  function setWashesData(w: Wash) {
+    setWashes((s) => {
+      const arr = [...s];
+      const index = s?.findIndex((v) => v.id === w.id);
+      if (index > -1) {
+        arr[index] = w;
+      }
+      return arr;
+    });
   }
 
   const isVehicleDataValid =
-    vehicle?.licensePlate &&
-    vehicle?.type &&
-    typeof vehicle?.create === "boolean";
+    vehicle.licensePlate && vehicle.type && typeof vehicle.create === "boolean";
 
-console.log(vehicle)
+  console.log(vehicle);
 
   return (
-    <Grid
-      paddingInline={[4, 8]}
-      gridTemplateRows="1fr auto"
-      inlineSize={"100%"}
-    >
+    <Grid paddingInline={4} gridTemplateRows="1fr auto" inlineSize={"100%"}>
       <Grid
         gridAutoFlow="column"
-        gap="1.125em"
+        gap={1}
         gridTemplateColumns={"auto 1fr"}
         gridTemplateRows={"100%"}
-        marginInline={[0, 0, 4]}
         paddingBlockStart={[4, 4, 8]}
         paddingBlockEnd={8}
         blockSize="100%"
       >
         <Stepper activeStep={activeStep} steps={steps} />
-        <Grid blockSize="100%" inlineSize={"100%"} gridTemplateRows="auto 1fr">
+        <Grid
+          blockSize="100%"
+          gridTemplateColumns={"1fr"}
+          inlineSize={"100%"}
+          gridTemplateRows="auto 1fr"
+        >
           <Text
             placeSelf={"center"}
             as="h1"
-            fontSize={"2xl"}
+            fontSize={["xl", "xl", "2xl"]}
             marginBlockEnd={4}
             whiteSpace="nowrap"
           >
             {steps[activeStep].modalTitle}
           </Text>
-          <Box
-            inlineSize={"100%"}
-            marginInline="auto"
-            maxInlineSize={"container.md"}
-          >
+          <Box inlineSize={"100%"} marginInline="auto">
             {activeStep === 0 && (
               <VehicleContent
-                vehicle={vehicle}
                 setVehicleData={setVehicleData}
+                vehicle={vehicle}
               />
             )}
             {activeStep === 1 && (
@@ -156,7 +132,8 @@ console.log(vehicle)
                   >
                     <washContent.Form
                       id={w.id}
-                      onChange={() => {}}
+                      onChange={setWashesData}
+                      isCompleted={w.isCompleted}
                       title={w.title}
                       defaultDate={w.scheduleDate}
                       minDate={minDate}

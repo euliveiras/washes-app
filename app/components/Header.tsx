@@ -8,10 +8,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { BiHomeAlt } from "react-icons/bi";
-import {
-  MdOutlineNotificationsNone,
-  MdDensityMedium,
-} from "react-icons/md";
+import { MdOutlineNotificationsNone, MdDensityMedium } from "react-icons/md";
 import { LuPlus } from "react-icons/lu";
 import { Link } from "@remix-run/react";
 import { useRef } from "react";
@@ -35,8 +32,9 @@ export function Header({ label, user }: HeaderProps) {
       inlineSize={"100%"}
       gridAutoFlow={"column"}
       gridAutoRows={"min-content"}
-      paddingInline={2}
+      gridAutoColumns="1fr"
       paddingBlock={4}
+      paddingInline={1}
     >
       <HStack spacing={[6]}>
         <HStack spacing={1}>

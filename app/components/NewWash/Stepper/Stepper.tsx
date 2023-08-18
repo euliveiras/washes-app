@@ -21,7 +21,7 @@ export function Stepper({ steps, activeStep }: StepperProps) {
       index={activeStep}
       orientation="vertical"
       blockSize="100%"
-      size={"lg"}
+      size={["md", "md", "lg"]}
     >
       {steps.map(({ IconIncomplete, IconActive, label }, index) => (
         <Step key={index}>
@@ -33,7 +33,11 @@ export function Stepper({ steps, activeStep }: StepperProps) {
             />
           </StepIndicator>
 
-          <Box flexShrink="0" paddingBlockStart={1} display={["none", "none", "none", "block"]}>
+          <Box
+            flexShrink="0"
+            paddingBlockStart={1}
+            display={["none", "none", "none", "block"]}
+          >
             <StepTitle>{label}</StepTitle>
           </Box>
 

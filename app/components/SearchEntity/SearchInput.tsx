@@ -3,32 +3,24 @@ import type { InputProps } from "@chakra-ui/react";
 import { useRef } from "react";
 import type { ChangeEvent } from "react";
 
-interface SearchInputProps extends InputProps {
-  onInputQueryChange(e: HTMLFormElement | null): void;
-}
+type SearchInputProps = Omit<InputProps, "onChange"> & {
+  onChange(value: string): void;
+};
 
-export function SearchInput(searchInputProps: SearchInputProps) {
+export function SearchInput({ onChange, ...rest }: SearchInputProps) {
   const timeoutId = useRef<number | undefined>(null);
 
   function onInputQueryChange(e: ChangeEvent<HTMLInputElement>) {
-    if (!e.target.form) return;
+    const value = e.target.value;
 
     timeoutId.current && clearTimeout(timeoutId.current);
-    timeoutId.current = setTimeout(
-      () => searchInputProps.onInputQueryChange(e.target.form),
-      1000,
-    );
+    timeoutId.current = setTimeout(() => onChange(value), 1000);
   }
 
   return (
     <FormControl>
       <InputGroup>
-        <Input
-          name="query"
-          rounded={"full"}
-          onChange={onInputQueryChange}
-          {...searchInputProps}
-        />
+        <Input rounded={"full"} onChange={onInputQueryChange} {...rest} />
       </InputGroup>
     </FormControl>
   );

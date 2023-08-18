@@ -329,7 +329,7 @@ if (import.meta) {
     //@ts-expect-error
     "app/components/Header.tsx"
   );
-  import.meta.hot.lastModified = "1692278038178.6455";
+  import.meta.hot.lastModified = "1692382157954.4675";
 }
 function Header({
   label,
@@ -347,8 +347,9 @@ function Header({
     inlineSize: "100%",
     gridAutoFlow: "column",
     gridAutoRows: "min-content",
-    paddingInline: 2,
+    gridAutoColumns: "1fr",
     paddingBlock: 4,
+    paddingInline: 1,
     children: [/* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(HStack, {
       spacing: [6],
       children: [/* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(HStack, {
@@ -456,4 +457,4 @@ export {
   stdin_default as default,
   headers
 };
-//# sourceMappingURL=http://localhost:3001/build/routes/_auth-UJIYFJJC.js.map
+//# sourceMappingURL=http://localhost:3001/build/routes/_auth-W2UZOZKL.js.map
