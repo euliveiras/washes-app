@@ -5,7 +5,7 @@ import {
 import {
   ChakraProvider,
   extendTheme
-} from "http://localhost:3001/build/_shared/chunk-R4JIXPPC.js";
+} from "http://localhost:3001/build/_shared/chunk-PJ2IAIPY.js";
 import {
   withEmotionCache
 } from "http://localhost:3001/build/_shared/chunk-DC5KBJVF.js";
@@ -124,21 +124,21 @@ var theme = extendTheme({
   styles: {
     global: {
       "html, body": {
-        "minBlockSize": "100vh",
-        "width": "100%",
-        "backgroundColor": "#FFFFFF",
-        "fontFamily": "Ubuntu, sans-serif"
+        minBlockSize: "100vh",
+        width: "100%",
+        backgroundColor: "#FFFFFF",
+        fontFamily: "Ubuntu, sans-serif"
       }
     }
   }
 });
 function App() {
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Document, {
-    children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChakraProvider, {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Document, {
+    children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChakraProvider, {
       theme,
       resetCSS: true,
       children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {})
-    })
+    }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Scripts, {}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ScrollRestoration, {})]
   });
 }
 _c3 = App;
@@ -155,4 +155,4 @@ export {
   links,
   meta
 };
-//# sourceMappingURL=http://localhost:3001/build/root-ISF7OHEB.js.map
+//# sourceMappingURL=http://localhost:3001/build/root-HLOSKOKZ.js.map

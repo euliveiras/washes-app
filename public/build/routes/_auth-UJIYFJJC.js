@@ -1,10 +1,9 @@
 import {
   GenIcon,
   MdDensityMedium,
-  MdOutlineHome,
   MdOutlineNotificationsNone,
   MdOutlineSearch
-} from "http://localhost:3001/build/_shared/chunk-DXSXC535.js";
+} from "http://localhost:3001/build/_shared/chunk-KVW2GNI7.js";
 import {
   Avatar,
   Button,
@@ -29,7 +28,7 @@ import {
   ModalOverlay,
   Text,
   useDisclosure
-} from "http://localhost:3001/build/_shared/chunk-R4JIXPPC.js";
+} from "http://localhost:3001/build/_shared/chunk-PJ2IAIPY.js";
 import "http://localhost:3001/build/_shared/chunk-DC5KBJVF.js";
 import "http://localhost:3001/build/_shared/chunk-PKOMFC7F.js";
 import "http://localhost:3001/build/_shared/chunk-IJA4GF5B.js";
@@ -74,6 +73,16 @@ init_filename();
 init_buffer();
 init_process();
 var import_jsx_runtime4 = __toESM(require_jsx_runtime());
+
+// node_modules/react-icons/bi/index.esm.js
+init_global();
+init_dirname();
+init_filename();
+init_buffer();
+init_process();
+function BiHomeAlt(props) {
+  return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "d": "M5 22h14a2 2 0 0 0 2-2v-9a1 1 0 0 0-.29-.71l-8-8a1 1 0 0 0-1.41 0l-8 8A1 1 0 0 0 3 11v9a2 2 0 0 0 2 2zm5-2v-5h4v5zm-5-8.59 7-7 7 7V20h-3v-5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v5H5z" } }] })(props);
+}
 
 // node_modules/react-icons/lu/index.esm.js
 init_global();
@@ -320,7 +329,7 @@ if (import.meta) {
     //@ts-expect-error
     "app/components/Header.tsx"
   );
-  import.meta.hot.lastModified = "1692190435448.1174";
+  import.meta.hot.lastModified = "1692278038178.6455";
 }
 function Header({
   label,
@@ -349,10 +358,13 @@ function Header({
           "aria-label": "go to home",
           fontSize: "32px",
           isRound: true,
-          icon: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(MdOutlineHome, {}),
+          icon: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(BiHomeAlt, {
+            size: 30
+          }),
           as: Link,
           to: "/home"
         }), /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Text, {
+          letterSpacing: "wider",
           fontWeight: "bold",
           fontSize: "md",
           children: label
@@ -444,4 +456,4 @@ export {
   stdin_default as default,
   headers
 };
-//# sourceMappingURL=http://localhost:3001/build/routes/_auth-WIDSRHJS.js.map
+//# sourceMappingURL=http://localhost:3001/build/routes/_auth-UJIYFJJC.js.map

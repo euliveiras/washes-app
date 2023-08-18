@@ -1,7 +1,7 @@
 import {
   Box,
   Link as Link2
-} from "http://localhost:3001/build/_shared/chunk-R4JIXPPC.js";
+} from "http://localhost:3001/build/_shared/chunk-PJ2IAIPY.js";
 import {
   Link,
   init_dist2 as init_dist
@@ -86,4 +86,4 @@ window.$RefreshSig$ = prevRefreshSig;
 export {
   LinkHighlighted
 };
-//# sourceMappingURL=http://localhost:3001/build/_shared/chunk-EYUN7G26.js.map
+//# sourceMappingURL=http://localhost:3001/build/_shared/chunk-SRNFPOD7.js.map

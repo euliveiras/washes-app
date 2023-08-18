@@ -1,44 +1,114 @@
-import { Text, Box, Button, Divider, Grid, Flex } from "@chakra-ui/react";
-import { useSearchParams, Link, useLoaderData } from "@remix-run/react";
+import { Text, Box, Grid } from "@chakra-ui/react";
 import { useStepper } from "~/components/NewWash/Stepper";
 import { VehicleContent } from "~/components/NewWash/VehicleContent";
-import { WashesContent } from "~/components/NewWash/WashesContent";
-import type { LoaderArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { mocks } from "../routes/washes-search/route";
+import { washContent } from "~/components/NewWash/WashesContent";
+import type { Vehicle } from "../components/NewWash/VehicleContent";
+import { useState } from "react";
+import { NewWashFooter } from "~/components/NewWash/footer";
+import { useDate } from "~/components/hooks/useDate";
 
-export async function loader({ request }: LoaderArgs) {
-  const url = new URL(request.url);
-  const vehicle = JSON.parse(url.searchParams.get("vehicle") ?? "null");
-  if (!vehicle?.licensePlate || !vehicle.type) return json({});
+const vehicles = [
+  {
+    licensePlate: "HUHDWQE",
+    type: "Leve",
+  },
 
-  const washCycle = mocks.washCycles.find(
-    (w) => w.vehicleId === vehicle.licensePlate,
-  );
-  const washes = mocks.washes.filter(
-    (w) => w.vehicleId === vehicle.licensePlate,
-  );
+  {
+    licensePlate: "LAPW123",
+    type: "Leve",
+  },
+  {
+    licensePlate: "PO6778",
+    type: "Truck",
+  },
+  {
+    licensePlate: "PO6778",
+    type: "Truck",
+  },
+  {
+    licensePlate: "PO6778",
+    type: "Truck",
+  },
+  {
+    licensePlate: "PO6778",
+    type: "Truck",
+  },
+];
 
-  return json({ washes, washCycle });
-}
+export type Wash = {
+  id: string | number;
+  scheduleDate?: string;
+  note?: string;
+  isCompleted?: boolean;
+  title: string;
+};
 
 export default function () {
-  const data = useLoaderData<typeof loader>();
-  const [searchParams] = useSearchParams();
-  const { Stepper, steps } = useStepper();
+  const { Stepper, steps, activeStep, goToPrevious, goToNext, setActiveStep } =
+    useStepper();
+  const { addDays, format } = useDate();
+  const baseDate = new Date();
+  const minDate = format(baseDate, "yyyy-MM-dd");
+  const firstDate = format(baseDate, "yyyy-MM-dd");
+  const secDate = format(addDays(baseDate, 7), "yyyy-MM-dd");
+  const thirdDate = format(addDays(baseDate, 14), "yyyy-MM-dd");
+  const fourthDate = format(addDays(baseDate, 28), "yyyy-MM-dd");
 
-  const step = Number(searchParams.get("step") ?? 0);
-  const stepValue = JSON.parse(searchParams.get(steps[step].label) ?? "null");
-  const isEqualOrGreaterThanZero = step - 1 >= 0;
-  const isLowerThanStepLength = step < steps.length - 1;
-  const previousUrlParams = new URLSearchParams(searchParams);
-  const nextUrlParams = new URLSearchParams(searchParams);
+  const defaultValues = [
+    {
+      id: 1,
+      scheduleDate: firstDate,
+      note: "",
+      isCompleted: false,
+      title: "primeira lavagem",
+    },
+    {
+      id: 2,
+      scheduleDate: secDate,
+      note: "",
+      isCompleted: false,
+      title: "segunda lavagem",
+    },
+    {
+      id: 3,
+      scheduleDate: thirdDate,
+      note: "",
+      isCompleted: false,
+      title: "terceira lavagem",
+    },
+    {
+      id: 4,
+      scheduleDate: fourthDate,
+      note: "",
+      isCompleted: false,
+      title: "quarta lavagem",
+    },
+  ];
 
-  previousUrlParams.set("step", (step - 1).toString());
-  nextUrlParams.set("step", (step + 1).toString());
+  const [vehicle, setVehicle] = useState<Vehicle | null | undefined>(undefined);
+  const [washes, setWashes] = useState<Wash[] | undefined>(defaultValues);
+
+  function setVehicleData(v: Vehicle | null) {
+    setVehicle(v);
+  }
+
+  function setWashesData(w: Wash[]) {
+    setWashes(w);
+  }
+
+  const isVehicleDataValid =
+    vehicle?.licensePlate &&
+    vehicle?.type &&
+    typeof vehicle?.create === "boolean";
+
+console.log(vehicle)
 
   return (
-    <Grid paddingInline={[4, 8]} gridTemplateRows="1fr auto" inlineSize={"100%"}>
+    <Grid
+      paddingInline={[4, 8]}
+      gridTemplateRows="1fr auto"
+      inlineSize={"100%"}
+    >
       <Grid
         gridAutoFlow="column"
         gap="1.125em"
@@ -46,14 +116,11 @@ export default function () {
         gridTemplateRows={"100%"}
         marginInline={[0, 0, 4]}
         paddingBlockStart={[4, 4, 8]}
+        paddingBlockEnd={8}
+        blockSize="100%"
       >
-        <Stepper activeStep={step} steps={steps} />
-        <Grid
-          blockSize="100%"
-          inlineSize={"100%"}
-          paddingInline={4}
-          gridAutoRows="min-content"
-        >
+        <Stepper activeStep={activeStep} steps={steps} />
+        <Grid blockSize="100%" inlineSize={"100%"} gridTemplateRows="auto 1fr">
           <Text
             placeSelf={"center"}
             as="h1"
@@ -61,74 +128,53 @@ export default function () {
             marginBlockEnd={4}
             whiteSpace="nowrap"
           >
-            {steps[step].modalTitle}
+            {steps[activeStep].modalTitle}
           </Text>
           <Box
             inlineSize={"100%"}
             marginInline="auto"
             maxInlineSize={"container.md"}
           >
-            {steps[step].label === "vehicle" && <VehicleContent />}
-            {steps[step].label === "washes" && (
-              <WashesContent washCycle={data.washCycle} washes={data.washes} />
+            {activeStep === 0 && (
+              <VehicleContent
+                vehicle={vehicle}
+                setVehicleData={setVehicleData}
+              />
+            )}
+            {activeStep === 1 && (
+              <washContent.Container licensePlate={vehicle?.licensePlate ?? ""}>
+                {washes?.map((w) => (
+                  <Box
+                    key={w.scheduleDate}
+                    maxInlineSize={"320px"}
+                    marginInline={[0, 8]}
+                    border="4px"
+                    borderColor={"blue.400"}
+                    borderRadius="lg"
+                    paddingInline={4}
+                    paddingBlock={8}
+                  >
+                    <washContent.Form
+                      id={w.id}
+                      onChange={() => {}}
+                      title={w.title}
+                      defaultDate={w.scheduleDate}
+                      minDate={minDate}
+                      note={w.note ?? ""}
+                    />
+                  </Box>
+                ))}
+              </washContent.Container>
             )}
           </Box>
+          <NewWashFooter
+            isNextButtonDisable={!isVehicleDataValid}
+            isPreviousButtonDisable={steps.length <= activeStep}
+            goBack={goToPrevious}
+            goNext={goToNext}
+          />
         </Grid>
       </Grid>
-
-      <Flex
-        placeSelf={"flex-end"}
-        blockSize="100%"
-        align={"center"}
-        paddingBlock={8}
-      >
-        <Button
-          as={Link}
-          key="jump-btn"
-          isDisabled={!steps[step].isNullable}
-          colorScheme="purple"
-          variant="ghost"
-          mr={3}
-          size="sm"
-          to={`/new-wash?${nextUrlParams.toString()}`}
-        >
-          pular
-        </Button>
-        <Button
-          as={Link}
-          key="back-btn"
-          colorScheme="gray"
-          variant="ghost"
-          mr={3}
-          isDisabled={!isEqualOrGreaterThanZero}
-          to={`/new-wash?${previousUrlParams.toString()}`}
-          marginInlineEnd="0"
-        >
-          voltar
-        </Button>
-        <Divider
-          blockSize={"100%"}
-          orientation="vertical"
-          inlineSize={"8px"}
-          borderColor="gray.400"
-        />
-        {step === steps.length - 1 ? (
-          <Button key="finish-btn" variant="ghost" colorScheme={"blue"}>
-            finalizar
-          </Button>
-        ) : (
-          <Button
-            as={Link}
-            key="next-btn"
-            isDisabled={!stepValue || !isLowerThanStepLength}
-            variant="ghost"
-            colorScheme={"blue"}
-            to={`/new-wash?${nextUrlParams.toString()}`}
-          >
-            próximo
-          </Button>
-        )}
-      </Flex>
     </Grid>
   );
 }

@@ -32,8 +32,9 @@ const vehicles = [
 export async function loader({ request }: LoaderArgs) {
   const url = new URL(request.url);
   const query = url.searchParams.get("query");
+  const licensePlate = url.searchParams.get("licensePlate");
 
   if (typeof query !== "string" || query == "") return json(null);
 
-  return json(vehicles.filter((v) => v.licensePlate === query));
+  return json({results: vehicles.filter((v) => v.licensePlate === licensePlate)});
 }

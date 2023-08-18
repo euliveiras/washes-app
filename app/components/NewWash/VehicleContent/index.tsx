@@ -13,11 +13,9 @@ import {
   AlertIcon,
   Select,
 } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
-import { useSearchEntity } from "../../SearchEntity";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import type { ChangeEvent } from "react";
-import { useFetcher, useSearchParams } from "@remix-run/react";
+import { Form, useFetcher } from "@remix-run/react";
 
 type VehicleType =
   | "Extra leve"
@@ -27,12 +25,6 @@ type VehicleType =
   | "Truck"
   | "Bitruck"
   | "Carreta";
-
-type Vehicle = {
-  licensePlate: string;
-  type: VehicleType;
-  create: boolean;
-};
 
 const selectOptions: VehicleType[] = [
   "Extra leve",
@@ -44,140 +36,179 @@ const selectOptions: VehicleType[] = [
   "Carreta",
 ];
 
-type UseFormFields = Vehicle & {
-  queried: {
-    licensePlate?: string | null;
-    type?: Vehicle["type"] | null;
-  };
+export type Vehicle = {
+  licensePlate?: string;
+  type?: VehicleType;
+  create?: boolean;
 };
 
-export function VehicleContent() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const vehicle = JSON.parse(searchParams.get("vehicle") ?? "[]");
-  const { fetcher } = useSearchEntity<{
-    licensePlate: string;
-    type: Vehicle["type"];
-  }>();
+type NewVehicleFormProps = {
+  vehicle: { licensePlate?: string; type?: VehicleType };
+  isChecked: boolean;
+  onCheckboxChange(e: ChangeEvent<HTMLInputElement>): void;
+  setVehicleData(v: Vehicle | null): void;
+};
+
+function NewVehicleForm({
+  isChecked,
+  onCheckboxChange: fn,
+  setVehicleData,
+  vehicle,
+}: NewVehicleFormProps) {
+  const fetcher = useFetcher();
+  const data = fetcher?.data?.results;
   const timeoutId = useRef<number | undefined>(null);
+  const [licensePlate, setLicensePlate] = useState<string | null>(
+    vehicle?.licensePlate ?? "",
+  );
+  const [type, setType] = useState<VehicleType | null>(vehicle?.type ?? null);
 
-  const {
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm<UseFormFields>({
-    defaultValues: {
-      create: vehicle?.create,
-      licensePlate: vehicle?.licensePlate,
-      type: vehicle?.type,
-      queried: {
-        licensePlate: undefined,
-        type: undefined,
-      },
-    },
-  });
-  const createVehicleFetcher = useFetcher();
-  const data = fetcher.data;
-  const isCreateVehicleTrue = watch("create");
-  const newVehicle = {
-    licensePlate: watch("licensePlate"),
-    type: watch("type"),
-  };
-  const queried = watch("queried");
-
-  function deleteVehicleParam() {
-    setSearchParams((p) => {
-      p.delete("vehicle");
-      return p;
-    });
-  }
-
-  function setVehicleParams(params: {
-    licensePlate?: string | null;
-    type?: Vehicle["type"] | null;
-    create?: boolean;
-  }) {
-    setSearchParams((p) => {
-      const vehicle = p.get("vehicle");
-      if (!vehicle) {
-        p.set("vehicle", JSON.stringify(params));
-      } else {
-        const obj = JSON.parse(vehicle);
-        p.set("vehicle", JSON.stringify({ ...obj, ...params }));
-      }
-      return p;
-    });
-  }
-
-  function onNewVehicleFormChange(e: ChangeEvent<HTMLFormElement>) {
-    const form = new FormData(e.target.form);
-    const create = form.get("create")?.toString() === "";
-    const licensePlate =
-      form.get("licensePlate")?.toString() ?? newVehicle?.licensePlate;
-    const type =
-      (form.get("type")?.toString() as Vehicle["type"]) ?? newVehicle?.type;
-    setValue("licensePlate", licensePlate);
-    setValue("type", type);
-    setValue("create", create);
-
+  function onChange(e: ChangeEvent<HTMLFormElement>) {
+    const form = new FormData(e.currentTarget);
+    const create = form.get("create") === "";
+    const licensePlate = form.get("licensePlate")?.toString() ?? "";
+    const type = form.get("type")?.toString() as VehicleType;
+    setLicensePlate(licensePlate);
+    setType(type);
     if (create && licensePlate && type) {
-      setVehicleParams({ licensePlate, type, create });
-      return;
-    }
-    if (create && (!licensePlate || !type)) {
-      deleteVehicleParam();
-      return;
-    }
-    if (!create && queried.licensePlate && queried.type) {
-      setVehicleParams({
-        licensePlate: queried.licensePlate,
-        type: queried.type,
-      });
-      return;
+      timeoutId.current && clearTimeout(timeoutId.current);
+      timeoutId.current = setTimeout(() => {
+        setVehicleData({ licensePlate, type, create });
+      }, 1000);
     }
   }
 
-  function onQueryFormChange(e: ChangeEvent<HTMLFormElement>) {
-    const form = new FormData(e.target.form);
-    const query = form.get("query")?.toString() ?? "";
-    timeoutId.current && clearTimeout(timeoutId.current);
-    timeoutId.current = setTimeout(() => {
-      fetcher.submit({ query }, { action: "/vehicle-search", method: "get" });
-      setValue("queried", { licensePlate: null, type: null });
-      deleteVehicleParam();
-    }, 1000);
-  }
-
-  function onInputClick(v: Partial<Vehicle>) {
-    setValue("queried.licensePlate", v.licensePlate);
-    setValue("queried.type", v.type);
-    setValue("create", false);
-    setSearchParams((p) => {
-      const vehicle = p.get("vehicle");
-      if (!vehicle) {
-        p.append("vehicle", JSON.stringify(v));
-      } else {
-        const obj = JSON.parse(vehicle);
-        p.set("vehicle", JSON.stringify({ ...obj, ...v }));
-      }
-      return p;
-    });
+  function onCheckboxChange(e: ChangeEvent<HTMLInputElement>) {
+    const checked = e.target.checked;
+    if (checked && licensePlate && type) {
+      setVehicleData({ licensePlate, type, create: true });
+    } else {
+      setVehicleData(null);
+    }
+    fn(e);
   }
 
   return (
-    <>
+    <Form onChange={onChange}>
+      <Grid gridAutoRows={"min-content"} placeContent="center" gap={4}>
+        <FormControl
+          as={Flex}
+          blockSize="min-content"
+          gap={4}
+          paddingBlockStart={[0, 0, 1]}
+          align="center"
+        >
+          <FormLabel margin={0} htmlFor="vehicle_create">
+            Adicionar novo veículo?
+          </FormLabel>
+          <Checkbox
+            isChecked={isChecked}
+            onChange={onCheckboxChange}
+            id="vehicle_create"
+            name="create"
+            size="lg"
+            justifySelf={"center"}
+          />
+        </FormControl>
+        <Flex flexDir={"column"} gap={6}>
+          <FormControl
+            as={Grid}
+            gridTemplateRows={"min-content"}
+            gridAutoFlow={["row", "row", "column"]}
+            placeItems={"center"}
+            marginBlockStart={8}
+            gap={4}
+          >
+            <Flex flexDir={"column"} gap={4}>
+              <FormLabel margin={0} htmlFor="vehicle_licensePlate">
+                Veículo
+              </FormLabel>
+              <Input
+                id="vehicle_licensePlate"
+                name="licensePlate"
+                placeholder="Placa"
+                isDisabled={!isChecked}
+                value={licensePlate ?? ""}
+              />
+            </Flex>
+          </FormControl>
+          <FormControl>
+            <Select
+              isDisabled={!isChecked}
+              id="type"
+              name="type"
+              placeholder="Tipo do veículo"
+              value={type ?? ""}
+            >
+              {selectOptions.map((o) => (
+                <option key={o} value={o?.toString()}>
+                  {o}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+          {isChecked && data?.length > 0 && (
+            <Alert status="error" marginBlock={4}>
+              <AlertIcon />
+              Essa placa já existe
+            </Alert>
+          )}
+        </Flex>
+      </Grid>
+    </Form>
+  );
+}
+
+type VehicleContentProps = {
+  vehicle?: Vehicle | null;
+  setVehicleData(v: Partial<Vehicle>): void;
+};
+
+export function VehicleContent({
+  setVehicleData,
+  vehicle,
+}: VehicleContentProps) {
+  const [isChecked, setIsChecked] = useState<boolean | undefined | null>(
+    vehicle?.create,
+  );
+  const fetcher = useFetcher();
+
+  const results = fetcher.data?.results ?? null;
+  const timeoutId = useRef<number | undefined>(null);
+
+  function onQuery(e: ChangeEvent<HTMLInputElement>) {
+    const licensePlate = e.target.value;
+    timeoutId.current && clearTimeout(timeoutId.current);
+    timeoutId.current = setTimeout(() => {
+      fetcher.submit(
+        { query: "vehicle", licensePlate },
+        { action: "/vehicle-search" },
+      );
+    }, 1000);
+  }
+
+  function onCheckboxChange(e: ChangeEvent<HTMLInputElement>) {
+    setIsChecked(Boolean(e.target.checked));
+  }
+
+  function onClick(v: Vehicle) {
+    setVehicleData({ ...v, create: false });
+  }
+
+  return (
+    <Grid id="vehicle" gridTemplateRows={"1fr auto"} blockSize="100%">
       <Grid
         gridAutoRows={"min-content"}
         paddingBlockEnd={[8]}
         gap={4}
         gridAutoFlow={["row", "row", "column"]}
         placeItems={["center", "center", "start"]}
-        placeContent={["center", "center", "space-between"]}
       >
         <Flex
           flexDir={["column"]}
           position="relative"
           _after={
-            typeof data !== "undefined" && data?.length > 0
+            results && results?.length > 0
               ? {
                   content: "''",
                   display: "block",
@@ -194,80 +225,74 @@ export function VehicleContent() {
           }
           gap={4}
         >
-          <fetcher.Form onChange={onQueryFormChange}>
-            <FormControl>
-              <Input
-                name="query"
-                placeholder="procurar entidade"
-                _placeholder={{ textAlign: "center" }}
-                maxInlineSize="280px"
+          <FormControl>
+            <Input
+              placeholder="procurar entidade"
+              _placeholder={{ textAlign: "center" }}
+              maxInlineSize="280px"
+              isDisabled={isChecked ?? false}
+              marginInline="auto"
+              rounded={"full"}
+              onChange={onQuery}
+            />
+          </FormControl>
+          {results && !isChecked && (
+            <>
+              <Text
+                inlineSize={"fit-content"}
                 marginInline="auto"
-                isDisabled={isCreateVehicleTrue}
-                rounded={"full"}
-              />
-            </FormControl>
-            {!isCreateVehicleTrue && data && data?.length >= 0 && (
-              <>
-                <Text
-                  inlineSize={"fit-content"}
-                  marginInline="auto"
-                  marginBlock={4}
-                  fontSize={"sm"}
-                  color="gray.400"
-                >
-                  {data?.length === 0
-                    ? "nenhum resultado encontrado :("
-                    : `mostrando ${data?.length} resultados`}
-                </Text>
-                <Grid gap={4} maxBlockSize={"240px"} overflow="scroll">
-                  {data?.map((v, i) => {
-                    return (
-                      <Flex
-                        inlineSize={"100%"}
-                        flexDir={"column"}
-                        gap={6}
-                        key={`${v.licensePlate} + ${i}`}
+                marginBlock={4}
+                fontSize={"sm"}
+                color="gray.400"
+              >
+                {results?.length === 0
+                  ? "nenhum resultado encontrado :("
+                  : `mostrando ${results?.length} resultados`}
+              </Text>
+              <Grid gap={4} maxBlockSize={"240px"} overflow="scroll">
+                {results?.map((v, i) => {
+                  return (
+                    <Flex
+                      inlineSize={"100%"}
+                      flexDir={"column"}
+                      gap={6}
+                      key={`${v.licensePlate} + ${i}`}
+                    >
+                      <FormControl
+                        as={Flex}
+                        flexDir="column"
+                        alignItems="center"
                       >
-                        <FormControl
-                          as={Flex}
-                          flexDir="column"
-                          alignItems="center"
-                        >
-                          <FormLabel>Placa</FormLabel>
-                          <Input
-                            maxInlineSize={"200px"}
-                            marginBlockEnd={data.length - 1 === i ? 4 : 0}
-                            type="button"
-                            defaultValue={v.licensePlate}
-                            borderColor={
-                              queried?.licensePlate === v.licensePlate
-                                ? "blue.400"
-                                : "gray.200"
-                            }
-                            _hover={{
-                              borderColor:
-                                queried?.licensePlate === v.licensePlate
-                                  ? "blue.400"
-                                  : "gray.300",
-                            }}
-                            focusBorderColor={
-                              queried?.licensePlate === v.licensePlate
-                                ? "blue.400"
-                                : "gray.300"
-				    }
-                            onClick={() => onInputClick(v)}
-                          />
-                        </FormControl>
-                        {data.length - 1 !== i && (
-                          <Divider alignSelf={"center"} inlineSize={"80%"} />
-                        )}
-                      </Flex>
-                    );
-                  })}
-                </Grid>
-              </>
-            )}
-          </fetcher.Form>
+                        <FormLabel>Placa</FormLabel>
+                        <Input
+                          maxInlineSize={"200px"}
+                          marginBlockEnd={results.length - 1 === i ? 4 : 0}
+                          onClick={() => onClick(v)}
+                          readOnly
+                          value={v.licensePlate}
+                          type="button"
+                          borderColor={
+                            vehicle?.licensePlate ? "blue.400" : "gray.200"
+                          }
+                          _hover={{
+                            borderColor: vehicle?.licensePlate
+                              ? "blue.400"
+                              : "gray.300",
+                          }}
+                          focusBorderColor={
+                            vehicle?.licensePlate ? "blue.400" : "gray.300"
+                          }
+                        />
+                      </FormControl>
+                      {results.length - 1 !== i && (
+                        <Divider alignSelf={"center"} inlineSize={"80%"} />
+                      )}
+                    </Flex>
+                  );
+                })}
+              </Grid>
+            </>
+          )}
         </Flex>
         <Box position="relative" padding={4} inlineSize="60%">
           <Divider />
@@ -275,73 +300,13 @@ export function VehicleContent() {
             ou
           </AbsoluteCenter>
         </Box>
-        <Grid gridAutoRows={"min-content"} placeContent="center" gap={4}>
-          <createVehicleFetcher.Form onChange={onNewVehicleFormChange}>
-            <FormControl
-              as={Flex}
-              blockSize="min-content"
-              gap={4}
-              paddingBlockStart={[0, 0, 1]}
-              align="center"
-            >
-              <FormLabel margin={0} htmlFor="vehicle_create">
-                Adicionar novo veículo?
-              </FormLabel>
-              <Checkbox
-                id="vehicle_create"
-                name="create"
-                size="lg"
-                justifySelf={"center"}
-                defaultChecked={isCreateVehicleTrue}
-              />
-            </FormControl>
-            <Flex flexDir={"column"} gap={6}>
-              <FormControl
-                as={Grid}
-                gridTemplateRows={"min-content"}
-                gridAutoFlow={["row", "row", "column"]}
-                placeItems={"center"}
-                marginBlockStart={8}
-                gap={4}
-              >
-                <Flex flexDir={"column"} gap={4}>
-                  <FormLabel margin={0} htmlFor="vehicle_licensePlate">
-                    Veículo
-                  </FormLabel>
-                  <Input
-                    id="vehicle_licensePlate"
-                    name="licensePlate"
-                    placeholder="Placa"
-                    defaultValue={newVehicle?.licensePlate ?? ""}
-                    isDisabled={!isCreateVehicleTrue}
-                  />
-                  {errors?.licensePlate && (
-                    <Alert status="error" marginBlock={4}>
-                      <AlertIcon />
-                      {errors.licensePlate.message}
-                    </Alert>
-                  )}
-                </Flex>
-              </FormControl>
-              <FormControl>
-                <Select
-                  defaultValue={newVehicle?.type ?? undefined}
-                  id="type"
-                  name="type"
-                  placeholder="Tipo do veículo"
-                  isDisabled={!isCreateVehicleTrue}
-                >
-                  {selectOptions.map((o) => (
-                    <option key={o} value={o?.toString()}>
-                      {o}
-                    </option>
-                  ))}
-                </Select>
-              </FormControl>
-            </Flex>
-          </createVehicleFetcher.Form>
-        </Grid>
+        <NewVehicleForm
+          vehicle={{ licensePlate: vehicle?.licensePlate, type: vehicle?.type }}
+          isChecked={isChecked ?? false}
+          onCheckboxChange={onCheckboxChange}
+          setVehicleData={setVehicleData}
+        />
       </Grid>
-    </>
+    </Grid>
   );
 }

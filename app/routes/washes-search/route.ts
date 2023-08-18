@@ -91,18 +91,17 @@ export const mocks = {
 
 export async function loader({ request }: LoaderArgs) {
   const url = new URL(request.url);
-  const query = url.searchParams.get("query");
+  const query = url.searchParams.get("licensePlate");
 
-  if (typeof query !== "string" || query === "") return json(null);
+  if (typeof query !== "string" || query === "") return json([]);
 
-  // const { error, washCycle, washes } = await getNextWashesAndCycle(query);
   const washes = mocks.washes.filter((w) => w.vehicleId === query);
   const washCycle = mocks.washCycles.find((w) => w.vehicleId === query);
   let error;
 
-  if (!washCycle) error = null;
-
   if (error) return json({ error });
+
+  if (!washCycle) return json([]);
 
   return json({ washCycle, washes });
 }
