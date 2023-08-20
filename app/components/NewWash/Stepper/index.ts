@@ -4,7 +4,6 @@ import {
   MdWaterDrop,
   MdPerson2,
 } from "react-icons/md";
-import { GoOrganization } from "react-icons/go";
 import { useSteps } from "@chakra-ui/react";
 import { Stepper } from "./Stepper";
 import type { IconType } from "react-icons";
@@ -14,7 +13,6 @@ export interface StepsType {
     | "vehicle"
     | "washes"
     | "driver"
-    | "organization"
     | "summary";
   isNullable: boolean;
   IconActive: IconType;
@@ -23,7 +21,6 @@ export interface StepsType {
     | "Escolher veículo"
     | "Cadastrar lavagens"
     | "Escolher motorista"
-    | "Escolher organização"
     | "Confirmar opções";
 }
 
@@ -48,13 +45,6 @@ const steps: StepsType[] = [
     IconActive: MdPerson2,
     isNullable: true,
     modalTitle: "Escolher motorista",
-  },
-  {
-    label: "organization",
-    IconIncomplete: GoOrganization,
-    IconActive: GoOrganization,
-    isNullable: true,
-    modalTitle: "Escolher organização",
   },
   {
     label: "summary",

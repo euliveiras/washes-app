@@ -11,5 +11,5 @@ export async function loader({ request }: LoaderArgs) {
 
   const results = mocks.filter((m) => m.name === query.toLowerCase());
 
-  return json({results});
+  return json({ results });
 }
