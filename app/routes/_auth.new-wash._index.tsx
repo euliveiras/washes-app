@@ -1,6 +1,10 @@
 import { Text, Box, Grid } from "@chakra-ui/react";
 import { useStepper } from "~/components/NewWash/Stepper";
-import { washContent } from "~/components/NewWash/WashesContent";
+import type { Wash } from "~/components/NewWash/WashesContent";
+import {
+  WashesContent,
+  washesDefaultValue,
+} from "~/components/NewWash/WashesContent";
 import {
   defaultVehicleState,
   VehicleContent,
@@ -8,66 +12,29 @@ import {
 import type { Vehicle } from "~/components/NewWash/VehicleContent/";
 import { useState } from "react";
 import { NewWashFooter } from "~/components/NewWash/footer";
-import { useDate } from "~/components/hooks/useDate";
 import type { Driver } from "~/components/NewWash/DriverContent";
 import {
   defaultDriverValue,
   DriverContent,
 } from "~/components/NewWash/DriverContent";
-
-export type Wash = {
-  id: string | number;
-  scheduleDate: string;
-  note: string;
-  isCompleted: boolean;
-  title: string;
-};
+import { summary } from "~/components/NewWash/SummaryContent";
 
 export default function () {
   const { Stepper, steps, activeStep, goToPrevious, goToNext, setActiveStep } =
     useStepper();
-  const { addDays, format } = useDate();
-  const baseDate = new Date();
-  const minDate = format(baseDate, "yyyy-MM-dd");
-  const firstDate = format(baseDate, "yyyy-MM-dd");
-  const secDate = format(addDays(baseDate, 7), "yyyy-MM-dd");
-  const thirdDate = format(addDays(baseDate, 14), "yyyy-MM-dd");
-  const fourthDate = format(addDays(baseDate, 28), "yyyy-MM-dd");
-
-  const defaultValues = [
-    {
-      id: 1,
-      scheduleDate: firstDate,
-      note: "",
-      isCompleted: false,
-      title: "primeira lavagem",
-    },
-    {
-      id: 2,
-      scheduleDate: secDate,
-      note: "",
-      isCompleted: false,
-      title: "segunda lavagem",
-    },
-    {
-      id: 3,
-      scheduleDate: thirdDate,
-      note: "",
-      isCompleted: false,
-      title: "terceira lavagem",
-    },
-    {
-      id: 4,
-      scheduleDate: fourthDate,
-      note: "",
-      isCompleted: false,
-      title: "quarta lavagem",
-    },
-  ];
+  const [error, setError] = useState<boolean>(false);
 
   const [vehicle, setVehicle] = useState<Vehicle>(defaultVehicleState);
-  const [washes, setWashes] = useState<Wash[]>(defaultValues);
+  const [washes, setWashes] = useState<Wash[]>(washesDefaultValue);
   const [driver, setDriver] = useState<Driver>(defaultDriverValue);
+
+  function addError() {
+    setError(true);
+  }
+
+  function removeError() {
+    setError(false);
+  }
 
   function setDriverData(v: Driver) {
     setDriver(v);
@@ -89,7 +56,18 @@ export default function () {
   }
 
   const isVehicleDataValid =
-    vehicle.licensePlate && vehicle.type && typeof vehicle.create === "boolean";
+    activeStep === 0 &&
+    vehicle.licensePlate &&
+    vehicle.type &&
+    typeof vehicle.create === "boolean";
+  const isDriverValid = activeStep === 2;
+  const isLastStep = activeStep < steps.length + -1;
+  const isWashesValid = activeStep === 1 && true;
+
+  const canProceed =
+    (isVehicleDataValid || isDriverValid || isWashesValid) && isLastStep;
+
+  const canGoBack = activeStep > 0;
 
   return (
     <Grid paddingInline={4} gridTemplateRows="1fr auto" inlineSize={"100%"}>
@@ -102,7 +80,11 @@ export default function () {
         paddingBlockEnd={8}
         blockSize="100%"
       >
-        <Stepper activeStep={activeStep} setActiveStep={setActiveStep} steps={steps} />
+        <Stepper
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+          steps={steps}
+        />
         <Grid
           blockSize="100%"
           gridTemplateColumns={"1fr"}
@@ -123,41 +105,33 @@ export default function () {
               <VehicleContent
                 setVehicleData={setVehicleData}
                 vehicle={vehicle}
+                addError={addError}
+                removeError={removeError}
               />
             )}
             {activeStep === 1 && (
-              <washContent.Container licensePlate={vehicle?.licensePlate ?? ""}>
-                {washes?.map((w) => (
-                  <Box
-                    key={w.scheduleDate}
-                    maxInlineSize={"320px"}
-                    marginInline={[0, 8]}
-                    border="4px"
-                    borderColor={"blue.400"}
-                    borderRadius="lg"
-                    paddingInline={4}
-                    paddingBlock={8}
-                  >
-                    <washContent.Form
-                      id={w.id}
-                      onChange={setWashesData}
-                      isCompleted={w.isCompleted}
-                      title={w.title}
-                      defaultDate={w.scheduleDate}
-                      minDate={minDate}
-                      note={w.note ?? ""}
-                    />
-                  </Box>
-                ))}
-              </washContent.Container>
+              <WashesContent
+                washes={washes}
+                setWashes={setWashesData}
+                licensePlate={vehicle.licensePlate}
+                addError={addError}
+                removeError={removeError}
+              />
             )}
             {activeStep === 2 && (
               <DriverContent driver={driver} setDriverData={setDriverData} />
             )}
+            {activeStep === 3 && (
+              <summary.Container>
+                <summary.Driver driver={driver} />
+                <summary.Vehicle vehicle={vehicle} />
+                <summary.Washes washes={washes} />
+              </summary.Container>
+            )}
           </Box>
           <NewWashFooter
-            isNextButtonDisable={!isVehicleDataValid}
-            isPreviousButtonDisable={steps.length <= activeStep}
+            isNextButtonDisable={error || !canProceed}
+            isPreviousButtonDisable={!canGoBack}
             goBack={goToPrevious}
             goNext={goToNext}
           />

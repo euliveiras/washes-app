@@ -9,7 +9,7 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
-import { Form, useFetcher, useSubmit } from "@remix-run/react";
+import { Form, useFetcher} from "@remix-run/react";
 import type { ChangeEvent } from "react";
 import { useEffect, useRef } from "react";
 import type { Vehicle } from ".";
@@ -27,9 +27,16 @@ const selectOptions = [
 type NewVehicleFormProps = {
   vehicle: Vehicle;
   onChange(v: Vehicle): void;
+  addError(): void;
+  removeError(): void;
 };
 
-export function NewVehicleForm({ vehicle, onChange }: NewVehicleFormProps) {
+export function NewVehicleForm({
+  addError,
+  removeError,
+  vehicle,
+  onChange,
+}: NewVehicleFormProps) {
   const timeoutId = useRef<string>(null);
   const secondTimeOutId = useRef<string>(null);
   const { data, submit } = useFetcher();
@@ -68,6 +75,13 @@ export function NewVehicleForm({ vehicle, onChange }: NewVehicleFormProps) {
       onChange({ licensePlate: "", type: "", create });
     }
   }
+
+  useEffect(() => {
+    if (typeof data?.results !== "undefined") {
+      if (data.results.length > 0) addError();
+      else removeError();
+    }
+  }, [data?.results, removeError, addError]);
 
   return (
     <Form onChange={onFormChange}>

@@ -7,9 +7,16 @@ import { VehicleSearch } from "./VehicleSearch";
 type VehicleContentProps = {
   setVehicleData(v: Vehicle): void;
   vehicle: Vehicle;
+  addError(): void;
+  removeError(): void;
 };
 
-export function Container({ setVehicleData, vehicle }: VehicleContentProps) {
+export function Container({
+  setVehicleData,
+  vehicle,
+  addError,
+  removeError,
+}: VehicleContentProps) {
   return (
     <Grid
       id="vehicle"
@@ -24,7 +31,12 @@ export function Container({ setVehicleData, vehicle }: VehicleContentProps) {
     >
       <VehicleSearch setVehicle={setVehicleData} vehicle={vehicle} />
       <VehicleDivider />
-      <NewVehicleForm vehicle={vehicle} onChange={setVehicleData} />
+      <NewVehicleForm
+        vehicle={vehicle}
+        onChange={setVehicleData}
+        addError={addError}
+        removeError={removeError}
+      />
     </Grid>
   );
 }

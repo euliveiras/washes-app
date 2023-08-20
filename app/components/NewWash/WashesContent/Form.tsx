@@ -1,6 +1,5 @@
 import {
   Text,
-  Box,
   Checkbox,
   Flex,
   FormControl,
@@ -9,9 +8,9 @@ import {
   Input,
   Textarea,
 } from "@chakra-ui/react";
-import type { ChangeEvent, FormEvent } from "react";
+import type { ChangeEvent } from "react";
 import { Form as RemixForm } from "@remix-run/react";
-import type { Wash } from "~/routes/_auth.new-wash._index";
+import type { Wash } from ".";
 
 type FormProps = {
   id: string | number;

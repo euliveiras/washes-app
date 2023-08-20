@@ -22,7 +22,7 @@ export function NewWashFooter({
       paddingBlockStart={8}
       {...containerProps}
     >
-      <Button
+      {/* <Button
         colorScheme="purple"
         variant="ghost"
         mr={3}
@@ -31,7 +31,7 @@ export function NewWashFooter({
         isDisabled={isNextButtonDisable}
       >
         pular
-      </Button>
+      </Button>*/}
       <Button
         colorScheme="gray"
         variant="ghost"
