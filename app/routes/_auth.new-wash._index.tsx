@@ -9,6 +9,11 @@ import type { Vehicle } from "~/components/NewWash/VehicleContent/";
 import { useState } from "react";
 import { NewWashFooter } from "~/components/NewWash/footer";
 import { useDate } from "~/components/hooks/useDate";
+import type { Driver } from "~/components/NewWash/DriverContent";
+import {
+  defaultDriverValue,
+  DriverContent,
+} from "~/components/NewWash/DriverContent";
 
 export type Wash = {
   id: string | number;
@@ -62,6 +67,11 @@ export default function () {
 
   const [vehicle, setVehicle] = useState<Vehicle>(defaultVehicleState);
   const [washes, setWashes] = useState<Wash[]>(defaultValues);
+  const [driver, setDriver] = useState<Driver>(defaultDriverValue);
+
+  function setDriverData(v: Driver) {
+    setDriver(v);
+  }
 
   function setVehicleData(v: Vehicle) {
     setVehicle(v);
@@ -81,8 +91,6 @@ export default function () {
   const isVehicleDataValid =
     vehicle.licensePlate && vehicle.type && typeof vehicle.create === "boolean";
 
-  console.log(vehicle);
-
   return (
     <Grid paddingInline={4} gridTemplateRows="1fr auto" inlineSize={"100%"}>
       <Grid
@@ -94,7 +102,7 @@ export default function () {
         paddingBlockEnd={8}
         blockSize="100%"
       >
-        <Stepper activeStep={activeStep} steps={steps} />
+        <Stepper activeStep={activeStep} setActiveStep={setActiveStep} steps={steps} />
         <Grid
           blockSize="100%"
           gridTemplateColumns={"1fr"}
@@ -142,6 +150,9 @@ export default function () {
                   </Box>
                 ))}
               </washContent.Container>
+            )}
+            {activeStep === 2 && (
+              <DriverContent driver={driver} setDriverData={setDriverData} />
             )}
           </Box>
           <NewWashFooter

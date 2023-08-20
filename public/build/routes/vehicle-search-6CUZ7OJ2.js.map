@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["browser-route-module:routes/vehicle-search/route.ts"],
-  "sourcesContent": ["import * as __hmr__ from \"remix:hmr\";\nif (import.meta) {\n  import.meta.hot = __hmr__.createHotContext(\n    //@ts-expect-error\n    \"app/routes/vehicle-search/route.ts\"\n  );\n}\nconst vehicles = [\n  {\n    licensePlate: \"HUHDWQE\",\n    type: \"Leve\"\n  },\n  {\n    licensePlate: \"LAPW123\",\n    type: \"Leve\"\n  },\n  {\n    licensePlate: \"PO6778\",\n    type: \"Truck\"\n  },\n  {\n    licensePlate: \"PO6778\",\n    type: \"Truck\"\n  },\n  {\n    licensePlate: \"PO6778\",\n    type: \"Truck\"\n  },\n  {\n    licensePlate: \"PO6778\",\n    type: \"Truck\"\n  }\n];\n"],
-  "mappings": ";;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AACA,IAAI,aAAa;AACf,cAAY,MAAc;AAAA;AAAA,IAExB;AAAA,EACF;AACF;",
-  "names": []
-}

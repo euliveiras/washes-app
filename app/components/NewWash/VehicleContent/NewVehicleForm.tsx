@@ -10,8 +10,8 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { Form, useFetcher, useSubmit } from "@remix-run/react";
-import { ChangeEvent, useEffect } from "react";
-import { useRef } from "react";
+import type { ChangeEvent } from "react";
+import { useEffect, useRef } from "react";
 import type { Vehicle } from ".";
 
 const selectOptions = [
@@ -78,7 +78,7 @@ export function NewVehicleForm({ vehicle, onChange }: NewVehicleFormProps) {
           gap={4}
           paddingBlockStart={[0, 0, 1]}
           align="center"
-justify={"center"}
+          justify={"center"}
         >
           <FormLabel margin={0} htmlFor="vehicle_create">
             Adicionar novo veículo?
@@ -101,7 +101,11 @@ justify={"center"}
             gap={4}
           >
             <Flex flexDir={"column"} gap={4}>
-              <FormLabel margin={0} marginInline="auto" htmlFor="vehicle_licensePlate">
+              <FormLabel
+                margin={0}
+                marginInline="auto"
+                htmlFor="vehicle_licensePlate"
+              >
                 Veículo
               </FormLabel>
               <Input

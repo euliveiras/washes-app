@@ -26,7 +26,6 @@ var stdin_exports = {};
 __export(stdin_exports, {
   assets: () => assets_manifest_default,
   assetsBuildDirectory: () => assetsBuildDirectory,
-  dev: () => dev,
   entry: () => entry,
   future: () => future,
   publicPath: () => publicPath,
@@ -223,14 +222,14 @@ var auth_new_wash_index_exports = {};
 __export(auth_new_wash_index_exports, {
   default: () => auth_new_wash_index_default
 });
-var import_react33 = require("@chakra-ui/react");
+var import_react37 = require("@chakra-ui/react");
 
 // app/components/NewWash/Stepper/index.ts
 var import_md = require("react-icons/md"), import_go = require("react-icons/go"), import_react10 = require("@chakra-ui/react");
 
 // app/components/NewWash/Stepper/Stepper.tsx
 var import_react9 = require("@chakra-ui/react"), import_jsx_dev_runtime3 = require("react/jsx-dev-runtime");
-function Stepper({ steps: steps2, activeStep }) {
+function Stepper({ steps: steps2, activeStep, setActiveStep }) {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(
     import_react9.Stepper,
     {
@@ -238,23 +237,23 @@ function Stepper({ steps: steps2, activeStep }) {
       orientation: "vertical",
       blockSize: "100%",
       size: ["md", "md", "lg"],
-      children: steps2.map(({ IconIncomplete, IconActive, label }, index) => /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react9.Step, { children: [
+      children: steps2.map(({ IconIncomplete, IconActive, label }, index) => /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react9.Step, { onClick: (e) => setActiveStep(index), children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react9.StepIndicator, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(
           import_react9.StepStatus,
           {
             complete: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react9.StepIcon, {}, void 0, !1, {
               fileName: "app/components/NewWash/Stepper/Stepper.tsx",
-              lineNumber: 30,
+              lineNumber: 31,
               columnNumber: 25
             }, this),
             incomplete: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(IconIncomplete, { size: 20 }, void 0, !1, {
               fileName: "app/components/NewWash/Stepper/Stepper.tsx",
-              lineNumber: 31,
+              lineNumber: 32,
               columnNumber: 27
             }, this),
             active: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(IconActive, { size: 20 }, void 0, !1, {
               fileName: "app/components/NewWash/Stepper/Stepper.tsx",
-              lineNumber: 32,
+              lineNumber: 33,
               columnNumber: 23
             }, this)
           },
@@ -262,13 +261,13 @@ function Stepper({ steps: steps2, activeStep }) {
           !1,
           {
             fileName: "app/components/NewWash/Stepper/Stepper.tsx",
-            lineNumber: 29,
+            lineNumber: 30,
             columnNumber: 13
           },
           this
         ) }, void 0, !1, {
           fileName: "app/components/NewWash/Stepper/Stepper.tsx",
-          lineNumber: 28,
+          lineNumber: 29,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(
@@ -279,7 +278,7 @@ function Stepper({ steps: steps2, activeStep }) {
             display: ["none", "none", "none", "block"],
             children: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react9.StepTitle, { children: label }, void 0, !1, {
               fileName: "app/components/NewWash/Stepper/Stepper.tsx",
-              lineNumber: 41,
+              lineNumber: 42,
               columnNumber: 13
             }, this)
           },
@@ -287,19 +286,19 @@ function Stepper({ steps: steps2, activeStep }) {
           !1,
           {
             fileName: "app/components/NewWash/Stepper/Stepper.tsx",
-            lineNumber: 36,
+            lineNumber: 37,
             columnNumber: 11
           },
           this
         ),
         /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(import_react9.StepSeparator, {}, void 0, !1, {
           fileName: "app/components/NewWash/Stepper/Stepper.tsx",
-          lineNumber: 44,
+          lineNumber: 45,
           columnNumber: 11
         }, this)
       ] }, index, !0, {
         fileName: "app/components/NewWash/Stepper/Stepper.tsx",
-        lineNumber: 27,
+        lineNumber: 28,
         columnNumber: 9
       }, this))
     },
@@ -307,7 +306,7 @@ function Stepper({ steps: steps2, activeStep }) {
     !1,
     {
       fileName: "app/components/NewWash/Stepper/Stepper.tsx",
-      lineNumber: 20,
+      lineNumber: 21,
       columnNumber: 5
     },
     this
@@ -909,11 +908,23 @@ function NewVehicleForm({ vehicle, onChange }) {
           marginBlockStart: 8,
           gap: 4,
           children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react22.Flex, { flexDir: "column", gap: 4, children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react22.FormLabel, { margin: 0, marginInline: "auto", htmlFor: "vehicle_licensePlate", children: "Ve\xEDculo" }, void 0, !1, {
-              fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-              lineNumber: 104,
-              columnNumber: 15
-            }, this),
+            /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(
+              import_react22.FormLabel,
+              {
+                margin: 0,
+                marginInline: "auto",
+                htmlFor: "vehicle_licensePlate",
+                children: "Ve\xEDculo"
+              },
+              void 0,
+              !1,
+              {
+                fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
+                lineNumber: 104,
+                columnNumber: 15
+              },
+              this
+            ),
             /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(
               import_react22.Input,
               {
@@ -928,7 +939,7 @@ function NewVehicleForm({ vehicle, onChange }) {
               !1,
               {
                 fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-                lineNumber: 107,
+                lineNumber: 111,
                 columnNumber: 15
               },
               this
@@ -958,7 +969,7 @@ function NewVehicleForm({ vehicle, onChange }) {
           defaultValue: vehicle.type,
           children: selectOptions.map((o) => /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)("option", { value: o == null ? void 0 : o.toString(), children: o }, o, !1, {
             fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-            lineNumber: 126,
+            lineNumber: 130,
             columnNumber: 17
           }, this))
         },
@@ -966,25 +977,25 @@ function NewVehicleForm({ vehicle, onChange }) {
         !1,
         {
           fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-          lineNumber: 118,
+          lineNumber: 122,
           columnNumber: 13
         },
         this
       ) }, void 0, !1, {
         fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-        lineNumber: 117,
+        lineNumber: 121,
         columnNumber: 11
       }, this),
       vehicle.create && error && /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react22.Alert, { status: "error", marginBlock: 4, children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(import_react22.AlertIcon, {}, void 0, !1, {
           fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-          lineNumber: 134,
+          lineNumber: 138,
           columnNumber: 15
         }, this),
         error.message
       ] }, void 0, !0, {
         fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-        lineNumber: 133,
+        lineNumber: 137,
         columnNumber: 13
       }, this)
     ] }, void 0, !0, {
@@ -1287,7 +1298,7 @@ var defaultVehicleState = {
 }, VehicleContent = Container3;
 
 // app/routes/_auth.new-wash._index.tsx
-var import_react34 = require("react");
+var import_react38 = require("react");
 
 // app/components/NewWash/footer.tsx
 var import_react32 = require("@chakra-ui/react"), import_jsx_dev_runtime18 = require("react/jsx-dev-runtime");
@@ -1420,8 +1431,197 @@ function useDate() {
   return { parseDateToString, parseISOStringToDate, addDays: addDays2, format };
 }
 
+// app/components/NewWash/DriverContent/DriverContent.tsx
+var import_react36 = require("@chakra-ui/react");
+
+// app/components/NewWash/DriverContent/NewDriverForm.tsx
+var import_react33 = require("@chakra-ui/react"), import_react34 = require("@remix-run/react"), import_react35 = require("react"), import_jsx_dev_runtime19 = require("react/jsx-dev-runtime");
+function NewDriverForm({ driver, setDriverData }) {
+  let timeoutId = (0, import_react35.useRef)(null), isDisabled = !driver.create;
+  function onFormChange(e) {
+    var _a, _b;
+    let form = new FormData(e.currentTarget), create = form.get("create") === "", driverName = ((_a = form.get("name")) == null ? void 0 : _a.toString()) ?? "", phone = ((_b = form.get("phone")) == null ? void 0 : _b.toString()) ?? "";
+    if (console.log(create, phone, driverName), create) {
+      if (!driverName) {
+        setDriverData({ name: "", create, phone: "" });
+        return;
+      }
+      timeoutId.current && clearTimeout(timeoutId.current), timeoutId.current = setTimeout(() => {
+        setDriverData({ name: driverName, create, phone });
+      }, 1e3);
+    } else
+      setDriverData({ name: "", create, phone: "" });
+  }
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react33.Box, { maxInlineSize: "260px", marginInline: "auto", children: /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
+    import_react34.Form,
+    {
+      onChange: onFormChange,
+      style: { blockSize: "100%", inlineSize: "100%" },
+      children: /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react33.Flex, { flexDir: "column", blockSize: "100%", gap: 8, children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
+          import_react33.FormControl,
+          {
+            as: import_react33.Flex,
+            blockSize: "min-content",
+            gap: 4,
+            paddingBlockStart: [0, 0, 1],
+            align: "center",
+            justify: "center",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react33.FormLabel, { margin: 0, htmlFor: "driver-create", children: "Adicionar motorista novo?" }, void 0, !1, {
+                fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
+                lineNumber: 60,
+                columnNumber: 15
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
+                import_react33.Checkbox,
+                {
+                  defaultChecked: driver.create,
+                  id: "driver-create",
+                  name: "create",
+                  size: "lg",
+                  justifySelf: "center"
+                },
+                void 0,
+                !1,
+                {
+                  fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
+                  lineNumber: 63,
+                  columnNumber: 15
+                },
+                this
+              )
+            ]
+          },
+          void 0,
+          !0,
+          {
+            fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
+            lineNumber: 52,
+            columnNumber: 13
+          },
+          this
+        ),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react33.Flex, { flexDir: "column", gap: 8, inlineSize: "100%", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react33.FormControl, { as: import_react33.Flex, flexDir: "column", gap: 4, children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react33.FormLabel, { margin: 0, marginInline: "auto", htmlFor: "driver-name", children: "Motorista" }, void 0, !1, {
+              fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
+              lineNumber: 73,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
+              import_react33.Input,
+              {
+                id: "driver-name",
+                name: "name",
+                placeholder: "Nome",
+                isDisabled,
+                defaultValue: driver.create ? driver.name : ""
+              },
+              void 0,
+              !1,
+              {
+                fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
+                lineNumber: 76,
+                columnNumber: 17
+              },
+              this
+            )
+          ] }, void 0, !0, {
+            fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
+            lineNumber: 72,
+            columnNumber: 15
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react33.FormControl, { as: import_react33.Flex, flexDir: "column", gap: 4, children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
+              import_react33.FormLabel,
+              {
+                margin: 0,
+                marginInline: "auto",
+                htmlFor: "driver-phone",
+                children: "Telefone"
+              },
+              void 0,
+              !1,
+              {
+                fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
+                lineNumber: 85,
+                columnNumber: 17
+              },
+              this
+            ),
+            /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
+              import_react33.Input,
+              {
+                id: "driver-phone",
+                name: "phone",
+                placeholder: "telefone",
+                isDisabled,
+                defaultValue: driver.create ? driver.phone : ""
+              },
+              void 0,
+              !1,
+              {
+                fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
+                lineNumber: 92,
+                columnNumber: 17
+              },
+              this
+            )
+          ] }, void 0, !0, {
+            fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
+            lineNumber: 84,
+            columnNumber: 15
+          }, this)
+        ] }, void 0, !0, {
+          fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
+          lineNumber: 71,
+          columnNumber: 13
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
+        lineNumber: 51,
+        columnNumber: 11
+      }, this)
+    },
+    void 0,
+    !1,
+    {
+      fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
+      lineNumber: 47,
+      columnNumber: 7
+    },
+    this
+  ) }, void 0, !1, {
+    fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
+    lineNumber: 46,
+    columnNumber: 5
+  }, this);
+}
+
+// app/components/NewWash/DriverContent/DriverContent.tsx
+var import_jsx_dev_runtime20 = require("react/jsx-dev-runtime");
+function Root({ setDriverData, driver }) {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react36.Box, { paddingBlock: 4, children: /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(NewDriverForm, { driver, setDriverData }, void 0, !1, {
+    fileName: "app/components/NewWash/DriverContent/DriverContent.tsx",
+    lineNumber: 13,
+    columnNumber: 7
+  }, this) }, void 0, !1, {
+    fileName: "app/components/NewWash/DriverContent/DriverContent.tsx",
+    lineNumber: 12,
+    columnNumber: 5
+  }, this);
+}
+
+// app/components/NewWash/DriverContent/index.tsx
+var defaultDriverValue = {
+  name: "",
+  phone: "",
+  create: !1
+}, DriverContent = Root;
+
 // app/routes/_auth.new-wash._index.tsx
-var import_jsx_dev_runtime19 = require("react/jsx-dev-runtime");
+var import_jsx_dev_runtime21 = require("react/jsx-dev-runtime");
 function auth_new_wash_index_default() {
   let { Stepper: Stepper2, steps: steps2, activeStep, goToPrevious, goToNext, setActiveStep } = useStepper(), { addDays: addDays2, format } = useDate(), baseDate = /* @__PURE__ */ new Date(), minDate = format(baseDate, "yyyy-MM-dd"), firstDate = format(baseDate, "yyyy-MM-dd"), secDate = format(addDays2(baseDate, 7), "yyyy-MM-dd"), thirdDate = format(addDays2(baseDate, 14), "yyyy-MM-dd"), fourthDate = format(addDays2(baseDate, 28), "yyyy-MM-dd"), defaultValues = [
     {
@@ -1452,7 +1652,10 @@ function auth_new_wash_index_default() {
       isCompleted: !1,
       title: "quarta lavagem"
     }
-  ], [vehicle, setVehicle] = (0, import_react34.useState)(defaultVehicleState), [washes, setWashes] = (0, import_react34.useState)(defaultValues);
+  ], [vehicle, setVehicle] = (0, import_react38.useState)(defaultVehicleState), [washes, setWashes] = (0, import_react38.useState)(defaultValues), [driver, setDriver] = (0, import_react38.useState)(defaultDriverValue);
+  function setDriverData(v) {
+    setDriver(v);
+  }
   function setVehicleData(v) {
     setVehicle(v);
   }
@@ -1463,8 +1666,8 @@ function auth_new_wash_index_default() {
     });
   }
   let isVehicleDataValid = vehicle.licensePlate && vehicle.type && typeof vehicle.create == "boolean";
-  return console.log(vehicle), /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react33.Grid, { paddingInline: 4, gridTemplateRows: "1fr auto", inlineSize: "100%", children: /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
-    import_react33.Grid,
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(import_react37.Grid, { paddingInline: 4, gridTemplateRows: "1fr auto", inlineSize: "100%", children: /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
+    import_react37.Grid,
     {
       gridAutoFlow: "column",
       gap: 1,
@@ -1474,21 +1677,21 @@ function auth_new_wash_index_default() {
       paddingBlockEnd: 8,
       blockSize: "100%",
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(Stepper2, { activeStep, steps: steps2 }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(Stepper2, { activeStep, setActiveStep, steps: steps2 }, void 0, !1, {
           fileName: "app/routes/_auth.new-wash._index.tsx",
-          lineNumber: 97,
+          lineNumber: 105,
           columnNumber: 9
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
-          import_react33.Grid,
+        /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
+          import_react37.Grid,
           {
             blockSize: "100%",
             gridTemplateColumns: "1fr",
             inlineSize: "100%",
             gridTemplateRows: "auto 1fr",
             children: [
-              /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
-                import_react33.Text,
+              /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
+                import_react37.Text,
                 {
                   placeSelf: "center",
                   as: "h1",
@@ -1501,13 +1704,13 @@ function auth_new_wash_index_default() {
                 !1,
                 {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 104,
+                  lineNumber: 112,
                   columnNumber: 11
                 },
                 this
               ),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(import_react33.Box, { inlineSize: "100%", marginInline: "auto", children: [
-                activeStep === 0 && /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
+              /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(import_react37.Box, { inlineSize: "100%", marginInline: "auto", children: [
+                activeStep === 0 && /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
                   VehicleContent,
                   {
                     setVehicleData,
@@ -1517,13 +1720,13 @@ function auth_new_wash_index_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 115,
+                    lineNumber: 123,
                     columnNumber: 15
                   },
                   this
                 ),
-                activeStep === 1 && /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(washContent.Container, { licensePlate: (vehicle == null ? void 0 : vehicle.licensePlate) ?? "", children: washes == null ? void 0 : washes.map((w) => /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
-                  import_react33.Box,
+                activeStep === 1 && /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(washContent.Container, { licensePlate: (vehicle == null ? void 0 : vehicle.licensePlate) ?? "", children: washes == null ? void 0 : washes.map((w) => /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
+                  import_react37.Box,
                   {
                     maxInlineSize: "320px",
                     marginInline: [0, 8],
@@ -1532,7 +1735,7 @@ function auth_new_wash_index_default() {
                     borderRadius: "lg",
                     paddingInline: 4,
                     paddingBlock: 8,
-                    children: /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
+                    children: /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
                       washContent.Form,
                       {
                         id: w.id,
@@ -1547,7 +1750,7 @@ function auth_new_wash_index_default() {
                       !1,
                       {
                         fileName: "app/routes/_auth.new-wash._index.tsx",
-                        lineNumber: 133,
+                        lineNumber: 141,
                         columnNumber: 21
                       },
                       this
@@ -1557,21 +1760,26 @@ function auth_new_wash_index_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 123,
+                    lineNumber: 131,
                     columnNumber: 19
                   },
                   this
                 )) }, void 0, !1, {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 121,
+                  lineNumber: 129,
+                  columnNumber: 15
+                }, this),
+                activeStep === 2 && /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(DriverContent, { driver, setDriverData }, void 0, !1, {
+                  fileName: "app/routes/_auth.new-wash._index.tsx",
+                  lineNumber: 155,
                   columnNumber: 15
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/_auth.new-wash._index.tsx",
-                lineNumber: 113,
+                lineNumber: 121,
                 columnNumber: 11
               }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime19.jsxDEV)(
+              /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(
                 NewWashFooter,
                 {
                   isNextButtonDisable: !isVehicleDataValid,
@@ -1583,7 +1791,7 @@ function auth_new_wash_index_default() {
                 !1,
                 {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 147,
+                  lineNumber: 158,
                   columnNumber: 11
                 },
                 this
@@ -1594,7 +1802,7 @@ function auth_new_wash_index_default() {
           !0,
           {
             fileName: "app/routes/_auth.new-wash._index.tsx",
-            lineNumber: 98,
+            lineNumber: 106,
             columnNumber: 9
           },
           this
@@ -1605,13 +1813,13 @@ function auth_new_wash_index_default() {
     !0,
     {
       fileName: "app/routes/_auth.new-wash._index.tsx",
-      lineNumber: 88,
+      lineNumber: 96,
       columnNumber: 7
     },
     this
   ) }, void 0, !1, {
     fileName: "app/routes/_auth.new-wash._index.tsx",
-    lineNumber: 87,
+    lineNumber: 95,
     columnNumber: 5
   }, this);
 }
@@ -1652,18 +1860,32 @@ async function loader({ request }) {
   return typeof query != "string" || query == "" ? (0, import_react_router.json)(null) : (0, import_react_router.json)({ results: vehicles.filter((v) => v.licensePlate === licensePlate) });
 }
 
-// app/routes/washes-search/route.ts
+// app/routes/driver-search/route.ts
 var route_exports2 = {};
 __export(route_exports2, {
-  loader: () => loader2,
-  mocks: () => mocks
+  loader: () => loader2
 });
-var import_react_router2 = require("react-router");
+var import_react_router2 = require("react-router"), mocks = [{ name: "matheus", phones: ["12313123"] }];
+async function loader2({ request }) {
+  let query = new URL(request.url).searchParams.get("query");
+  if (typeof query != "string" || query == "")
+    return (0, import_react_router2.json)(null);
+  let results = mocks.filter((m) => m.name === query.toLowerCase());
+  return (0, import_react_router2.json)({ results });
+}
+
+// app/routes/washes-search/route.ts
+var route_exports3 = {};
+__export(route_exports3, {
+  loader: () => loader3,
+  mocks: () => mocks2
+});
+var import_react_router3 = require("react-router");
 function getDate(date, days) {
   let parsedDate = dateManipulator.parseDateToString(date ?? /* @__PURE__ */ new Date());
   return dateManipulator.addDaysToDate(parsedDate, days ?? 0);
 }
-var mocks = {
+var mocks2 = {
   washCycles: [
     {
       id: "fake-cycle-id",
@@ -1743,12 +1965,12 @@ var mocks = {
     }
   ]
 };
-async function loader2({ request }) {
+async function loader3({ request }) {
   let query = new URL(request.url).searchParams.get("licensePlate");
   if (typeof query != "string" || query === "")
-    return (0, import_react_router2.json)([]);
-  let washes = mocks.washes.filter((w) => w.vehicleId === query), washCycle = mocks.washCycles.find((w) => w.vehicleId === query), error;
-  return error ? (0, import_react_router2.json)({ error }) : washCycle ? (0, import_react_router2.json)({ washCycle, washes }) : (0, import_react_router2.json)([]);
+    return (0, import_react_router3.json)([]);
+  let washes = mocks2.washes.filter((w) => w.vehicleId === query), washCycle = mocks2.washCycles.find((w) => w.vehicleId === query), error;
+  return error ? (0, import_react_router3.json)({ error }) : washCycle ? (0, import_react_router3.json)({ washCycle, washes }) : (0, import_react_router3.json)([]);
 }
 
 // app/routes/_auth.home.tsx
@@ -1756,9 +1978,9 @@ var auth_home_exports = {};
 __export(auth_home_exports, {
   default: () => auth_home_default,
   headers: () => headers,
-  loader: () => loader3
+  loader: () => loader4
 });
-var import_react35 = require("@chakra-ui/react"), import_node2 = require("@remix-run/node"), import_react36 = require("@remix-run/react");
+var import_react39 = require("@chakra-ui/react"), import_node2 = require("@remix-run/node"), import_react40 = require("@remix-run/react");
 
 // src/domain/modules/user/use-cases/validate-session.ts
 var ValidateSession = class {
@@ -1941,10 +2163,10 @@ var import_node = require("@remix-run/node"), { commitSession, destroySession, g
 });
 
 // app/routes/_auth.home.tsx
-var import_jsx_dev_runtime20 = require("react/jsx-dev-runtime"), headers = ({ parentHeaders }) => ({
+var import_jsx_dev_runtime22 = require("react/jsx-dev-runtime"), headers = ({ parentHeaders }) => ({
   "Cache-Control": parentHeaders.get("Cache-control") ?? "max-age=3600"
 });
-async function loader3({ request }) {
+async function loader4({ request }) {
   let session = await getSession(request.headers.get("Cookie")), token = session.get("token");
   if (console.log("home loader"), !token)
     throw (0, import_node2.redirect)("/sign-in");
@@ -1960,8 +2182,8 @@ async function loader3({ request }) {
   );
 }
 function auth_home_default() {
-  let data = (0, import_react36.useLoaderData)();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react35.Text, { children: "home" }, void 0, !1, {
+  let data = (0, import_react40.useLoaderData)();
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_react39.Text, { children: "home" }, void 0, !1, {
     fileName: "app/routes/_auth.home.tsx",
     lineNumber: 45,
     columnNumber: 10
@@ -1973,9 +2195,9 @@ var sign_in_exports = {};
 __export(sign_in_exports, {
   action: () => action,
   default: () => sign_in_default,
-  loader: () => loader4
+  loader: () => loader5
 });
-var import_react38 = require("@chakra-ui/react"), import_bs2 = require("react-icons/bs"), import_md2 = require("react-icons/md"), import_node3 = require("@remix-run/node"), import_react39 = require("@remix-run/react");
+var import_react42 = require("@chakra-ui/react"), import_bs2 = require("react-icons/bs"), import_md2 = require("react-icons/md"), import_node3 = require("@remix-run/node"), import_react43 = require("@remix-run/react");
 
 // src/domain/shared/utils/hash-manipulator.ts
 var import_bcrypt = __toESM(require("bcrypt")), HashManipulator = class {
@@ -2027,13 +2249,13 @@ async function signInUserController({ email, password }) {
 }
 
 // app/components/Footer.tsx
-var import_react37 = require("@chakra-ui/react"), import_bs = require("react-icons/bs"), import_jsx_dev_runtime21 = require("react/jsx-dev-runtime");
+var import_react41 = require("@chakra-ui/react"), import_bs = require("react-icons/bs"), import_jsx_dev_runtime23 = require("react/jsx-dev-runtime");
 function Footer() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(import_react37.Center, { textAlign: "center", paddingBlock: 0.5, gap: 2, bg: "blue.500", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(import_react37.Text, { fontSize: "xs", color: "white", children: [
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react41.Center, { textAlign: "center", paddingBlock: 0.5, gap: 2, bg: "blue.500", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react41.Text, { fontSize: "xs", color: "white", children: [
       "Feito por",
       " ",
-      /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(import_react37.Link, { target: "_blank", href: "https://github.com/euliveiras", children: "@euliveiras" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react41.Link, { target: "_blank", href: "https://github.com/euliveiras", children: "@euliveiras" }, void 0, !1, {
         fileName: "app/components/Footer.tsx",
         lineNumber: 9,
         columnNumber: 9
@@ -2043,7 +2265,7 @@ function Footer() {
       lineNumber: 7,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime21.jsxDEV)(import_bs.BsMoonStars, { size: "12px", color: "white" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_bs.BsMoonStars, { size: "12px", color: "white" }, void 0, !1, {
       fileName: "app/components/Footer.tsx",
       lineNumber: 14,
       columnNumber: 7
@@ -2056,7 +2278,7 @@ function Footer() {
 }
 
 // app/routes/sign-in.tsx
-var import_jsx_dev_runtime22 = require("react/jsx-dev-runtime");
+var import_jsx_dev_runtime24 = require("react/jsx-dev-runtime");
 async function action({ request }) {
   let form = await request.formData(), email = form.get("email"), password = form.get("password"), session = await getSession(request.headers.get("Cookie"));
   if (typeof password != "string" || typeof email != "string")
@@ -2078,7 +2300,7 @@ async function action({ request }) {
     }
   }));
 }
-async function loader4({ request }) {
+async function loader5({ request }) {
   let token = (await getSession(request.headers.get("Cookie"))).get("token");
   if (!token)
     return (0, import_node3.json)({});
@@ -2093,20 +2315,20 @@ function CustomInputGroup({
   isIdle,
   isSubmitting
 }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(
-    import_react38.InputGroup,
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+    import_react42.InputGroup,
     {
       sx: {
         "--clr": isError ? "#E53E3E" : isSubmitting ? "#48BB78" : isIdle ? "#000000" : "#3182ce"
       },
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_react38.InputRightElement, { fontSize: 26, children: icon }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react42.InputRightElement, { fontSize: 26, children: icon }, void 0, !1, {
           fileName: "app/routes/sign-in.tsx",
           lineNumber: 109,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(
-          import_react38.Input,
+        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+          import_react42.Input,
           {
             _focusVisible: {
               borderColor: "var(--clr)",
@@ -2140,16 +2362,16 @@ function CustomInputGroup({
   );
 }
 function sign_in_default() {
-  let errors = (0, import_react39.useActionData)(), navigation = (0, import_react39.useNavigation)();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_react38.Box, { h: "100vh", w: "100%", children: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_react38.Grid, { h: "100%", w: "100%", templateRows: "1fr auto", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_react38.VStack, { paddingBlockStart: [32, 20], children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_react38.HStack, { spacing: "4px", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_bs2.BsPerson, { size: "20px", color: "#000000", strokeWidth: "0.8px" }, void 0, !1, {
+  let errors = (0, import_react43.useActionData)(), navigation = (0, import_react43.useNavigation)();
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react42.Box, { h: "100vh", w: "100%", children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react42.Grid, { h: "100%", w: "100%", templateRows: "1fr auto", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react42.VStack, { paddingBlockStart: [32, 20], children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react42.HStack, { spacing: "4px", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_bs2.BsPerson, { size: "20px", color: "#000000", strokeWidth: "0.8px" }, void 0, !1, {
           fileName: "app/routes/sign-in.tsx",
           lineNumber: 134,
           columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_react38.Text, { fontWeight: "bold", fontSize: "md", children: "/ login" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react42.Text, { fontWeight: "bold", fontSize: "md", children: "/ login" }, void 0, !1, {
           fileName: "app/routes/sign-in.tsx",
           lineNumber: 135,
           columnNumber: 13
@@ -2159,10 +2381,10 @@ function sign_in_default() {
         lineNumber: 133,
         columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(
-        import_react38.VStack,
+      /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+        import_react42.VStack,
         {
-          as: import_react39.Form,
+          as: import_react43.Form,
           spacing: 6,
           border: "1px",
           borderColor: "blackAlpha.100",
@@ -2173,16 +2395,16 @@ function sign_in_default() {
           padding: 8,
           method: "POST",
           children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_react38.FormControl, { isRequired: !0, children: [
-              /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_react38.FormLabel, { fontSize: "sm", children: "email" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react42.FormControl, { isRequired: !0, children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react42.FormLabel, { fontSize: "sm", children: "email" }, void 0, !1, {
                 fileName: "app/routes/sign-in.tsx",
                 lineNumber: 152,
                 columnNumber: 15
               }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(
+              /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
                 CustomInputGroup,
                 {
-                  icon: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_md2.MdOutlineEmail, { color: "var(--clr)" }, void 0, !1, {
+                  icon: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_md2.MdOutlineEmail, { color: "var(--clr)" }, void 0, !1, {
                     fileName: "app/routes/sign-in.tsx",
                     lineNumber: 154,
                     columnNumber: 23
@@ -2207,16 +2429,16 @@ function sign_in_default() {
               lineNumber: 151,
               columnNumber: 13
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_react38.FormControl, { isRequired: !0, children: [
-              /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_react38.FormLabel, { fontSize: "sm", children: "password" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react42.FormControl, { isRequired: !0, children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react42.FormLabel, { fontSize: "sm", children: "password" }, void 0, !1, {
                 fileName: "app/routes/sign-in.tsx",
                 lineNumber: 163,
                 columnNumber: 15
               }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(
+              /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
                 CustomInputGroup,
                 {
-                  icon: /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_md2.MdLockOutline, { color: "var(--clr)" }, void 0, !1, {
+                  icon: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_md2.MdLockOutline, { color: "var(--clr)" }, void 0, !1, {
                     fileName: "app/routes/sign-in.tsx",
                     lineNumber: 165,
                     columnNumber: 23
@@ -2241,13 +2463,13 @@ function sign_in_default() {
               lineNumber: 162,
               columnNumber: 13
             }, this),
-            (errors == null ? void 0 : errors.error) && /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_react38.Text, { color: "red.500", children: errors == null ? void 0 : errors.error }, void 0, !1, {
+            (errors == null ? void 0 : errors.error) && /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react42.Text, { color: "red.500", children: errors == null ? void 0 : errors.error }, void 0, !1, {
               fileName: "app/routes/sign-in.tsx",
               lineNumber: 173,
               columnNumber: 31
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(
-              import_react38.Button,
+            /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+              import_react42.Button,
               {
                 marginBlockStart: 4,
                 colorScheme: "blue",
@@ -2283,7 +2505,7 @@ function sign_in_default() {
       lineNumber: 132,
       columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(Footer, {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(Footer, {}, void 0, !1, {
       fileName: "app/routes/sign-in.tsx",
       lineNumber: 187,
       columnNumber: 9
@@ -2305,7 +2527,7 @@ __export(sign_up_exports, {
   action: () => action2,
   default: () => sign_up_default
 });
-var import_node4 = require("@remix-run/node"), import_react40 = require("@remix-run/react");
+var import_node4 = require("@remix-run/node"), import_react44 = require("@remix-run/react");
 
 // src/domain/modules/user/use-cases/create-user.ts
 var CreateUser = class {
@@ -2336,7 +2558,7 @@ async function createUserController({ username, email, password }) {
 }
 
 // app/routes/sign-up.tsx
-var import_jsx_dev_runtime23 = require("react/jsx-dev-runtime");
+var import_jsx_dev_runtime25 = require("react/jsx-dev-runtime");
 async function action2({ request }) {
   let form = await request.formData(), username = form.get("username"), password = form.get("password"), email = form.get("email");
   if (typeof username != "string" || typeof password != "string" || typeof email != "string")
@@ -2353,22 +2575,22 @@ async function action2({ request }) {
   })) : (0, import_node4.redirect)("/sign-in", 201);
 }
 function sign_up_default() {
-  let data = (0, import_react40.useActionData)();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("h1", { children: "Sign up" }, void 0, !1, {
+  let data = (0, import_react44.useActionData)();
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("div", { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("h1", { children: "Sign up" }, void 0, !1, {
       fileName: "app/routes/sign-up.tsx",
       lineNumber: 39,
       columnNumber: 13
     }, this),
-    data ? /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("p", { style: { color: "red" }, children: data.error }, void 0, !1, {
+    data ? /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("p", { style: { color: "red" }, children: data.error }, void 0, !1, {
       fileName: "app/routes/sign-up.tsx",
       lineNumber: 40,
       columnNumber: 21
     }, this) : null,
-    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react40.Form, { method: "POST", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("label", { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react44.Form, { method: "POST", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("label", { children: [
         "username",
-        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("input", { type: "text", name: "username" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("input", { type: "text", name: "username" }, void 0, !1, {
           fileName: "app/routes/sign-up.tsx",
           lineNumber: 44,
           columnNumber: 21
@@ -2378,9 +2600,9 @@ function sign_up_default() {
         lineNumber: 42,
         columnNumber: 17
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("label", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("label", { children: [
         "email",
-        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("input", { type: "text", name: "email" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("input", { type: "text", name: "email" }, void 0, !1, {
           fileName: "app/routes/sign-up.tsx",
           lineNumber: 48,
           columnNumber: 21
@@ -2390,9 +2612,9 @@ function sign_up_default() {
         lineNumber: 46,
         columnNumber: 17
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("label", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("label", { children: [
         "password",
-        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("input", { type: "password", name: "password" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("input", { type: "password", name: "password" }, void 0, !1, {
           fileName: "app/routes/sign-up.tsx",
           lineNumber: 52,
           columnNumber: 21
@@ -2402,12 +2624,12 @@ function sign_up_default() {
         lineNumber: 50,
         columnNumber: 17
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("button", { type: "submit", children: "Logar" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)("button", { type: "submit", children: "Logar" }, void 0, !1, {
         fileName: "app/routes/sign-up.tsx",
         lineNumber: 54,
         columnNumber: 17
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react40.Link, { to: "/sign-in", children: "logar" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react44.Link, { to: "/sign-in", children: "logar" }, void 0, !1, {
         fileName: "app/routes/sign-up.tsx",
         lineNumber: 55,
         columnNumber: 17
@@ -2427,10 +2649,10 @@ function sign_up_default() {
 // app/routes/_index.tsx
 var index_exports = {};
 __export(index_exports, {
-  loader: () => loader5
+  loader: () => loader6
 });
 var import_node5 = require("@remix-run/node");
-async function loader5() {
+async function loader6() {
   return (0, import_node5.redirect)("/home");
 }
 
@@ -2439,26 +2661,26 @@ var auth_exports = {};
 __export(auth_exports, {
   default: () => auth_default,
   headers: () => headers2,
-  loader: () => loader6
+  loader: () => loader7
 });
-var import_node6 = require("@remix-run/node"), import_node7 = require("@remix-run/node"), import_react47 = require("@remix-run/react");
+var import_node6 = require("@remix-run/node"), import_node7 = require("@remix-run/node"), import_react51 = require("@remix-run/react");
 
 // app/components/Header.tsx
-var import_react44 = require("@chakra-ui/react"), import_bi = require("react-icons/bi"), import_md4 = require("react-icons/md"), import_lu = require("react-icons/lu"), import_react45 = require("@remix-run/react"), import_react46 = require("react");
+var import_react48 = require("@chakra-ui/react"), import_bi = require("react-icons/bi"), import_md4 = require("react-icons/md"), import_lu = require("react-icons/lu"), import_react49 = require("@remix-run/react"), import_react50 = require("react");
 
 // app/components/SearchInput.tsx
-var import_react41 = require("@chakra-ui/react"), import_md3 = require("react-icons/md"), import_jsx_dev_runtime24 = require("react/jsx-dev-runtime");
+var import_react45 = require("@chakra-ui/react"), import_md3 = require("react-icons/md"), import_jsx_dev_runtime26 = require("react/jsx-dev-runtime");
 function SearchInput2() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
-    import_react41.InputGroup,
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
+    import_react45.InputGroup,
     {
       display: ["none", "none", "block"],
       role: "group",
       sx: { "input:focus ~ div": { svg: { color: "blackAlpha.900" } } },
       maxInlineSize: 96,
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
-          import_react41.Input,
+        /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
+          import_react45.Input,
           {
             placeholder: "Procure qualquer coisa",
             borderRadius: "full",
@@ -2475,8 +2697,8 @@ function SearchInput2() {
           },
           this
         ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react41.InputRightElement, { pointerEvents: "none", fontSize: 26, children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
-          import_react41.Icon,
+        /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react45.InputRightElement, { pointerEvents: "none", fontSize: 26, children: /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
+          import_react45.Icon,
           {
             color: "gray.200",
             as: import_md3.MdOutlineSearch,
@@ -2511,20 +2733,20 @@ function SearchInput2() {
 }
 
 // app/components/Drawer.tsx
-var import_react43 = require("@chakra-ui/react");
+var import_react47 = require("@chakra-ui/react");
 
 // app/components/Avatar.tsx
-var import_react42 = require("@chakra-ui/react"), import_rx = require("react-icons/rx"), import_jsx_dev_runtime25 = require("react/jsx-dev-runtime");
+var import_react46 = require("@chakra-ui/react"), import_rx = require("react-icons/rx"), import_jsx_dev_runtime27 = require("react/jsx-dev-runtime");
 function Avatar({ containerProps, avatarProps, user }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
-    import_react42.HStack,
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+    import_react46.HStack,
     {
       paddingInline: 2,
       display: ["none", "none", "flex"],
       ...containerProps,
       children: [
-        user && /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react42.Menu, { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react42.MenuButton, { as: import_react42.Button, variant: "ghost", rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_rx.RxChevronDown, {}, void 0, !1, {
+        user && /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react46.Menu, { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react46.MenuButton, { as: import_react46.Button, variant: "ghost", rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_rx.RxChevronDown, {}, void 0, !1, {
             fileName: "app/components/Avatar.tsx",
             lineNumber: 31,
             columnNumber: 62
@@ -2533,13 +2755,13 @@ function Avatar({ containerProps, avatarProps, user }) {
             lineNumber: 31,
             columnNumber: 11
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react42.MenuList, { children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react42.MenuItem, { children: "Configura\xE7\xF5es" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react46.MenuList, { children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react46.MenuItem, { children: "Configura\xE7\xF5es" }, void 0, !1, {
               fileName: "app/components/Avatar.tsx",
               lineNumber: 35,
               columnNumber: 13
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react42.MenuItem, { as: import_react42.Text, color: "red.400", children: "Sair" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react46.MenuItem, { as: import_react46.Text, color: "red.400", children: "Sair" }, void 0, !1, {
               fileName: "app/components/Avatar.tsx",
               lineNumber: 36,
               columnNumber: 13
@@ -2554,7 +2776,7 @@ function Avatar({ containerProps, avatarProps, user }) {
           lineNumber: 30,
           columnNumber: 9
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react42.Avatar, { size: "md", name: "Natan", ...avatarProps }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react46.Avatar, { size: "md", name: "Natan", ...avatarProps }, void 0, !1, {
           fileName: "app/components/Avatar.tsx",
           lineNumber: 40,
           columnNumber: 7
@@ -2573,35 +2795,35 @@ function Avatar({ containerProps, avatarProps, user }) {
 }
 
 // app/components/Drawer.tsx
-var import_jsx_dev_runtime26 = require("react/jsx-dev-runtime");
+var import_jsx_dev_runtime28 = require("react/jsx-dev-runtime");
 function Drawer({ isOpen, onClose, finalFocusRef, user }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
-    import_react43.Drawer,
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(
+    import_react47.Drawer,
     {
       isOpen,
       placement: "right",
       onClose,
       finalFocusRef,
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react43.DrawerOverlay, {}, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(import_react47.DrawerOverlay, {}, void 0, !1, {
           fileName: "app/components/Drawer.tsx",
           lineNumber: 33,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react43.DrawerContent, { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react43.DrawerCloseButton, { top: 4 }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(import_react47.DrawerContent, { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(import_react47.DrawerCloseButton, { top: 4 }, void 0, !1, {
             fileName: "app/components/Drawer.tsx",
             lineNumber: 35,
             columnNumber: 9
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
-            import_react43.DrawerHeader,
+          /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(
+            import_react47.DrawerHeader,
             {
-              as: import_react43.HStack,
+              as: import_react47.HStack,
               inlineSize: "min-content",
               paddingBlock: 2,
               paddingInline: 4,
-              children: /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
+              children: /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(
                 Avatar,
                 {
                   containerProps: {
@@ -2628,18 +2850,18 @@ function Drawer({ isOpen, onClose, finalFocusRef, user }) {
             },
             this
           ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react43.DrawerBody, {}, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(import_react47.DrawerBody, {}, void 0, !1, {
             fileName: "app/components/Drawer.tsx",
             lineNumber: 50,
             columnNumber: 9
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react43.DrawerFooter, { children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react43.Button, { variant: "outline", mr: 3, onClick: onClose, children: "Cancel" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(import_react47.DrawerFooter, { children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(import_react47.Button, { variant: "outline", mr: 3, onClick: onClose, children: "Cancel" }, void 0, !1, {
               fileName: "app/components/Drawer.tsx",
               lineNumber: 53,
               columnNumber: 11
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(import_react43.Button, { colorScheme: "blue", children: "Save" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(import_react47.Button, { colorScheme: "blue", children: "Save" }, void 0, !1, {
               fileName: "app/components/Drawer.tsx",
               lineNumber: 56,
               columnNumber: 11
@@ -2668,11 +2890,11 @@ function Drawer({ isOpen, onClose, finalFocusRef, user }) {
 }
 
 // app/components/Header.tsx
-var import_jsx_dev_runtime27 = require("react/jsx-dev-runtime");
+var import_jsx_dev_runtime29 = require("react/jsx-dev-runtime");
 function Header({ label, user }) {
-  let { isOpen, onOpen, onClose } = (0, import_react44.useDisclosure)(), btnRef = (0, import_react46.useRef)(null);
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
-    import_react44.Grid,
+  let { isOpen, onOpen, onClose } = (0, import_react48.useDisclosure)(), btnRef = (0, import_react50.useRef)(null);
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
+    import_react48.Grid,
     {
       maxH: "120px",
       inlineSize: "100%",
@@ -2682,21 +2904,21 @@ function Header({ label, user }) {
       paddingBlock: 4,
       paddingInline: 1,
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react44.HStack, { spacing: [6], children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react44.HStack, { spacing: 1, children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
-              import_react44.IconButton,
+        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react48.HStack, { spacing: [6], children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react48.HStack, { spacing: 1, children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
+              import_react48.IconButton,
               {
                 variant: "ghost",
                 "aria-label": "go to home",
                 fontSize: "32px",
                 isRound: !0,
-                icon: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_bi.BiHomeAlt, { size: 30 }, void 0, !1, {
+                icon: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_bi.BiHomeAlt, { size: 30 }, void 0, !1, {
                   fileName: "app/components/Header.tsx",
                   lineNumber: 46,
                   columnNumber: 19
                 }, this),
-                as: import_react45.Link,
+                as: import_react49.Link,
                 to: "/home"
               },
               void 0,
@@ -2708,7 +2930,7 @@ function Header({ label, user }) {
               },
               this
             ),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react44.Text, { letterSpacing: "wider", fontWeight: "bold", fontSize: "md", children: label }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react48.Text, { letterSpacing: "wider", fontWeight: "bold", fontSize: "md", children: label }, void 0, !1, {
               fileName: "app/components/Header.tsx",
               lineNumber: 50,
               columnNumber: 11
@@ -2718,7 +2940,7 @@ function Header({ label, user }) {
             lineNumber: 40,
             columnNumber: 9
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(SearchInput2, {}, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(SearchInput2, {}, void 0, !1, {
             fileName: "app/components/Header.tsx",
             lineNumber: 54,
             columnNumber: 9
@@ -2728,11 +2950,11 @@ function Header({ label, user }) {
           lineNumber: 39,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react44.HStack, { justifySelf: "flex-end", spacing: 1, children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
-            import_react44.Button,
+        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react48.HStack, { justifySelf: "flex-end", spacing: 1, children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
+            import_react48.Button,
             {
-              as: import_react45.Link,
+              as: import_react49.Link,
               marginInline: 1,
               variant: "solid",
               colorScheme: "blue",
@@ -2740,13 +2962,13 @@ function Header({ label, user }) {
               blockSize: 10,
               inlineSize: [10, "auto"],
               sx: { span: { marginInlineEnd: ["0"] } },
-              leftIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_lu.LuPlus, { size: "1.25em" }, void 0, !1, {
+              leftIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_lu.LuPlus, { size: "1.25em" }, void 0, !1, {
                 fileName: "app/components/Header.tsx",
                 lineNumber: 66,
                 columnNumber: 21
               }, this),
               to: "/new-wash",
-              children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react44.Text, { display: ["none", "block"], children: "Nova lavagem" }, void 0, !1, {
+              children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react48.Text, { display: ["none", "block"], children: "Nova lavagem" }, void 0, !1, {
                 fileName: "app/components/Header.tsx",
                 lineNumber: 71,
                 columnNumber: 11
@@ -2761,15 +2983,15 @@ function Header({ label, user }) {
             },
             this
           ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
-            import_react44.IconButton,
+          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
+            import_react48.IconButton,
             {
               variant: "ghost",
               colorScheme: "blackAlpha",
               "aria-label": "open notifications",
               fontSize: "26px",
               isRound: !0,
-              icon: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_md4.MdOutlineNotificationsNone, {}, void 0, !1, {
+              icon: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_md4.MdOutlineNotificationsNone, {}, void 0, !1, {
                 fileName: "app/components/Header.tsx",
                 lineNumber: 79,
                 columnNumber: 17
@@ -2784,24 +3006,24 @@ function Header({ label, user }) {
             },
             this
           ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react44.Divider, { borderLeftWidth: 2, orientation: "vertical" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react48.Divider, { borderLeftWidth: 2, orientation: "vertical" }, void 0, !1, {
             fileName: "app/components/Header.tsx",
             lineNumber: 81,
             columnNumber: 9
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(Avatar, { user }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(Avatar, { user }, void 0, !1, {
             fileName: "app/components/Header.tsx",
             lineNumber: 82,
             columnNumber: 9
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
-            import_react44.IconButton,
+          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
+            import_react48.IconButton,
             {
               display: ["flex", "flex", "none"],
               variant: "ghost",
               "aria-label": "open side menu",
               fontSize: "24px",
-              icon: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_md4.MdDensityMedium, {}, void 0, !1, {
+              icon: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_md4.MdDensityMedium, {}, void 0, !1, {
                 fileName: "app/components/Header.tsx",
                 lineNumber: 88,
                 columnNumber: 17
@@ -2818,7 +3040,7 @@ function Header({ label, user }) {
             },
             this
           ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
             Drawer,
             {
               finalFocusRef: btnRef,
@@ -2854,10 +3076,10 @@ function Header({ label, user }) {
 }
 
 // app/routes/_auth.tsx
-var import_react48 = require("@chakra-ui/react"), import_jsx_dev_runtime28 = require("react/jsx-dev-runtime"), headers2 = ({ loaderHeaders }) => ({
+var import_react52 = require("@chakra-ui/react"), import_jsx_dev_runtime30 = require("react/jsx-dev-runtime"), headers2 = ({ loaderHeaders }) => ({
   "Cache-Control": loaderHeaders.get("Cache-control") ?? "max-age=3600"
 });
-async function loader6({ request }) {
+async function loader7({ request }) {
   let session = await getSession(request.headers.get("Cookie")), url = new URL(request.url), token = session.get("token");
   if (!token)
     throw (0, import_node6.redirect)("/sign-in");
@@ -2878,14 +3100,14 @@ async function loader6({ request }) {
   );
 }
 function auth_default() {
-  let { path, user } = (0, import_react47.useLoaderData)();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(import_react48.Grid, { gridTemplateRows: "auto 1fr", blockSize: "100vh", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(Header, { label: path ?? "/", user }, void 0, !1, {
+  let { path, user } = (0, import_react51.useLoaderData)();
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(import_react52.Grid, { gridTemplateRows: "auto 1fr", blockSize: "100vh", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(Header, { label: path ?? "/", user }, void 0, !1, {
       fileName: "app/routes/_auth.tsx",
       lineNumber: 54,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime28.jsxDEV)(import_react47.Outlet, {}, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(import_react51.Outlet, {}, void 0, !1, {
       fileName: "app/routes/_auth.tsx",
       lineNumber: 55,
       columnNumber: 7
@@ -2902,11 +3124,11 @@ var __exports = {};
 __export(__exports, {
   default: () => __default
 });
-var import_react49 = require("@chakra-ui/react");
-var import_jsx_dev_runtime29 = require("react/jsx-dev-runtime");
+var import_react53 = require("@chakra-ui/react");
+var import_jsx_dev_runtime31 = require("react/jsx-dev-runtime");
 function __default() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-    import_react49.Grid,
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(
+    import_react53.Grid,
     {
       placeContent: "center",
       placeItems: "center",
@@ -2914,18 +3136,18 @@ function __default() {
       inlineSize: "100%",
       gap: 4,
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react49.Text, { fontSize: "lg", children: "Essa p\xE1gina n\xE3o existe :(" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(import_react53.Text, { fontSize: "lg", children: "Essa p\xE1gina n\xE3o existe :(" }, void 0, !1, {
           fileName: "app/routes/$.tsx",
           lineNumber: 13,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react49.HStack, { spacing: 1, children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react49.Text, { fontSize: "lg", children: "Go back" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(import_react53.HStack, { spacing: 1, children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(import_react53.Text, { fontSize: "lg", children: "Go back" }, void 0, !1, {
             fileName: "app/routes/$.tsx",
             lineNumber: 15,
             columnNumber: 9
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(LinkHighlighted, { to: "/home", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react49.Text, { fontSize: "lg", children: "/ home" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(LinkHighlighted, { to: "/home", children: /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(import_react53.Text, { fontSize: "lg", children: "/ home" }, void 0, !1, {
             fileName: "app/routes/$.tsx",
             lineNumber: 17,
             columnNumber: 11
@@ -2953,114 +3175,10 @@ function __default() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { version: "9e6f26cb", entry: { module: "http://localhost:3001/build/entry.client-BART2GMV.js", imports: ["http://localhost:3001/build/_shared/chunk-XO3EGWRB.js", "http://localhost:3001/build/_shared/chunk-DC5KBJVF.js", "http://localhost:3001/build/_shared/chunk-PKOMFC7F.js", "http://localhost:3001/build/_shared/chunk-ANXL52AQ.js", "http://localhost:3001/build/_shared/chunk-6SJDMTBK.js", "http://localhost:3001/build/_shared/chunk-OKS54H4S.js", "http://localhost:3001/build/_shared/chunk-3YOGVSK4.js", "http://localhost:3001/build/_shared/chunk-KFR6H6JJ.js", "http://localhost:3001/build/_shared/chunk-I54TBTTL.js", "http://localhost:3001/build/_shared/chunk-CT6324V4.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/root-HLOSKOKZ.js", imports: ["http://localhost:3001/build/_shared/chunk-PJ2IAIPY.js", "http://localhost:3001/build/_shared/chunk-IJA4GF5B.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/$-UDQBGANI.js", imports: ["http://localhost:3001/build/_shared/chunk-SRNFPOD7.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/_auth-W2UZOZKL.js", imports: ["http://localhost:3001/build/_shared/chunk-KVW2GNI7.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/_auth.home-JCGGJOWV.js", imports: ["http://localhost:3001/build/_shared/chunk-PJ2IAIPY.js", "http://localhost:3001/build/_shared/chunk-IJA4GF5B.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/_auth.new-wash._index-4BFUIWCY.js", imports: ["http://localhost:3001/build/_shared/chunk-SRNFPOD7.js", "http://localhost:3001/build/_shared/chunk-I35CEAMW.js", "http://localhost:3001/build/_shared/chunk-PJ2IAIPY.js", "http://localhost:3001/build/_shared/chunk-IJA4GF5B.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/_index-M23M7LSB.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/sign-in-ST5RUJ7S.js", imports: ["http://localhost:3001/build/_shared/chunk-KVW2GNI7.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/sign-up-P2IFJXMP.js", imports: void 0, hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/vehicle-search-6CUZ7OJ2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "http://localhost:3001/build/routes/washes-search-BCUJQELI.js", imports: ["http://localhost:3001/build/_shared/chunk-I35CEAMW.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, cssBundleHref: void 0, hmr: { runtime: "http://localhost:3001/build/_shared/chunk-KFR6H6JJ.js", routes: { "app/routes/vehicle-search/route.ts": { loaderHash: `export async function loader({
-  request
-}: LoaderArgs) {
-  const url = new URL(request.url);
-  const query = url.searchParams.get("query");
-  const licensePlate = url.searchParams.get("licensePlate");
-  if (typeof query !== "string" || query == "") return json(null);
-  return json({
-    results: vehicles.filter(v => v.licensePlate === licensePlate)
-  });
-}` }, "app/routes/_auth.tsx": { loaderHash: `export async function loader({
-  request
-}: LoaderArgs) {
-  const session = await getSession(request.headers.get("Cookie"));
-  const url = new URL(request.url);
-  const token = session.get("token");
-  if (!token) {
-    throw redirect("/sign-in");
-  }
-  const {
-    error,
-    user
-  } = await validateSessionId({
-    sessionId: token
-  });
-  if (error || !user) {
-    session.unset("token");
-    throw redirect("/sign-in", {
-      headers: {
-        "Set-Cookie": await commitSession(session)
-      }
-    });
-  }
-  return json({
-    path: url.pathname,
-    user
-  }, {
-    headers: {
-      "Cache-Control": \`max-age=\${60 * 60}\`
-    }
-  });
-}` }, "app/routes/washes-search/route.ts": { loaderHash: `export async function loader({
-  request
-}: LoaderArgs) {
-  const url = new URL(request.url);
-  const query = url.searchParams.get("licensePlate");
-  if (typeof query !== "string" || query === "") return json([]);
-  const washes = mocks.washes.filter(w => w.vehicleId === query);
-  const washCycle = mocks.washCycles.find(w => w.vehicleId === query);
-  let error;
-  if (error) return json({
-    error
-  });
-  if (!washCycle) return json([]);
-  return json({
-    washCycle,
-    washes
-  });
-}` }, "app/routes/_auth.home.tsx": { loaderHash: `export async function loader({
-  request
-}: LoaderArgs) {
-  const session = await getSession(request.headers.get("Cookie"));
-  const token = session.get("token");
-  console.log("home loader");
-  if (!token) {
-    throw redirect("/sign-in");
-  }
-  const {
-    error,
-    user
-  } = await validateSessionId({
-    sessionId: token
-  });
-  if (error || !user) {
-    session.unset("token");
-    throw redirect("/sign-in", {
-      headers: {
-        "Set-Cookie": await commitSession(session)
-      }
-    });
-  }
-  return json({
-    user
-  });
-}` }, "app/routes/sign-in.tsx": { loaderHash: `export async function loader({
-  request
-}: LoaderArgs) {
-  const session = await getSession(request.headers.get("Cookie"));
-  const token = session.get("token");
-  if (!token) {
-    // Redirect to the home page if they are already signed in.
-    return json({});
-  }
-  const {
-    user
-  } = await validateSessionId({
-    sessionId: token
-  });
-  if (user) {
-    return redirect("/home");
-  }
-  return json({});
-}` }, "app/routes/_index.tsx": { loaderHash: `export async function loader() {
-  return redirect("/home");
-}` } }, timestamp: 1692396224539 }, url: "http://localhost:3001/build/manifest-9E6F26CB.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-NTEBWIYL.js", imports: ["/build/_shared/chunk-WTBARBAA.js", "/build/_shared/chunk-P62PNFZK.js", "/build/_shared/chunk-YP433BXJ.js", "/build/_shared/chunk-BS5JQCTE.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-EFJ2KTPD.js", imports: ["/build/_shared/chunk-NQK22EEQ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-QKRNXDUO.js", imports: ["/build/_shared/chunk-BWPHFCGS.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-5LMNP5HG.js", imports: ["/build/_shared/chunk-M7KYBTZ4.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-JYI2XTML.js", imports: ["/build/_shared/chunk-NQK22EEQ.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-JTBQI4N5.js", imports: ["/build/_shared/chunk-BWPHFCGS.js", "/build/_shared/chunk-NQK22EEQ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-CBTBVJ75.js", imports: ["/build/_shared/chunk-M7KYBTZ4.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-65NJ2DF2.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "4cdb6c8d", hmr: void 0, url: "/build/manifest-4CDB6C8D.js" };
 
 // server-entry-module:@remix-run/dev/server-build
-var assetsBuildDirectory = "public/build", future = { unstable_dev: !0, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "http://localhost:3001/build/", entry = { module: entry_server_exports }, dev = { websocketPort: 3002 }, routes = {
+var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !1, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
   root: {
     id: "root",
     parentId: void 0,
@@ -3085,13 +3203,21 @@ var assetsBuildDirectory = "public/build", future = { unstable_dev: !0, unstable
     caseSensitive: void 0,
     module: route_exports
   },
+  "routes/driver-search": {
+    id: "routes/driver-search",
+    parentId: "root",
+    path: "driver-search",
+    index: void 0,
+    caseSensitive: void 0,
+    module: route_exports2
+  },
   "routes/washes-search": {
     id: "routes/washes-search",
     parentId: "root",
     path: "washes-search",
     index: void 0,
     caseSensitive: void 0,
-    module: route_exports2
+    module: route_exports3
   },
   "routes/_auth.home": {
     id: "routes/_auth.home",
@@ -3146,7 +3272,6 @@ var assetsBuildDirectory = "public/build", future = { unstable_dev: !0, unstable
 0 && (module.exports = {
   assets,
   assetsBuildDirectory,
-  dev,
   entry,
   future,
   publicPath,

@@ -13,9 +13,10 @@ import type { StepsType } from ".";
 type StepperProps = {
   steps: StepsType[];
   activeStep: number;
+  setActiveStep(number: number): void;
 };
 
-export function Stepper({ steps, activeStep }: StepperProps) {
+export function Stepper({ steps, activeStep, setActiveStep }: StepperProps) {
   return (
     <ChakraStepper
       index={activeStep}
@@ -24,7 +25,7 @@ export function Stepper({ steps, activeStep }: StepperProps) {
       size={["md", "md", "lg"]}
     >
       {steps.map(({ IconIncomplete, IconActive, label }, index) => (
-        <Step key={index}>
+        <Step key={index} onClick={(e) => setActiveStep(index)}>
           <StepIndicator>
             <StepStatus
               complete={<StepIcon />}
