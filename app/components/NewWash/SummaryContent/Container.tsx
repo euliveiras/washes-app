@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 
 type ContainerProps = {
@@ -6,5 +6,14 @@ type ContainerProps = {
 };
 
 export function Container({ children }: ContainerProps) {
-  return <Box>{children}</Box>;
+  return (
+    <Grid
+      paddingInlineStart={4}
+      gridTemplateColumns={["1fr", "1fr 1fr"]}
+      gridTemplateRows={["min-content", "1fr 1fr"]}
+      gap={8}
+    >
+      {children}
+    </Grid>
+  );
 }

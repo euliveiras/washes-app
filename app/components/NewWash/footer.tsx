@@ -6,6 +6,7 @@ type NewWashFooterProps = {
   goNext(): void;
   isPreviousButtonDisable: boolean;
   isNextButtonDisable: boolean;
+  isLastStep: boolean;
 };
 export function NewWashFooter({
   goNext,
@@ -13,6 +14,7 @@ export function NewWashFooter({
   containerProps,
   isNextButtonDisable,
   isPreviousButtonDisable,
+  isLastStep,
 }: NewWashFooterProps) {
   return (
     <Flex
@@ -48,15 +50,26 @@ export function NewWashFooter({
         inlineSize={"8px"}
         borderColor="gray.400"
       />
-      <Button
-        name="step"
-        variant="ghost"
-        colorScheme={"blue"}
-        onClick={() => goNext()}
-        isDisabled={isNextButtonDisable}
-      >
-        próximo
-      </Button>
+      {!isLastStep ? (
+        <Button
+          name="step"
+          variant="ghost"
+          colorScheme={"blue"}
+          onClick={() => goNext()}
+          isDisabled={isNextButtonDisable}
+        >
+          próximo
+        </Button>
+      ) : (
+        <Button
+          name="step"
+          variant="ghost"
+          colorScheme={"blue"}
+          onClick={() => goNext()}
+        >
+          finalizar
+        </Button>
+      )}
     </Flex>
   );
 }

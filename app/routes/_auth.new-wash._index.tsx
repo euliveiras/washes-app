@@ -20,7 +20,7 @@ import {
 import { summary } from "~/components/NewWash/SummaryContent";
 
 export default function () {
-  const { Stepper, steps, activeStep, goToPrevious, goToNext, setActiveStep } =
+  const { Stepper, activeStep, steps, goToPrevious, goToNext, setActiveStep } =
     useStepper();
   const [error, setError] = useState<boolean>(false);
 
@@ -70,72 +70,77 @@ export default function () {
   const canGoBack = activeStep > 0;
 
   return (
-    <Grid paddingInline={4} gridTemplateRows="1fr auto" inlineSize={"100%"}>
+    <Grid
+      blockSize="100%"
+      inlineSize="100%"
+      maxInlineSize={"968px"}
+      marginInline="auto"
+      gridAutoFlow="column"
+      gap={1}
+      gridTemplateColumns={"auto 1fr"}
+      gridTemplateRows={"100%"}
+      paddingBlock={[4, 8]}
+paddingInline={4}
+      overflow="hidden"
+    >
+      <Stepper
+        activeStep={activeStep}
+        setActiveStep={setActiveStep}
+        steps={steps}
+      />
       <Grid
-        gridAutoFlow="column"
-        gap={1}
-        gridTemplateColumns={"auto 1fr"}
-        gridTemplateRows={"100%"}
-        paddingBlockStart={[4, 4, 8]}
-        paddingBlockEnd={8}
-        blockSize="100%"
+        gridTemplateColumns={"1fr"}
+        inlineSize={"100%"}
+        gridTemplateRows="auto 1fr"
       >
-        <Stepper
-          activeStep={activeStep}
-          setActiveStep={setActiveStep}
-          steps={steps}
-        />
-        <Grid
-          blockSize="100%"
-          gridTemplateColumns={"1fr"}
-          inlineSize={"100%"}
-          gridTemplateRows="auto 1fr"
+        <Text
+          placeSelf={"center"}
+          as="h1"
+          fontSize={["xl", "xl", "2xl"]}
+          marginBlockEnd={4}
+          whiteSpace="nowrap"
         >
-          <Text
-            placeSelf={"center"}
-            as="h1"
-            fontSize={["xl", "xl", "2xl"]}
-            marginBlockEnd={4}
-            whiteSpace="nowrap"
-          >
-            {steps[activeStep].modalTitle}
-          </Text>
-          <Box inlineSize={"100%"} marginInline="auto">
-            {activeStep === 0 && (
-              <VehicleContent
-                setVehicleData={setVehicleData}
+          {steps[activeStep].modalTitle}
+        </Text>
+        <Box inlineSize={"100%"} marginInline="auto" overflow={"scroll"}>
+          {activeStep === 0 && (
+            <VehicleContent
+              setVehicleData={setVehicleData}
+              vehicle={vehicle}
+              addError={addError}
+              removeError={removeError}
+            />
+          )}
+          {activeStep === 1 && (
+            <WashesContent
+              washes={washes}
+              setWashes={setWashesData}
+              licensePlate={vehicle.licensePlate}
+              addError={addError}
+              removeError={removeError}
+            />
+          )}
+          {activeStep === 2 && (
+            <DriverContent driver={driver} setDriverData={setDriverData} />
+          )}
+          {activeStep === 3 && (
+            <summary.Container>
+              <summary.Vehicle
                 vehicle={vehicle}
-                addError={addError}
-                removeError={removeError}
+                goTo={() => setActiveStep(0)}
               />
-            )}
-            {activeStep === 1 && (
-              <WashesContent
-                washes={washes}
-                setWashes={setWashesData}
-                licensePlate={vehicle.licensePlate}
-                addError={addError}
-                removeError={removeError}
-              />
-            )}
-            {activeStep === 2 && (
-              <DriverContent driver={driver} setDriverData={setDriverData} />
-            )}
-            {activeStep === 3 && (
-              <summary.Container>
-                <summary.Driver driver={driver} />
-                <summary.Vehicle vehicle={vehicle} />
-                <summary.Washes washes={washes} />
-              </summary.Container>
-            )}
-          </Box>
-          <NewWashFooter
-            isNextButtonDisable={error || !canProceed}
-            isPreviousButtonDisable={!canGoBack}
-            goBack={goToPrevious}
-            goNext={goToNext}
-          />
-        </Grid>
+              <summary.Washes washes={washes} goTo={() => setActiveStep(1)} />
+              <summary.Driver driver={driver} goTo={() => setActiveStep(2)} />
+            </summary.Container>
+          )}
+        </Box>
+        <NewWashFooter
+          isNextButtonDisable={error || !canProceed}
+          isPreviousButtonDisable={!canGoBack}
+          goBack={goToPrevious}
+          goNext={goToNext}
+          isLastStep={steps.length - 1 === activeStep}
+        />
       </Grid>
     </Grid>
   );

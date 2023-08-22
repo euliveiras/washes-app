@@ -57,7 +57,7 @@ const steps: StepsType[] = [
 
 export function useStepper() {
   const { activeStep, goToNext, goToPrevious, setActiveStep } = useSteps({
-    index: 0,
+    index: 3,
     count: steps.length,
   });
 
