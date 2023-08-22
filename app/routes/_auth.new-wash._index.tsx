@@ -73,7 +73,7 @@ export default function () {
     <Grid
       blockSize="100%"
       inlineSize="100%"
-      maxInlineSize={"968px"}
+      maxInlineSize={"90%"}
       marginInline="auto"
       gridAutoFlow="column"
       gap={1}

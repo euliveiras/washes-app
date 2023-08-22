@@ -9,8 +9,20 @@ type VehicleSummaryProps = {
 
 export function VehicleSummary({ goTo, vehicle }: VehicleSummaryProps) {
   return (
-    <Flex align={"center"} flexDir="column" gap={4} inlineSize="100%">
-      <Text as="h2" fontSize={"md"} marginInline="auto">
+    <Flex
+      align={"center"}
+      justify="center"
+      flexDir="column"
+      gap={4}
+      paddingBlock={[4, 8]}
+      paddingInline={[0, 4, 8]}
+      inlineSize="100%"
+      border="1px"
+      borderColor={"blue.400"}
+      borderWidth="medium"
+      borderRadius="2xl"
+    >
+      <Text as="h2" fontSize={"md"} marginInline="auto" justifySelf={"start"}>
         Informações do Veículo
       </Text>
       <Button
@@ -18,19 +30,28 @@ export function VehicleSummary({ goTo, vehicle }: VehicleSummaryProps) {
         variant="outline"
         onClick={() => goTo()}
         blockSize={"fit-content"}
-        inlineSize="100%"
+        inlineSize={"fit-content"}
         minBlockSize={12}
       >
         <Flex
           flexDir="column"
           gap={1}
           paddingBlock={4}
+          paddingInlineEnd={1}
           inlineSize="auto"
           align={"start"}
           marginInlineEnd={"auto"}
         >
-          <Text>placa: {"JUAH9123"}</Text>
-          <Text>tipo: {"Truck"}</Text>
+          <Flex as="span" gap={1}>
+            <Text fontSize={"md"}>placa:</Text>
+            <Text fontWeight="semibold">{"JUAH9123"}</Text>
+          </Flex>
+          <Flex as="span" gap={1}>
+            <Text>tipo:</Text>
+            <Text fontSize={"sm"} fontWeight="light">
+              {"Truck"}
+            </Text>
+          </Flex>
         </Flex>
       </Button>
     </Flex>

@@ -1789,142 +1789,225 @@ function Container4({ children }) {
 // app/components/NewWash/SummaryContent/DriverSummary.tsx
 var import_react39 = require("@chakra-ui/react"), import_hi = require("react-icons/hi"), import_jsx_dev_runtime23 = require("react/jsx-dev-runtime");
 function DriverSummary({ driver, goTo }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react39.Flex, { align: "center", flexDir: "column", gap: 4, children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react39.Text, { as: "h2", fontSize: "md", marginInline: "auto", children: "Informa\xE7\xF5es do motorista" }, void 0, !1, {
-      fileName: "app/components/NewWash/SummaryContent/DriverSummary.tsx",
-      lineNumber: 13,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react39.Flex, { flexDir: "column", gap: 4, blockSize: "fit-content", align: "center", children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(
-      import_react39.Button,
-      {
-        rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_hi.HiExternalLink, { size: 20 }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(
+    import_react39.Flex,
+    {
+      align: "center",
+      justify: "center",
+      flexDir: "column",
+      gap: 4,
+      paddingBlock: 4,
+      inlineSize: "100%",
+      border: "1px",
+      borderColor: "blue.400",
+      borderWidth: "medium",
+      borderRadius: "2xl",
+      children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react39.Text, { as: "h2", fontSize: "md", marginInline: "auto", children: "Informa\xE7\xF5es do motorista" }, void 0, !1, {
           fileName: "app/components/NewWash/SummaryContent/DriverSummary.tsx",
-          lineNumber: 18,
-          columnNumber: 22
+          lineNumber: 24,
+          columnNumber: 7
         }, this),
-        variant: "outline",
-        onClick: () => goTo(),
-        blockSize: "fit-content",
-        inlineSize: "fit-content",
-        minBlockSize: 12,
-        children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react39.Flex, { flexDir: "column", gap: 1, paddingBlock: 4, inlineSize: "auto", align: "start", marginInlineEnd: 4, children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react39.Text, { children: [
-            "nome: ",
-            "Matheus"
-          ] }, void 0, !0, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(
+          import_react39.Flex,
+          {
+            flexDir: "column",
+            gap: 4,
+            blockSize: "fit-content",
+            inlineSize: "fit-content",
+            align: "center",
+            children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(
+              import_react39.Button,
+              {
+                rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_hi.HiExternalLink, { size: 20 }, void 0, !1, {
+                  fileName: "app/components/NewWash/SummaryContent/DriverSummary.tsx",
+                  lineNumber: 35,
+                  columnNumber: 22
+                }, this),
+                variant: "outline",
+                onClick: () => goTo(),
+                blockSize: "fit-content",
+                inlineSize: "fit-content",
+                minBlockSize: 12,
+                children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(
+                  import_react39.Flex,
+                  {
+                    flexDir: "column",
+                    gap: 1,
+                    paddingBlock: 4,
+                    inlineSize: "fit-content",
+                    align: "start",
+                    marginInlineEnd: 4,
+                    children: [
+                      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react39.Text, { fontSize: "md", children: "Matheus" }, void 0, !1, {
+                        fileName: "app/components/NewWash/SummaryContent/DriverSummary.tsx",
+                        lineNumber: 51,
+                        columnNumber: 15
+                      }, this),
+                      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react39.Flex, { as: "span", gap: 1, inlineSize: "fit-content", children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react39.Text, { fontSize: "sm", fontWeight: "light", children: "1239810938901" }, void 0, !1, {
+                        fileName: "app/components/NewWash/SummaryContent/DriverSummary.tsx",
+                        lineNumber: 53,
+                        columnNumber: 17
+                      }, this) }, void 0, !1, {
+                        fileName: "app/components/NewWash/SummaryContent/DriverSummary.tsx",
+                        lineNumber: 52,
+                        columnNumber: 15
+                      }, this)
+                    ]
+                  },
+                  void 0,
+                  !0,
+                  {
+                    fileName: "app/components/NewWash/SummaryContent/DriverSummary.tsx",
+                    lineNumber: 43,
+                    columnNumber: 13
+                  },
+                  this
+                )
+              },
+              void 0,
+              !1,
+              {
+                fileName: "app/components/NewWash/SummaryContent/DriverSummary.tsx",
+                lineNumber: 34,
+                columnNumber: 9
+              },
+              this
+            )
+          },
+          void 0,
+          !1,
+          {
             fileName: "app/components/NewWash/SummaryContent/DriverSummary.tsx",
             lineNumber: 27,
-            columnNumber: 15
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react39.Text, { children: [
-            "telefone: ",
-            "1239810938901"
-          ] }, void 0, !0, {
-            fileName: "app/components/NewWash/SummaryContent/DriverSummary.tsx",
-            lineNumber: 28,
-            columnNumber: 15
-          }, this)
-        ] }, void 0, !0, {
-          fileName: "app/components/NewWash/SummaryContent/DriverSummary.tsx",
-          lineNumber: 26,
-          columnNumber: 13
-        }, this)
-      },
-      void 0,
-      !1,
-      {
-        fileName: "app/components/NewWash/SummaryContent/DriverSummary.tsx",
-        lineNumber: 17,
-        columnNumber: 9
-      },
-      this
-    ) }, void 0, !1, {
+            columnNumber: 7
+          },
+          this
+        )
+      ]
+    },
+    void 0,
+    !0,
+    {
       fileName: "app/components/NewWash/SummaryContent/DriverSummary.tsx",
-      lineNumber: 16,
-      columnNumber: 7
-    }, this)
-  ] }, void 0, !0, {
-    fileName: "app/components/NewWash/SummaryContent/DriverSummary.tsx",
-    lineNumber: 12,
-    columnNumber: 5
-  }, this);
+      lineNumber: 12,
+      columnNumber: 5
+    },
+    this
+  );
 }
 
 // app/components/NewWash/SummaryContent/VehicleSummary.tsx
 var import_react40 = require("@chakra-ui/react"), import_hi2 = require("react-icons/hi"), import_jsx_dev_runtime24 = require("react/jsx-dev-runtime");
 function VehicleSummary({ goTo, vehicle }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react40.Flex, { align: "center", flexDir: "column", gap: 4, inlineSize: "100%", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react40.Text, { as: "h2", fontSize: "md", marginInline: "auto", children: "Informa\xE7\xF5es do Ve\xEDculo" }, void 0, !1, {
-      fileName: "app/components/NewWash/SummaryContent/VehicleSummary.tsx",
-      lineNumber: 13,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
-      import_react40.Button,
-      {
-        rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_hi2.HiExternalLink, { size: 20 }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+    import_react40.Flex,
+    {
+      align: "center",
+      justify: "center",
+      flexDir: "column",
+      gap: 4,
+      paddingBlock: [4, 8],
+      paddingInline: [0, 4, 8],
+      inlineSize: "100%",
+      border: "1px",
+      borderColor: "blue.400",
+      borderWidth: "medium",
+      borderRadius: "2xl",
+      children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react40.Text, { as: "h2", fontSize: "md", marginInline: "auto", justifySelf: "start", children: "Informa\xE7\xF5es do Ve\xEDculo" }, void 0, !1, {
           fileName: "app/components/NewWash/SummaryContent/VehicleSummary.tsx",
-          lineNumber: 17,
-          columnNumber: 20
+          lineNumber: 25,
+          columnNumber: 7
         }, this),
-        variant: "outline",
-        onClick: () => goTo(),
-        blockSize: "fit-content",
-        inlineSize: "100%",
-        minBlockSize: 12,
-        children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
-          import_react40.Flex,
+        /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+          import_react40.Button,
           {
-            flexDir: "column",
-            gap: 1,
-            paddingBlock: 4,
-            inlineSize: "auto",
-            align: "start",
-            marginInlineEnd: "auto",
-            children: [
-              /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react40.Text, { children: [
-                "placa: ",
-                "JUAH9123"
-              ] }, void 0, !0, {
+            rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_hi2.HiExternalLink, { size: 20 }, void 0, !1, {
+              fileName: "app/components/NewWash/SummaryContent/VehicleSummary.tsx",
+              lineNumber: 29,
+              columnNumber: 20
+            }, this),
+            variant: "outline",
+            onClick: () => goTo(),
+            blockSize: "fit-content",
+            inlineSize: "fit-content",
+            minBlockSize: 12,
+            children: /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(
+              import_react40.Flex,
+              {
+                flexDir: "column",
+                gap: 1,
+                paddingBlock: 4,
+                paddingInlineEnd: 1,
+                inlineSize: "auto",
+                align: "start",
+                marginInlineEnd: "auto",
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react40.Flex, { as: "span", gap: 1, children: [
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react40.Text, { fontSize: "md", children: "placa:" }, void 0, !1, {
+                      fileName: "app/components/NewWash/SummaryContent/VehicleSummary.tsx",
+                      lineNumber: 46,
+                      columnNumber: 13
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react40.Text, { fontWeight: "semibold", children: "JUAH9123" }, void 0, !1, {
+                      fileName: "app/components/NewWash/SummaryContent/VehicleSummary.tsx",
+                      lineNumber: 47,
+                      columnNumber: 13
+                    }, this)
+                  ] }, void 0, !0, {
+                    fileName: "app/components/NewWash/SummaryContent/VehicleSummary.tsx",
+                    lineNumber: 45,
+                    columnNumber: 11
+                  }, this),
+                  /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react40.Flex, { as: "span", gap: 1, children: [
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react40.Text, { children: "tipo:" }, void 0, !1, {
+                      fileName: "app/components/NewWash/SummaryContent/VehicleSummary.tsx",
+                      lineNumber: 50,
+                      columnNumber: 13
+                    }, this),
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react40.Text, { fontSize: "sm", fontWeight: "light", children: "Truck" }, void 0, !1, {
+                      fileName: "app/components/NewWash/SummaryContent/VehicleSummary.tsx",
+                      lineNumber: 51,
+                      columnNumber: 13
+                    }, this)
+                  ] }, void 0, !0, {
+                    fileName: "app/components/NewWash/SummaryContent/VehicleSummary.tsx",
+                    lineNumber: 49,
+                    columnNumber: 11
+                  }, this)
+                ]
+              },
+              void 0,
+              !0,
+              {
                 fileName: "app/components/NewWash/SummaryContent/VehicleSummary.tsx",
-                lineNumber: 32,
-                columnNumber: 11
-              }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime24.jsxDEV)(import_react40.Text, { children: [
-                "tipo: ",
-                "Truck"
-              ] }, void 0, !0, {
-                fileName: "app/components/NewWash/SummaryContent/VehicleSummary.tsx",
-                lineNumber: 33,
-                columnNumber: 11
-              }, this)
-            ]
+                lineNumber: 36,
+                columnNumber: 9
+              },
+              this
+            )
           },
           void 0,
-          !0,
+          !1,
           {
             fileName: "app/components/NewWash/SummaryContent/VehicleSummary.tsx",
-            lineNumber: 24,
-            columnNumber: 9
+            lineNumber: 28,
+            columnNumber: 7
           },
           this
         )
-      },
-      void 0,
-      !1,
-      {
-        fileName: "app/components/NewWash/SummaryContent/VehicleSummary.tsx",
-        lineNumber: 16,
-        columnNumber: 7
-      },
-      this
-    )
-  ] }, void 0, !0, {
-    fileName: "app/components/NewWash/SummaryContent/VehicleSummary.tsx",
-    lineNumber: 12,
-    columnNumber: 5
-  }, this);
+      ]
+    },
+    void 0,
+    !0,
+    {
+      fileName: "app/components/NewWash/SummaryContent/VehicleSummary.tsx",
+      lineNumber: 12,
+      columnNumber: 5
+    },
+    this
+  );
 }
 
 // app/components/NewWash/SummaryContent/WashesSummary.tsx
@@ -1932,7 +2015,7 @@ var import_react41 = require("@chakra-ui/react"), import_hi3 = require("react-ic
 var import_jsx_dev_runtime25 = require("react/jsx-dev-runtime");
 function ScheduleDate({ date }) {
   let { format: format2 } = useDate(), text = format2(date, "d/MM");
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react41.Text, { children: text }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react41.Text, { fontSize: "md", children: text }, void 0, !1, {
     fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
     lineNumber: 13,
     columnNumber: 10
@@ -1945,7 +2028,7 @@ function Note({ note }) {
       lineNumber: 19,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react41.Text, { children: note.slice(0, 5) + "..." }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react41.Text, { fontWeight: "light", children: note.slice(0, 5) + "..." }, void 0, !1, {
       fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
       lineNumber: 20,
       columnNumber: 7
@@ -1961,93 +2044,115 @@ function Note({ note }) {
   }, this);
 }
 function WashesSummary({ goTo, washes }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react41.Flex, { gap: 4, align: "center", flexDir: "column", inlineSize: "100%", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react41.Text, { as: "h2", children: "Informa\xE7\xF5es das lavagens" }, void 0, !1, {
-      fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
-      lineNumber: 30,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
-      import_react41.Grid,
-      {
-        blockSize: "100%",
-        inlineSize: "100%",
-        gap: 4,
-        gridTemplateColumns: "100%",
-        children: washes.map((w) => /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
-          import_react41.Button,
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+    import_react41.Flex,
+    {
+      paddingBlock: [4, 8],
+      paddingInline: [0, 4, 8],
+      gap: 4,
+      align: "center",
+      justify: "center",
+      flexDir: "column",
+      inlineSize: "100%",
+      border: "1px",
+      borderWidth: "medium",
+      borderColor: "blue.400",
+      borderRadius: "2xl",
+      children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react41.Text, { as: "h2", children: "Informa\xE7\xF5es das lavagens" }, void 0, !1, {
+          fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
+          lineNumber: 42,
+          columnNumber: 7
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+          import_react41.Grid,
           {
-            rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_hi3.HiExternalLink, { size: 20 }, void 0, !1, {
-              fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
-              lineNumber: 40,
-              columnNumber: 24
-            }, this),
+            blockSize: "100%",
             inlineSize: "100%",
-            blockSize: "fit-content",
-            fontSize: "sm",
-            padding: 8,
-            onClick: () => goTo(),
-            variant: "outline",
-            children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
-              import_react41.Flex,
+            gap: 4,
+            gridTemplateColumns: ["1fr", "1fr", "1fr 1fr"],
+            placeItems: "center",
+            children: washes.map((w) => /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+              import_react41.Button,
               {
-                flexDir: "column",
+                rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_hi3.HiExternalLink, { size: 20 }, void 0, !1, {
+                  fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
+                  lineNumber: 53,
+                  columnNumber: 24
+                }, this),
+                inlineSize: "fit-content",
                 blockSize: "fit-content",
-                gap: 1,
-                marginInlineEnd: "auto",
-                align: "start",
-                children: [
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(ScheduleDate, { date: w.scheduleDate }, void 0, !1, {
+                fontSize: "sm",
+                padding: 4,
+                onClick: () => goTo(),
+                variant: "outline",
+                children: /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(
+                  import_react41.Flex,
+                  {
+                    flexDir: "column",
+                    blockSize: "fit-content",
+                    gap: 1,
+                    paddingInlineEnd: 4,
+                    marginInlineEnd: "auto",
+                    align: "start",
+                    children: [
+                      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(ScheduleDate, { date: w.scheduleDate }, void 0, !1, {
+                        fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
+                        lineNumber: 69,
+                        columnNumber: 15
+                      }, this),
+                      w.isCompleted && /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react41.Text, { children: "feita" }, void 0, !1, {
+                        fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
+                        lineNumber: 70,
+                        columnNumber: 33
+                      }, this),
+                      /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Note, { note: "Alguma nota aleat\xF3ria" }, void 0, !1, {
+                        fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
+                        lineNumber: 71,
+                        columnNumber: 15
+                      }, this)
+                    ]
+                  },
+                  void 0,
+                  !0,
+                  {
                     fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
-                    lineNumber: 55,
-                    columnNumber: 15
-                  }, this),
-                  w.isCompleted && /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(import_react41.Text, { children: "feita" }, void 0, !1, {
-                    fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
-                    lineNumber: 56,
-                    columnNumber: 33
-                  }, this),
-                  /* @__PURE__ */ (0, import_jsx_dev_runtime25.jsxDEV)(Note, { note: "Alguma nota aleat\xF3ria" }, void 0, !1, {
-                    fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
-                    lineNumber: 57,
-                    columnNumber: 15
-                  }, this)
-                ]
+                    lineNumber: 61,
+                    columnNumber: 13
+                  },
+                  this
+                )
               },
-              void 0,
-              !0,
+              w.id,
+              !1,
               {
                 fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
-                lineNumber: 48,
-                columnNumber: 13
+                lineNumber: 51,
+                columnNumber: 11
               },
               this
-            )
+            ))
           },
-          w.id,
+          void 0,
           !1,
           {
             fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
-            lineNumber: 38,
-            columnNumber: 11
+            lineNumber: 43,
+            columnNumber: 7
           },
           this
-        ))
-      },
-      void 0,
-      !1,
-      {
-        fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
-        lineNumber: 31,
-        columnNumber: 7
-      },
-      this
-    )
-  ] }, void 0, !0, {
-    fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
-    lineNumber: 29,
-    columnNumber: 5
-  }, this);
+        )
+      ]
+    },
+    void 0,
+    !0,
+    {
+      fileName: "app/components/NewWash/SummaryContent/WashesSummary.tsx",
+      lineNumber: 29,
+      columnNumber: 5
+    },
+    this
+  );
 }
 
 // app/components/NewWash/SummaryContent/index.tsx
@@ -2086,7 +2191,7 @@ function auth_new_wash_index_default() {
     {
       blockSize: "100%",
       inlineSize: "100%",
-      maxInlineSize: "968px",
+      maxInlineSize: "90%",
       marginInline: "auto",
       gridAutoFlow: "column",
       gap: 1,
@@ -3608,7 +3713,7 @@ function __default() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-NTEBWIYL.js", imports: ["/build/_shared/chunk-WTBARBAA.js", "/build/_shared/chunk-P62PNFZK.js", "/build/_shared/chunk-YP433BXJ.js", "/build/_shared/chunk-BS5JQCTE.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-EFJ2KTPD.js", imports: ["/build/_shared/chunk-NQK22EEQ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-QKRNXDUO.js", imports: ["/build/_shared/chunk-BWPHFCGS.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-5LMNP5HG.js", imports: ["/build/_shared/chunk-M7KYBTZ4.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-JYI2XTML.js", imports: ["/build/_shared/chunk-NQK22EEQ.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-MWHB6FVO.js", imports: ["/build/_shared/chunk-BWPHFCGS.js", "/build/_shared/chunk-NQK22EEQ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-CBTBVJ75.js", imports: ["/build/_shared/chunk-M7KYBTZ4.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-65NJ2DF2.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "cc43b2f0", hmr: void 0, url: "/build/manifest-CC43B2F0.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-NTEBWIYL.js", imports: ["/build/_shared/chunk-WTBARBAA.js", "/build/_shared/chunk-P62PNFZK.js", "/build/_shared/chunk-YP433BXJ.js", "/build/_shared/chunk-BS5JQCTE.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-EFJ2KTPD.js", imports: ["/build/_shared/chunk-NQK22EEQ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-QKRNXDUO.js", imports: ["/build/_shared/chunk-BWPHFCGS.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-5LMNP5HG.js", imports: ["/build/_shared/chunk-M7KYBTZ4.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-JYI2XTML.js", imports: ["/build/_shared/chunk-NQK22EEQ.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-VGZ6LCPF.js", imports: ["/build/_shared/chunk-BWPHFCGS.js", "/build/_shared/chunk-NQK22EEQ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-CBTBVJ75.js", imports: ["/build/_shared/chunk-M7KYBTZ4.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-65NJ2DF2.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "9f236586", hmr: void 0, url: "/build/manifest-9F236586.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !1, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
