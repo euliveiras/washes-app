@@ -1,4 +1,4 @@
-import { Box, Text, Flex, Grid, Button } from "@chakra-ui/react";
+import { Text, Flex, Grid, Button } from "@chakra-ui/react";
 import { HiExternalLink } from "react-icons/hi";
 import type { Wash } from "../WashesContent";
 import { useDate } from "~/components/hooks/useDate";
@@ -67,8 +67,14 @@ export function WashesSummary({ goTo, washes }: WashesSummaryProps) {
               align="start"
             >
               <ScheduleDate date={w.scheduleDate} />
-              {w.isCompleted && <Text>feita</Text>}
-              <Note note={"Alguma nota aleatória"} />
+              <Note note={w.note} />
+              {w.isCompleted && (
+                <Flex>
+                  <Text fontStyle="italic" fontSize={"sm"}>
+                    lavagem já feita
+                  </Text>
+                </Flex>
+              )}
             </Flex>
           </Button>
         ))}

@@ -26,7 +26,7 @@ model User {
 model Vehicle {
   id           String      @id
   licensePlate String      @unique
-  driver       Json
+  driver       String
   vehicleType  String
   Wash         Wash[]
   WashCycle    WashCycle[]

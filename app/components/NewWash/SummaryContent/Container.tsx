@@ -9,7 +9,7 @@ export function Container({ children }: ContainerProps) {
   return (
     <Grid
       paddingInlineStart={4}
-      gridTemplateColumns={["1fr", "1fr 1fr"]}
+      gridTemplateColumns={["100%", "1fr 1fr"]}
       gridTemplateRows={["min-content", "1fr 1fr"]}
       gap={8}
     >

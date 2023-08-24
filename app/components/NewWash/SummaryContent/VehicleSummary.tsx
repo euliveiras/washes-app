@@ -44,12 +44,12 @@ export function VehicleSummary({ goTo, vehicle }: VehicleSummaryProps) {
         >
           <Flex as="span" gap={1}>
             <Text fontSize={"md"}>placa:</Text>
-            <Text fontWeight="semibold">{"JUAH9123"}</Text>
+            <Text fontWeight="semibold">{vehicle.licensePlate}</Text>
           </Flex>
           <Flex as="span" gap={1}>
             <Text>tipo:</Text>
             <Text fontSize={"sm"} fontWeight="light">
-              {"Truck"}
+              {vehicle.type}
             </Text>
           </Flex>
         </Flex>

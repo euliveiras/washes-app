@@ -4,13 +4,13 @@ import type { CreateVehicleProps } from "../interfaces/create-vehicle";
 import type { VehicleRepository } from "../repositories/vehicle-repository";
 
 export class CreateVehicle {
-    constructor(private db: VehicleRepository) {}
-    async execute(data: CreateVehicleProps) {
-        const vehicle = new Vehicle({
-            ...data,
-            driver: new Driver({ ...data.driver }),
-        });
-        await this.db.create(vehicle);
-        return { vehicle };
-    }
+  constructor(private db: VehicleRepository) {}
+  async execute(data: CreateVehicleProps) {
+    const vehicle = new Vehicle({
+      ...data,
+      driver: data.driver ? new Driver({ ...data.driver }) : undefined,
+    });
+    await this.db.create(vehicle);
+    return { vehicle };
+  }
 }

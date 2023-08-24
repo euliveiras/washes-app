@@ -10,7 +10,8 @@ import {
   VehicleContent,
 } from "~/components/NewWash/VehicleContent/";
 import type { Vehicle } from "~/components/NewWash/VehicleContent/";
-import { useState } from "react";
+import type { Vehicle as DomainVehicle } from "domain/modules/vehicle/entities/Vehicle";
+import { useEffect, useState } from "react";
 import { NewWashFooter } from "~/components/NewWash/footer";
 import type { Driver } from "~/components/NewWash/DriverContent";
 import {
@@ -18,15 +19,46 @@ import {
   DriverContent,
 } from "~/components/NewWash/DriverContent";
 import { summary } from "~/components/NewWash/SummaryContent";
+import type { LoaderArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import { useLoaderData, useSubmit } from "@remix-run/react";
+import { useToast } from "~/components/NewWash/Toast";
+import { createVehicleController } from "src/infra/http/controllers/create-vehicle-controller";
+
+export async function loader({ request }: LoaderArgs) {
+  const url = new URL(request.url);
+  const params = new URLSearchParams(url.searchParams);
+  const vehicle = JSON.parse(params.get("vehicle") ?? "null") as Vehicle | null;
+  const washes = params.get("washes") as Wash[] | null;
+  const driver = JSON.parse(params.get("driver") ?? "null") as Driver | null;
+
+  if (!vehicle)
+    return json({
+      error: true,
+      message: "Você precisa fornecer o veículo",
+    });
+
+  const { error, vehicle: created } = await createVehicleController({
+    type: vehicle.type as DomainVehicle["vehicleType"],
+    licensePlate: vehicle.licensePlate,
+    driver: driver?.create ? driver : undefined,
+  });
+
+  console.log(error, created);
+
+  return json({ error: false, message: "" });
+}
 
 export default function () {
   const { Stepper, activeStep, steps, goToPrevious, goToNext, setActiveStep } =
     useStepper();
+  const { showErrorToast } = useToast();
   const [error, setError] = useState<boolean>(false);
-
   const [vehicle, setVehicle] = useState<Vehicle>(defaultVehicleState);
   const [washes, setWashes] = useState<Wash[]>(washesDefaultValue);
   const [driver, setDriver] = useState<Driver>(defaultDriverValue);
+  const submit = useSubmit();
+  const data = useLoaderData<typeof loader>();
 
   function addError() {
     setError(true);
@@ -55,6 +87,22 @@ export default function () {
     });
   }
 
+  function onFinish() {
+    const params = new URLSearchParams();
+
+    params.set("vehicle", JSON.stringify(vehicle));
+    params.set("driver", JSON.stringify(driver));
+    params.set("washes", JSON.stringify(washes));
+
+    submit(params);
+  }
+
+  useEffect(() => {
+    if (typeof data !== "undefined") {
+      data.error && showErrorToast(data.message);
+    }
+  }, [data, showErrorToast]);
+
   const isVehicleDataValid =
     activeStep === 0 &&
     vehicle.licensePlate &&
@@ -80,7 +128,7 @@ export default function () {
       gridTemplateColumns={"auto 1fr"}
       gridTemplateRows={"100%"}
       paddingBlock={[4, 8]}
-paddingInline={4}
+      paddingInline={4}
       overflow="hidden"
     >
       <Stepper
@@ -139,6 +187,7 @@ paddingInline={4}
           isPreviousButtonDisable={!canGoBack}
           goBack={goToPrevious}
           goNext={goToNext}
+          onFinish={onFinish}
           isLastStep={steps.length - 1 === activeStep}
         />
       </Grid>
