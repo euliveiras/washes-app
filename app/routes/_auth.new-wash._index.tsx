@@ -19,24 +19,29 @@ import {
   DriverContent,
 } from "~/components/NewWash/DriverContent";
 import { summary } from "~/components/NewWash/SummaryContent";
-import type { LoaderArgs } from "@remix-run/node";
+import type { ActionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData, useSubmit } from "@remix-run/react";
-import { useToast } from "~/components/NewWash/Toast";
+import { useActionData, useSubmit } from "@remix-run/react";
+import { useToast } from "~/components/hooks/useToast";
 import { createVehicleController } from "src/infra/http/controllers/create-vehicle-controller";
 
-export async function loader({ request }: LoaderArgs) {
-  const url = new URL(request.url);
-  const params = new URLSearchParams(url.searchParams);
-  const vehicle = JSON.parse(params.get("vehicle") ?? "null") as Vehicle | null;
-  const washes = params.get("washes") as Wash[] | null;
-  const driver = JSON.parse(params.get("driver") ?? "null") as Driver | null;
+export async function action({ request }: ActionArgs) {
+  const data = await request.json();
+  const vehicle = data?.vehicle as Vehicle | null;
+  const washes = data?.washes as Wash[] | null;
+  const driver = data?.driver as Driver | null;
 
-  if (!vehicle)
+  return json({
+    success: true,
+    message: "Lavagens cadastradas!",
+  });
+
+  if (!vehicle) {
     return json({
       error: true,
       message: "Você precisa fornecer o veículo",
     });
+  }
 
   const { error, vehicle: created } = await createVehicleController({
     type: vehicle.type as DomainVehicle["vehicleType"],
@@ -44,21 +49,19 @@ export async function loader({ request }: LoaderArgs) {
     driver: driver?.create ? driver : undefined,
   });
 
-  console.log(error, created);
-
   return json({ error: false, message: "" });
 }
 
 export default function () {
   const { Stepper, activeStep, steps, goToPrevious, goToNext, setActiveStep } =
     useStepper();
-  const { showErrorToast } = useToast();
+  const { showErrorToast, showSuccessToast } = useToast();
   const [error, setError] = useState<boolean>(false);
   const [vehicle, setVehicle] = useState<Vehicle>(defaultVehicleState);
   const [washes, setWashes] = useState<Wash[]>(washesDefaultValue);
   const [driver, setDriver] = useState<Driver>(defaultDriverValue);
   const submit = useSubmit();
-  const data = useLoaderData<typeof loader>();
+  const data = useActionData<typeof action>();
 
   function addError() {
     setError(true);
@@ -88,18 +91,20 @@ export default function () {
   }
 
   function onFinish() {
-    const params = new URLSearchParams();
+    const params = { vehicle, driver, washes };
 
-    params.set("vehicle", JSON.stringify(vehicle));
-    params.set("driver", JSON.stringify(driver));
-    params.set("washes", JSON.stringify(washes));
-
-    submit(params);
+    submit(params, { method: "POST", encType: "application/json" });
   }
 
   useEffect(() => {
     if (typeof data !== "undefined") {
-      data.error && showErrorToast(data.message);
+      data?.success && showSuccessToast({ message: data.message });
+    }
+  }, [data, showSuccessToast]);
+
+  useEffect(() => {
+    if (typeof data !== "undefined") {
+      data?.error && showErrorToast({ message: data.message });
     }
   }, [data, showErrorToast]);
 
