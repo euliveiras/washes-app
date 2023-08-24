@@ -220,8 +220,8 @@ function App() {
 // app/routes/_auth.new-wash._index.tsx
 var auth_new_wash_index_exports = {};
 __export(auth_new_wash_index_exports, {
-  default: () => auth_new_wash_index_default,
-  loader: () => loader
+  action: () => action,
+  default: () => auth_new_wash_index_default
 });
 var import_react44 = require("@chakra-ui/react");
 
@@ -2195,23 +2195,45 @@ var summary = {
 // app/routes/_auth.new-wash._index.tsx
 var import_node = require("@remix-run/node"), import_react46 = require("@remix-run/react");
 
-// app/components/NewWash/Toast.tsx
-var import_react42 = require("react"), import_react43 = require("@chakra-ui/react");
-function useToast() {
-  let toastIdRef = (0, import_react42.useRef)(""), toast = (0, import_react43.useToast)();
-  function close() {
+// app/components/hooks/useToast.ts
+var import_react42 = require("react"), import_react43 = require("@chakra-ui/react"), useToast = () => {
+  let toastIdRef = (0, import_react42.useRef)(""), toast = (0, import_react43.useToast)(), close = (0, import_react42.useCallback)(() => {
     toastIdRef.current && toast.close(toastIdRef.current);
-  }
-  function showErrorToast(message) {
-    toastIdRef.current = toast({
-      description: message,
-      isClosable: !0,
-      status: "error",
-      title: "Erro"
-    });
-  }
-  return { showErrorToast, close };
-}
+  }, [toast]), showErrorToast = (0, import_react42.useCallback)(
+    ({
+      message,
+      title,
+      ...rest
+    }) => {
+      toastIdRef.current = toast({
+        description: message,
+        isClosable: !0,
+        status: "error",
+        title: title ?? "Erro",
+        position: "top",
+        ...rest
+      });
+    },
+    [toast]
+  ), showSuccessToast = (0, import_react42.useCallback)(
+    ({
+      message,
+      title,
+      ...rest
+    }) => {
+      toastIdRef.current = toast({
+        description: message,
+        isClosable: !0,
+        status: "success",
+        title: title ?? "Tudo certo",
+        position: "top",
+        ...rest
+      });
+    },
+    [toast]
+  );
+  return { showErrorToast, close, showSuccessToast };
+};
 
 // src/domain/modules/vehicle/entities/Vehicle.ts
 var crypto = __toESM(require("crypto")), Vehicle = class {
@@ -2343,22 +2365,15 @@ async function createVehicleController(data) {
 
 // app/routes/_auth.new-wash._index.tsx
 var import_jsx_dev_runtime26 = require("react/jsx-dev-runtime");
-async function loader({ request }) {
-  let url = new URL(request.url), params = new URLSearchParams(url.searchParams), vehicle = JSON.parse(params.get("vehicle") ?? "null"), washes = params.get("washes"), driver = JSON.parse(params.get("driver") ?? "null");
-  if (!vehicle)
-    return (0, import_node.json)({
-      error: !0,
-      message: "Voc\xEA precisa fornecer o ve\xEDculo"
-    });
-  let { error, vehicle: created } = await createVehicleController({
-    type: vehicle.type,
-    licensePlate: vehicle.licensePlate,
-    driver: driver != null && driver.create ? driver : void 0
+async function action({ request }) {
+  let data = await request.json(), vehicle = data == null ? void 0 : data.vehicle, washes = data == null ? void 0 : data.washes, driver = data == null ? void 0 : data.driver;
+  return (0, import_node.json)({
+    success: !0,
+    message: "Lavagens cadastradas!"
   });
-  return console.log(error, created), (0, import_node.json)({ error: !1, message: "" });
 }
 function auth_new_wash_index_default() {
-  let { Stepper: Stepper2, activeStep, steps: steps2, goToPrevious, goToNext, setActiveStep } = useStepper(), { showErrorToast } = useToast(), [error, setError] = (0, import_react45.useState)(!1), [vehicle, setVehicle] = (0, import_react45.useState)(defaultVehicleState), [washes, setWashes] = (0, import_react45.useState)(washesDefaultValue), [driver, setDriver] = (0, import_react45.useState)(defaultDriverValue), submit = (0, import_react46.useSubmit)(), data = (0, import_react46.useLoaderData)();
+  let { Stepper: Stepper2, activeStep, steps: steps2, goToPrevious, goToNext, setActiveStep } = useStepper(), { showErrorToast, showSuccessToast } = useToast(), [error, setError] = (0, import_react45.useState)(!1), [vehicle, setVehicle] = (0, import_react45.useState)(defaultVehicleState), [washes, setWashes] = (0, import_react45.useState)(washesDefaultValue), [driver, setDriver] = (0, import_react45.useState)(defaultDriverValue), submit = (0, import_react46.useSubmit)(), data = (0, import_react46.useActionData)();
   function addError() {
     setError(!0);
   }
@@ -2378,11 +2393,12 @@ function auth_new_wash_index_default() {
     });
   }
   function onFinish() {
-    let params = new URLSearchParams();
-    params.set("vehicle", JSON.stringify(vehicle)), params.set("driver", JSON.stringify(driver)), params.set("washes", JSON.stringify(washes)), submit(params);
+    submit({ vehicle, driver, washes }, { method: "POST", encType: "application/json" });
   }
   (0, import_react45.useEffect)(() => {
-    typeof data < "u" && data.error && showErrorToast(data.message);
+    typeof data < "u" && data != null && data.success && showSuccessToast({ message: data.message });
+  }, [data, showSuccessToast]), (0, import_react45.useEffect)(() => {
+    typeof data < "u" && data != null && data.error && showErrorToast({ message: data.message });
   }, [data, showErrorToast]);
   let isVehicleDataValid = activeStep === 0 && vehicle.licensePlate && vehicle.type && typeof vehicle.create == "boolean", isDriverValid = activeStep === 2, isLastStep = activeStep < steps2.length + -1, canProceed = (isVehicleDataValid || isDriverValid || activeStep === 1 && !0) && isLastStep, canGoBack = activeStep > 0;
   return /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
@@ -2411,7 +2427,7 @@ function auth_new_wash_index_default() {
           !1,
           {
             fileName: "app/routes/_auth.new-wash._index.tsx",
-            lineNumber: 134,
+            lineNumber: 139,
             columnNumber: 7
           },
           this
@@ -2437,7 +2453,7 @@ function auth_new_wash_index_default() {
                 !1,
                 {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 144,
+                  lineNumber: 149,
                   columnNumber: 9
                 },
                 this
@@ -2455,7 +2471,7 @@ function auth_new_wash_index_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 155,
+                    lineNumber: 160,
                     columnNumber: 13
                   },
                   this
@@ -2473,14 +2489,14 @@ function auth_new_wash_index_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 163,
+                    lineNumber: 168,
                     columnNumber: 13
                   },
                   this
                 ),
                 activeStep === 2 && /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(DriverContent, { driver, setDriverData }, void 0, !1, {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 172,
+                  lineNumber: 177,
                   columnNumber: 13
                 }, this),
                 activeStep === 3 && /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(summary.Container, { children: [
@@ -2494,29 +2510,29 @@ function auth_new_wash_index_default() {
                     !1,
                     {
                       fileName: "app/routes/_auth.new-wash._index.tsx",
-                      lineNumber: 176,
+                      lineNumber: 181,
                       columnNumber: 15
                     },
                     this
                   ),
                   /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(summary.Washes, { washes, goTo: () => setActiveStep(1) }, void 0, !1, {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 180,
+                    lineNumber: 185,
                     columnNumber: 15
                   }, this),
                   /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(summary.Driver, { driver, goTo: () => setActiveStep(2) }, void 0, !1, {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 181,
+                    lineNumber: 186,
                     columnNumber: 15
                   }, this)
                 ] }, void 0, !0, {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 175,
+                  lineNumber: 180,
                   columnNumber: 13
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/_auth.new-wash._index.tsx",
-                lineNumber: 153,
+                lineNumber: 158,
                 columnNumber: 9
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
@@ -2533,7 +2549,7 @@ function auth_new_wash_index_default() {
                 !1,
                 {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 185,
+                  lineNumber: 190,
                   columnNumber: 9
                 },
                 this
@@ -2544,7 +2560,7 @@ function auth_new_wash_index_default() {
           !0,
           {
             fileName: "app/routes/_auth.new-wash._index.tsx",
-            lineNumber: 139,
+            lineNumber: 144,
             columnNumber: 7
           },
           this
@@ -2555,7 +2571,7 @@ function auth_new_wash_index_default() {
     !0,
     {
       fileName: "app/routes/_auth.new-wash._index.tsx",
-      lineNumber: 121,
+      lineNumber: 126,
       columnNumber: 5
     },
     this
@@ -2565,7 +2581,7 @@ function auth_new_wash_index_default() {
 // app/routes/vehicle-search/route.ts
 var route_exports = {};
 __export(route_exports, {
-  loader: () => loader2
+  loader: () => loader
 });
 var import_react_router = require("react-router"), vehicles = [
   {
@@ -2593,7 +2609,7 @@ var import_react_router = require("react-router"), vehicles = [
     type: "Truck"
   }
 ];
-async function loader2({ request }) {
+async function loader({ request }) {
   let url = new URL(request.url), query = url.searchParams.get("query"), licensePlate = url.searchParams.get("licensePlate");
   return typeof query != "string" || query == "" ? (0, import_react_router.json)(null) : (0, import_react_router.json)({ results: vehicles.filter((v) => v.licensePlate === licensePlate) });
 }
@@ -2601,10 +2617,10 @@ async function loader2({ request }) {
 // app/routes/driver-search/route.ts
 var route_exports2 = {};
 __export(route_exports2, {
-  loader: () => loader3
+  loader: () => loader2
 });
 var import_react_router2 = require("react-router"), mocks = [{ name: "matheus", phones: ["12313123"] }];
-async function loader3({ request }) {
+async function loader2({ request }) {
   let query = new URL(request.url).searchParams.get("query");
   if (typeof query != "string" || query == "")
     return (0, import_react_router2.json)(null);
@@ -2615,7 +2631,7 @@ async function loader3({ request }) {
 // app/routes/washes-search/route.ts
 var route_exports3 = {};
 __export(route_exports3, {
-  loader: () => loader4,
+  loader: () => loader3,
   mocks: () => mocks2
 });
 var import_react_router3 = require("react-router");
@@ -2703,7 +2719,7 @@ var mocks2 = {
     }
   ]
 };
-async function loader4({ request }) {
+async function loader3({ request }) {
   let query = new URL(request.url).searchParams.get("licensePlate");
   if (typeof query != "string" || query === "")
     return (0, import_react_router3.json)([]);
@@ -2716,7 +2732,7 @@ var auth_home_exports = {};
 __export(auth_home_exports, {
   default: () => auth_home_default,
   headers: () => headers,
-  loader: () => loader5
+  loader: () => loader4
 });
 var import_react47 = require("@chakra-ui/react"), import_node3 = require("@remix-run/node"), import_react48 = require("@remix-run/react");
 
@@ -2900,7 +2916,7 @@ var import_node2 = require("@remix-run/node"), { commitSession, destroySession, 
 var import_jsx_dev_runtime27 = require("react/jsx-dev-runtime"), headers = ({ parentHeaders }) => ({
   "Cache-Control": parentHeaders.get("Cache-control") ?? "max-age=3600"
 });
-async function loader5({ request }) {
+async function loader4({ request }) {
   let session = await getSession(request.headers.get("Cookie")), token = session.get("token");
   if (console.log("home loader"), !token)
     throw (0, import_node3.redirect)("/sign-in");
@@ -2927,9 +2943,9 @@ function auth_home_default() {
 // app/routes/sign-in.tsx
 var sign_in_exports = {};
 __export(sign_in_exports, {
-  action: () => action,
+  action: () => action2,
   default: () => sign_in_default,
-  loader: () => loader6
+  loader: () => loader5
 });
 var import_react50 = require("@chakra-ui/react"), import_bs2 = require("react-icons/bs"), import_md2 = require("react-icons/md"), import_node4 = require("@remix-run/node"), import_react51 = require("@remix-run/react");
 
@@ -3013,7 +3029,7 @@ function Footer() {
 
 // app/routes/sign-in.tsx
 var import_jsx_dev_runtime29 = require("react/jsx-dev-runtime");
-async function action({ request }) {
+async function action2({ request }) {
   let form = await request.formData(), email = form.get("email"), password = form.get("password"), session = await getSession(request.headers.get("Cookie"));
   if (typeof password != "string" || typeof email != "string")
     return new Response(JSON.stringify({ error: "credentials is invalid" }), {
@@ -3034,7 +3050,7 @@ async function action({ request }) {
     }
   }));
 }
-async function loader6({ request }) {
+async function loader5({ request }) {
   let token = (await getSession(request.headers.get("Cookie"))).get("token");
   if (!token)
     return (0, import_node4.json)({});
@@ -3258,7 +3274,7 @@ function sign_in_default() {
 // app/routes/sign-up.tsx
 var sign_up_exports = {};
 __export(sign_up_exports, {
-  action: () => action2,
+  action: () => action3,
   default: () => sign_up_default
 });
 var import_node5 = require("@remix-run/node"), import_react52 = require("@remix-run/react");
@@ -3293,7 +3309,7 @@ async function createUserController({ username, email, password }) {
 
 // app/routes/sign-up.tsx
 var import_jsx_dev_runtime30 = require("react/jsx-dev-runtime");
-async function action2({ request }) {
+async function action3({ request }) {
   let form = await request.formData(), username = form.get("username"), password = form.get("password"), email = form.get("email");
   if (typeof username != "string" || typeof password != "string" || typeof email != "string")
     return new import_node5.Response(JSON.stringify({ error: "credentials is invalid" }), {
@@ -3383,10 +3399,10 @@ function sign_up_default() {
 // app/routes/_index.tsx
 var index_exports = {};
 __export(index_exports, {
-  loader: () => loader7
+  loader: () => loader6
 });
 var import_node6 = require("@remix-run/node");
-async function loader7() {
+async function loader6() {
   return (0, import_node6.redirect)("/home");
 }
 
@@ -3395,7 +3411,7 @@ var auth_exports = {};
 __export(auth_exports, {
   default: () => auth_default,
   headers: () => headers2,
-  loader: () => loader8
+  loader: () => loader7
 });
 var import_node7 = require("@remix-run/node"), import_node8 = require("@remix-run/node"), import_react59 = require("@remix-run/react");
 
@@ -3813,7 +3829,7 @@ function Header({ label, user }) {
 var import_react60 = require("@chakra-ui/react"), import_jsx_dev_runtime35 = require("react/jsx-dev-runtime"), headers2 = ({ loaderHeaders }) => ({
   "Cache-Control": loaderHeaders.get("Cache-control") ?? "max-age=3600"
 });
-async function loader8({ request }) {
+async function loader7({ request }) {
   let session = await getSession(request.headers.get("Cookie")), url = new URL(request.url), token = session.get("token");
   if (!token)
     throw (0, import_node7.redirect)("/sign-in");
@@ -3909,7 +3925,7 @@ function __default() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-ALEAA7LU.js", imports: ["/build/_shared/chunk-ALLGSWHK.js", "/build/_shared/chunk-CTXKJIOX.js", "/build/_shared/chunk-UVC3IK43.js", "/build/_shared/chunk-H5BIVJJH.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-N2P7HDL7.js", imports: ["/build/_shared/chunk-L3DHWCL6.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-RLRHBFRS.js", imports: ["/build/_shared/chunk-MRHMDKIA.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-A4H5TAZV.js", imports: ["/build/_shared/chunk-GQH5STSJ.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-NT6GPV53.js", imports: ["/build/_shared/chunk-L3DHWCL6.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-D2E6OCWS.js", imports: ["/build/_shared/chunk-MRHMDKIA.js", "/build/_shared/chunk-L3DHWCL6.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-VLRDDTK3.js", imports: ["/build/_shared/chunk-GQH5STSJ.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-UK4NE3EB.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "ec40a724", hmr: void 0, url: "/build/manifest-EC40A724.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-ALEAA7LU.js", imports: ["/build/_shared/chunk-ALLGSWHK.js", "/build/_shared/chunk-CTXKJIOX.js", "/build/_shared/chunk-UVC3IK43.js", "/build/_shared/chunk-H5BIVJJH.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-N2P7HDL7.js", imports: ["/build/_shared/chunk-L3DHWCL6.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-RLRHBFRS.js", imports: ["/build/_shared/chunk-MRHMDKIA.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-A4H5TAZV.js", imports: ["/build/_shared/chunk-GQH5STSJ.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-NT6GPV53.js", imports: ["/build/_shared/chunk-L3DHWCL6.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-CFOY7V73.js", imports: ["/build/_shared/chunk-MRHMDKIA.js", "/build/_shared/chunk-L3DHWCL6.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-VLRDDTK3.js", imports: ["/build/_shared/chunk-GQH5STSJ.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-UK4NE3EB.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "5b9f6f64", hmr: void 0, url: "/build/manifest-5B9F6F64.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !1, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

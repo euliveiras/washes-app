@@ -41,8 +41,8 @@ import {
   useToast
 } from "/build/_shared/chunk-L3DHWCL6.js";
 import {
-  useFetcher,
-  useLoaderData
+  useActionData,
+  useFetcher
 } from "/build/_shared/chunk-CTXKJIOX.js";
 import "/build/_shared/chunk-UVC3IK43.js";
 import {
@@ -4318,38 +4318,64 @@ var summary = {
 // app/routes/_auth.new-wash._index.tsx
 var import_node = __toESM(require_node());
 
-// app/components/NewWash/Toast.tsx
+// app/components/hooks/useToast.ts
 var import_react33 = __toESM(require_react());
-function useToast2() {
+var useToast2 = () => {
   const toastIdRef = (0, import_react33.useRef)("");
   const toast = useToast();
-  function close() {
+  const close = (0, import_react33.useCallback)(() => {
     if (toastIdRef.current) {
       toast.close(toastIdRef.current);
     }
-  }
-  function showErrorToast(message) {
-    toastIdRef.current = toast({
-      description: message,
-      isClosable: true,
-      status: "error",
-      title: "Erro"
-    });
-  }
-  return { showErrorToast, close };
-}
+  }, [toast]);
+  const showErrorToast = (0, import_react33.useCallback)(
+    ({
+      message,
+      title,
+      ...rest
+    }) => {
+      toastIdRef.current = toast({
+        description: message,
+        isClosable: true,
+        status: "error",
+        title: title != null ? title : "Erro",
+        position: "top",
+        ...rest
+      });
+    },
+    [toast]
+  );
+  const showSuccessToast = (0, import_react33.useCallback)(
+    ({
+      message,
+      title,
+      ...rest
+    }) => {
+      toastIdRef.current = toast({
+        description: message,
+        isClosable: true,
+        status: "success",
+        title: title != null ? title : "Tudo certo",
+        position: "top",
+        ...rest
+      });
+    },
+    [toast]
+  );
+  return { showErrorToast, close, showSuccessToast };
+};
 
 // app/routes/_auth.new-wash._index.tsx
 var import_jsx_dev_runtime23 = __toESM(require_jsx_dev_runtime());
 function auth_new_wash_index_default() {
   const { Stepper: Stepper3, activeStep, steps: steps2, goToPrevious, goToNext, setActiveStep } = useStepper();
-  const { showErrorToast } = useToast2();
+  const { showErrorToast, showSuccessToast } = useToast2();
   const [error, setError] = (0, import_react36.useState)(false);
   const [vehicle, setVehicle] = (0, import_react36.useState)(defaultVehicleState);
   const [washes, setWashes] = (0, import_react36.useState)(washesDefaultValue);
   const [driver, setDriver] = (0, import_react36.useState)(defaultDriverValue);
   const submit = useSubmit();
-  const data = useLoaderData();
+  const data = useActionData();
   function addError() {
     setError(true);
   }
@@ -4373,15 +4399,17 @@ function auth_new_wash_index_default() {
     });
   }
   function onFinish() {
-    const params = new URLSearchParams();
-    params.set("vehicle", JSON.stringify(vehicle));
-    params.set("driver", JSON.stringify(driver));
-    params.set("washes", JSON.stringify(washes));
-    submit(params);
+    const params = { vehicle, driver, washes };
+    submit(params, { method: "POST", encType: "application/json" });
   }
   (0, import_react36.useEffect)(() => {
     if (typeof data !== "undefined") {
-      data.error && showErrorToast(data.message);
+      (data == null ? void 0 : data.success) && showSuccessToast({ message: data.message });
+    }
+  }, [data, showSuccessToast]);
+  (0, import_react36.useEffect)(() => {
+    if (typeof data !== "undefined") {
+      (data == null ? void 0 : data.error) && showErrorToast({ message: data.message });
     }
   }, [data, showErrorToast]);
   const isVehicleDataValid = activeStep === 0 && vehicle.licensePlate && vehicle.type && typeof vehicle.create === "boolean";
@@ -4416,7 +4444,7 @@ function auth_new_wash_index_default() {
           false,
           {
             fileName: "app/routes/_auth.new-wash._index.tsx",
-            lineNumber: 134,
+            lineNumber: 139,
             columnNumber: 7
           },
           this
@@ -4442,7 +4470,7 @@ function auth_new_wash_index_default() {
                 false,
                 {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 144,
+                  lineNumber: 149,
                   columnNumber: 9
                 },
                 this
@@ -4460,7 +4488,7 @@ function auth_new_wash_index_default() {
                   false,
                   {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 155,
+                    lineNumber: 160,
                     columnNumber: 13
                   },
                   this
@@ -4478,14 +4506,14 @@ function auth_new_wash_index_default() {
                   false,
                   {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 163,
+                    lineNumber: 168,
                     columnNumber: 13
                   },
                   this
                 ),
                 activeStep === 2 && /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(DriverContent, { driver, setDriverData }, void 0, false, {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 172,
+                  lineNumber: 177,
                   columnNumber: 13
                 }, this),
                 activeStep === 3 && /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(summary.Container, { children: [
@@ -4499,29 +4527,29 @@ function auth_new_wash_index_default() {
                     false,
                     {
                       fileName: "app/routes/_auth.new-wash._index.tsx",
-                      lineNumber: 176,
+                      lineNumber: 181,
                       columnNumber: 15
                     },
                     this
                   ),
                   /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(summary.Washes, { washes, goTo: () => setActiveStep(1) }, void 0, false, {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 180,
+                    lineNumber: 185,
                     columnNumber: 15
                   }, this),
                   /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(summary.Driver, { driver, goTo: () => setActiveStep(2) }, void 0, false, {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 181,
+                    lineNumber: 186,
                     columnNumber: 15
                   }, this)
                 ] }, void 0, true, {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 175,
+                  lineNumber: 180,
                   columnNumber: 13
                 }, this)
               ] }, void 0, true, {
                 fileName: "app/routes/_auth.new-wash._index.tsx",
-                lineNumber: 153,
+                lineNumber: 158,
                 columnNumber: 9
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(
@@ -4538,7 +4566,7 @@ function auth_new_wash_index_default() {
                 false,
                 {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 185,
+                  lineNumber: 190,
                   columnNumber: 9
                 },
                 this
@@ -4549,7 +4577,7 @@ function auth_new_wash_index_default() {
           true,
           {
             fileName: "app/routes/_auth.new-wash._index.tsx",
-            lineNumber: 139,
+            lineNumber: 144,
             columnNumber: 7
           },
           this
@@ -4560,7 +4588,7 @@ function auth_new_wash_index_default() {
     true,
     {
       fileName: "app/routes/_auth.new-wash._index.tsx",
-      lineNumber: 121,
+      lineNumber: 126,
       columnNumber: 5
     },
     this
@@ -4569,4 +4597,4 @@ function auth_new_wash_index_default() {
 export {
   auth_new_wash_index_default as default
 };
-//# sourceMappingURL=/build/routes/_auth.new-wash._index-D2E6OCWS.js.map
+//# sourceMappingURL=/build/routes/_auth.new-wash._index-CFOY7V73.js.map
