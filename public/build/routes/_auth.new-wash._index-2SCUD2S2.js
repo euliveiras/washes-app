@@ -1,13 +1,13 @@
 import {
   LinkHighlighted
-} from "/build/_shared/chunk-MRHMDKIA.js";
+} from "/build/_shared/chunk-XXOGTOEO.js";
 import {
   GenIcon,
   MdCheck,
   MdDirectionsCarFilled,
   MdPerson2,
   MdWaterDrop
-} from "/build/_shared/chunk-GQH5STSJ.js";
+} from "/build/_shared/chunk-K4PV3FFU.js";
 import {
   require_node
 } from "/build/_shared/chunk-G7CHZRZX.js";
@@ -39,20 +39,21 @@ import {
   _typeof,
   useSteps,
   useToast
-} from "/build/_shared/chunk-L3DHWCL6.js";
+} from "/build/_shared/chunk-LFA5YRFX.js";
 import {
   useActionData,
   useFetcher
-} from "/build/_shared/chunk-CTXKJIOX.js";
-import "/build/_shared/chunk-UVC3IK43.js";
+} from "/build/_shared/chunk-H6OBPNVQ.js";
+import "/build/_shared/chunk-LTOX4GGY.js";
 import {
   Form,
   Link,
   init_dist,
   require_jsx_dev_runtime,
   require_react,
+  useNavigate,
   useSubmit
-} from "/build/_shared/chunk-H5BIVJJH.js";
+} from "/build/_shared/chunk-OJCDOD5O.js";
 import {
   __toESM
 } from "/build/_shared/chunk-PNG5AS42.js";
@@ -3321,7 +3322,7 @@ function Results({ show, children, ...props }) {
       position: "relative",
       _after: show ? {
         content: "''",
-        display: "block",
+        display: "none",
         position: "absolute",
         insetInline: 0,
         bottom: 0,
@@ -3379,9 +3380,9 @@ var searchEntity = {
 // app/components/NewWash/VehicleContent/VehicleSearch.tsx
 var import_jsx_dev_runtime14 = __toESM(require_jsx_dev_runtime());
 function VehicleSearch({ vehicle, setVehicle }) {
-  var _a, _b;
+  var _a;
   const fetcher = useFetcher();
-  const data = (_b = (_a = fetcher == null ? void 0 : fetcher.data) == null ? void 0 : _a.results) != null ? _b : null;
+  const data = (_a = fetcher == null ? void 0 : fetcher.data) == null ? void 0 : _a.results;
   function onQuery(e2) {
     fetcher.submit(
       { query: "vehicle", licensePlate: e2 },
@@ -3401,7 +3402,7 @@ function VehicleSearch({ vehicle, setVehicle }) {
       children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(searchEntity.Input, { onChange: onQuery, isDisabled: vehicle.create }, void 0, false, {
           fileName: "app/components/NewWash/VehicleContent/VehicleSearch.tsx",
-          lineNumber: 41,
+          lineNumber: 43,
           columnNumber: 7
         }, this),
         (fetcher == null ? void 0 : fetcher.data) && /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(import_jsx_dev_runtime14.Fragment, { children: [
@@ -3419,7 +3420,7 @@ function VehicleSearch({ vehicle, setVehicle }) {
             false,
             {
               fileName: "app/components/NewWash/VehicleContent/VehicleSearch.tsx",
-              lineNumber: 44,
+              lineNumber: 46,
               columnNumber: 11
             },
             this
@@ -3435,7 +3436,7 @@ function VehicleSearch({ vehicle, setVehicle }) {
                   /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(FormControl, { as: Flex, flexDir: "column", alignItems: "center", children: [
                     /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(FormLabel, { children: "Placa" }, void 0, false, {
                       fileName: "app/components/NewWash/VehicleContent/VehicleSearch.tsx",
-                      lineNumber: 66,
+                      lineNumber: 68,
                       columnNumber: 23
                     }, this),
                     /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(
@@ -3457,19 +3458,19 @@ function VehicleSearch({ vehicle, setVehicle }) {
                       false,
                       {
                         fileName: "app/components/NewWash/VehicleContent/VehicleSearch.tsx",
-                        lineNumber: 67,
+                        lineNumber: 69,
                         columnNumber: 23
                       },
                       this
                     )
                   ] }, void 0, true, {
                     fileName: "app/components/NewWash/VehicleContent/VehicleSearch.tsx",
-                    lineNumber: 65,
+                    lineNumber: 67,
                     columnNumber: 21
                   }, this),
                   (data == null ? void 0 : data.length) - 1 !== i2 && /* @__PURE__ */ (0, import_jsx_dev_runtime14.jsxDEV)(Divider, { alignSelf: "center", inlineSize: "80%" }, void 0, false, {
                     fileName: "app/components/NewWash/VehicleContent/VehicleSearch.tsx",
-                    lineNumber: 88,
+                    lineNumber: 90,
                     columnNumber: 23
                   }, this)
                 ]
@@ -3478,23 +3479,23 @@ function VehicleSearch({ vehicle, setVehicle }) {
               true,
               {
                 fileName: "app/components/NewWash/VehicleContent/VehicleSearch.tsx",
-                lineNumber: 59,
+                lineNumber: 61,
                 columnNumber: 19
               },
               this
             );
           }) }, void 0, false, {
             fileName: "app/components/NewWash/VehicleContent/VehicleSearch.tsx",
-            lineNumber: 56,
+            lineNumber: 58,
             columnNumber: 13
           }, this) }, void 0, false, {
             fileName: "app/components/NewWash/VehicleContent/VehicleSearch.tsx",
-            lineNumber: 55,
+            lineNumber: 57,
             columnNumber: 11
           }, this)
         ] }, void 0, true, {
           fileName: "app/components/NewWash/VehicleContent/VehicleSearch.tsx",
-          lineNumber: 43,
+          lineNumber: 45,
           columnNumber: 9
         }, this)
       ]
@@ -3503,7 +3504,7 @@ function VehicleSearch({ vehicle, setVehicle }) {
     true,
     {
       fileName: "app/components/NewWash/VehicleContent/VehicleSearch.tsx",
-      lineNumber: 35,
+      lineNumber: 37,
       columnNumber: 5
     },
     this
@@ -4367,7 +4368,7 @@ var useToast2 = () => {
 
 // app/routes/_auth.new-wash._index.tsx
 var import_jsx_dev_runtime23 = __toESM(require_jsx_dev_runtime());
-function auth_new_wash_index_default() {
+function NewWash() {
   const { Stepper: Stepper3, activeStep, steps: steps2, goToPrevious, goToNext, setActiveStep } = useStepper();
   const { showErrorToast, showSuccessToast } = useToast2();
   const [error, setError] = (0, import_react36.useState)(false);
@@ -4375,6 +4376,7 @@ function auth_new_wash_index_default() {
   const [washes, setWashes] = (0, import_react36.useState)(washesDefaultValue);
   const [driver, setDriver] = (0, import_react36.useState)(defaultDriverValue);
   const submit = useSubmit();
+  const navigate = useNavigate();
   const data = useActionData();
   function addError() {
     setError(true);
@@ -4403,10 +4405,13 @@ function auth_new_wash_index_default() {
     submit(params, { method: "POST", encType: "application/json" });
   }
   (0, import_react36.useEffect)(() => {
-    if (typeof data !== "undefined") {
-      (data == null ? void 0 : data.success) && showSuccessToast({ message: data.message });
+    if (typeof data === "undefined")
+      return;
+    if (data == null ? void 0 : data.success) {
+      showSuccessToast({ message: data.message });
+      navigate("/home");
     }
-  }, [data, showSuccessToast]);
+  }, [data, showSuccessToast, navigate]);
   (0, import_react36.useEffect)(() => {
     if (typeof data !== "undefined") {
       (data == null ? void 0 : data.error) && showErrorToast({ message: data.message });
@@ -4444,7 +4449,7 @@ function auth_new_wash_index_default() {
           false,
           {
             fileName: "app/routes/_auth.new-wash._index.tsx",
-            lineNumber: 139,
+            lineNumber: 186,
             columnNumber: 7
           },
           this
@@ -4470,7 +4475,7 @@ function auth_new_wash_index_default() {
                 false,
                 {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 149,
+                  lineNumber: 196,
                   columnNumber: 9
                 },
                 this
@@ -4488,7 +4493,7 @@ function auth_new_wash_index_default() {
                   false,
                   {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 160,
+                    lineNumber: 207,
                     columnNumber: 13
                   },
                   this
@@ -4506,14 +4511,14 @@ function auth_new_wash_index_default() {
                   false,
                   {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 168,
+                    lineNumber: 215,
                     columnNumber: 13
                   },
                   this
                 ),
                 activeStep === 2 && /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(DriverContent, { driver, setDriverData }, void 0, false, {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 177,
+                  lineNumber: 224,
                   columnNumber: 13
                 }, this),
                 activeStep === 3 && /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(summary.Container, { children: [
@@ -4527,29 +4532,29 @@ function auth_new_wash_index_default() {
                     false,
                     {
                       fileName: "app/routes/_auth.new-wash._index.tsx",
-                      lineNumber: 181,
+                      lineNumber: 228,
                       columnNumber: 15
                     },
                     this
                   ),
                   /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(summary.Washes, { washes, goTo: () => setActiveStep(1) }, void 0, false, {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 185,
+                    lineNumber: 232,
                     columnNumber: 15
                   }, this),
                   /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(summary.Driver, { driver, goTo: () => setActiveStep(2) }, void 0, false, {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 186,
+                    lineNumber: 233,
                     columnNumber: 15
                   }, this)
                 ] }, void 0, true, {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 180,
+                  lineNumber: 227,
                   columnNumber: 13
                 }, this)
               ] }, void 0, true, {
                 fileName: "app/routes/_auth.new-wash._index.tsx",
-                lineNumber: 158,
+                lineNumber: 205,
                 columnNumber: 9
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(
@@ -4566,7 +4571,7 @@ function auth_new_wash_index_default() {
                 false,
                 {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 190,
+                  lineNumber: 237,
                   columnNumber: 9
                 },
                 this
@@ -4577,7 +4582,7 @@ function auth_new_wash_index_default() {
           true,
           {
             fileName: "app/routes/_auth.new-wash._index.tsx",
-            lineNumber: 144,
+            lineNumber: 191,
             columnNumber: 7
           },
           this
@@ -4588,13 +4593,13 @@ function auth_new_wash_index_default() {
     true,
     {
       fileName: "app/routes/_auth.new-wash._index.tsx",
-      lineNumber: 126,
+      lineNumber: 173,
       columnNumber: 5
     },
     this
   );
 }
 export {
-  auth_new_wash_index_default as default
+  NewWash as default
 };
-//# sourceMappingURL=/build/routes/_auth.new-wash._index-CFOY7V73.js.map
+//# sourceMappingURL=/build/routes/_auth.new-wash._index-2SCUD2S2.js.map

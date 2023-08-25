@@ -21,38 +21,82 @@ import {
 import { summary } from "~/components/NewWash/SummaryContent";
 import type { ActionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useActionData, useSubmit } from "@remix-run/react";
+import { useActionData, useNavigate, useSubmit } from "@remix-run/react";
 import { useToast } from "~/components/hooks/useToast";
 import { createVehicleController } from "src/infra/http/controllers/create-vehicle-controller";
+import { initializeCycleController } from "src/infra/http/controllers/create-wash-cycle-controller";
+import { getSession } from "~/sessions";
+import { validateSessionId } from "src/infra/http/helpers/validate-session-id";
 
 export async function action({ request }: ActionArgs) {
   const data = await request.json();
   const vehicle = data?.vehicle as Vehicle | null;
-  const washes = data?.washes as Wash[] | null;
-  const driver = data?.driver as Driver | null;
-
-  return json({
-    success: true,
-    message: "Lavagens cadastradas!",
-  });
+  const washes = data?.washes as Wash[];
+  const driver = data?.driver as {
+    name: string;
+    phone: string;
+    create: boolean;
+  };
 
   if (!vehicle) {
-    return json({
-      error: true,
-      message: "Você precisa fornecer o veículo",
-    });
+    return json(
+      {
+        error: true,
+        message: "Você precisa fornecer o veículo",
+      },
+      400,
+    );
   }
 
-  const { error, vehicle: created } = await createVehicleController({
-    type: vehicle.type as DomainVehicle["vehicleType"],
-    licensePlate: vehicle.licensePlate,
-    driver: driver?.create ? driver : undefined,
-  });
+  const session = await getSession(request.headers.get("Cookie"));
 
-  return json({ error: false, message: "" });
+  const token = session.get("token") ?? "";
+  const { user } = await validateSessionId({ sessionId: token });
+
+  if (vehicle.create) {
+    const { error, vehicle: created } = await createVehicleController({
+      type: vehicle.type as DomainVehicle["vehicleType"],
+      licensePlate: vehicle.licensePlate,
+      driver: driver?.create ? driver : null,
+    });
+
+    if (error) {
+      return json(
+        {
+          error: true,
+          message: error.message,
+        },
+        error.statusCode,
+      );
+    }
+
+    if (created) {
+      return json({ success: true, message: "Lavagens criadas" }, 201);
+    }
+  } else {
+    const initializeCycleData = initializeCycleController({
+      createdBy: user?.id ?? "",
+      vehicleId: vehicle.licensePlate,
+      washes,
+    });
+
+    if (initializeCycleData.error) {
+      return json(
+        {
+          error: true,
+          message: initializeCycleData.error.message,
+        },
+        initializeCycleData.error.statusCode,
+      );
+    }
+
+    return json({ success: true, message: "Lavagens criadas" }, 201);
+  }
+
+  return json({});
 }
 
-export default function () {
+export default function NewWash() {
   const { Stepper, activeStep, steps, goToPrevious, goToNext, setActiveStep } =
     useStepper();
   const { showErrorToast, showSuccessToast } = useToast();
@@ -61,6 +105,7 @@ export default function () {
   const [washes, setWashes] = useState<Wash[]>(washesDefaultValue);
   const [driver, setDriver] = useState<Driver>(defaultDriverValue);
   const submit = useSubmit();
+  const navigate = useNavigate();
   const data = useActionData<typeof action>();
 
   function addError() {
@@ -97,10 +142,12 @@ export default function () {
   }
 
   useEffect(() => {
-    if (typeof data !== "undefined") {
-      data?.success && showSuccessToast({ message: data.message });
+    if (typeof data === "undefined") return;
+    if (data?.success) {
+      showSuccessToast({ message: data.message });
+      navigate("/home");
     }
-  }, [data, showSuccessToast]);
+  }, [data, showSuccessToast, navigate]);
 
   useEffect(() => {
     if (typeof data !== "undefined") {

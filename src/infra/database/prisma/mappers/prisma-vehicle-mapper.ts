@@ -13,7 +13,9 @@ export class PrismaVehicleMapper {
   static toPrisma(vehicle: Vehicle) {
     return {
       id: vehicle.id,
-      driver: JSON.stringify(new Driver(vehicle.driver)),
+      driver: vehicle.driver
+        ? JSON.stringify(new Driver(vehicle.driver))
+        : undefined,
       licensePlate: vehicle.licensePlate,
       vehicleType: vehicle.vehicleType,
     };

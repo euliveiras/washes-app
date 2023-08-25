@@ -14,6 +14,7 @@ export class PrismaWashMapper {
     });
   }
   static toPrisma(wash: Wash) {
+console.log(wash)
     return {
       createdBy: wash.createdBy,
       cycleId: wash.cycleId,
@@ -21,7 +22,7 @@ export class PrismaWashMapper {
       vehicleId: wash.vehicleId,
       id: wash.id,
       isCompleted: wash.isCompleted,
-      note: wash.note,
+      note: wash.note
     };
   }
 }

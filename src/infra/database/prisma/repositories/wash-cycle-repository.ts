@@ -4,7 +4,12 @@ import { PrismaWashCycleMapper } from "../mappers/prisma-wash-cycle-mapper";
 import { prisma } from "../prisma";
 
 export class PrismaWashCycleRepository implements WashCycleRepository {
-  async create(cycle: WashCycle): Promise<void> {}
+  async create(cycle: WashCycle): Promise<void> {
+    const data = PrismaWashCycleMapper.toPrisma(cycle);
+    await prisma.washCycle.create({
+      data,
+    });
+  }
 
   async find(id: string): Promise<WashCycle | null> {}
   async findNextCycleByLicensePlate(

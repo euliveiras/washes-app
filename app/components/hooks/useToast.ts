@@ -20,7 +20,7 @@ export const useToast = () => {
     }: {
       message: string;
       title?: string;
-      rest: UseToastOptions;
+      rest?: UseToastOptions;
     }) => {
       toastIdRef.current = toast({
         description: message,
@@ -42,7 +42,7 @@ export const useToast = () => {
     }: {
       message: string;
       title?: string;
-      rest: UseToastOptions;
+      rest?: UseToastOptions;
     }) => {
       toastIdRef.current = toast({
         description: message,

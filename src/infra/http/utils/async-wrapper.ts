@@ -1,5 +1,9 @@
 import { AppError } from "../errors/app-error";
 
+export type AsyncWrapperError = {
+  error?: { message: string; statusCode: number };
+};
+
 export function asyncWrapper(fn: Function) {
   try {
     return fn();

@@ -10,6 +10,7 @@ import {
   Flex,
   Divider,
 } from "@chakra-ui/react";
+import type {loader} from "~/routes/vehicle-search/route";
 
 type VehicleSearchProps = {
   setVehicle(v: Vehicle): void;
@@ -17,8 +18,8 @@ type VehicleSearchProps = {
 };
 
 export function VehicleSearch({ vehicle, setVehicle }: VehicleSearchProps) {
-  const fetcher = useFetcher();
-  const data = fetcher?.data?.results ?? null;
+  const fetcher = useFetcher<typeof loader>();
+  const data = fetcher?.data?.results
 
   function onQuery(e: string) {
     fetcher.submit(
@@ -30,6 +31,7 @@ export function VehicleSearch({ vehicle, setVehicle }: VehicleSearchProps) {
   function onClick(e: Vehicle) {
     setVehicle({ ...e, create: false });
   }
+
 
   return (
     <Grid

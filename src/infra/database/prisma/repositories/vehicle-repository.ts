@@ -9,7 +9,10 @@ export class PrismaVehicleRepository implements VehicleRepository {
       data: PrismaVehicleMapper.toPrisma(vehicle),
     });
   }
-  findByLicensePlate(plate: string): Promise<Vehicle> {
-    throw new Error("Method not implemented.");
+  async findByLicensePlate(licensePlate: string): Promise<Vehicle | null> {
+    const data = await prisma.vehicle.findUnique({ where: { licensePlate } });
+
+    if (!data) return null;
+    return PrismaVehicleMapper.toDomain(data);
   }
 }

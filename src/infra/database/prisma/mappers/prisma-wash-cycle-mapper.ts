@@ -20,7 +20,7 @@ export class PrismaWashCycleMapper {
       startDate: washCycle.startDate,
       vehicleId: washCycle.vehicleId,
       completedWashes: FormatField.arrayToString(washCycle.completedWashes),
-      washCycleesId: FormatField.arrayToString(washCycle.washesId),
+      washesId: FormatField.arrayToString(washCycle.washesId),
     };
   }
 }

@@ -17,7 +17,7 @@ export function Results({ show, children, ...props }: ResultsProps) {
         show
           ? {
               content: "''",
-              display: "block",
+              display: "none",
               position: "absolute",
               insetInline: 0,
               bottom: 0,

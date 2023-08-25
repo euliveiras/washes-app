@@ -18,6 +18,8 @@ export async function action({ request }: ActionArgs) {
         });
     }
 
+console.log(email, password, username)
+
     const { error } = await createUserController({ email, password, username });
 
     if (error) {

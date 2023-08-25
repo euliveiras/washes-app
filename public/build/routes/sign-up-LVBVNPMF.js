@@ -4,11 +4,11 @@ import {
 import {
   Link,
   useActionData
-} from "/build/_shared/chunk-CTXKJIOX.js";
+} from "/build/_shared/chunk-H6OBPNVQ.js";
 import {
   Form,
   require_jsx_dev_runtime
-} from "/build/_shared/chunk-H5BIVJJH.js";
+} from "/build/_shared/chunk-OJCDOD5O.js";
 import {
   __toESM
 } from "/build/_shared/chunk-PNG5AS42.js";
@@ -21,12 +21,12 @@ function sign_up_default() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("h1", { children: "Sign up" }, void 0, false, {
       fileName: "app/routes/sign-up.tsx",
-      lineNumber: 39,
+      lineNumber: 41,
       columnNumber: 13
     }, this),
     data ? /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", { style: { color: "red" }, children: data.error }, void 0, false, {
       fileName: "app/routes/sign-up.tsx",
-      lineNumber: 40,
+      lineNumber: 42,
       columnNumber: 21
     }, this) : null,
     /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(Form, { method: "POST", children: [
@@ -34,60 +34,60 @@ function sign_up_default() {
         "username",
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("input", { type: "text", name: "username" }, void 0, false, {
           fileName: "app/routes/sign-up.tsx",
-          lineNumber: 44,
+          lineNumber: 46,
           columnNumber: 21
         }, this)
       ] }, void 0, true, {
         fileName: "app/routes/sign-up.tsx",
-        lineNumber: 42,
+        lineNumber: 44,
         columnNumber: 17
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("label", { children: [
         "email",
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("input", { type: "text", name: "email" }, void 0, false, {
           fileName: "app/routes/sign-up.tsx",
-          lineNumber: 48,
+          lineNumber: 50,
           columnNumber: 21
         }, this)
       ] }, void 0, true, {
         fileName: "app/routes/sign-up.tsx",
-        lineNumber: 46,
+        lineNumber: 48,
         columnNumber: 17
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("label", { children: [
         "password",
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("input", { type: "password", name: "password" }, void 0, false, {
           fileName: "app/routes/sign-up.tsx",
-          lineNumber: 52,
+          lineNumber: 54,
           columnNumber: 21
         }, this)
       ] }, void 0, true, {
         fileName: "app/routes/sign-up.tsx",
-        lineNumber: 50,
+        lineNumber: 52,
         columnNumber: 17
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("button", { type: "submit", children: "Logar" }, void 0, false, {
         fileName: "app/routes/sign-up.tsx",
-        lineNumber: 54,
+        lineNumber: 56,
         columnNumber: 17
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(Link, { to: "/sign-in", children: "logar" }, void 0, false, {
         fileName: "app/routes/sign-up.tsx",
-        lineNumber: 55,
+        lineNumber: 57,
         columnNumber: 17
       }, this)
     ] }, void 0, true, {
       fileName: "app/routes/sign-up.tsx",
-      lineNumber: 41,
+      lineNumber: 43,
       columnNumber: 13
     }, this)
   ] }, void 0, true, {
     fileName: "app/routes/sign-up.tsx",
-    lineNumber: 38,
+    lineNumber: 40,
     columnNumber: 9
   }, this);
 }
 export {
   sign_up_default as default
 };
-//# sourceMappingURL=/build/routes/sign-up-UK4NE3EB.js.map
+//# sourceMappingURL=/build/routes/sign-up-LVBVNPMF.js.map

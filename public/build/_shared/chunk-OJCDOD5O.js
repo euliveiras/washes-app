@@ -7036,6 +7036,7 @@ export {
   DataRouterStateContext,
   useHref,
   useLocation,
+  useNavigate,
   useNavigation,
   useMatches,
   useLoaderData,
@@ -7115,4 +7116,4 @@ react-router-dom/dist/index.js:
    * @license MIT
    *)
 */
-//# sourceMappingURL=/build/_shared/chunk-H5BIVJJH.js.map
+//# sourceMappingURL=/build/_shared/chunk-OJCDOD5O.js.map

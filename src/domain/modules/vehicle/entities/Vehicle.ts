@@ -1,8 +1,6 @@
-import * as crypto from "crypto";
 import type { Driver } from "domain/modules/driver/entities/Driver";
 
 export type VehicleProps = {
-  id: string;
   licensePlate: string;
   driver?: Driver;
   vehicleType:
@@ -23,12 +21,7 @@ export class Vehicle {
   constructor(props: Replace<VehicleProps, { id?: string }>) {
     this._props = {
       ...props,
-      id: props.id ?? crypto.randomUUID(),
     };
-  }
-
-  public get id() {
-    return this._props.id;
   }
 
   public get licensePlate() {

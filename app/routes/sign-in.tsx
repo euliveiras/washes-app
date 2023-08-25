@@ -11,11 +11,10 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
-import type { LoaderArgs } from "@remix-run/node";
 import { BsPerson } from "react-icons/bs";
 import { MdLockOutline, MdOutlineEmail } from "react-icons/md";
 import { redirect, json } from "@remix-run/node";
-import type { ActionArgs } from "@remix-run/node";
+import type { ActionArgs,LoaderArgs } from "@remix-run/node";
 import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { signInUserController } from "src/infra/http/controllers/sign-in-user-controller";
 import { validateSessionId } from "src/infra/http/helpers/validate-session-id";

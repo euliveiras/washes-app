@@ -1,4 +1,4 @@
-import { randomUUID } from "crypto";
+import *  as crypto from "crypto";
 import { dateManipulator } from "domain/shared/date-manipulator";
 
 export type WashCycleProps = {
@@ -6,7 +6,6 @@ export type WashCycleProps = {
     vehicleId: string;
     startDate: string;
     endDate: string;
-    note?: string;
     washesId: string[];
     completedWashes: string[];
 };
@@ -26,7 +25,7 @@ export class WashCycle {
         this.validateEndDate(props.endDate, props.startDate);
         this._props = {
             ...props,
-            id: props.id ?? randomUUID(),
+            id: props.id ?? crypto.randomUUID(),
             washesId: props.washesId ?? [],
             completedWashes: props.completedWashes ?? [],
         };

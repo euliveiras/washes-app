@@ -1,10 +1,9 @@
 export type InitializeCycleProps = {
-    vehicleId: string;
-    startDate: string;
-    endDate: string;
+  vehicleId: string;
+  washes?: {
+    isCompleted?: boolean;
+    scheduleDate: string;
     note?: string;
-    washes?: {
-        isCompleted?: boolean;
-        scheduledDate: string;
-    }[];
+  }[];
+  createdBy: string;
 };

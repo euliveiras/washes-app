@@ -1,4 +1,4 @@
-import { randomUUID } from "crypto";
+import * as crypto from "crypto";
 
 export type Replace<T, R> = Omit<T, keyof R> & R;
 
@@ -18,7 +18,7 @@ export class Wash {
     constructor(props: Replace<WashProps, { id?: string; isCompleted?: boolean }>) {
         this._props = {
             ...props,
-            id: props.id ?? randomUUID(),
+            id: props.id ?? crypto.randomUUID(),
             isCompleted: typeof props.isCompleted === "boolean" ? props.isCompleted : false,
         };
     }

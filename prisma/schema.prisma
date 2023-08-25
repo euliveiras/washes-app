@@ -20,13 +20,12 @@ model User {
   role         String
   createdAt    String
   Notification Notification[]
-  Wash         Wash[]
+  Wash         Wash[] 
 }
 
 model Vehicle {
-  id           String      @id
-  licensePlate String      @unique
-  driver       String
+  licensePlate String      @id 
+  driver       String?
   vehicleType  String
   Wash         Wash[]
   WashCycle    WashCycle[]
@@ -35,7 +34,7 @@ model Vehicle {
 model Notification {
   id          String  @id
   user        User    @relation(fields: [recipientId], references: [id])
-  recipientId String
+  recipientId String  @unique
   content     String
   readAt      String?
   createdAt   String
@@ -45,11 +44,11 @@ model Notification {
 
 model WashCycle {
   id              String  @id
-  vehicleId       String
-  vehicle         Vehicle @relation(fields: [vehicleId], references: [id])
+  vehicleId       String  
+  vehicle         Vehicle @relation(fields: [vehicleId], references: [licensePlate])
   startDate       String
   endDate         String
-  washesId        String
+  washesId        String? 
   completedWashes String
   Wash            Wash[]
 
@@ -58,15 +57,15 @@ model WashCycle {
 
 model Wash {
   id           String    @id
-  vehicleId    String
-  vehicle      Vehicle   @relation(fields: [vehicleId], references: [id])
+  vehicleId    String    
+  vehicle      Vehicle   @relation(fields: [vehicleId], references: [licensePlate])
   scheduleDate String
   washCycle    WashCycle @relation(fields: [cycleId], references: [id])
   cycleId      String
   isCompleted  Boolean   @default(false)
-  createdBy    String
-  user         User      @relation(fields: [createdBy], references: [id])
-  note         String
+  createdBy    String   
+  user         User     @relation(fields: [createdBy], references: [id])
+  note         String?
 
   @@index([vehicleId])
   @@index([cycleId])
