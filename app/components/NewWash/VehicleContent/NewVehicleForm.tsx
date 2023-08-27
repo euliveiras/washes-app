@@ -54,8 +54,6 @@ export function NewVehicleForm({
     }, 1000);
   }
 
-  console.log(data);
-
   function onFormChange(e: ChangeEvent<HTMLFormElement>) {
     const form = new FormData(e.currentTarget);
     const create = form.get("create") === "";

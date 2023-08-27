@@ -26,8 +26,6 @@ export function NewDriverForm({ driver, setDriverData }: NewDriverFormProps) {
     const driverName = form.get("name")?.toString() ?? "";
     const phone = form.get("phone")?.toString() ?? "";
 
-    console.log(create, phone, driverName);
-
     if (create) {
       if (!driverName) {
         setDriverData({ name: "", create, phone: "" });

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../app/routes/_auth.home.tsx"],
-  "sourcesContent": ["import { Text } from \"@chakra-ui/react\";\nimport type { HeadersFunction, LoaderArgs } from \"@remix-run/node\";\nimport { json, redirect } from \"@remix-run/node\";\nimport { useLoaderData } from \"@remix-run/react\";\nimport { validateSessionId } from \"src/infra/http/helpers/validate-session-id\";\nimport { commitSession, getSession } from \"~/sessions\";\n\nexport const headers: HeadersFunction = ({  parentHeaders }) => {\n  const maxAge =\n    parentHeaders.get(\"Cache-control\") ?? `max-age=${60 * 60}`;\n\n  return {\n    \"Cache-Control\": maxAge,\n  };\n};\n\nexport async function loader({ request }: LoaderArgs) {\n  const session = await getSession(request.headers.get(\"Cookie\"));\n\n  const token = session.get(\"token\");\n\nconsole.log(\"home loader\")\n  if (!token) {\n    throw redirect(\"/sign-in\");\n  }\n\n  const { error, user } = await validateSessionId({ sessionId: token });\n\n  if (error || !user) {\n    session.unset(\"token\");\n    throw redirect(\"/sign-in\", {\n      headers: {\n        \"Set-Cookie\": await commitSession(session),\n      },\n    });\n  }\n\n  return json(\n    { user },\n  );\n}\n\nexport default function () {\n  const data = useLoaderData<typeof loader>();\n  return <Text>home</Text>;\n}\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;;AAEA,kBAA+B;AA0CtB;AAFM,SAAR,oBAAoB;AACzB,QAAM,OAAO,cAA6B;AAC1C,SAAO,mDAAC,QAAK,oBAAN;AAAA;AAAA;AAAA;AAAA,SAAU;AACnB;",
-  "names": []
-}

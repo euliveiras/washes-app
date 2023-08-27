@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -20,11 +17,11 @@ model User {
   role         String
   createdAt    String
   Notification Notification[]
-  Wash         Wash[] 
+  Wash         Wash[]
 }
 
 model Vehicle {
-  licensePlate String      @id 
+  licensePlate String      @id
   driver       String?
   vehicleType  String
   Wash         Wash[]
@@ -33,23 +30,23 @@ model Vehicle {
 
 model Notification {
   id          String  @id
-  user        User    @relation(fields: [recipientId], references: [id])
   recipientId String  @unique
   content     String
   readAt      String?
   createdAt   String
+  user        User    @relation(fields: [recipientId], references: [id])
 
   @@index([recipientId])
 }
 
 model WashCycle {
   id              String  @id
-  vehicleId       String  
-  vehicle         Vehicle @relation(fields: [vehicleId], references: [licensePlate])
+  vehicleId       String
   startDate       String
   endDate         String
-  washesId        String? 
+  washesId        String?
   completedWashes String
+  vehicle         Vehicle @relation(fields: [vehicleId], references: [licensePlate])
   Wash            Wash[]
 
   @@index([vehicleId])
@@ -57,15 +54,15 @@ model WashCycle {
 
 model Wash {
   id           String    @id
-  vehicleId    String    
-  vehicle      Vehicle   @relation(fields: [vehicleId], references: [licensePlate])
+  vehicleId    String
   scheduleDate String
-  washCycle    WashCycle @relation(fields: [cycleId], references: [id])
   cycleId      String
   isCompleted  Boolean   @default(false)
-  createdBy    String   
-  user         User     @relation(fields: [createdBy], references: [id])
+  createdBy    String
   note         String?
+  vehicle      Vehicle   @relation(fields: [vehicleId], references: [licensePlate])
+  washCycle    WashCycle @relation(fields: [cycleId], references: [id])
+  user         User      @relation(fields: [createdBy], references: [id])
 
   @@index([vehicleId])
   @@index([cycleId])

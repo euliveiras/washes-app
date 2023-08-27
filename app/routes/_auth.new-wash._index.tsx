@@ -29,10 +29,10 @@ import { getSession } from "~/sessions";
 import { validateSessionId } from "src/infra/http/helpers/validate-session-id";
 
 export async function action({ request }: ActionArgs) {
-  const data = await request.json();
-  const vehicle = data?.vehicle as Vehicle | null;
-  const washes = data?.washes as Wash[];
-  const driver = data?.driver as {
+  const jsonData = await request.json();
+  const vehicle = jsonData?.vehicle as Vehicle | null;
+  const washes = jsonData?.washes as Wash[];
+  const driver = jsonData?.driver as {
     name: string;
     phone: string;
     create: boolean;
@@ -49,29 +49,40 @@ export async function action({ request }: ActionArgs) {
   }
 
   const session = await getSession(request.headers.get("Cookie"));
-
   const token = session.get("token") ?? "";
   const { user } = await validateSessionId({ sessionId: token });
 
   if (vehicle.create) {
-    const { error, vehicle: created } = await createVehicleController({
+    const createdVehicle = await createVehicleController({
       type: vehicle.type as DomainVehicle["vehicleType"],
       licensePlate: vehicle.licensePlate,
       driver: driver?.create ? driver : null,
     });
 
-    if (error) {
+    if (createdVehicle.error) {
       return json(
         {
           error: true,
-          message: error.message,
+          message: createdVehicle.error.message,
         },
-        error.statusCode,
+        createdVehicle.error.statusCode,
       );
     }
 
-    if (created) {
-      return json({ success: true, message: "Lavagens criadas" }, 201);
+    const initializedCycle = initializeCycleController({
+      createdBy: user?.id ?? "",
+      vehicleId: createdVehicle.vehicle.licensePlate,
+      washes,
+    });
+
+    if (initializedCycle.error) {
+      return json(
+        {
+          error: true,
+          message: initializedCycle.error.message,
+        },
+        initializedCycle.error.statusCode,
+      );
     }
   } else {
     const initializeCycleData = initializeCycleController({
@@ -92,8 +103,6 @@ export async function action({ request }: ActionArgs) {
 
     return json({ success: true, message: "Lavagens criadas" }, 201);
   }
-
-  return json({});
 }
 
 export default function NewWash() {
@@ -155,17 +164,13 @@ export default function NewWash() {
     }
   }, [data, showErrorToast]);
 
-  const isVehicleDataValid =
-    activeStep === 0 &&
-    vehicle.licensePlate &&
-    vehicle.type &&
-    typeof vehicle.create === "boolean";
-  const isDriverValid = activeStep === 2;
-  const isLastStep = activeStep < steps.length + -1;
-  const isWashesValid = activeStep === 1 && true;
+  const isVehicleDataValid = vehicle.licensePlate !== "" && vehicle.type !== "";
+  const isDriverValid = true;
+  const lowerThanLastStep = activeStep < steps.length - 1;
+  const isWashesValid = true;
 
   const canProceed =
-    (isVehicleDataValid || isDriverValid || isWashesValid) && isLastStep;
+    isVehicleDataValid && isDriverValid && isWashesValid && lowerThanLastStep;
 
   const canGoBack = activeStep > 0;
 

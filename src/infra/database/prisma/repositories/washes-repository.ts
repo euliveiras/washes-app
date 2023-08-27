@@ -6,7 +6,7 @@ import { prisma } from "../prisma";
 export class PrismaWashRepository implements WashRepository {
   async findWashesByCycleId(id: string): Promise<Wash[]> {
     const washes = await prisma.wash.findMany({
-      where: { id },
+      where: { cycleId: id },
     });
 
     return washes.map((w) => PrismaWashMapper.toDomain(w));

@@ -604,41 +604,37 @@ function WashBox({ wash }) {
 var import_react18 = require("react"), import_react19 = require("@remix-run/react"), import_jsx_dev_runtime10 = require("react/jsx-dev-runtime");
 function Container2({
   licensePlate,
-  children,
-  addError,
-  removeError
+  children
 }) {
   let { data, submit } = (0, import_react19.useFetcher)();
   return (0, import_react18.useEffect)(() => {
     submit({ licensePlate }, { action: "/washes-search" });
-  }, [submit, licensePlate]), (0, import_react18.useEffect)(() => {
-    typeof (data == null ? void 0 : data.washes) < "u" && (data.washes ? addError() : removeError());
-  }, [data == null ? void 0 : data.washes, removeError, addError]), /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react17.Grid, { blockSize: "100%", gridTemplateRows: "1fr auto", children: data != null && data.washes ? /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_jsx_dev_runtime10.Fragment, { children: [
+  }, [submit, licensePlate]), /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react17.Grid, { blockSize: "100%", gridTemplateRows: "1fr auto", children: (data == null ? void 0 : data.washes.length) > 0 ? /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_jsx_dev_runtime10.Fragment, { children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react17.Box, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react17.Alert, { status: "info", children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react17.AlertIcon, {}, void 0, !1, {
         fileName: "app/components/NewWash/WashesContent/Container.tsx",
-        lineNumber: 40,
+        lineNumber: 30,
         columnNumber: 15
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react17.Text, { children: [
         "H\xE1 lavagens ativas para o ve\xEDculo com placa",
         /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(LinkHighlighted, { to: `/vehicle/${licensePlate}`, children: licensePlate }, void 0, !1, {
           fileName: "app/components/NewWash/WashesContent/Container.tsx",
-          lineNumber: 43,
+          lineNumber: 33,
           columnNumber: 17
         }, this)
       ] }, void 0, !0, {
         fileName: "app/components/NewWash/WashesContent/Container.tsx",
-        lineNumber: 41,
+        lineNumber: 31,
         columnNumber: 15
       }, this)
     ] }, void 0, !0, {
       fileName: "app/components/NewWash/WashesContent/Container.tsx",
-      lineNumber: 39,
+      lineNumber: 29,
       columnNumber: 13
     }, this) }, void 0, !1, {
       fileName: "app/components/NewWash/WashesContent/Container.tsx",
-      lineNumber: 38,
+      lineNumber: 28,
       columnNumber: 11
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
@@ -649,7 +645,7 @@ function Container2({
         gap: 4,
         children: (data == null ? void 0 : data.washes) && (data == null ? void 0 : data.washes.map((w) => /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(WashBox, { wash: w }, w.id, !1, {
           fileName: "app/components/NewWash/WashesContent/Container.tsx",
-          lineNumber: 56,
+          lineNumber: 46,
           columnNumber: 24
         }, this)))
       },
@@ -657,14 +653,14 @@ function Container2({
       !1,
       {
         fileName: "app/components/NewWash/WashesContent/Container.tsx",
-        lineNumber: 49,
+        lineNumber: 39,
         columnNumber: 11
       },
       this
     )
   ] }, void 0, !0, {
     fileName: "app/components/NewWash/WashesContent/Container.tsx",
-    lineNumber: 37,
+    lineNumber: 27,
     columnNumber: 9
   }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_jsx_dev_runtime10.Fragment, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
     import_react17.Grid,
@@ -679,17 +675,17 @@ function Container2({
     !1,
     {
       fileName: "app/components/NewWash/WashesContent/Container.tsx",
-      lineNumber: 62,
+      lineNumber: 52,
       columnNumber: 11
     },
     this
   ) }, void 0, !1, {
     fileName: "app/components/NewWash/WashesContent/Container.tsx",
-    lineNumber: 61,
+    lineNumber: 51,
     columnNumber: 9
   }, this) }, void 0, !1, {
     fileName: "app/components/NewWash/WashesContent/Container.tsx",
-    lineNumber: 35,
+    lineNumber: 25,
     columnNumber: 5
   }, this);
 }
@@ -855,16 +851,12 @@ var import_jsx_dev_runtime12 = require("react/jsx-dev-runtime");
 function WashesContent({
   washes,
   setWashes,
-  licensePlate,
-  addError,
-  removeError
+  licensePlate
 }) {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(
     Container2,
     {
       licensePlate: licensePlate ?? "",
-      addError,
-      removeError,
       children: washes == null ? void 0 : washes.map((w) => /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(
         import_react22.Box,
         {
@@ -890,7 +882,7 @@ function WashesContent({
             !1,
             {
               fileName: "app/components/NewWash/WashesContent/WashesContent.tsx",
-              lineNumber: 38,
+              lineNumber: 34,
               columnNumber: 11
             },
             this
@@ -900,7 +892,7 @@ function WashesContent({
         !1,
         {
           fileName: "app/components/NewWash/WashesContent/WashesContent.tsx",
-          lineNumber: 28,
+          lineNumber: 24,
           columnNumber: 9
         },
         this
@@ -910,7 +902,7 @@ function WashesContent({
     !1,
     {
       fileName: "app/components/NewWash/WashesContent/WashesContent.tsx",
-      lineNumber: 22,
+      lineNumber: 20,
       columnNumber: 5
     },
     this
@@ -988,7 +980,6 @@ function NewVehicleForm({
       );
     }, 1e3);
   }
-  console.log(data);
   function onFormChange(e) {
     var _a, _b;
     let form = new FormData(e.currentTarget), create = form.get("create") === "", licensePlate = ((_a = form.get("licensePlate")) == null ? void 0 : _a.toString()) ?? "", type = (_b = form.get("type")) == null ? void 0 : _b.toString();
@@ -1018,7 +1009,7 @@ function NewVehicleForm({
         children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react23.FormLabel, { margin: 0, htmlFor: "vehicle_create", children: "Adicionar novo ve\xEDculo?" }, void 0, !1, {
             fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-            lineNumber: 97,
+            lineNumber: 95,
             columnNumber: 11
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(
@@ -1034,7 +1025,7 @@ function NewVehicleForm({
             !1,
             {
               fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-              lineNumber: 100,
+              lineNumber: 98,
               columnNumber: 11
             },
             this
@@ -1045,7 +1036,7 @@ function NewVehicleForm({
       !0,
       {
         fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-        lineNumber: 89,
+        lineNumber: 87,
         columnNumber: 9
       },
       this
@@ -1073,7 +1064,7 @@ function NewVehicleForm({
               !1,
               {
                 fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-                lineNumber: 118,
+                lineNumber: 116,
                 columnNumber: 15
               },
               this
@@ -1092,14 +1083,14 @@ function NewVehicleForm({
               !1,
               {
                 fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-                lineNumber: 125,
+                lineNumber: 123,
                 columnNumber: 15
               },
               this
             )
           ] }, void 0, !0, {
             fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-            lineNumber: 117,
+            lineNumber: 115,
             columnNumber: 13
           }, this)
         },
@@ -1107,7 +1098,7 @@ function NewVehicleForm({
         !1,
         {
           fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-          lineNumber: 109,
+          lineNumber: 107,
           columnNumber: 11
         },
         this
@@ -1122,7 +1113,7 @@ function NewVehicleForm({
           defaultValue: vehicle.type,
           children: selectOptions.map((o) => /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)("option", { value: o == null ? void 0 : o.toString(), children: o }, o, !1, {
             fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-            lineNumber: 144,
+            lineNumber: 142,
             columnNumber: 17
           }, this))
         },
@@ -1130,39 +1121,39 @@ function NewVehicleForm({
         !1,
         {
           fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-          lineNumber: 136,
+          lineNumber: 134,
           columnNumber: 13
         },
         this
       ) }, void 0, !1, {
         fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-        lineNumber: 135,
+        lineNumber: 133,
         columnNumber: 11
       }, this),
       vehicle.create && error && /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react23.Alert, { status: "error", marginBlock: 4, children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime13.jsxDEV)(import_react23.AlertIcon, {}, void 0, !1, {
           fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-          lineNumber: 152,
+          lineNumber: 150,
           columnNumber: 15
         }, this),
         error.message
       ] }, void 0, !0, {
         fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-        lineNumber: 151,
+        lineNumber: 149,
         columnNumber: 13
       }, this)
     ] }, void 0, !0, {
       fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-      lineNumber: 108,
+      lineNumber: 106,
       columnNumber: 9
     }, this)
   ] }, void 0, !0, {
     fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-    lineNumber: 88,
+    lineNumber: 86,
     columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/components/NewWash/VehicleContent/NewVehicleForm.tsx",
-    lineNumber: 87,
+    lineNumber: 85,
     columnNumber: 5
   }, this);
 }
@@ -1586,7 +1577,7 @@ function NewDriverForm({ driver, setDriverData }) {
   function onFormChange(e) {
     var _a, _b;
     let form = new FormData(e.currentTarget), create = form.get("create") === "", driverName = ((_a = form.get("name")) == null ? void 0 : _a.toString()) ?? "", phone = ((_b = form.get("phone")) == null ? void 0 : _b.toString()) ?? "";
-    if (console.log(create, phone, driverName), create) {
+    if (create) {
       if (!driverName) {
         setDriverData({ name: "", create, phone: "" });
         return;
@@ -1615,7 +1606,7 @@ function NewDriverForm({ driver, setDriverData }) {
             children: [
               /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react34.FormLabel, { margin: 0, htmlFor: "driver-create", children: "Adicionar motorista novo?" }, void 0, !1, {
                 fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
-                lineNumber: 60,
+                lineNumber: 58,
                 columnNumber: 15
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
@@ -1631,7 +1622,7 @@ function NewDriverForm({ driver, setDriverData }) {
                 !1,
                 {
                   fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
-                  lineNumber: 63,
+                  lineNumber: 61,
                   columnNumber: 15
                 },
                 this
@@ -1642,7 +1633,7 @@ function NewDriverForm({ driver, setDriverData }) {
           !0,
           {
             fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
-            lineNumber: 52,
+            lineNumber: 50,
             columnNumber: 13
           },
           this
@@ -1651,7 +1642,7 @@ function NewDriverForm({ driver, setDriverData }) {
           /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react34.FormControl, { as: import_react34.Flex, flexDir: "column", gap: 4, children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react34.FormLabel, { margin: 0, marginInline: "auto", htmlFor: "driver-name", children: "Motorista" }, void 0, !1, {
               fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
-              lineNumber: 73,
+              lineNumber: 71,
               columnNumber: 17
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(
@@ -1667,14 +1658,14 @@ function NewDriverForm({ driver, setDriverData }) {
               !1,
               {
                 fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
-                lineNumber: 76,
+                lineNumber: 74,
                 columnNumber: 17
               },
               this
             )
           ] }, void 0, !0, {
             fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
-            lineNumber: 72,
+            lineNumber: 70,
             columnNumber: 15
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime20.jsxDEV)(import_react34.FormControl, { as: import_react34.Flex, flexDir: "column", gap: 4, children: [
@@ -1690,7 +1681,7 @@ function NewDriverForm({ driver, setDriverData }) {
               !1,
               {
                 fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
-                lineNumber: 85,
+                lineNumber: 83,
                 columnNumber: 17
               },
               this
@@ -1708,24 +1699,24 @@ function NewDriverForm({ driver, setDriverData }) {
               !1,
               {
                 fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
-                lineNumber: 92,
+                lineNumber: 90,
                 columnNumber: 17
               },
               this
             )
           ] }, void 0, !0, {
             fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
-            lineNumber: 84,
+            lineNumber: 82,
             columnNumber: 15
           }, this)
         ] }, void 0, !0, {
           fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
-          lineNumber: 71,
+          lineNumber: 69,
           columnNumber: 13
         }, this)
       ] }, void 0, !0, {
         fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
-        lineNumber: 51,
+        lineNumber: 49,
         columnNumber: 11
       }, this)
     },
@@ -1733,13 +1724,13 @@ function NewDriverForm({ driver, setDriverData }) {
     !1,
     {
       fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
-      lineNumber: 47,
+      lineNumber: 45,
       columnNumber: 7
     },
     this
   ) }, void 0, !1, {
     fileName: "app/components/NewWash/DriverContent/NewDriverForm.tsx",
-    lineNumber: 46,
+    lineNumber: 44,
     columnNumber: 5
   }, this);
 }
@@ -2352,6 +2343,7 @@ var HttpMapper = class {
   }
   static washCycle(c) {
     return {
+      id: c.id,
       startDate: c.startDate,
       endDate: c.endDate,
       note: c.note,
@@ -2594,7 +2586,7 @@ var PrismaWashMapper = class {
 var PrismaWashRepository = class {
   async findWashesByCycleId(id) {
     return (await prisma.wash.findMany({
-      where: { id }
+      where: { cycleId: id }
     })).map((w) => PrismaWashMapper.toDomain(w));
   }
   async create(wash) {
@@ -2840,7 +2832,7 @@ async function validateSessionId({ sessionId }) {
 // app/routes/_auth.new-wash._index.tsx
 var import_jsx_dev_runtime26 = require("react/jsx-dev-runtime");
 async function action({ request }) {
-  let data = await request.json(), vehicle = data == null ? void 0 : data.vehicle, washes = data == null ? void 0 : data.washes, driver = data == null ? void 0 : data.driver;
+  let jsonData = await request.json(), vehicle = jsonData == null ? void 0 : jsonData.vehicle, washes = jsonData == null ? void 0 : jsonData.washes, driver = jsonData == null ? void 0 : jsonData.driver;
   if (!vehicle)
     return (0, import_node2.json)(
       {
@@ -2851,21 +2843,32 @@ async function action({ request }) {
     );
   let token = (await getSession(request.headers.get("Cookie"))).get("token") ?? "", { user } = await validateSessionId({ sessionId: token });
   if (vehicle.create) {
-    let { error, vehicle: created } = await createVehicleController({
+    let createdVehicle = await createVehicleController({
       type: vehicle.type,
       licensePlate: vehicle.licensePlate,
       driver: driver != null && driver.create ? driver : null
     });
-    if (error)
+    if (createdVehicle.error)
       return (0, import_node2.json)(
         {
           error: !0,
-          message: error.message
+          message: createdVehicle.error.message
         },
-        error.statusCode
+        createdVehicle.error.statusCode
       );
-    if (created)
-      return (0, import_node2.json)({ success: !0, message: "Lavagens criadas" }, 201);
+    let initializedCycle = initializeCycleController({
+      createdBy: (user == null ? void 0 : user.id) ?? "",
+      vehicleId: createdVehicle.vehicle.licensePlate,
+      washes
+    });
+    if (initializedCycle.error)
+      return (0, import_node2.json)(
+        {
+          error: !0,
+          message: initializedCycle.error.message
+        },
+        initializedCycle.error.statusCode
+      );
   } else {
     let initializeCycleData = initializeCycleController({
       createdBy: (user == null ? void 0 : user.id) ?? "",
@@ -2880,7 +2883,6 @@ async function action({ request }) {
       initializeCycleData.error.statusCode
     ) : (0, import_node2.json)({ success: !0, message: "Lavagens criadas" }, 201);
   }
-  return (0, import_node2.json)({});
 }
 function NewWash() {
   let { Stepper: Stepper2, activeStep, steps: steps2, goToPrevious, goToNext, setActiveStep } = useStepper(), { showErrorToast, showSuccessToast } = useToast(), [error, setError] = (0, import_react45.useState)(!1), [vehicle, setVehicle] = (0, import_react45.useState)(defaultVehicleState), [washes, setWashes] = (0, import_react45.useState)(washesDefaultValue), [driver, setDriver] = (0, import_react45.useState)(defaultDriverValue), submit = (0, import_react46.useSubmit)(), navigate = (0, import_react46.useNavigate)(), data = (0, import_react46.useActionData)();
@@ -2910,7 +2912,7 @@ function NewWash() {
   }, [data, showSuccessToast, navigate]), (0, import_react45.useEffect)(() => {
     typeof data < "u" && data != null && data.error && showErrorToast({ message: data.message });
   }, [data, showErrorToast]);
-  let isVehicleDataValid = activeStep === 0 && vehicle.licensePlate && vehicle.type && typeof vehicle.create == "boolean", isDriverValid = activeStep === 2, isLastStep = activeStep < steps2.length + -1, canProceed = (isVehicleDataValid || isDriverValid || activeStep === 1 && !0) && isLastStep, canGoBack = activeStep > 0;
+  let isVehicleDataValid = vehicle.licensePlate !== "" && vehicle.type !== "", isDriverValid = !0, lowerThanLastStep = activeStep < steps2.length - 1, canProceed = isVehicleDataValid && isDriverValid && !0 && lowerThanLastStep, canGoBack = activeStep > 0;
   return /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
     import_react44.Grid,
     {
@@ -2937,7 +2939,7 @@ function NewWash() {
           !1,
           {
             fileName: "app/routes/_auth.new-wash._index.tsx",
-            lineNumber: 186,
+            lineNumber: 191,
             columnNumber: 7
           },
           this
@@ -2963,7 +2965,7 @@ function NewWash() {
                 !1,
                 {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 196,
+                  lineNumber: 201,
                   columnNumber: 9
                 },
                 this
@@ -2981,7 +2983,7 @@ function NewWash() {
                   !1,
                   {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 207,
+                    lineNumber: 212,
                     columnNumber: 13
                   },
                   this
@@ -2999,14 +3001,14 @@ function NewWash() {
                   !1,
                   {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 215,
+                    lineNumber: 220,
                     columnNumber: 13
                   },
                   this
                 ),
                 activeStep === 2 && /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(DriverContent, { driver, setDriverData }, void 0, !1, {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 224,
+                  lineNumber: 229,
                   columnNumber: 13
                 }, this),
                 activeStep === 3 && /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(summary.Container, { children: [
@@ -3020,29 +3022,29 @@ function NewWash() {
                     !1,
                     {
                       fileName: "app/routes/_auth.new-wash._index.tsx",
-                      lineNumber: 228,
+                      lineNumber: 233,
                       columnNumber: 15
                     },
                     this
                   ),
                   /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(summary.Washes, { washes, goTo: () => setActiveStep(1) }, void 0, !1, {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 232,
+                    lineNumber: 237,
                     columnNumber: 15
                   }, this),
                   /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(summary.Driver, { driver, goTo: () => setActiveStep(2) }, void 0, !1, {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 233,
+                    lineNumber: 238,
                     columnNumber: 15
                   }, this)
                 ] }, void 0, !0, {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 227,
+                  lineNumber: 232,
                   columnNumber: 13
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/_auth.new-wash._index.tsx",
-                lineNumber: 205,
+                lineNumber: 210,
                 columnNumber: 9
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
@@ -3059,7 +3061,7 @@ function NewWash() {
                 !1,
                 {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 237,
+                  lineNumber: 242,
                   columnNumber: 9
                 },
                 this
@@ -3070,7 +3072,7 @@ function NewWash() {
           !0,
           {
             fileName: "app/routes/_auth.new-wash._index.tsx",
-            lineNumber: 191,
+            lineNumber: 196,
             columnNumber: 7
           },
           this
@@ -3081,7 +3083,7 @@ function NewWash() {
     !0,
     {
       fileName: "app/routes/_auth.new-wash._index.tsx",
-      lineNumber: 173,
+      lineNumber: 178,
       columnNumber: 5
     },
     this
@@ -3172,7 +3174,10 @@ async function controller4({ licensePlate }) {
   if (!washCycle)
     return { washCycle: null, washes: [] };
   let { washes } = await findWashesByCycleId.execute(washCycle.id);
-  return { washCycle, washes };
+  return {
+    washCycle: HttpMapper.washCycle(washCycle),
+    washes: washes.map((w) => HttpMapper.wash(w))
+  };
 }
 var getNextWashesAndCycle = (data) => asyncWrapper(() => controller4(data));
 
@@ -4211,7 +4216,7 @@ function __default() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-FAPOEOMU.js", imports: ["/build/_shared/chunk-R5NLA4ZP.js", "/build/_shared/chunk-H6OBPNVQ.js", "/build/_shared/chunk-LTOX4GGY.js", "/build/_shared/chunk-OJCDOD5O.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-FM3GVVCJ.js", imports: ["/build/_shared/chunk-LFA5YRFX.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-VHTQ6VPV.js", imports: ["/build/_shared/chunk-XXOGTOEO.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-2AMZ7Z77.js", imports: ["/build/_shared/chunk-K4PV3FFU.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-4BKAXUEG.js", imports: ["/build/_shared/chunk-LFA5YRFX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-2SCUD2S2.js", imports: ["/build/_shared/chunk-XXOGTOEO.js", "/build/_shared/chunk-LFA5YRFX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-W3RKUMVS.js", imports: ["/build/_shared/chunk-K4PV3FFU.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-LVBVNPMF.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "ac85cc0e", hmr: void 0, url: "/build/manifest-AC85CC0E.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-FAPOEOMU.js", imports: ["/build/_shared/chunk-R5NLA4ZP.js", "/build/_shared/chunk-H6OBPNVQ.js", "/build/_shared/chunk-LTOX4GGY.js", "/build/_shared/chunk-OJCDOD5O.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-FM3GVVCJ.js", imports: ["/build/_shared/chunk-LFA5YRFX.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-VHTQ6VPV.js", imports: ["/build/_shared/chunk-XXOGTOEO.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-2AMZ7Z77.js", imports: ["/build/_shared/chunk-K4PV3FFU.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-4BKAXUEG.js", imports: ["/build/_shared/chunk-LFA5YRFX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-KW2RWHW5.js", imports: ["/build/_shared/chunk-XXOGTOEO.js", "/build/_shared/chunk-LFA5YRFX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-W3RKUMVS.js", imports: ["/build/_shared/chunk-K4PV3FFU.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-LVBVNPMF.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "f92005c5", hmr: void 0, url: "/build/manifest-F92005C5.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !1, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

@@ -23,6 +23,7 @@ export class HttpMapper {
 
   static washCycle(c: WashCycle): Partial<WashCycle> {
     return {
+      id: c.id,
       startDate: c.startDate,
       endDate: c.endDate,
       note: c.note,

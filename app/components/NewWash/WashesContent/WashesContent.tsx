@@ -15,14 +15,10 @@ export function WashesContent({
   washes,
   setWashes,
   licensePlate,
-  addError,
-  removeError,
 }: WashesContentProps) {
   return (
     <Container
       licensePlate={licensePlate ?? ""}
-      addError={addError}
-      removeError={removeError}
     >
       {washes?.map((w) => (
         <Box
