@@ -1,4 +1,5 @@
 import type { Vehicle as Raw } from "@prisma/client";
+import { Driver } from "domain/modules/driver/entities/Driver";
 import { Vehicle } from "../../../../domain/modules/vehicle/entities/Vehicle";
 export class PrismaVehicleMapper {
   static toDomain(raw: Raw) {
@@ -9,14 +10,10 @@ export class PrismaVehicleMapper {
     });
   }
   static toPrisma(vehicle: Vehicle) {
-    const driver = vehicle.driver
-      ? JSON.stringify({
-          name: vehicle.driver.name,
-          phones: vehicle.driver.phones,
-        })
-      : undefined;
     return {
-      driver,
+      driver: vehicle.driver
+        ? JSON.stringify(vehicle.driver)
+        : undefined,
       licensePlate: vehicle.licensePlate.toUpperCase(),
       vehicleType: vehicle.vehicleType,
     };

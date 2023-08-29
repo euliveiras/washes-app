@@ -4,10 +4,10 @@ import { json, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { validateSessionId } from "src/infra/http/helpers/validate-session-id";
 import { commitSession, getSession } from "~/sessions";
+import { home } from "app/components/Home";
 
-export const headers: HeadersFunction = ({  parentHeaders }) => {
-  const maxAge =
-    parentHeaders.get("Cache-control") ?? `max-age=${60 * 60}`;
+export const headers: HeadersFunction = ({ parentHeaders }) => {
+  const maxAge = parentHeaders.get("Cache-control") ?? `max-age=${60 * 60}`;
 
   return {
     "Cache-Control": maxAge,
@@ -19,7 +19,6 @@ export async function loader({ request }: LoaderArgs) {
 
   const token = session.get("token");
 
-console.log("home loader")
   if (!token) {
     throw redirect("/sign-in");
   }
@@ -35,12 +34,16 @@ console.log("home loader")
     });
   }
 
-  return json(
-    { user },
-  );
+  return json({ user });
 }
 
 export default function () {
   const data = useLoaderData<typeof loader>();
-  return <Text>home</Text>;
+  return (
+    <home.Container>
+      <Text as="h1">{data.user.username}</Text>
+      <home.Form />
+      <home.Table data={null} />
+    </home.Container>
+  );
 }

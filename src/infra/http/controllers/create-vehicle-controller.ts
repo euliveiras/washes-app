@@ -1,5 +1,4 @@
 import type { Vehicle } from "../../../domain/modules/vehicle/entities/Vehicle";
-import { Driver } from "../../../domain/modules/driver/entities/Driver";
 import { CreateVehicle } from "../../../domain/modules/vehicle/use-cases/create-vehicle";
 import { PrismaVehicleRepository } from "../../database/prisma/repositories/vehicle-repository";
 import { HttpMapper } from "../mappers/http-mapper";
@@ -13,22 +12,21 @@ const createVehicleService = new CreateVehicle(createVehicleRepository);
 type CreateVehicleControllerDTO = {
   licensePlate: Vehicle["licensePlate"];
   type: Vehicle["vehicleType"];
-  driver: { name: string; phone: string } | null;
+  driver?: { name: string; phone: string };
 };
 
 async function controller(data: CreateVehicleControllerDTO) {
   if (!data) throw new AppError("Data DTO is required", 400);
-  let driver;
-  if (data.driver) {
-    driver = new Driver({
-      name: data.driver.name,
-      phones: [data.driver.phone],
-    });
-  }
-  const {vehicle} = await createVehicleService.execute({
+  const driver = data.driver
+    ? {
+        ...data.driver,
+        phones: [data.driver?.phone],
+      }
+    : undefined;
+  const { vehicle } = await createVehicleService.execute({
     licensePlate: data.licensePlate,
     vehicleType: data.type,
-    driver: driver,
+    driver,
   });
 
   if (!vehicle) throw new AppError("Vehicle creation service error", 400);

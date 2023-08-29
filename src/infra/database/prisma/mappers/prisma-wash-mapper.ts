@@ -1,5 +1,6 @@
 import type { Wash as RawWash } from "@prisma/client";
 import { Wash } from "domain/modules/wash/entities/Wash";
+import { dateManipulator } from "domain/shared/date-manipulator";
 
 export class PrismaWashMapper {
   static toDomain(raw: RawWash) {
@@ -10,19 +11,17 @@ export class PrismaWashMapper {
       vehicleId: raw.vehicleId,
       id: raw.id,
       isCompleted: raw.isCompleted,
-      note: raw.note,
     });
   }
   static toPrisma(wash: Wash) {
-console.log(wash)
     return {
       createdBy: wash.createdBy,
       cycleId: wash.cycleId,
-      scheduleDate: wash.scheduleDate,
-      vehicleId: wash.vehicleId,
+      scheduleDate: dateManipulator.parseDateToString(new Date(wash.scheduleDate)),
+      vehicleId: wash.vehicleId.toUpperCase(),
       id: wash.id,
       isCompleted: wash.isCompleted,
-      note: wash.note
+      note: wash.note,
     };
   }
 }

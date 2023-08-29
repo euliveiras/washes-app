@@ -9,10 +9,25 @@ export class PrismaVehicleRepository implements VehicleRepository {
       data: PrismaVehicleMapper.toPrisma(vehicle),
     });
   }
-  async findByLicensePlate(licensePlate: string): Promise<Vehicle | null> {
-    const data = await prisma.vehicle.findUnique({ where: { licensePlate } });
+  async findByLicensePlate(str: string): Promise<Vehicle | null> {
+    const licensePlate = str.toUpperCase();
+    const data = await prisma.vehicle.findUnique({
+      where: { licensePlate },
+    });
 
     if (!data) return null;
     return PrismaVehicleMapper.toDomain(data);
+  }
+  async findManyLicensePlate(str: string): Promise<Vehicle[]> {
+    const licensePlate = str.toUpperCase();
+    const data = await prisma.vehicle.findMany({
+      where: {
+        licensePlate: {
+          contains: licensePlate,
+        },
+      },
+    });
+
+    return data.map((v) => PrismaVehicleMapper.toDomain(v));
   }
 }

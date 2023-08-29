@@ -23,7 +23,7 @@ export function VehicleSearch({ vehicle, setVehicle }: VehicleSearchProps) {
 
   function onQuery(e: string) {
     fetcher.submit(
-      { query: "vehicle", licensePlate: e },
+      { many: "True", licensePlate: e },
       { action: "/vehicle-search" },
     );
   }

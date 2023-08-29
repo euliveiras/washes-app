@@ -1,16 +1,25 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "react-router";
-import { findVehicleControler } from "src/infra/http/controllers/find-vehicle-controller";
+import { findUniqueVehicleController } from "src/infra/http/controllers/find-unique-vehicle-controller";
+import { findVehicleController } from "src/infra/http/controllers/find-vehicle-controller";
 
 export async function loader({ request }: LoaderArgs) {
   const url = new URL(request.url);
-  const query = url.searchParams.get("query");
+  const unique = url.searchParams.get("unique");
   const licensePlate = url.searchParams.get("licensePlate");
 
-  if (typeof query !== "string" || query == "" || !licensePlate)
-    return json(null);
+  if (!licensePlate) {
+    return json({ results: [] });
+  }
 
-  const { vehicle } = await findVehicleControler({ licensePlate });
+  if (unique) {
+    const { vehicle } = await findUniqueVehicleController({ licensePlate });
+    return json({ vehicle });
+  }
 
-  return json({ results: vehicle ? [vehicle] : []});
+  if (!licensePlate) return json(null);
+
+  const { results } = await findVehicleController({ licensePlate });
+
+  return json({ results });
 }

@@ -9,9 +9,13 @@ import type { loader } from "~/routes/washes-search/route";
 type WashesContentProps = {
   licensePlate: string;
   children: ReactNode;
+  addError(): void;
+  removeError(): void;
 };
 
 export function Container({
+  addError,
+  removeError,
   licensePlate,
   children,
 }: WashesContentProps) {
@@ -20,6 +24,11 @@ export function Container({
   useEffect(() => {
     submit({ licensePlate }, { action: "/washes-search" });
   }, [submit, licensePlate]);
+
+  useEffect(() => {
+    if (data?.washes.length > 0) addError();
+    else removeError();
+  }, [data, addError, removeError]);
 
   return (
     <Grid blockSize="100%" gridTemplateRows={"1fr auto"}>

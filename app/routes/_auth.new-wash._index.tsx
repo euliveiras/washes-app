@@ -11,7 +11,7 @@ import {
 } from "~/components/NewWash/VehicleContent/";
 import type { Vehicle } from "~/components/NewWash/VehicleContent/";
 import type { Vehicle as DomainVehicle } from "domain/modules/vehicle/entities/Vehicle";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { NewWashFooter } from "~/components/NewWash/footer";
 import type { Driver } from "~/components/NewWash/DriverContent";
 import {
@@ -56,7 +56,7 @@ export async function action({ request }: ActionArgs) {
     const createdVehicle = await createVehicleController({
       type: vehicle.type as DomainVehicle["vehicleType"],
       licensePlate: vehicle.licensePlate,
-      driver: driver?.create ? driver : null,
+      driver: driver,
     });
 
     if (createdVehicle.error) {
@@ -100,9 +100,8 @@ export async function action({ request }: ActionArgs) {
         initializeCycleData.error.statusCode,
       );
     }
-
-    return json({ success: true, message: "Lavagens criadas" }, 201);
   }
+  return json({ success: true, message: "Lavagens criadas" }, 201);
 }
 
 export default function NewWash() {
@@ -117,13 +116,13 @@ export default function NewWash() {
   const navigate = useNavigate();
   const data = useActionData<typeof action>();
 
-  function addError() {
+  const addError = useCallback(() => {
     setError(true);
-  }
+  }, []);
 
-  function removeError() {
+  const removeError = useCallback(() => {
     setError(false);
-  }
+  }, []);
 
   function setDriverData(v: Driver) {
     setDriver(v);

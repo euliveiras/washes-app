@@ -9,7 +9,7 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
-import { Form, useFetcher} from "@remix-run/react";
+import { Form, useFetcher } from "@remix-run/react";
 import type { ChangeEvent } from "react";
 import { useEffect, useRef } from "react";
 import type { Vehicle } from ".";
@@ -42,13 +42,13 @@ export function NewVehicleForm({
   const { data, submit } = useFetcher();
   const isDisabled = !vehicle.create;
   const error =
-    data?.results.length > 0 ? { message: "Placa já existe" } : null;
+    data?.vehicle ? { message: "Placa já existe" } : null;
 
   function onInputChange(e: ChangeEvent<HTMLInputElement>) {
     secondTimeOutId.current && clearTimeout(secondTimeOutId.current);
     secondTimeOutId.current = setTimeout(() => {
       submit(
-        { query: "vehicle", licensePlate: e.target.value },
+        { unique: "True", licensePlate: e.target.value },
         { action: "/vehicle-search" },
       );
     }, 1000);
@@ -75,11 +75,9 @@ export function NewVehicleForm({
   }
 
   useEffect(() => {
-    if (typeof data?.results !== "undefined") {
-      if (data.results.length > 0) addError();
-      else removeError();
-    }
-  }, [data?.results, removeError, addError]);
+    if (data?.vehicle) addError();
+    else removeError();
+  }, [data?.vehicle, removeError, addError]);
 
   return (
     <Form onChange={onFormChange}>
