@@ -1,10 +1,8 @@
+import type { BoxProps } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
-import type { ReactNode } from "react";
 
-type ContainerProps = {
-  children: ReactNode;
-};
+type ContainerProps = BoxProps;
 
-export function Container({ children }: ContainerProps) {
-  return <Box>{children}</Box>;
+export function Container({ children, ...props }: ContainerProps) {
+  return <Box {...props}>{children}</Box>;
 }

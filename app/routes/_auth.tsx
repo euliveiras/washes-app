@@ -1,12 +1,10 @@
-import type { LoaderArgs } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { redirect, json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { Header } from "~/components/Header";
-import type { HeadersFunction } from "@remix-run/node"; // or cloudflare/deno
+import type { LoaderArgs, HeadersFunction } from "@remix-run/node"; // or cloudflare/deno
 import { commitSession, getSession } from "~/sessions";
 import { validateSessionId } from "src/infra/http/helpers/validate-session-id";
-import {Grid} from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   const maxAge = loaderHeaders.get("Cache-control") ?? `max-age=${60 * 60}`;
@@ -50,7 +48,12 @@ export async function loader({ request }: LoaderArgs) {
 export default function () {
   const { path, user } = useLoaderData<typeof loader>();
   return (
-    <Grid gridTemplateRows={"auto 1fr"} blockSize="100vh">
+    <Grid
+      gridTemplateRows={"auto 1fr"}
+      gridTemplateColumns="100%"
+      blockSize="100vh"
+gap={2}
+    >
       <Header label={path ?? "/"} user={user} />
       <Outlet />
     </Grid>
