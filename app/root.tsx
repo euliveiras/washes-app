@@ -1,8 +1,7 @@
 // root.tsx
 import React, { useContext, useEffect } from "react";
 import { withEmotionCache } from "@emotion/react";
-import { ChakraProvider } from "@chakra-ui/react";
-import { extendTheme } from "@chakra-ui/react";
+import {ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 import {
   Links,
@@ -100,11 +99,11 @@ const theme = extendTheme({
 export default function App() {
   return (
     <Document>
+      <ScrollRestoration />
+      <Scripts />
       <ChakraProvider theme={theme} resetCSS>
         <Outlet />
       </ChakraProvider>
-      <Scripts />
-      <ScrollRestoration />
     </Document>
   );
 }

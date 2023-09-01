@@ -34,6 +34,7 @@ export class HttpMapper {
 
   static wash(w: Wash): Partial<Wash> {
     return {
+      id: w.id,
       scheduleDate: w.scheduleDate,
       createdBy: w.createdBy,
       isCompleted: w.isCompleted,

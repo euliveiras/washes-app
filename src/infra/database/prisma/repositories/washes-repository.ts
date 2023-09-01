@@ -1,9 +1,57 @@
 import type { Wash } from "domain/modules/wash/entities/Wash";
-import type { WashRepository } from "domain/modules/wash/repositories/wash-repository";
+import type {
+  FindWashesMethodDTO,
+  WashRepository,
+} from "domain/modules/wash/repositories/wash-repository";
+import { dateManipulator } from "domain/shared/date-manipulator";
 import { PrismaWashMapper } from "../mappers/prisma-wash-mapper";
 import { prisma } from "../prisma";
 
 export class PrismaWashRepository implements WashRepository {
+  async findWashes({
+    filters,
+    cursor,
+    take = 10,
+    skip = 1,
+  }: FindWashesMethodDTO): Promise<Wash[]> {
+    let washes;
+    const startDate = filters.startDate
+      ? dateManipulator.parseDateToString(new Date(filters.startDate))
+      : undefined;
+    const endDate = filters.endDate
+      ? dateManipulator.parseDateToString(new Date(filters.endDate))
+      : undefined;
+
+    const scheduleDate = {} as { gte?: string; lte?: string };
+
+    if (startDate && endDate) {
+      scheduleDate.gte = startDate;
+      scheduleDate.lte = endDate;
+    }
+
+    const where = {
+      createdBy: filters.createdBy,
+      vehicleId: filters.vehicleId,
+      isCompleted: filters.isCompleted,
+      scheduleDate,
+    };
+
+    if (cursor?.id) {
+      washes = await prisma.wash.findMany({
+        where,
+        skip,
+        cursor,
+        take,
+      });
+    } else {
+      washes = await prisma.wash.findMany({
+        where,
+        take,
+      });
+    }
+
+    return washes.map((w) => PrismaWashMapper.toDomain(w));
+  }
   async findWashesByCycleId(id: string): Promise<Wash[]> {
     const washes = await prisma.wash.findMany({
       where: { cycleId: id },

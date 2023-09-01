@@ -70,7 +70,9 @@ function wrapper(): DateManipulator {
           locale: ptBR,
         });
       }
-      return dateFnsFormat(date, format);
+      return dateFnsFormat(date, format, {
+        locale: ptBR,
+      });
     },
   };
 }

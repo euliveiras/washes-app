@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { table } from "app/components/Table";
+import type { TableRowProps } from "@chakra-ui/react";
 
 export { Actions } from "./Actions";
 export { Driver } from "./Driver";
@@ -8,10 +9,18 @@ export { Note } from "./Note";
 export { ScheduledDate } from "./ScheduledDate";
 export { Status } from "./Status";
 
-export function Row({ children }: { children: ReactNode }) {
-  return <table.Row>{children}</table.Row>;
+type RowProps = TableRowProps;
+
+export function Row({ children, ...rest }: RowProps) {
+  return <table.Row {...rest}>{children}</table.Row>;
 }
 
-export function Body({ children }: { children: ReactNode }) {
-  return <table.Body>{children}</table.Body>;
+export function Body({
+  children,
+  onIntersecting,
+}: {
+  children: ReactNode;
+  onIntersecting(lastElement?: Element): void;
+}) {
+  return <table.Body onIntersecting={onIntersecting}>{children}</table.Body>;
 }
