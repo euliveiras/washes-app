@@ -147,15 +147,25 @@ export default function () {
             name="status"
             inlineSize={"fit-content"}
           />
-          <Button
-            minInlineSize={"160px"}
-            variant="solid"
-            colorScheme={"blue"}
-            borderRadius={"lg"}
-            onClick={onFilter}
-          >
-            filtrar
-          </Button>
+          <Flex gap={4}>
+            <Button
+              minInlineSize={"160px"}
+              colorScheme={"gray"}
+              borderRadius={"lg"}
+              onClick={() => ref.current?.reset()}
+            >
+              limpar campos
+            </Button>
+            <Button
+              minInlineSize={"160px"}
+              variant="solid"
+              colorScheme={"blue"}
+              borderRadius={"lg"}
+              onClick={onFilter}
+            >
+              filtrar
+            </Button>
+          </Flex>
         </Flex>
         <Divider />
         <Flex justify={"space-between"} align="center" inlineSize="90%">

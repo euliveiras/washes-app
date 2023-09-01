@@ -3930,25 +3930,52 @@ function auth_home_default() {
                       },
                       this
                     ),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
-                      import_react55.Button,
-                      {
-                        minInlineSize: "160px",
-                        variant: "solid",
-                        colorScheme: "blue",
-                        borderRadius: "lg",
-                        onClick: onFilter,
-                        children: "filtrar"
-                      },
-                      void 0,
-                      !1,
-                      {
-                        fileName: "app/routes/_auth.home.tsx",
-                        lineNumber: 150,
-                        columnNumber: 11
-                      },
-                      this
-                    )
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react55.Flex, { gap: 4, children: [
+                      /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
+                        import_react55.Button,
+                        {
+                          minInlineSize: "160px",
+                          colorScheme: "gray",
+                          borderRadius: "lg",
+                          onClick: () => {
+                            var _a2;
+                            return (_a2 = ref.current) == null ? void 0 : _a2.reset();
+                          },
+                          children: "limpar campos"
+                        },
+                        void 0,
+                        !1,
+                        {
+                          fileName: "app/routes/_auth.home.tsx",
+                          lineNumber: 151,
+                          columnNumber: 13
+                        },
+                        this
+                      ),
+                      /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
+                        import_react55.Button,
+                        {
+                          minInlineSize: "160px",
+                          variant: "solid",
+                          colorScheme: "blue",
+                          borderRadius: "lg",
+                          onClick: onFilter,
+                          children: "filtrar"
+                        },
+                        void 0,
+                        !1,
+                        {
+                          fileName: "app/routes/_auth.home.tsx",
+                          lineNumber: 159,
+                          columnNumber: 13
+                        },
+                        this
+                      )
+                    ] }, void 0, !0, {
+                      fileName: "app/routes/_auth.home.tsx",
+                      lineNumber: 150,
+                      columnNumber: 11
+                    }, this)
                   ]
                 },
                 void 0,
@@ -3962,13 +3989,13 @@ function auth_home_default() {
               ),
               /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react55.Divider, {}, void 0, !1, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 160,
+                lineNumber: 170,
                 columnNumber: 9
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react55.Flex, { justify: "space-between", align: "center", inlineSize: "90%", children: [
                 washes && /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react55.Text, { fontWeight: "semibold", color: "gray.400", fontSize: "sm", children: data.length > 0 ? `showing ${data.length} results` : "nenhuma lavagem foi encontrada" }, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 163,
+                  lineNumber: 173,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
@@ -3978,7 +4005,7 @@ function auth_home_default() {
                     borderRadius: "full",
                     rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_lu.LuExternalLink, {}, void 0, !1, {
                       fileName: "app/routes/_auth.home.tsx",
-                      lineNumber: 172,
+                      lineNumber: 182,
                       columnNumber: 24
                     }, this),
                     value: "EXPORT",
@@ -3989,14 +4016,14 @@ function auth_home_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.home.tsx",
-                    lineNumber: 169,
+                    lineNumber: 179,
                     columnNumber: 11
                   },
                   this
                 )
               ] }, void 0, !0, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 161,
+                lineNumber: 171,
                 columnNumber: 9
               }, this)
             ]
@@ -4019,42 +4046,42 @@ function auth_home_default() {
               /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.Head, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.Row, { children: [
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.LicensePlate, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 186,
+                  lineNumber: 196,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.ScheduledDate, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 187,
+                  lineNumber: 197,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.Status, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 188,
+                  lineNumber: 198,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.Note, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 189,
+                  lineNumber: 199,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.Actions, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 190,
+                  lineNumber: 200,
                   columnNumber: 13
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 185,
+                lineNumber: 195,
                 columnNumber: 11
               }, this) }, void 0, !1, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 184,
+                lineNumber: 194,
                 columnNumber: 9
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.Body, { onIntersecting: onLastRowIntersecting, children: data == null ? void 0 : data.map((w, i, arr) => /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.Row, { id: w == null ? void 0 : w.id, children: [
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.bodyData.LicensePlate, { licensePlate: (w == null ? void 0 : w.id) ?? "" }, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 198,
+                  lineNumber: 208,
                   columnNumber: 17
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
@@ -4066,7 +4093,7 @@ function auth_home_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.home.tsx",
-                    lineNumber: 199,
+                    lineNumber: 209,
                     columnNumber: 17
                   },
                   this
@@ -4081,28 +4108,28 @@ function auth_home_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.home.tsx",
-                    lineNumber: 202,
+                    lineNumber: 212,
                     columnNumber: 17
                   },
                   this
                 ),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.bodyData.Note, { note: (w == null ? void 0 : w.note) ?? "" }, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 206,
+                  lineNumber: 216,
                   columnNumber: 17
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.bodyData.Actions, { isCompleted: w == null ? void 0 : w.isCompleted }, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 207,
+                  lineNumber: 217,
                   columnNumber: 17
                 }, this)
               ] }, w == null ? void 0 : w.id, !0, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 197,
+                lineNumber: 207,
                 columnNumber: 15
               }, this)) }, void 0, !1, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 194,
+                lineNumber: 204,
                 columnNumber: 9
               }, this)
             ]
@@ -4111,18 +4138,18 @@ function auth_home_default() {
           !0,
           {
             fileName: "app/routes/_auth.home.tsx",
-            lineNumber: 180,
+            lineNumber: 190,
             columnNumber: 7
           },
           this
         ),
         /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react55.Flex, { inlineSize: "100%", justify: "center", paddingBlockEnd: 8, children: /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react55.Button, { variant: "solid", colorScheme: "blue", onClick: onLoadMore, children: "Carregar mais" }, void 0, !1, {
           fileName: "app/routes/_auth.home.tsx",
-          lineNumber: 214,
+          lineNumber: 224,
           columnNumber: 9
         }, this) }, void 0, !1, {
           fileName: "app/routes/_auth.home.tsx",
-          lineNumber: 213,
+          lineNumber: 223,
           columnNumber: 7
         }, this)
       ]
@@ -5137,7 +5164,7 @@ function __default() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-FAPOEOMU.js", imports: ["/build/_shared/chunk-R5NLA4ZP.js", "/build/_shared/chunk-H6OBPNVQ.js", "/build/_shared/chunk-LTOX4GGY.js", "/build/_shared/chunk-OJCDOD5O.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-BQ2573TN.js", imports: ["/build/_shared/chunk-RAMCN2VN.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-V3XOQOHK.js", imports: ["/build/_shared/chunk-AG777BZM.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-YFT34ZVI.js", imports: ["/build/_shared/chunk-A3H3NXR3.js", "/build/_shared/chunk-SSIFVZXZ.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-WEGZXBVC.js", imports: ["/build/_shared/chunk-YVASTRML.js", "/build/_shared/chunk-RAMCN2VN.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-R7WIHXX3.js", imports: ["/build/_shared/chunk-AG777BZM.js", "/build/_shared/chunk-YVASTRML.js", "/build/_shared/chunk-RAMCN2VN.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-NIBXSVUV.js", imports: ["/build/_shared/chunk-SSIFVZXZ.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-LVBVNPMF.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "c02a7119", hmr: void 0, url: "/build/manifest-C02A7119.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-FAPOEOMU.js", imports: ["/build/_shared/chunk-R5NLA4ZP.js", "/build/_shared/chunk-H6OBPNVQ.js", "/build/_shared/chunk-LTOX4GGY.js", "/build/_shared/chunk-OJCDOD5O.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-BQ2573TN.js", imports: ["/build/_shared/chunk-RAMCN2VN.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-V3XOQOHK.js", imports: ["/build/_shared/chunk-AG777BZM.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-YFT34ZVI.js", imports: ["/build/_shared/chunk-A3H3NXR3.js", "/build/_shared/chunk-SSIFVZXZ.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-HJGGKUDA.js", imports: ["/build/_shared/chunk-YVASTRML.js", "/build/_shared/chunk-RAMCN2VN.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-R7WIHXX3.js", imports: ["/build/_shared/chunk-AG777BZM.js", "/build/_shared/chunk-YVASTRML.js", "/build/_shared/chunk-RAMCN2VN.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-NIBXSVUV.js", imports: ["/build/_shared/chunk-SSIFVZXZ.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-LVBVNPMF.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "f18fb706", hmr: void 0, url: "/build/manifest-F18FB706.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !1, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
