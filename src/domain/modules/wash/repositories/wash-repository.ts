@@ -13,6 +13,11 @@ export type FindWashesMethodDTO = {
   skip?: number;
 };
 
+export type UpdateWashRepoAbstractMethodDTO = {
+  id: string;
+  data: { isCompleted?: boolean; scheduleDate?: string; note?: string };
+};
+
 export abstract class WashRepository {
   abstract create(wash: Wash): void;
   abstract createMany(washes: Wash[]): Promise<void>;
@@ -20,4 +25,5 @@ export abstract class WashRepository {
   abstract update(id: string, data: Partial<Wash>): Promise<Wash | null>;
   abstract findWashesByCycleId(cycleId: string): Promise<Wash[]>;
   abstract findWashes(data: FindWashesMethodDTO): Promise<Wash[]>;
+  abstract updateWash(dto: UpdateWashRepoAbstractMethodDTO): Promise<Wash>;
 }

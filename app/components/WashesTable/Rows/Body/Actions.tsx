@@ -1,16 +1,19 @@
-import { Flex, IconButton } from "@chakra-ui/react";
+import { Flex, IconButton, Input } from "@chakra-ui/react";
 import { table } from "~/components/Table";
 import { MdClose, MdOutlineCheck } from "react-icons/md";
+import { Form } from "@remix-run/react";
 
 type Props = {
   isCompleted?: boolean;
+  id?: string;
 };
 
 function CancelButton() {
   return (
     <IconButton
       type="submit"
-      value="cancel_wash"
+      value="false"
+      name="isCompleted"
       aria-label="cancel-wash"
       colorScheme={"red"}
       borderRadius="full"
@@ -23,7 +26,8 @@ function ConfirmButton() {
   return (
     <IconButton
       type="submit"
-      value="confirm_wash"
+      value="true"
+      name="isCompleted"
       aria-label="confirm-wash"
       colorScheme={"green"}
       borderRadius="full"
@@ -32,10 +36,11 @@ function ConfirmButton() {
   );
 }
 
-export function Actions({ isCompleted }: Props) {
+export function Actions({ isCompleted, id }: Props) {
   return (
     <table.Data>
-      <Flex gap={4}>
+      <Flex as={Form} method="PUT" gap={4}>
+        <Input type="hidden" readOnly name="id" value={id} />
         {typeof isCompleted === "undefined" && (
           <>
             <CancelButton />

@@ -2194,7 +2194,7 @@ var summary = {
 };
 
 // app/routes/_auth.new-wash._index.tsx
-var import_node2 = require("@remix-run/node"), import_react45 = require("@remix-run/react");
+var import_node = require("@remix-run/node"), import_react45 = require("@remix-run/react");
 
 // app/components/hooks/useToast.ts
 var import_react41 = require("react"), import_react42 = require("@chakra-ui/react"), useToast = () => {
@@ -2609,6 +2609,13 @@ var PrismaWashMapper = class {
 
 // src/infra/database/prisma/repositories/washes-repository.ts
 var PrismaWashRepository = class {
+  async updateWash({
+    id,
+    data
+  }) {
+    let wash = await prisma.wash.update({ where: { id }, data });
+    return PrismaWashMapper.toDomain(wash);
+  }
   async findWashes({
     filters,
     cursor,
@@ -2712,7 +2719,7 @@ function initializeCycleController(data) {
 }
 
 // app/sessions.ts
-var import_node = require("@remix-run/node"), { commitSession, destroySession, getSession } = (0, import_node.createCookieSessionStorage)({
+var import_remix = require("@vercel/remix"), { commitSession, destroySession, getSession } = (0, import_remix.createCookieSessionStorage)({
   // a Cookie from `createCookie` or the CookieOptions to create one
   cookie: {
     name: "__session",
@@ -2883,7 +2890,7 @@ var import_jsx_dev_runtime26 = require("react/jsx-dev-runtime");
 async function action({ request }) {
   let jsonData = await request.json(), vehicle = jsonData == null ? void 0 : jsonData.vehicle, washes = jsonData == null ? void 0 : jsonData.washes, driver = jsonData == null ? void 0 : jsonData.driver;
   if (!vehicle)
-    return (0, import_node2.json)(
+    return (0, import_node.json)(
       {
         error: !0,
         message: "Voc\xEA precisa fornecer o ve\xEDculo"
@@ -2898,7 +2905,7 @@ async function action({ request }) {
       driver
     });
     if (createdVehicle.error)
-      return (0, import_node2.json)(
+      return (0, import_node.json)(
         {
           error: !0,
           message: createdVehicle.error.message
@@ -2911,7 +2918,7 @@ async function action({ request }) {
       washes
     });
     if (initializedCycle.error)
-      return (0, import_node2.json)(
+      return (0, import_node.json)(
         {
           error: !0,
           message: initializedCycle.error.message
@@ -2925,7 +2932,7 @@ async function action({ request }) {
       washes
     });
     if (initializeCycleData.error)
-      return (0, import_node2.json)(
+      return (0, import_node.json)(
         {
           error: !0,
           message: initializeCycleData.error.message
@@ -2933,7 +2940,7 @@ async function action({ request }) {
         initializeCycleData.error.statusCode
       );
   }
-  return (0, import_node2.json)({ success: !0, message: "Lavagens criadas" }, 201);
+  return (0, import_node.json)({ success: !0, message: "Lavagens criadas" }, 201);
 }
 function NewWash() {
   let { Stepper: Stepper2, activeStep, steps: steps2, goToPrevious, goToNext, setActiveStep } = useStepper(), { showErrorToast, showSuccessToast } = useToast(), [error, setError] = (0, import_react44.useState)(!1), [vehicle, setVehicle] = (0, import_react44.useState)(defaultVehicleState), [washes, setWashes] = (0, import_react44.useState)(washesDefaultValue), [driver, setDriver] = (0, import_react44.useState)(defaultDriverValue), submit = (0, import_react45.useSubmit)(), navigate = (0, import_react45.useNavigate)(), data = (0, import_react45.useActionData)(), addError = (0, import_react44.useCallback)(() => {
@@ -3272,11 +3279,11 @@ async function loader3({ request }) {
 // app/routes/_auth.home.tsx
 var auth_home_exports = {};
 __export(auth_home_exports, {
+  action: () => action2,
   default: () => auth_home_default,
-  headers: () => headers,
   loader: () => loader4
 });
-var import_react55 = require("@chakra-ui/react"), import_node3 = require("@remix-run/node"), import_react56 = require("@remix-run/react");
+var import_react56 = require("@chakra-ui/react"), import_remix2 = require("@vercel/remix"), import_react57 = require("@remix-run/react");
 
 // src/domain/modules/wash/use-cases/find-washes.ts
 var FindWashes = class {
@@ -3313,6 +3320,31 @@ async function controller6({
   return { washes: washes.map((w) => HttpMapper.wash(w)) };
 }
 var findManyWashesController = (data) => asyncWrapper(() => controller6(data));
+
+// src/domain/modules/wash/use-cases/update-wash.ts
+var UpdateWash = class {
+  constructor(washRepo) {
+    this.washRepo = washRepo;
+  }
+  async execute(dto) {
+    return { wash: await this.washRepo.updateWash(dto) };
+  }
+};
+
+// src/infra/http/controllers/update-wash-controller.ts
+async function controller7({ data, id }) {
+  let washRepo = new PrismaWashRepository(), updateWash = new UpdateWash(washRepo);
+  if (!id)
+    throw new AppError("Voc\xEA precisar fornecer o campo 'createdBy", 400);
+  if (typeof data.isCompleted > "u" && !data.note && !data.scheduleDate)
+    throw new AppError(
+      "Voc\xEA precisar fornecer pelo menos um campo para update",
+      400
+    );
+  let { wash } = await updateWash.execute({ data, id });
+  return { wash: HttpMapper.wash(wash) };
+}
+var updateWashController = (data) => asyncWrapper(() => controller7(data));
 
 // app/components/Home/Container.tsx
 var import_react46 = require("@chakra-ui/react"), import_jsx_dev_runtime27 = require("react/jsx-dev-runtime");
@@ -3495,19 +3527,20 @@ function Head2({ children }) {
 
 // app/components/WashesTable/Rows/Body/Actions.tsx
 var import_react52 = require("@chakra-ui/react");
-var import_md2 = require("react-icons/md"), import_jsx_dev_runtime40 = require("react/jsx-dev-runtime");
+var import_md2 = require("react-icons/md"), import_react53 = require("@remix-run/react"), import_jsx_dev_runtime40 = require("react/jsx-dev-runtime");
 function CancelButton() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime40.jsxDEV)(
     import_react52.IconButton,
     {
       type: "submit",
-      value: "cancel_wash",
+      value: "false",
+      name: "isCompleted",
       "aria-label": "cancel-wash",
       colorScheme: "red",
       borderRadius: "full",
       icon: /* @__PURE__ */ (0, import_jsx_dev_runtime40.jsxDEV)(import_md2.MdClose, { size: 20 }, void 0, !1, {
         fileName: "app/components/WashesTable/Rows/Body/Actions.tsx",
-        lineNumber: 17,
+        lineNumber: 20,
         columnNumber: 13
       }, this)
     },
@@ -3515,7 +3548,7 @@ function CancelButton() {
     !1,
     {
       fileName: "app/components/WashesTable/Rows/Body/Actions.tsx",
-      lineNumber: 11,
+      lineNumber: 13,
       columnNumber: 5
     },
     this
@@ -3526,13 +3559,14 @@ function ConfirmButton() {
     import_react52.IconButton,
     {
       type: "submit",
-      value: "confirm_wash",
+      value: "true",
+      name: "isCompleted",
       "aria-label": "confirm-wash",
       colorScheme: "green",
       borderRadius: "full",
       icon: /* @__PURE__ */ (0, import_jsx_dev_runtime40.jsxDEV)(import_md2.MdOutlineCheck, { size: 20 }, void 0, !1, {
         fileName: "app/components/WashesTable/Rows/Body/Actions.tsx",
-        lineNumber: 30,
+        lineNumber: 34,
         columnNumber: 13
       }, this)
     },
@@ -3540,47 +3574,52 @@ function ConfirmButton() {
     !1,
     {
       fileName: "app/components/WashesTable/Rows/Body/Actions.tsx",
-      lineNumber: 24,
+      lineNumber: 27,
       columnNumber: 5
     },
     this
   );
 }
-function Actions2({ isCompleted }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime40.jsxDEV)(table.Data, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime40.jsxDEV)(import_react52.Flex, { gap: 4, children: [
+function Actions2({ isCompleted, id }) {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime40.jsxDEV)(table.Data, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime40.jsxDEV)(import_react52.Flex, { as: import_react53.Form, method: "PUT", gap: 4, children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime40.jsxDEV)(import_react52.Input, { type: "hidden", readOnly: !0, name: "id", value: id }, void 0, !1, {
+      fileName: "app/components/WashesTable/Rows/Body/Actions.tsx",
+      lineNumber: 43,
+      columnNumber: 9
+    }, this),
     typeof isCompleted > "u" && /* @__PURE__ */ (0, import_jsx_dev_runtime40.jsxDEV)(import_jsx_dev_runtime40.Fragment, { children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime40.jsxDEV)(CancelButton, {}, void 0, !1, {
         fileName: "app/components/WashesTable/Rows/Body/Actions.tsx",
-        lineNumber: 41,
+        lineNumber: 46,
         columnNumber: 13
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime40.jsxDEV)(ConfirmButton, {}, void 0, !1, {
         fileName: "app/components/WashesTable/Rows/Body/Actions.tsx",
-        lineNumber: 42,
+        lineNumber: 47,
         columnNumber: 13
       }, this)
     ] }, void 0, !0, {
       fileName: "app/components/WashesTable/Rows/Body/Actions.tsx",
-      lineNumber: 40,
+      lineNumber: 45,
       columnNumber: 11
     }, this),
     isCompleted === !0 && /* @__PURE__ */ (0, import_jsx_dev_runtime40.jsxDEV)(CancelButton, {}, void 0, !1, {
       fileName: "app/components/WashesTable/Rows/Body/Actions.tsx",
-      lineNumber: 45,
+      lineNumber: 50,
       columnNumber: 34
     }, this),
     isCompleted === !1 && /* @__PURE__ */ (0, import_jsx_dev_runtime40.jsxDEV)(ConfirmButton, {}, void 0, !1, {
       fileName: "app/components/WashesTable/Rows/Body/Actions.tsx",
-      lineNumber: 46,
+      lineNumber: 51,
       columnNumber: 35
     }, this)
   ] }, void 0, !0, {
     fileName: "app/components/WashesTable/Rows/Body/Actions.tsx",
-    lineNumber: 38,
+    lineNumber: 42,
     columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/components/WashesTable/Rows/Body/Actions.tsx",
-    lineNumber: 37,
+    lineNumber: 41,
     columnNumber: 5
   }, this);
 }
@@ -3627,14 +3666,14 @@ function ScheduledDate2({ scheduledDate }) {
 }
 
 // app/components/WashesTable/Rows/Body/Status.tsx
-var import_react53 = require("@chakra-ui/react");
+var import_react54 = require("@chakra-ui/react");
 var import_jsx_dev_runtime45 = require("react/jsx-dev-runtime");
 function Status2({ label, ...rest }) {
   function getTextColor(label2) {
     return label2 === "Atrasada" ? "red.400" : label2 === "Aguardando" ? "blue.400" : "green.400";
   }
   let color = getTextColor(label);
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime45.jsxDEV)(table.Data, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime45.jsxDEV)(import_react53.Alert, { borderRadius: "full", justifyContent: "center", ...rest, children: /* @__PURE__ */ (0, import_jsx_dev_runtime45.jsxDEV)(import_react53.Text, { color, children: label }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime45.jsxDEV)(table.Data, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime45.jsxDEV)(import_react54.Alert, { borderRadius: "full", justifyContent: "center", ...rest, children: /* @__PURE__ */ (0, import_jsx_dev_runtime45.jsxDEV)(import_react54.Text, { color, children: label }, void 0, !1, {
     fileName: "app/components/WashesTable/Rows/Body/Status.tsx",
     lineNumber: 22,
     columnNumber: 9
@@ -3670,10 +3709,10 @@ function Body2({
 }
 
 // app/components/WashesTable/Filters.tsx
-var import_react54 = require("@chakra-ui/react"), import_jsx_dev_runtime47 = require("react/jsx-dev-runtime");
+var import_react55 = require("@chakra-ui/react"), import_jsx_dev_runtime47 = require("react/jsx-dev-runtime");
 function Status3({ ...rest }) {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime47.jsxDEV)(
-    import_react54.Select,
+    import_react55.Select,
     {
       maxInlineSize: "260px",
       minBlockSize: 12,
@@ -3714,7 +3753,7 @@ function Status3({ ...rest }) {
 }
 function Date2({ ...rest }) {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime47.jsxDEV)(
-    import_react54.Input,
+    import_react55.Input,
     {
       type: "date",
       variant: "outline",
@@ -3735,7 +3774,7 @@ function Date2({ ...rest }) {
 }
 function Search({ ...props }) {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime47.jsxDEV)(
-    import_react54.Input,
+    import_react55.Input,
     {
       type: "text",
       name: "licensePlate",
@@ -3787,16 +3826,25 @@ var washesTable = {
 };
 
 // app/routes/_auth.home.tsx
-var import_lu = require("react-icons/lu"), import_react57 = require("react"), import_jsx_dev_runtime48 = require("react/jsx-dev-runtime"), headers = ({ parentHeaders }) => ({
-  "Cache-Control": parentHeaders.get("Cache-control") ?? "max-age=3600"
-});
+var import_lu = require("react-icons/lu"), import_react58 = require("react"), import_jsx_dev_runtime48 = require("react/jsx-dev-runtime");
+async function action2({ request }) {
+  var _a;
+  let form = await request.formData(), id = (_a = form.get("id")) == null ? void 0 : _a.toString(), isCompleted = form.get("isCompleted") === "true";
+  if (!id)
+    return (0, import_remix2.json)({ error: "" });
+  let { wash, error } = await updateWashController({
+    id,
+    data: { isCompleted }
+  });
+  return error ? (0, import_remix2.json)({ error: { message: error.message } }) : (0, import_remix2.json)({ wash });
+}
 async function loader4({ request }) {
   let url = new URL(request.url), params = new URLSearchParams(url.searchParams), session = await getSession(request.headers.get("Cookie")), licensePlate = params.get("licensePlate") ?? void 0, startDate = params.get("startDate") ?? void 0, endDate = params.get("endDate") ?? void 0, washStatus = params.get("status") ?? void 0, cursor = params.get("cursor") ?? void 0, token = session.get("token");
   if (!token)
-    throw (0, import_node3.redirect)("/sign-in");
+    throw (0, import_remix2.redirect)("/sign-in");
   let { error, user } = await validateSessionId({ sessionId: token });
   if (error || !user)
-    throw session.unset("token"), (0, import_node3.redirect)("/sign-in", {
+    throw session.unset("token"), (0, import_remix2.redirect)("/sign-in", {
       headers: {
         "Set-Cookie": await commitSession(session)
       }
@@ -3812,12 +3860,11 @@ async function loader4({ request }) {
     take: 4,
     cursor: { id: cursor }
   }, { washes } = await findManyWashesController(dto);
-  return (0, import_node3.json)({ user, washes });
+  return (0, import_remix2.json)({ user, washes });
 }
 function auth_home_default() {
   var _a;
-  let { user, washes } = (0, import_react56.useLoaderData)(), [data, setData] = (0, import_react57.useState)(washes), submit = (0, import_react56.useSubmit)(), ref = (0, import_react57.useRef)(null), cursorRef = (0, import_react57.useRef)(null), onLastRowIntersecting = (lastElement) => {
-    new FormData((ref == null ? void 0 : ref.current) ?? void 0).set("cursor", lastElement.id);
+  let { user, washes } = (0, import_react57.useLoaderData)(), actionData = (0, import_react57.useActionData)(), [data, setData] = (0, import_react58.useState)(washes), submit = (0, import_react57.useSubmit)(), ref = (0, import_react58.useRef)(null), onLastRowIntersecting = (lastElement) => {
   };
   function onFilter() {
     let form = new FormData((ref == null ? void 0 : ref.current) ?? void 0);
@@ -3827,11 +3874,19 @@ function auth_home_default() {
     let form = new FormData((ref == null ? void 0 : ref.current) ?? void 0);
     submit(form, { preventScrollReset: !0, replace: !0 });
   }
-  return (0, import_react57.useEffect)(() => {
+  function downloadCsv() {
+    submit({}, { action: "/csv", method: "POST" });
+  }
+  return (0, import_react58.useEffect)(() => {
+    actionData != null && actionData.wash && setData((d) => {
+      let arr = d, index = arr.findIndex((v) => (v == null ? void 0 : v.id) === actionData.wash.id);
+      return index > -1 && (arr[index] = actionData.wash), arr;
+    });
+  }, [actionData]), (0, import_react58.useEffect)(() => {
     setData((d) => {
-      let arr = d;
+      let arr = [...d];
       return washes.forEach((w) => {
-        arr.find((v) => (v == null ? void 0 : v.id) === (w == null ? void 0 : w.id)) || arr.push(w);
+        arr.findIndex((v) => (v == null ? void 0 : v.id) === (w == null ? void 0 : w.id)) > -1 || arr.push(w);
       }), arr;
     });
   }, [washes]), /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
@@ -3842,16 +3897,16 @@ function auth_home_default() {
       paddingInline: [2, 2, 8],
       position: "relative",
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react55.Text, { as: "h1", fontSize: "4xl", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Text, { as: "h1", fontSize: "4xl", children: [
           "Ol\xE1, ",
           user.username
         ] }, void 0, !0, {
           fileName: "app/routes/_auth.home.tsx",
-          lineNumber: 113,
+          lineNumber: 156,
           columnNumber: 7
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
-          import_react55.Flex,
+          import_react56.Flex,
           {
             flexDir: ["column"],
             align: "center",
@@ -3860,9 +3915,9 @@ function auth_home_default() {
             inlineSize: "100%",
             children: [
               /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
-                import_react55.Flex,
+                import_react56.Flex,
                 {
-                  as: import_react56.Form,
+                  as: import_react57.Form,
                   preventScrollReset: !0,
                   id: "filters",
                   ref,
@@ -3873,7 +3928,7 @@ function auth_home_default() {
                   inlineSize: "100%",
                   children: [
                     /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
-                      import_react55.Input,
+                      import_react56.Input,
                       {
                         type: "hidden",
                         readOnly: !0,
@@ -3884,35 +3939,35 @@ function auth_home_default() {
                       !1,
                       {
                         fileName: "app/routes/_auth.home.tsx",
-                        lineNumber: 134,
+                        lineNumber: 177,
                         columnNumber: 11
                       },
                       this
                     ),
                     /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.filters.Search, {}, void 0, !1, {
                       fileName: "app/routes/_auth.home.tsx",
-                      lineNumber: 140,
+                      lineNumber: 183,
                       columnNumber: 11
                     }, this),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react55.Flex, { gap: [2, 2, 6], align: "center", children: [
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Flex, { gap: [2, 2, 6], align: "center", children: [
                       /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.filters.Date, { name: "startDate", size: "sm" }, void 0, !1, {
                         fileName: "app/routes/_auth.home.tsx",
-                        lineNumber: 142,
+                        lineNumber: 185,
                         columnNumber: 13
                       }, this),
-                      /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react55.Text, { children: "at\xE9" }, void 0, !1, {
+                      /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Text, { children: "at\xE9" }, void 0, !1, {
                         fileName: "app/routes/_auth.home.tsx",
-                        lineNumber: 143,
+                        lineNumber: 186,
                         columnNumber: 13
                       }, this),
                       /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.filters.Date, { name: "endDate", size: "sm" }, void 0, !1, {
                         fileName: "app/routes/_auth.home.tsx",
-                        lineNumber: 144,
+                        lineNumber: 187,
                         columnNumber: 13
                       }, this)
                     ] }, void 0, !0, {
                       fileName: "app/routes/_auth.home.tsx",
-                      lineNumber: 141,
+                      lineNumber: 184,
                       columnNumber: 11
                     }, this),
                     /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
@@ -3925,14 +3980,14 @@ function auth_home_default() {
                       !1,
                       {
                         fileName: "app/routes/_auth.home.tsx",
-                        lineNumber: 146,
+                        lineNumber: 189,
                         columnNumber: 11
                       },
                       this
                     ),
-                    /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react55.Flex, { gap: 4, children: [
+                    /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Flex, { gap: 4, children: [
                       /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
-                        import_react55.Button,
+                        import_react56.Button,
                         {
                           minInlineSize: "160px",
                           colorScheme: "gray",
@@ -3947,13 +4002,13 @@ function auth_home_default() {
                         !1,
                         {
                           fileName: "app/routes/_auth.home.tsx",
-                          lineNumber: 151,
+                          lineNumber: 194,
                           columnNumber: 13
                         },
                         this
                       ),
                       /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
-                        import_react55.Button,
+                        import_react56.Button,
                         {
                           minInlineSize: "160px",
                           variant: "solid",
@@ -3966,14 +4021,14 @@ function auth_home_default() {
                         !1,
                         {
                           fileName: "app/routes/_auth.home.tsx",
-                          lineNumber: 159,
+                          lineNumber: 202,
                           columnNumber: 13
                         },
                         this
                       )
                     ] }, void 0, !0, {
                       fileName: "app/routes/_auth.home.tsx",
-                      lineNumber: 150,
+                      lineNumber: 193,
                       columnNumber: 11
                     }, this)
                   ]
@@ -3982,48 +4037,50 @@ function auth_home_default() {
                 !0,
                 {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 123,
+                  lineNumber: 166,
                   columnNumber: 9
                 },
                 this
               ),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react55.Divider, {}, void 0, !1, {
+              /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Divider, {}, void 0, !1, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 170,
+                lineNumber: 213,
                 columnNumber: 9
               }, this),
-              /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react55.Flex, { justify: "space-between", align: "center", inlineSize: "90%", children: [
-                washes && /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react55.Text, { fontWeight: "semibold", color: "gray.400", fontSize: "sm", children: data.length > 0 ? `showing ${data.length} results` : "nenhuma lavagem foi encontrada" }, void 0, !1, {
+              /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Flex, { justify: "space-between", align: "center", inlineSize: "90%", children: [
+                washes && /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Text, { fontWeight: "semibold", color: "gray.400", fontSize: "sm", children: data.length > 0 ? `showing ${data.length} results` : "nenhuma lavagem foi encontrada" }, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 173,
+                  lineNumber: 216,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
-                  import_react55.Button,
+                  import_react56.Button,
                   {
+                    as: import_react57.Link,
+                    reloadDocument: !0,
+                    to: "/csv",
                     variant: "outline",
                     borderRadius: "full",
                     rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_lu.LuExternalLink, {}, void 0, !1, {
                       fileName: "app/routes/_auth.home.tsx",
-                      lineNumber: 182,
-                      columnNumber: 24
+                      lineNumber: 228,
+                      columnNumber: 26
                     }, this),
                     value: "EXPORT",
-                    type: "submit",
                     children: "baixar"
                   },
                   void 0,
                   !1,
                   {
                     fileName: "app/routes/_auth.home.tsx",
-                    lineNumber: 179,
-                    columnNumber: 11
+                    lineNumber: 222,
+                    columnNumber: 13
                   },
                   this
                 )
               ] }, void 0, !0, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 171,
+                lineNumber: 214,
                 columnNumber: 9
               }, this)
             ]
@@ -4032,7 +4089,7 @@ function auth_home_default() {
           !0,
           {
             fileName: "app/routes/_auth.home.tsx",
-            lineNumber: 116,
+            lineNumber: 159,
             columnNumber: 7
           },
           this
@@ -4046,42 +4103,42 @@ function auth_home_default() {
               /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.Head, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.Row, { children: [
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.LicensePlate, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 196,
+                  lineNumber: 241,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.ScheduledDate, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 197,
+                  lineNumber: 242,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.Status, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 198,
+                  lineNumber: 243,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.Note, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 199,
+                  lineNumber: 244,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.Actions, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 200,
+                  lineNumber: 245,
                   columnNumber: 13
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 195,
+                lineNumber: 240,
                 columnNumber: 11
               }, this) }, void 0, !1, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 194,
+                lineNumber: 239,
                 columnNumber: 9
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.Body, { onIntersecting: onLastRowIntersecting, children: data == null ? void 0 : data.map((w, i, arr) => /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.Row, { id: w == null ? void 0 : w.id, children: [
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.bodyData.LicensePlate, { licensePlate: (w == null ? void 0 : w.id) ?? "" }, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 208,
+                  lineNumber: 253,
                   columnNumber: 17
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
@@ -4093,7 +4150,7 @@ function auth_home_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.home.tsx",
-                    lineNumber: 209,
+                    lineNumber: 254,
                     columnNumber: 17
                   },
                   this
@@ -4108,28 +4165,38 @@ function auth_home_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.home.tsx",
-                    lineNumber: 212,
+                    lineNumber: 257,
                     columnNumber: 17
                   },
                   this
                 ),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.bodyData.Note, { note: (w == null ? void 0 : w.note) ?? "" }, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 216,
+                  lineNumber: 261,
                   columnNumber: 17
                 }, this),
-                /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.bodyData.Actions, { isCompleted: w == null ? void 0 : w.isCompleted }, void 0, !1, {
-                  fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 217,
-                  columnNumber: 17
-                }, this)
+                /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
+                  washesTable.bodyData.Actions,
+                  {
+                    isCompleted: w == null ? void 0 : w.isCompleted,
+                    id: w == null ? void 0 : w.id
+                  },
+                  void 0,
+                  !1,
+                  {
+                    fileName: "app/routes/_auth.home.tsx",
+                    lineNumber: 262,
+                    columnNumber: 17
+                  },
+                  this
+                )
               ] }, w == null ? void 0 : w.id, !0, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 207,
+                lineNumber: 252,
                 columnNumber: 15
               }, this)) }, void 0, !1, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 204,
+                lineNumber: 249,
                 columnNumber: 9
               }, this)
             ]
@@ -4138,18 +4205,18 @@ function auth_home_default() {
           !0,
           {
             fileName: "app/routes/_auth.home.tsx",
-            lineNumber: 190,
+            lineNumber: 235,
             columnNumber: 7
           },
           this
         ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react55.Flex, { inlineSize: "100%", justify: "center", paddingBlockEnd: 8, children: /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react55.Button, { variant: "solid", colorScheme: "blue", onClick: onLoadMore, children: "Carregar mais" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Flex, { inlineSize: "100%", justify: "center", paddingBlockEnd: 8, children: /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Button, { variant: "solid", colorScheme: "blue", onClick: onLoadMore, children: "Carregar mais" }, void 0, !1, {
           fileName: "app/routes/_auth.home.tsx",
-          lineNumber: 224,
+          lineNumber: 272,
           columnNumber: 9
         }, this) }, void 0, !1, {
           fileName: "app/routes/_auth.home.tsx",
-          lineNumber: 223,
+          lineNumber: 271,
           columnNumber: 7
         }, this)
       ]
@@ -4158,7 +4225,7 @@ function auth_home_default() {
     !0,
     {
       fileName: "app/routes/_auth.home.tsx",
-      lineNumber: 107,
+      lineNumber: 150,
       columnNumber: 5
     },
     this
@@ -4168,11 +4235,11 @@ function auth_home_default() {
 // app/routes/sign-in.tsx
 var sign_in_exports = {};
 __export(sign_in_exports, {
-  action: () => action2,
+  action: () => action3,
   default: () => sign_in_default,
   loader: () => loader5
 });
-var import_react59 = require("@chakra-ui/react"), import_bs2 = require("react-icons/bs"), import_md3 = require("react-icons/md"), import_node4 = require("@remix-run/node"), import_react60 = require("@remix-run/react");
+var import_react60 = require("@chakra-ui/react"), import_bs2 = require("react-icons/bs"), import_md3 = require("react-icons/md"), import_node2 = require("@remix-run/node"), import_react61 = require("@remix-run/react");
 
 // src/domain/shared/utils/hash-manipulator.ts
 var import_bcrypt = __toESM(require("bcrypt")), HashManipulator = class {
@@ -4224,13 +4291,13 @@ async function signInUserController({ email, password }) {
 }
 
 // app/components/Footer.tsx
-var import_react58 = require("@chakra-ui/react"), import_bs = require("react-icons/bs"), import_jsx_dev_runtime49 = require("react/jsx-dev-runtime");
+var import_react59 = require("@chakra-ui/react"), import_bs = require("react-icons/bs"), import_jsx_dev_runtime49 = require("react/jsx-dev-runtime");
 function Footer() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react58.Center, { textAlign: "center", paddingBlock: 0.5, gap: 2, bg: "blue.500", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react58.Text, { fontSize: "xs", color: "white", children: [
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react59.Center, { textAlign: "center", paddingBlock: 0.5, gap: 2, bg: "blue.500", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react59.Text, { fontSize: "xs", color: "white", children: [
       "Feito por",
       " ",
-      /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react58.Link, { target: "_blank", href: "https://github.com/euliveiras", children: "@euliveiras" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react59.Link, { target: "_blank", href: "https://github.com/euliveiras", children: "@euliveiras" }, void 0, !1, {
         fileName: "app/components/Footer.tsx",
         lineNumber: 9,
         columnNumber: 9
@@ -4254,7 +4321,7 @@ function Footer() {
 
 // app/routes/sign-in.tsx
 var import_jsx_dev_runtime50 = require("react/jsx-dev-runtime");
-async function action2({ request }) {
+async function action3({ request }) {
   let form = await request.formData(), email = form.get("email"), password = form.get("password"), session = await getSession(request.headers.get("Cookie"));
   if (typeof password != "string" || typeof email != "string")
     return new Response(JSON.stringify({ error: "credentials is invalid" }), {
@@ -4269,7 +4336,7 @@ async function action2({ request }) {
     headers: {
       "Content-Type": "application/json"
     }
-  }) : (session.set("token", sessionId), (0, import_node4.redirect)("/home", {
+  }) : (session.set("token", sessionId), (0, import_node2.redirect)("/home", {
     headers: {
       "Set-Cookie": await commitSession(session)
     }
@@ -4278,9 +4345,9 @@ async function action2({ request }) {
 async function loader5({ request }) {
   let token = (await getSession(request.headers.get("Cookie"))).get("token");
   if (!token)
-    return (0, import_node4.json)({});
+    return (0, import_node2.json)({});
   let { user } = await validateSessionId({ sessionId: token });
-  return user ? (0, import_node4.redirect)("/home") : (0, import_node4.json)({});
+  return user ? (0, import_node2.redirect)("/home") : (0, import_node2.json)({});
 }
 function CustomInputGroup({
   icon,
@@ -4291,19 +4358,19 @@ function CustomInputGroup({
   isSubmitting
 }) {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(
-    import_react59.InputGroup,
+    import_react60.InputGroup,
     {
       sx: {
         "--clr": isError ? "#E53E3E" : isSubmitting ? "#48BB78" : isIdle ? "#000000" : "#3182ce"
       },
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react59.InputRightElement, { fontSize: 26, children: icon }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react60.InputRightElement, { fontSize: 26, children: icon }, void 0, !1, {
           fileName: "app/routes/sign-in.tsx",
           lineNumber: 108,
           columnNumber: 7
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(
-          import_react59.Input,
+          import_react60.Input,
           {
             _focusVisible: {
               borderColor: "var(--clr)",
@@ -4337,16 +4404,16 @@ function CustomInputGroup({
   );
 }
 function sign_in_default() {
-  let errors = (0, import_react60.useActionData)(), navigation = (0, import_react60.useNavigation)();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react59.Box, { h: "100vh", w: "100%", children: /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react59.Grid, { h: "100%", w: "100%", templateRows: "1fr auto", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react59.VStack, { paddingBlockStart: [32, 20], children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react59.HStack, { spacing: "4px", children: [
+  let errors = (0, import_react61.useActionData)(), navigation = (0, import_react61.useNavigation)();
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react60.Box, { h: "100vh", w: "100%", children: /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react60.Grid, { h: "100%", w: "100%", templateRows: "1fr auto", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react60.VStack, { paddingBlockStart: [32, 20], children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react60.HStack, { spacing: "4px", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_bs2.BsPerson, { size: "20px", color: "#000000", strokeWidth: "0.8px" }, void 0, !1, {
           fileName: "app/routes/sign-in.tsx",
           lineNumber: 133,
           columnNumber: 13
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react59.Text, { fontWeight: "bold", fontSize: "md", children: "/ login" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react60.Text, { fontWeight: "bold", fontSize: "md", children: "/ login" }, void 0, !1, {
           fileName: "app/routes/sign-in.tsx",
           lineNumber: 134,
           columnNumber: 13
@@ -4357,9 +4424,9 @@ function sign_in_default() {
         columnNumber: 11
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(
-        import_react59.VStack,
+        import_react60.VStack,
         {
-          as: import_react60.Form,
+          as: import_react61.Form,
           spacing: 6,
           border: "1px",
           borderColor: "blackAlpha.100",
@@ -4370,8 +4437,8 @@ function sign_in_default() {
           padding: 8,
           method: "POST",
           children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react59.FormControl, { isRequired: !0, children: [
-              /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react59.FormLabel, { fontSize: "sm", children: "email" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react60.FormControl, { isRequired: !0, children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react60.FormLabel, { fontSize: "sm", children: "email" }, void 0, !1, {
                 fileName: "app/routes/sign-in.tsx",
                 lineNumber: 151,
                 columnNumber: 15
@@ -4404,8 +4471,8 @@ function sign_in_default() {
               lineNumber: 150,
               columnNumber: 13
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react59.FormControl, { isRequired: !0, children: [
-              /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react59.FormLabel, { fontSize: "sm", children: "password" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react60.FormControl, { isRequired: !0, children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react60.FormLabel, { fontSize: "sm", children: "password" }, void 0, !1, {
                 fileName: "app/routes/sign-in.tsx",
                 lineNumber: 162,
                 columnNumber: 15
@@ -4438,13 +4505,13 @@ function sign_in_default() {
               lineNumber: 161,
               columnNumber: 13
             }, this),
-            (errors == null ? void 0 : errors.error) && /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react59.Text, { color: "red.500", children: errors == null ? void 0 : errors.error }, void 0, !1, {
+            (errors == null ? void 0 : errors.error) && /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react60.Text, { color: "red.500", children: errors == null ? void 0 : errors.error }, void 0, !1, {
               fileName: "app/routes/sign-in.tsx",
               lineNumber: 172,
               columnNumber: 31
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(
-              import_react59.Button,
+              import_react60.Button,
               {
                 marginBlockStart: 4,
                 colorScheme: "blue",
@@ -4499,10 +4566,10 @@ function sign_in_default() {
 // app/routes/sign-up.tsx
 var sign_up_exports = {};
 __export(sign_up_exports, {
-  action: () => action3,
+  action: () => action4,
   default: () => sign_up_default
 });
-var import_node5 = require("@remix-run/node"), import_react61 = require("@remix-run/react");
+var import_node3 = require("@remix-run/node"), import_react62 = require("@remix-run/react");
 
 // src/domain/modules/user/use-cases/create-user.ts
 var CreateUser = class {
@@ -4534,10 +4601,10 @@ async function createUserController({ username, email, password }) {
 
 // app/routes/sign-up.tsx
 var import_jsx_dev_runtime51 = require("react/jsx-dev-runtime");
-async function action3({ request }) {
+async function action4({ request }) {
   let form = await request.formData(), username = form.get("username"), password = form.get("password"), email = form.get("email");
   if (typeof username != "string" || typeof password != "string" || typeof email != "string")
-    return new import_node5.Response(JSON.stringify({ error: "credentials is invalid" }), {
+    return new import_node3.Response(JSON.stringify({ error: "credentials is invalid" }), {
       status: 400,
       headers: {
         "Content-Type": "application/json"
@@ -4545,13 +4612,13 @@ async function action3({ request }) {
     });
   console.log(email, password, username);
   let { error } = await createUserController({ email, password, username });
-  return error ? (console.log(error), new import_node5.Response(null, {
+  return error ? (console.log(error), new import_node3.Response(null, {
     status: 400,
     statusText: error
-  })) : (0, import_node5.redirect)("/sign-in", 201);
+  })) : (0, import_node3.redirect)("/sign-in", 201);
 }
 function sign_up_default() {
-  let data = (0, import_react61.useActionData)();
+  let data = (0, import_react62.useActionData)();
   return /* @__PURE__ */ (0, import_jsx_dev_runtime51.jsxDEV)("div", { children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime51.jsxDEV)("h1", { children: "Sign up" }, void 0, !1, {
       fileName: "app/routes/sign-up.tsx",
@@ -4563,7 +4630,7 @@ function sign_up_default() {
       lineNumber: 42,
       columnNumber: 21
     }, this) : null,
-    /* @__PURE__ */ (0, import_jsx_dev_runtime51.jsxDEV)(import_react61.Form, { method: "POST", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime51.jsxDEV)(import_react62.Form, { method: "POST", children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime51.jsxDEV)("label", { children: [
         "username",
         /* @__PURE__ */ (0, import_jsx_dev_runtime51.jsxDEV)("input", { type: "text", name: "username" }, void 0, !1, {
@@ -4605,7 +4672,7 @@ function sign_up_default() {
         lineNumber: 56,
         columnNumber: 17
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime51.jsxDEV)(import_react61.Link, { to: "/sign-in", children: "logar" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime51.jsxDEV)(import_react62.Link, { to: "/sign-in", children: "logar" }, void 0, !1, {
         fileName: "app/routes/sign-up.tsx",
         lineNumber: 57,
         columnNumber: 17
@@ -4627,28 +4694,28 @@ var index_exports = {};
 __export(index_exports, {
   loader: () => loader6
 });
-var import_node6 = require("@remix-run/node");
+var import_node4 = require("@remix-run/node");
 async function loader6() {
-  return (0, import_node6.redirect)("/home");
+  return (0, import_node4.redirect)("/home");
 }
 
 // app/routes/_auth.tsx
 var auth_exports = {};
 __export(auth_exports, {
   default: () => auth_default,
-  headers: () => headers2,
+  headers: () => headers,
   loader: () => loader7
 });
-var import_node7 = require("@remix-run/node"), import_react68 = require("@remix-run/react");
+var import_node5 = require("@remix-run/node"), import_react69 = require("@remix-run/react");
 
 // app/components/Header.tsx
-var import_react65 = require("@chakra-ui/react"), import_bi = require("react-icons/bi"), import_md5 = require("react-icons/md"), import_lu2 = require("react-icons/lu"), import_react66 = require("@remix-run/react"), import_react67 = require("react");
+var import_react66 = require("@chakra-ui/react"), import_bi = require("react-icons/bi"), import_md5 = require("react-icons/md"), import_lu2 = require("react-icons/lu"), import_react67 = require("@remix-run/react"), import_react68 = require("react");
 
 // app/components/SearchInput.tsx
-var import_react62 = require("@chakra-ui/react"), import_md4 = require("react-icons/md"), import_jsx_dev_runtime52 = require("react/jsx-dev-runtime");
+var import_react63 = require("@chakra-ui/react"), import_md4 = require("react-icons/md"), import_jsx_dev_runtime52 = require("react/jsx-dev-runtime");
 function SearchInput2() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(
-    import_react62.InputGroup,
+    import_react63.InputGroup,
     {
       display: ["none", "none", "block"],
       role: "group",
@@ -4656,7 +4723,7 @@ function SearchInput2() {
       maxInlineSize: 96,
       children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(
-          import_react62.Input,
+          import_react63.Input,
           {
             placeholder: "Procure qualquer coisa",
             borderRadius: "full",
@@ -4673,8 +4740,8 @@ function SearchInput2() {
           },
           this
         ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(import_react62.InputRightElement, { pointerEvents: "none", fontSize: 26, children: /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(
-          import_react62.Icon,
+        /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(import_react63.InputRightElement, { pointerEvents: "none", fontSize: 26, children: /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(
+          import_react63.Icon,
           {
             color: "gray.200",
             as: import_md4.MdOutlineSearch,
@@ -4709,20 +4776,20 @@ function SearchInput2() {
 }
 
 // app/components/Drawer.tsx
-var import_react64 = require("@chakra-ui/react");
+var import_react65 = require("@chakra-ui/react");
 
 // app/components/Avatar.tsx
-var import_react63 = require("@chakra-ui/react"), import_rx = require("react-icons/rx"), import_jsx_dev_runtime53 = require("react/jsx-dev-runtime");
+var import_react64 = require("@chakra-ui/react"), import_rx = require("react-icons/rx"), import_jsx_dev_runtime53 = require("react/jsx-dev-runtime");
 function Avatar({ containerProps, avatarProps, user }) {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime53.jsxDEV)(
-    import_react63.HStack,
+    import_react64.HStack,
     {
       paddingInline: 2,
       display: ["none", "none", "flex"],
       ...containerProps,
       children: [
-        user && /* @__PURE__ */ (0, import_jsx_dev_runtime53.jsxDEV)(import_react63.Menu, { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime53.jsxDEV)(import_react63.MenuButton, { as: import_react63.Button, variant: "ghost", rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime53.jsxDEV)(import_rx.RxChevronDown, {}, void 0, !1, {
+        user && /* @__PURE__ */ (0, import_jsx_dev_runtime53.jsxDEV)(import_react64.Menu, { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime53.jsxDEV)(import_react64.MenuButton, { as: import_react64.Button, variant: "ghost", rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime53.jsxDEV)(import_rx.RxChevronDown, {}, void 0, !1, {
             fileName: "app/components/Avatar.tsx",
             lineNumber: 31,
             columnNumber: 62
@@ -4731,13 +4798,13 @@ function Avatar({ containerProps, avatarProps, user }) {
             lineNumber: 31,
             columnNumber: 11
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime53.jsxDEV)(import_react63.MenuList, { children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime53.jsxDEV)(import_react63.MenuItem, { children: "Configura\xE7\xF5es" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime53.jsxDEV)(import_react64.MenuList, { children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime53.jsxDEV)(import_react64.MenuItem, { children: "Configura\xE7\xF5es" }, void 0, !1, {
               fileName: "app/components/Avatar.tsx",
               lineNumber: 35,
               columnNumber: 13
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime53.jsxDEV)(import_react63.MenuItem, { as: import_react63.Text, color: "red.400", children: "Sair" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime53.jsxDEV)(import_react64.MenuItem, { as: import_react64.Text, color: "red.400", children: "Sair" }, void 0, !1, {
               fileName: "app/components/Avatar.tsx",
               lineNumber: 36,
               columnNumber: 13
@@ -4752,7 +4819,7 @@ function Avatar({ containerProps, avatarProps, user }) {
           lineNumber: 30,
           columnNumber: 9
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime53.jsxDEV)(import_react63.Avatar, { size: "md", name: "Natan", ...avatarProps }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime53.jsxDEV)(import_react64.Avatar, { size: "md", name: "Natan", ...avatarProps }, void 0, !1, {
           fileName: "app/components/Avatar.tsx",
           lineNumber: 40,
           columnNumber: 7
@@ -4774,28 +4841,28 @@ function Avatar({ containerProps, avatarProps, user }) {
 var import_jsx_dev_runtime54 = require("react/jsx-dev-runtime");
 function Drawer({ isOpen, onClose, finalFocusRef, user }) {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime54.jsxDEV)(
-    import_react64.Drawer,
+    import_react65.Drawer,
     {
       isOpen,
       placement: "right",
       onClose,
       finalFocusRef,
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime54.jsxDEV)(import_react64.DrawerOverlay, {}, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime54.jsxDEV)(import_react65.DrawerOverlay, {}, void 0, !1, {
           fileName: "app/components/Drawer.tsx",
           lineNumber: 33,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime54.jsxDEV)(import_react64.DrawerContent, { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime54.jsxDEV)(import_react64.DrawerCloseButton, { top: 4 }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime54.jsxDEV)(import_react65.DrawerContent, { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime54.jsxDEV)(import_react65.DrawerCloseButton, { top: 4 }, void 0, !1, {
             fileName: "app/components/Drawer.tsx",
             lineNumber: 35,
             columnNumber: 9
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime54.jsxDEV)(
-            import_react64.DrawerHeader,
+            import_react65.DrawerHeader,
             {
-              as: import_react64.HStack,
+              as: import_react65.HStack,
               inlineSize: "min-content",
               paddingBlock: 2,
               paddingInline: 4,
@@ -4826,18 +4893,18 @@ function Drawer({ isOpen, onClose, finalFocusRef, user }) {
             },
             this
           ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime54.jsxDEV)(import_react64.DrawerBody, {}, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime54.jsxDEV)(import_react65.DrawerBody, {}, void 0, !1, {
             fileName: "app/components/Drawer.tsx",
             lineNumber: 50,
             columnNumber: 9
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime54.jsxDEV)(import_react64.DrawerFooter, { children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime54.jsxDEV)(import_react64.Button, { variant: "outline", mr: 3, onClick: onClose, children: "Cancel" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime54.jsxDEV)(import_react65.DrawerFooter, { children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime54.jsxDEV)(import_react65.Button, { variant: "outline", mr: 3, onClick: onClose, children: "Cancel" }, void 0, !1, {
               fileName: "app/components/Drawer.tsx",
               lineNumber: 53,
               columnNumber: 11
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime54.jsxDEV)(import_react64.Button, { colorScheme: "blue", children: "Save" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime54.jsxDEV)(import_react65.Button, { colorScheme: "blue", children: "Save" }, void 0, !1, {
               fileName: "app/components/Drawer.tsx",
               lineNumber: 56,
               columnNumber: 11
@@ -4868,9 +4935,9 @@ function Drawer({ isOpen, onClose, finalFocusRef, user }) {
 // app/components/Header.tsx
 var import_jsx_dev_runtime55 = require("react/jsx-dev-runtime");
 function Header({ label, user }) {
-  let { isOpen, onOpen, onClose } = (0, import_react65.useDisclosure)(), btnRef = (0, import_react67.useRef)(null);
+  let { isOpen, onOpen, onClose } = (0, import_react66.useDisclosure)(), btnRef = (0, import_react68.useRef)(null);
   return /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(
-    import_react65.Grid,
+    import_react66.Grid,
     {
       maxH: "120px",
       inlineSize: "100%",
@@ -4880,10 +4947,10 @@ function Header({ label, user }) {
       paddingBlock: 4,
       paddingInline: 1,
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(import_react65.HStack, { spacing: [6], children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(import_react65.HStack, { spacing: 1, children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(import_react66.HStack, { spacing: [6], children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(import_react66.HStack, { spacing: 1, children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(
-              import_react65.IconButton,
+              import_react66.IconButton,
               {
                 variant: "ghost",
                 "aria-label": "go to home",
@@ -4894,7 +4961,7 @@ function Header({ label, user }) {
                   lineNumber: 46,
                   columnNumber: 19
                 }, this),
-                as: import_react66.Link,
+                as: import_react67.Link,
                 to: "/home"
               },
               void 0,
@@ -4906,7 +4973,7 @@ function Header({ label, user }) {
               },
               this
             ),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(import_react65.Text, { letterSpacing: "wider", fontWeight: "bold", fontSize: "md", children: label }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(import_react66.Text, { letterSpacing: "wider", fontWeight: "bold", fontSize: "md", children: label }, void 0, !1, {
               fileName: "app/components/Header.tsx",
               lineNumber: 50,
               columnNumber: 11
@@ -4926,11 +4993,11 @@ function Header({ label, user }) {
           lineNumber: 39,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(import_react65.HStack, { justifySelf: "flex-end", spacing: 1, children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(import_react66.HStack, { justifySelf: "flex-end", spacing: 1, children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(
-            import_react65.Button,
+            import_react66.Button,
             {
-              as: import_react66.Link,
+              as: import_react67.Link,
               marginInline: 1,
               variant: "solid",
               colorScheme: "blue",
@@ -4944,7 +5011,7 @@ function Header({ label, user }) {
                 columnNumber: 21
               }, this),
               to: "/new-wash",
-              children: /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(import_react65.Text, { display: ["none", "block"], children: "Nova lavagem" }, void 0, !1, {
+              children: /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(import_react66.Text, { display: ["none", "block"], children: "Nova lavagem" }, void 0, !1, {
                 fileName: "app/components/Header.tsx",
                 lineNumber: 71,
                 columnNumber: 11
@@ -4960,7 +5027,7 @@ function Header({ label, user }) {
             this
           ),
           /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(
-            import_react65.IconButton,
+            import_react66.IconButton,
             {
               variant: "ghost",
               colorScheme: "blackAlpha",
@@ -4982,7 +5049,7 @@ function Header({ label, user }) {
             },
             this
           ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(import_react65.Divider, { borderLeftWidth: 2, orientation: "vertical" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(import_react66.Divider, { borderLeftWidth: 2, orientation: "vertical" }, void 0, !1, {
             fileName: "app/components/Header.tsx",
             lineNumber: 81,
             columnNumber: 9
@@ -4993,7 +5060,7 @@ function Header({ label, user }) {
             columnNumber: 9
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime55.jsxDEV)(
-            import_react65.IconButton,
+            import_react66.IconButton,
             {
               display: ["flex", "flex", "none"],
               variant: "ghost",
@@ -5052,21 +5119,21 @@ function Header({ label, user }) {
 }
 
 // app/routes/_auth.tsx
-var import_react69 = require("@chakra-ui/react"), import_jsx_dev_runtime56 = require("react/jsx-dev-runtime"), headers2 = ({ loaderHeaders }) => ({
+var import_react70 = require("@chakra-ui/react"), import_jsx_dev_runtime56 = require("react/jsx-dev-runtime"), headers = ({ loaderHeaders }) => ({
   "Cache-Control": loaderHeaders.get("Cache-control") ?? "max-age=3600"
 });
 async function loader7({ request }) {
   let session = await getSession(request.headers.get("Cookie")), url = new URL(request.url), token = session.get("token");
   if (!token)
-    throw (0, import_node7.redirect)("/sign-in");
+    throw (0, import_node5.redirect)("/sign-in");
   let { error, user } = await validateSessionId({ sessionId: token });
   if (error || !user)
-    throw session.unset("token"), (0, import_node7.redirect)("/sign-in", {
+    throw session.unset("token"), (0, import_node5.redirect)("/sign-in", {
       headers: {
         "Set-Cookie": await commitSession(session)
       }
     });
-  return (0, import_node7.json)(
+  return (0, import_node5.json)(
     { path: url.pathname, user },
     {
       headers: {
@@ -5076,9 +5143,9 @@ async function loader7({ request }) {
   );
 }
 function auth_default() {
-  let { path, user } = (0, import_react68.useLoaderData)();
+  let { path, user } = (0, import_react69.useLoaderData)();
   return /* @__PURE__ */ (0, import_jsx_dev_runtime56.jsxDEV)(
-    import_react69.Grid,
+    import_react70.Grid,
     {
       gridTemplateRows: "auto 1fr",
       gridTemplateColumns: "100%",
@@ -5090,7 +5157,7 @@ function auth_default() {
           lineNumber: 57,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime56.jsxDEV)(import_react68.Outlet, {}, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime56.jsxDEV)(import_react69.Outlet, {}, void 0, !1, {
           fileName: "app/routes/_auth.tsx",
           lineNumber: 58,
           columnNumber: 7
@@ -5108,16 +5175,47 @@ function auth_default() {
   );
 }
 
+// app/routes/csv/route.tsx
+var route_exports4 = {};
+__export(route_exports4, {
+  loader: () => loader8
+});
+var import_remix3 = require("@vercel/remix"), import_node6 = require("@remix-run/node"), import_fs = __toESM(require("fs")), import_csv_stringify = require("csv-stringify");
+async function loader8({ request }) {
+  let url = new URL(request.url), params = new URLSearchParams(url.searchParams), session = await getSession(request.headers.get("Cookie")), token = session.get("token");
+  if (!token)
+    throw (0, import_remix3.redirect)("/sign-in");
+  let { error, user } = await validateSessionId({ sessionId: token });
+  if (error || !user)
+    throw session.unset("token"), (0, import_remix3.redirect)("/sign-in", {
+      headers: {
+        "Set-Cookie": await commitSession(session)
+      }
+    });
+  let output = (0, import_csv_stringify.stringify)([
+    ["1", "2", "3", "4"],
+    ["a", "b", "c", "d"]
+  ]);
+  output.write({ ok: !0 });
+  let body = import_fs.default.createWriteStream("csv");
+  return output.write(body), body.end(), new import_node6.Response("asdsadsa", {
+    headers: {
+      "Content-Type": "text/csv; charset=utf-8",
+      "Content-Disposition": "attachment; filename=washes.csv"
+    }
+  });
+}
+
 // app/routes/$.tsx
 var __exports = {};
 __export(__exports, {
   default: () => __default
 });
-var import_react70 = require("@chakra-ui/react");
+var import_react71 = require("@chakra-ui/react");
 var import_jsx_dev_runtime57 = require("react/jsx-dev-runtime");
 function __default() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime57.jsxDEV)(
-    import_react70.Grid,
+    import_react71.Grid,
     {
       placeContent: "center",
       placeItems: "center",
@@ -5125,18 +5223,18 @@ function __default() {
       inlineSize: "100%",
       gap: 4,
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime57.jsxDEV)(import_react70.Text, { fontSize: "lg", children: "Essa p\xE1gina n\xE3o existe :(" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime57.jsxDEV)(import_react71.Text, { fontSize: "lg", children: "Essa p\xE1gina n\xE3o existe :(" }, void 0, !1, {
           fileName: "app/routes/$.tsx",
           lineNumber: 13,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime57.jsxDEV)(import_react70.HStack, { spacing: 1, children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime57.jsxDEV)(import_react70.Text, { fontSize: "lg", children: "Go back" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime57.jsxDEV)(import_react71.HStack, { spacing: 1, children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime57.jsxDEV)(import_react71.Text, { fontSize: "lg", children: "Go back" }, void 0, !1, {
             fileName: "app/routes/$.tsx",
             lineNumber: 15,
             columnNumber: 9
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime57.jsxDEV)(LinkHighlighted, { to: "/home", children: /* @__PURE__ */ (0, import_jsx_dev_runtime57.jsxDEV)(import_react70.Text, { fontSize: "lg", children: "/ home" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime57.jsxDEV)(LinkHighlighted, { to: "/home", children: /* @__PURE__ */ (0, import_jsx_dev_runtime57.jsxDEV)(import_react71.Text, { fontSize: "lg", children: "/ home" }, void 0, !1, {
             fileName: "app/routes/$.tsx",
             lineNumber: 17,
             columnNumber: 11
@@ -5164,7 +5262,7 @@ function __default() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-FAPOEOMU.js", imports: ["/build/_shared/chunk-R5NLA4ZP.js", "/build/_shared/chunk-H6OBPNVQ.js", "/build/_shared/chunk-LTOX4GGY.js", "/build/_shared/chunk-OJCDOD5O.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-BQ2573TN.js", imports: ["/build/_shared/chunk-RAMCN2VN.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-V3XOQOHK.js", imports: ["/build/_shared/chunk-AG777BZM.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-YFT34ZVI.js", imports: ["/build/_shared/chunk-A3H3NXR3.js", "/build/_shared/chunk-SSIFVZXZ.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-HJGGKUDA.js", imports: ["/build/_shared/chunk-YVASTRML.js", "/build/_shared/chunk-RAMCN2VN.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-R7WIHXX3.js", imports: ["/build/_shared/chunk-AG777BZM.js", "/build/_shared/chunk-YVASTRML.js", "/build/_shared/chunk-RAMCN2VN.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-NIBXSVUV.js", imports: ["/build/_shared/chunk-SSIFVZXZ.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-LVBVNPMF.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "f18fb706", hmr: void 0, url: "/build/manifest-F18FB706.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-YQJWXGVC.js", imports: ["/build/_shared/chunk-PWYDRXTB.js", "/build/_shared/chunk-STAUPYBB.js", "/build/_shared/chunk-QJNLNEGC.js", "/build/_shared/chunk-XNQ6AKY4.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-OLIQFOMT.js", imports: ["/build/_shared/chunk-JZ4PQ2F4.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-ZQUHS4IL.js", imports: ["/build/_shared/chunk-KV2QMXXI.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-5GKLCJI2.js", imports: ["/build/_shared/chunk-QKHYZAFO.js", "/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-7XEH2FTS.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-GOJQ2LD6.js", imports: ["/build/_shared/chunk-TIKQZXVI.js", "/build/_shared/chunk-JZ4PQ2F4.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-NBEUZP3K.js", imports: ["/build/_shared/chunk-KV2QMXXI.js", "/build/_shared/chunk-TIKQZXVI.js", "/build/_shared/chunk-JZ4PQ2F4.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/csv": { id: "routes/csv", parentId: "root", path: "csv", index: void 0, caseSensitive: void 0, module: "/build/routes/csv-6WKVSB6D.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-M55O7FUG.js", imports: ["/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-7XEH2FTS.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-B3VDIFF6.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "e35ec924", hmr: void 0, url: "/build/manifest-E35EC924.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !1, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
@@ -5247,6 +5345,14 @@ var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postc
     index: void 0,
     caseSensitive: void 0,
     module: auth_exports
+  },
+  "routes/csv": {
+    id: "routes/csv",
+    parentId: "root",
+    path: "csv",
+    index: void 0,
+    caseSensitive: void 0,
+    module: route_exports4
   },
   "routes/$": {
     id: "routes/$",

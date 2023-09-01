@@ -1,4 +1,4 @@
-import { createCookieSessionStorage } from "@remix-run/node"; // or cloudflare/deno
+import { createCookieSessionStorage } from "@vercel/remix"; // or cloudflare/deno
 
 type SessionData = {
     token: string;

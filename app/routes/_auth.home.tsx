@@ -1,23 +1,49 @@
 import { Button, Divider, Flex, Input, Text } from "@chakra-ui/react";
-import type { HeadersFunction, LoaderArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
-import { Form, useLoaderData, useSubmit } from "@remix-run/react";
+import type { ActionArgs, LoaderArgs } from "@vercel/remix";
+import { json, redirect } from "@vercel/remix";
+import {
+  Form,
+  Link,
+  useActionData,
+  useLoaderData,
+  useSubmit,
+} from "@remix-run/react";
 import { validateSessionId } from "src/infra/http/helpers/validate-session-id";
 import { findManyWashesController } from "src/infra/http/controllers/find-many-washes-controller";
+import { updateWashController } from "src/infra/http/controllers/update-wash-controller";
 import { commitSession, getSession } from "~/sessions";
 import { home } from "app/components/Home";
 import { washesTable } from "app/components/WashesTable";
 import { LuExternalLink } from "react-icons/lu";
 import type { Wash } from "@prisma/client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export const headers: HeadersFunction = ({ parentHeaders }) => {
-  const maxAge = parentHeaders.get("Cache-control") ?? `max-age=${60 * 60}`;
+//export const headers: HeadersFunction = ({ parentHeaders }) => {
+//  const maxAge = parentHeaders.get("Cache-control") ?? `max-age=${60 * 60}`;
+//
+//  return {
+//    "Cache-Control": maxAge,
+//  };
+//};
 
-  return {
-    "Cache-Control": maxAge,
-  };
-};
+export async function action({ request }: ActionArgs) {
+  const form = await request.formData();
+  const id = form.get("id")?.toString();
+  const isCompleted = form.get("isCompleted") === "true";
+
+  if (!id) return json({ error: "" });
+
+  const { wash, error } = await updateWashController({
+    id,
+    data: { isCompleted },
+  });
+
+  if (error) {
+    return json({ error: { message: error.message } });
+  }
+
+  return json({ wash });
+}
 
 export async function loader({ request }: LoaderArgs) {
   const url = new URL(request.url);
@@ -65,15 +91,18 @@ export async function loader({ request }: LoaderArgs) {
 }
 
 export default function () {
-  const { user, washes } = useLoaderData<typeof loader>();
+  const { user, washes } = useLoaderData() as {
+    user: any;
+    washes: Partial<Wash>[];
+  };
+  const actionData = useActionData() as { wash: Partial<Wash> };
   const [data, setData] = useState(washes);
   const submit = useSubmit();
   const ref = useRef<HTMLFormElement | null>(null);
-  const cursorRef = useRef<HTMLInputElement | null>(null);
 
   const onLastRowIntersecting = (lastElement: Element) => {
-    const form = new FormData(ref?.current ?? undefined);
-    form.set("cursor", lastElement.id);
+    //const form = new FormData(ref?.current ?? undefined);
+    // form.set("cursor", lastElement.id);
     //  submit(form, { preventScrollReset: true, replace: true });
   };
 
@@ -88,15 +117,29 @@ export default function () {
     const form = new FormData(ref?.current ?? undefined);
     submit(form, { preventScrollReset: true, replace: true });
   }
+
+  function downloadCsv() {
+    submit({}, { action: "/csv", method: "POST" });
+  }
   // filtros
   // actions
+  useEffect(() => {
+    if (actionData?.wash) {
+      setData((d) => {
+        const arr = d;
+        const index = arr.findIndex((v) => v?.id === actionData.wash.id);
+        if (index > -1) arr[index] = actionData.wash;
+        return arr;
+      });
+    }
+  }, [actionData]);
 
   useEffect(() => {
     setData((d) => {
-      const arr = d;
+      const arr = [...d];
       washes.forEach((w) => {
-        const el = arr.find((v) => v?.id === w?.id);
-        if (el) return;
+        const i = arr.findIndex((v) => v?.id === w?.id);
+        if (i > -1) return;
         else arr.push(w);
       });
       return arr;
@@ -176,15 +219,17 @@ export default function () {
                 : "nenhuma lavagem foi encontrada"}
             </Text>
           )}
-          <Button
-            variant="outline"
-            borderRadius={"full"}
-            rightIcon={<LuExternalLink />}
-            value="EXPORT"
-            type="submit"
-          >
-            baixar
-          </Button>
+            <Button
+              as={Link}
+              reloadDocument
+              to="/csv"
+              variant="outline"
+              borderRadius={"full"}
+              rightIcon={<LuExternalLink />}
+              value="EXPORT"
+            >
+              baixar
+            </Button>
         </Flex>
       </Flex>
       <washesTable.Table
@@ -214,7 +259,10 @@ export default function () {
                   label={w?.isCompleted === true ? "Confirmado" : "Atrasada"}
                 />
                 <washesTable.bodyData.Note note={w?.note ?? ""} />
-                <washesTable.bodyData.Actions isCompleted={w?.isCompleted} />
+                <washesTable.bodyData.Actions
+                  isCompleted={w?.isCompleted}
+                  id={w?.id}
+                />
               </washesTable.Row>
             );
           })}

@@ -1,6 +1,7 @@
 import type { Wash } from "domain/modules/wash/entities/Wash";
 import type {
   FindWashesMethodDTO,
+  UpdateWashRepoAbstractMethodDTO,
   WashRepository,
 } from "domain/modules/wash/repositories/wash-repository";
 import { dateManipulator } from "domain/shared/date-manipulator";
@@ -8,6 +9,14 @@ import { PrismaWashMapper } from "../mappers/prisma-wash-mapper";
 import { prisma } from "../prisma";
 
 export class PrismaWashRepository implements WashRepository {
+  async updateWash({
+    id,
+    data,
+  }: UpdateWashRepoAbstractMethodDTO): Promise<Wash> {
+    const wash = await prisma.wash.update({ where: { id }, data });
+    return PrismaWashMapper.toDomain(wash);
+  }
+
   async findWashes({
     filters,
     cursor,
