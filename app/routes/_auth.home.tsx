@@ -6,6 +6,7 @@ import {
   Link,
   useActionData,
   useLoaderData,
+  useSearchParams,
   useSubmit,
 } from "@remix-run/react";
 import { validateSessionId } from "src/infra/http/helpers/validate-session-id";
@@ -95,6 +96,7 @@ export default function () {
     user: any;
     washes: Partial<Wash>[];
   };
+  const [params] = useSearchParams();
   const actionData = useActionData() as { wash: Partial<Wash> };
   const [data, setData] = useState(washes);
   const submit = useSubmit();
@@ -118,9 +120,6 @@ export default function () {
     submit(form, { preventScrollReset: true, replace: true });
   }
 
-  function downloadCsv() {
-    submit({}, { action: "/csv", method: "POST" });
-  }
   // filtros
   // actions
   useEffect(() => {
@@ -219,17 +218,17 @@ export default function () {
                 : "nenhuma lavagem foi encontrada"}
             </Text>
           )}
-            <Button
-              as={Link}
-              reloadDocument
-              to="/csv"
-              variant="outline"
-              borderRadius={"full"}
-              rightIcon={<LuExternalLink />}
-              value="EXPORT"
-            >
-              baixar
-            </Button>
+          <Button
+            as={Link}
+            reloadDocument
+            to={`/csv?${params}`}
+            variant="outline"
+            borderRadius={"full"}
+            rightIcon={<LuExternalLink />}
+            value="EXPORT"
+          >
+            baixar
+          </Button>
         </Flex>
       </Flex>
       <washesTable.Table

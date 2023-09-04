@@ -3864,7 +3864,7 @@ async function loader4({ request }) {
 }
 function auth_home_default() {
   var _a;
-  let { user, washes } = (0, import_react57.useLoaderData)(), actionData = (0, import_react57.useActionData)(), [data, setData] = (0, import_react58.useState)(washes), submit = (0, import_react57.useSubmit)(), ref = (0, import_react58.useRef)(null), onLastRowIntersecting = (lastElement) => {
+  let { user, washes } = (0, import_react57.useLoaderData)(), [params] = (0, import_react57.useSearchParams)(), actionData = (0, import_react57.useActionData)(), [data, setData] = (0, import_react58.useState)(washes), submit = (0, import_react57.useSubmit)(), ref = (0, import_react58.useRef)(null), onLastRowIntersecting = (lastElement) => {
   };
   function onFilter() {
     let form = new FormData((ref == null ? void 0 : ref.current) ?? void 0);
@@ -3873,9 +3873,6 @@ function auth_home_default() {
   function onLoadMore() {
     let form = new FormData((ref == null ? void 0 : ref.current) ?? void 0);
     submit(form, { preventScrollReset: !0, replace: !0 });
-  }
-  function downloadCsv() {
-    submit({}, { action: "/csv", method: "POST" });
   }
   return (0, import_react58.useEffect)(() => {
     actionData != null && actionData.wash && setData((d) => {
@@ -3902,7 +3899,7 @@ function auth_home_default() {
           user.username
         ] }, void 0, !0, {
           fileName: "app/routes/_auth.home.tsx",
-          lineNumber: 156,
+          lineNumber: 155,
           columnNumber: 7
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
@@ -3939,35 +3936,35 @@ function auth_home_default() {
                       !1,
                       {
                         fileName: "app/routes/_auth.home.tsx",
-                        lineNumber: 177,
+                        lineNumber: 176,
                         columnNumber: 11
                       },
                       this
                     ),
                     /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.filters.Search, {}, void 0, !1, {
                       fileName: "app/routes/_auth.home.tsx",
-                      lineNumber: 183,
+                      lineNumber: 182,
                       columnNumber: 11
                     }, this),
                     /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Flex, { gap: [2, 2, 6], align: "center", children: [
                       /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.filters.Date, { name: "startDate", size: "sm" }, void 0, !1, {
                         fileName: "app/routes/_auth.home.tsx",
-                        lineNumber: 185,
+                        lineNumber: 184,
                         columnNumber: 13
                       }, this),
                       /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Text, { children: "at\xE9" }, void 0, !1, {
                         fileName: "app/routes/_auth.home.tsx",
-                        lineNumber: 186,
+                        lineNumber: 185,
                         columnNumber: 13
                       }, this),
                       /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.filters.Date, { name: "endDate", size: "sm" }, void 0, !1, {
                         fileName: "app/routes/_auth.home.tsx",
-                        lineNumber: 187,
+                        lineNumber: 186,
                         columnNumber: 13
                       }, this)
                     ] }, void 0, !0, {
                       fileName: "app/routes/_auth.home.tsx",
-                      lineNumber: 184,
+                      lineNumber: 183,
                       columnNumber: 11
                     }, this),
                     /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
@@ -3980,7 +3977,7 @@ function auth_home_default() {
                       !1,
                       {
                         fileName: "app/routes/_auth.home.tsx",
-                        lineNumber: 189,
+                        lineNumber: 188,
                         columnNumber: 11
                       },
                       this
@@ -4002,7 +3999,7 @@ function auth_home_default() {
                         !1,
                         {
                           fileName: "app/routes/_auth.home.tsx",
-                          lineNumber: 194,
+                          lineNumber: 193,
                           columnNumber: 13
                         },
                         this
@@ -4021,14 +4018,14 @@ function auth_home_default() {
                         !1,
                         {
                           fileName: "app/routes/_auth.home.tsx",
-                          lineNumber: 202,
+                          lineNumber: 201,
                           columnNumber: 13
                         },
                         this
                       )
                     ] }, void 0, !0, {
                       fileName: "app/routes/_auth.home.tsx",
-                      lineNumber: 193,
+                      lineNumber: 192,
                       columnNumber: 11
                     }, this)
                   ]
@@ -4037,20 +4034,20 @@ function auth_home_default() {
                 !0,
                 {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 166,
+                  lineNumber: 165,
                   columnNumber: 9
                 },
                 this
               ),
               /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Divider, {}, void 0, !1, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 213,
+                lineNumber: 212,
                 columnNumber: 9
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Flex, { justify: "space-between", align: "center", inlineSize: "90%", children: [
                 washes && /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Text, { fontWeight: "semibold", color: "gray.400", fontSize: "sm", children: data.length > 0 ? `showing ${data.length} results` : "nenhuma lavagem foi encontrada" }, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 216,
+                  lineNumber: 215,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
@@ -4058,13 +4055,13 @@ function auth_home_default() {
                   {
                     as: import_react57.Link,
                     reloadDocument: !0,
-                    to: "/csv",
+                    to: `/csv?${params}`,
                     variant: "outline",
                     borderRadius: "full",
                     rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_lu.LuExternalLink, {}, void 0, !1, {
                       fileName: "app/routes/_auth.home.tsx",
-                      lineNumber: 228,
-                      columnNumber: 26
+                      lineNumber: 227,
+                      columnNumber: 24
                     }, this),
                     value: "EXPORT",
                     children: "baixar"
@@ -4073,14 +4070,14 @@ function auth_home_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.home.tsx",
-                    lineNumber: 222,
-                    columnNumber: 13
+                    lineNumber: 221,
+                    columnNumber: 11
                   },
                   this
                 )
               ] }, void 0, !0, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 214,
+                lineNumber: 213,
                 columnNumber: 9
               }, this)
             ]
@@ -4089,7 +4086,7 @@ function auth_home_default() {
           !0,
           {
             fileName: "app/routes/_auth.home.tsx",
-            lineNumber: 159,
+            lineNumber: 158,
             columnNumber: 7
           },
           this
@@ -4103,42 +4100,42 @@ function auth_home_default() {
               /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.Head, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.Row, { children: [
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.LicensePlate, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 241,
+                  lineNumber: 240,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.ScheduledDate, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 242,
+                  lineNumber: 241,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.Status, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 243,
+                  lineNumber: 242,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.Note, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 244,
+                  lineNumber: 243,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.Actions, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 245,
+                  lineNumber: 244,
                   columnNumber: 13
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 240,
+                lineNumber: 239,
                 columnNumber: 11
               }, this) }, void 0, !1, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 239,
+                lineNumber: 238,
                 columnNumber: 9
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.Body, { onIntersecting: onLastRowIntersecting, children: data == null ? void 0 : data.map((w, i, arr) => /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.Row, { id: w == null ? void 0 : w.id, children: [
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.bodyData.LicensePlate, { licensePlate: (w == null ? void 0 : w.id) ?? "" }, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 253,
+                  lineNumber: 252,
                   columnNumber: 17
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
@@ -4150,7 +4147,7 @@ function auth_home_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.home.tsx",
-                    lineNumber: 254,
+                    lineNumber: 253,
                     columnNumber: 17
                   },
                   this
@@ -4165,14 +4162,14 @@ function auth_home_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.home.tsx",
-                    lineNumber: 257,
+                    lineNumber: 256,
                     columnNumber: 17
                   },
                   this
                 ),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.bodyData.Note, { note: (w == null ? void 0 : w.note) ?? "" }, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 261,
+                  lineNumber: 260,
                   columnNumber: 17
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
@@ -4185,18 +4182,18 @@ function auth_home_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.home.tsx",
-                    lineNumber: 262,
+                    lineNumber: 261,
                     columnNumber: 17
                   },
                   this
                 )
               ] }, w == null ? void 0 : w.id, !0, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 252,
+                lineNumber: 251,
                 columnNumber: 15
               }, this)) }, void 0, !1, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 249,
+                lineNumber: 248,
                 columnNumber: 9
               }, this)
             ]
@@ -4205,18 +4202,18 @@ function auth_home_default() {
           !0,
           {
             fileName: "app/routes/_auth.home.tsx",
-            lineNumber: 235,
+            lineNumber: 234,
             columnNumber: 7
           },
           this
         ),
         /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Flex, { inlineSize: "100%", justify: "center", paddingBlockEnd: 8, children: /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Button, { variant: "solid", colorScheme: "blue", onClick: onLoadMore, children: "Carregar mais" }, void 0, !1, {
           fileName: "app/routes/_auth.home.tsx",
-          lineNumber: 272,
+          lineNumber: 271,
           columnNumber: 9
         }, this) }, void 0, !1, {
           fileName: "app/routes/_auth.home.tsx",
-          lineNumber: 271,
+          lineNumber: 270,
           columnNumber: 7
         }, this)
       ]
@@ -4225,7 +4222,7 @@ function auth_home_default() {
     !0,
     {
       fileName: "app/routes/_auth.home.tsx",
-      lineNumber: 150,
+      lineNumber: 149,
       columnNumber: 5
     },
     this
@@ -5180,9 +5177,9 @@ var route_exports4 = {};
 __export(route_exports4, {
   loader: () => loader8
 });
-var import_remix3 = require("@vercel/remix"), import_node6 = require("@remix-run/node"), import_fs = __toESM(require("fs")), import_csv_stringify = require("csv-stringify");
+var import_remix3 = require("@vercel/remix"), import_node6 = require("@remix-run/node"), import_csv_stringify = require("csv-stringify");
 async function loader8({ request }) {
-  let url = new URL(request.url), params = new URLSearchParams(url.searchParams), session = await getSession(request.headers.get("Cookie")), token = session.get("token");
+  let url = new URL(request.url), params = new URLSearchParams(url.searchParams), session = await getSession(request.headers.get("Cookie")), token = session.get("token"), licensePlate = params.get("licensePlate") ?? void 0, startDate = params.get("startDate") ?? void 0, endDate = params.get("endDate") ?? void 0, washStatus = params.get("status") ?? void 0;
   if (!token)
     throw (0, import_remix3.redirect)("/sign-in");
   let { error, user } = await validateSessionId({ sessionId: token });
@@ -5192,16 +5189,35 @@ async function loader8({ request }) {
         "Set-Cookie": await commitSession(session)
       }
     });
-  let output = (0, import_csv_stringify.stringify)([
-    ["1", "2", "3", "4"],
-    ["a", "b", "c", "d"]
-  ]);
-  output.write({ ok: !0 });
-  let body = import_fs.default.createWriteStream("csv");
-  return output.write(body), body.end(), new import_node6.Response("asdsadsa", {
+  let output = (0, import_csv_stringify.stringify)({
+    header: !0,
+    columns: {
+      vehicleId: "placa",
+      scheduleDate: "data de lavagem",
+      status: "status"
+    }
+  }), dto = {
+    filters: {
+      createdBy: user.id,
+      vehicleId: licensePlate !== "" ? licensePlate : void 0,
+      startDate,
+      endDate,
+      status: washStatus
+    },
+    take: 999999
+  }, { washes } = await findManyWashesController(dto);
+  washes.forEach(
+    (w) => output.write({
+      vehicleId: w == null ? void 0 : w.vehicleId,
+      scheduleDate: format((w == null ? void 0 : w.scheduleDate) ?? /* @__PURE__ */ new Date(), "d/LLLL"),
+      status: w != null && w.isCompleted ? "LAVADO" : "N\xC3O LAVADO"
+    })
+  ), console.log(washes.length);
+  let formattedStartDate = startDate ? format(new Date(startDate), "d-MMM") : format(/* @__PURE__ */ new Date(), "d-MMM"), formattedEndDate = endDate ? "_" + format(new Date(endDate), "d-MMM") : "", filename = formattedStartDate + formattedEndDate + ".csv";
+  return output.end(), new import_node6.Response(output, {
     headers: {
       "Content-Type": "text/csv; charset=utf-8",
-      "Content-Disposition": "attachment; filename=washes.csv"
+      "Content-Disposition": `attachment; filename=${filename}`
     }
   });
 }
@@ -5262,7 +5278,7 @@ function __default() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-YQJWXGVC.js", imports: ["/build/_shared/chunk-PWYDRXTB.js", "/build/_shared/chunk-STAUPYBB.js", "/build/_shared/chunk-QJNLNEGC.js", "/build/_shared/chunk-XNQ6AKY4.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-OLIQFOMT.js", imports: ["/build/_shared/chunk-JZ4PQ2F4.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-ZQUHS4IL.js", imports: ["/build/_shared/chunk-KV2QMXXI.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-5GKLCJI2.js", imports: ["/build/_shared/chunk-QKHYZAFO.js", "/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-7XEH2FTS.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-GOJQ2LD6.js", imports: ["/build/_shared/chunk-TIKQZXVI.js", "/build/_shared/chunk-JZ4PQ2F4.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-NBEUZP3K.js", imports: ["/build/_shared/chunk-KV2QMXXI.js", "/build/_shared/chunk-TIKQZXVI.js", "/build/_shared/chunk-JZ4PQ2F4.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/csv": { id: "routes/csv", parentId: "root", path: "csv", index: void 0, caseSensitive: void 0, module: "/build/routes/csv-6WKVSB6D.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-M55O7FUG.js", imports: ["/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-7XEH2FTS.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-B3VDIFF6.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "e35ec924", hmr: void 0, url: "/build/manifest-E35EC924.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-A3MWFENP.js", imports: ["/build/_shared/chunk-JMTNRVKS.js", "/build/_shared/chunk-RPYEFABZ.js", "/build/_shared/chunk-6Y4MOXXW.js", "/build/_shared/chunk-EDULEWIV.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-6QJJ3D23.js", imports: ["/build/_shared/chunk-HKFCHMVY.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-WWJ6QLXH.js", imports: ["/build/_shared/chunk-DLIGFWH4.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-ZXN74NV5.js", imports: ["/build/_shared/chunk-GY2OSEAB.js", "/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-XO5BRP32.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-VK3OGETJ.js", imports: ["/build/_shared/chunk-FZFY6NW6.js", "/build/_shared/chunk-HKFCHMVY.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-HTQMRZSD.js", imports: ["/build/_shared/chunk-DLIGFWH4.js", "/build/_shared/chunk-FZFY6NW6.js", "/build/_shared/chunk-HKFCHMVY.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/csv": { id: "routes/csv", parentId: "root", path: "csv", index: void 0, caseSensitive: void 0, module: "/build/routes/csv-6WKVSB6D.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-TNLJ3V6A.js", imports: ["/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-XO5BRP32.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-NKVPYVAI.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "8f86f05d", hmr: void 0, url: "/build/manifest-8F86F05D.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !1, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
