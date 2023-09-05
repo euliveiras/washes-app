@@ -51,11 +51,13 @@ export class PrismaWashRepository implements WashRepository {
         skip,
         cursor,
         take,
+        orderBy: { scheduleDate: "asc" },
       });
     } else {
       washes = await prisma.wash.findMany({
         where,
         take,
+        orderBy: { scheduleDate: "asc" },
       });
     }
 
