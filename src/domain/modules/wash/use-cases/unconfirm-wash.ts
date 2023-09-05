@@ -3,7 +3,7 @@ import type { WashCycleRepository } from "domain/modules/wash-cycle/repositories
 import type { WashRepository } from "../repositories/wash-repository";
 import { AppError } from "src/infra/http/errors/app-error";
 
-export class ConfirmWash {
+export class UnconfirmWash {
   constructor(
     private washesRepo: WashRepository,
     private washesCycleRepo: WashCycleRepository,
@@ -11,7 +11,7 @@ export class ConfirmWash {
   async execute(id: string): Promise<{ wash: Wash }> {
     const wash = await this.washesRepo.updateWash({
       id,
-      data: { isCompleted: true },
+      data: { isCompleted: false },
     });
 
     if (!wash) {
@@ -23,12 +23,12 @@ export class ConfirmWash {
     if (!washCycle) {
       await this.washesRepo.updateWash({
         id,
-        data: { isCompleted: false },
+        data: { isCompleted: true },
       });
       throw new AppError("Something went wrong with wash cycle update");
     }
 
-    washCycle.addCompletedWashId(wash.id);
+    washCycle.removeCompletedWash(wash.id);
     await this.washesCycleRepo.update(washCycle.id, washCycle);
 
     return { wash };

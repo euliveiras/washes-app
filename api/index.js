@@ -2474,12 +2474,6 @@ var WashCycle = class {
     if (dateManipulator.isBefore(date, ((_a = this._props) == null ? void 0 : _a.endDate) ?? startDate))
       throw new Error("End date cannot be before start date");
   }
-  get note() {
-    return this._props.note;
-  }
-  set note(note) {
-    this._props.note = note;
-  }
   get washesId() {
     return this._props.washesId;
   }
@@ -2491,6 +2485,11 @@ var WashCycle = class {
   }
   addCompletedWashId(id) {
     this._props.completedWashes.push(id);
+  }
+  removeCompletedWash(id) {
+    this._props.completedWashes = this._props.completedWashes.filter(
+      (w) => w !== id
+    );
   }
 };
 
@@ -2527,6 +2526,8 @@ var PrismaWashCycleRepository = class {
     });
   }
   async find(id) {
+    let cycle = await prisma.washCycle.findUnique({ where: { id } });
+    return cycle ? PrismaWashCycleMapper.toDomain(cycle) : null;
   }
   async findNextCycleByLicensePlate(vehicleId) {
     let cycle = await prisma.washCycle.findFirst({
@@ -2535,6 +2536,11 @@ var PrismaWashCycleRepository = class {
     return cycle ? PrismaWashCycleMapper.toDomain(cycle) : null;
   }
   async update(id, data) {
+    let cycle = await prisma.washCycle.update({
+      where: { id },
+      data: { ...PrismaWashCycleMapper.toPrisma(data) }
+    });
+    return PrismaWashCycleMapper.toDomain(cycle);
   }
 };
 
@@ -2634,10 +2640,12 @@ var PrismaWashRepository = class {
       where,
       skip,
       cursor,
-      take
+      take,
+      orderBy: { scheduleDate: "asc" }
     }) : washes = await prisma.wash.findMany({
       where,
-      take
+      take,
+      orderBy: { scheduleDate: "asc" }
     }), washes.map((w) => PrismaWashMapper.toDomain(w));
   }
   async findWashesByCycleId(id) {
@@ -3321,31 +3329,6 @@ async function controller6({
 }
 var findManyWashesController = (data) => asyncWrapper(() => controller6(data));
 
-// src/domain/modules/wash/use-cases/update-wash.ts
-var UpdateWash = class {
-  constructor(washRepo) {
-    this.washRepo = washRepo;
-  }
-  async execute(dto) {
-    return { wash: await this.washRepo.updateWash(dto) };
-  }
-};
-
-// src/infra/http/controllers/update-wash-controller.ts
-async function controller7({ data, id }) {
-  let washRepo = new PrismaWashRepository(), updateWash = new UpdateWash(washRepo);
-  if (!id)
-    throw new AppError("Voc\xEA precisar fornecer o campo 'createdBy", 400);
-  if (typeof data.isCompleted > "u" && !data.note && !data.scheduleDate)
-    throw new AppError(
-      "Voc\xEA precisar fornecer pelo menos um campo para update",
-      400
-    );
-  let { wash } = await updateWash.execute({ data, id });
-  return { wash: HttpMapper.wash(wash) };
-}
-var updateWashController = (data) => asyncWrapper(() => controller7(data));
-
 // app/components/Home/Container.tsx
 var import_react46 = require("@chakra-ui/react"), import_jsx_dev_runtime27 = require("react/jsx-dev-runtime");
 function Container5({ children, ...props }) {
@@ -3826,16 +3809,88 @@ var washesTable = {
 };
 
 // app/routes/_auth.home.tsx
-var import_lu = require("react-icons/lu"), import_react58 = require("react"), import_jsx_dev_runtime48 = require("react/jsx-dev-runtime");
+var import_lu = require("react-icons/lu"), import_react58 = require("react");
+
+// src/domain/modules/wash/use-cases/confirm-wash.ts
+var ConfirmWash = class {
+  constructor(washesRepo, washesCycleRepo) {
+    this.washesRepo = washesRepo;
+    this.washesCycleRepo = washesCycleRepo;
+  }
+  async execute(id) {
+    let wash = await this.washesRepo.updateWash({
+      id,
+      data: { isCompleted: !0 }
+    });
+    if (!wash)
+      throw new Error("wash not founded");
+    let washCycle = await this.washesCycleRepo.find(wash == null ? void 0 : wash.cycleId);
+    if (!washCycle)
+      throw await this.washesRepo.updateWash({
+        id,
+        data: { isCompleted: !1 }
+      }), new AppError("Something went wrong with wash cycle update");
+    return washCycle.addCompletedWashId(wash.id), await this.washesCycleRepo.update(washCycle.id, washCycle), { wash };
+  }
+};
+
+// src/infra/http/controllers/confirm-wash-controller.ts
+var confirmWashController = ({ id }) => asyncWrapper(async () => {
+  let washRepo = new PrismaWashRepository(), washCycleRepo = new PrismaWashCycleRepository(), confirmWash = new ConfirmWash(washRepo, washCycleRepo);
+  if (!id)
+    throw new AppError("Voc\xEA precisar fornecer o campo 'createdBy", 400);
+  let { wash } = await confirmWash.execute(id);
+  return { wash: HttpMapper.wash(wash) };
+});
+
+// src/domain/modules/wash/use-cases/unconfirm-wash.ts
+var UnconfirmWash = class {
+  constructor(washesRepo, washesCycleRepo) {
+    this.washesRepo = washesRepo;
+    this.washesCycleRepo = washesCycleRepo;
+  }
+  async execute(id) {
+    let wash = await this.washesRepo.updateWash({
+      id,
+      data: { isCompleted: !1 }
+    });
+    if (!wash)
+      throw new Error("wash not founded");
+    let washCycle = await this.washesCycleRepo.find(wash == null ? void 0 : wash.cycleId);
+    if (!washCycle)
+      throw await this.washesRepo.updateWash({
+        id,
+        data: { isCompleted: !0 }
+      }), new AppError("Something went wrong with wash cycle update");
+    return washCycle.removeCompletedWash(wash.id), await this.washesCycleRepo.update(washCycle.id, washCycle), { wash };
+  }
+};
+
+// src/infra/http/controllers/unconfirm-wash-controller.ts
+var unconfirmWashController = ({ id }) => asyncWrapper(async () => {
+  let washRepo = new PrismaWashRepository(), washCycleRepo = new PrismaWashCycleRepository(), unconfirmWash = new UnconfirmWash(washRepo, washCycleRepo);
+  if (!id)
+    throw new AppError("Voc\xEA precisar fornecer o campo 'createdBy", 400);
+  let { wash } = await unconfirmWash.execute(id);
+  return { wash: HttpMapper.wash(wash) };
+});
+
+// app/routes/_auth.home.tsx
+var import_jsx_dev_runtime48 = require("react/jsx-dev-runtime");
 async function action2({ request }) {
   var _a;
-  let form = await request.formData(), id = (_a = form.get("id")) == null ? void 0 : _a.toString(), isCompleted = form.get("isCompleted") === "true";
+  let form = await request.formData(), id = (_a = form.get("id")) == null ? void 0 : _a.toString(), isCompleted = form.get("isCompleted"), wash, error;
   if (!id)
     return (0, import_remix2.json)({ error: "" });
-  let { wash, error } = await updateWashController({
-    id,
-    data: { isCompleted }
-  });
+  if (typeof isCompleted > "u")
+    return (0, import_remix2.json)({ error: "" });
+  if (isCompleted === "true") {
+    let data = await confirmWashController({ id });
+    wash = data.wash, error = data.error;
+  } else {
+    let data = await unconfirmWashController({ id });
+    wash = data.wash, error = data.error;
+  }
   return error ? (0, import_remix2.json)({ error: { message: error.message } }) : (0, import_remix2.json)({ wash });
 }
 async function loader4({ request }) {
@@ -3899,7 +3954,7 @@ function auth_home_default() {
           user.username
         ] }, void 0, !0, {
           fileName: "app/routes/_auth.home.tsx",
-          lineNumber: 155,
+          lineNumber: 162,
           columnNumber: 7
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
@@ -3936,35 +3991,35 @@ function auth_home_default() {
                       !1,
                       {
                         fileName: "app/routes/_auth.home.tsx",
-                        lineNumber: 176,
+                        lineNumber: 183,
                         columnNumber: 11
                       },
                       this
                     ),
                     /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.filters.Search, {}, void 0, !1, {
                       fileName: "app/routes/_auth.home.tsx",
-                      lineNumber: 182,
+                      lineNumber: 189,
                       columnNumber: 11
                     }, this),
                     /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Flex, { gap: [2, 2, 6], align: "center", children: [
                       /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.filters.Date, { name: "startDate", size: "sm" }, void 0, !1, {
                         fileName: "app/routes/_auth.home.tsx",
-                        lineNumber: 184,
+                        lineNumber: 191,
                         columnNumber: 13
                       }, this),
                       /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Text, { children: "at\xE9" }, void 0, !1, {
                         fileName: "app/routes/_auth.home.tsx",
-                        lineNumber: 185,
+                        lineNumber: 192,
                         columnNumber: 13
                       }, this),
                       /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.filters.Date, { name: "endDate", size: "sm" }, void 0, !1, {
                         fileName: "app/routes/_auth.home.tsx",
-                        lineNumber: 186,
+                        lineNumber: 193,
                         columnNumber: 13
                       }, this)
                     ] }, void 0, !0, {
                       fileName: "app/routes/_auth.home.tsx",
-                      lineNumber: 183,
+                      lineNumber: 190,
                       columnNumber: 11
                     }, this),
                     /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
@@ -3977,7 +4032,7 @@ function auth_home_default() {
                       !1,
                       {
                         fileName: "app/routes/_auth.home.tsx",
-                        lineNumber: 188,
+                        lineNumber: 195,
                         columnNumber: 11
                       },
                       this
@@ -3999,7 +4054,7 @@ function auth_home_default() {
                         !1,
                         {
                           fileName: "app/routes/_auth.home.tsx",
-                          lineNumber: 193,
+                          lineNumber: 200,
                           columnNumber: 13
                         },
                         this
@@ -4018,14 +4073,14 @@ function auth_home_default() {
                         !1,
                         {
                           fileName: "app/routes/_auth.home.tsx",
-                          lineNumber: 201,
+                          lineNumber: 208,
                           columnNumber: 13
                         },
                         this
                       )
                     ] }, void 0, !0, {
                       fileName: "app/routes/_auth.home.tsx",
-                      lineNumber: 192,
+                      lineNumber: 199,
                       columnNumber: 11
                     }, this)
                   ]
@@ -4034,20 +4089,20 @@ function auth_home_default() {
                 !0,
                 {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 165,
+                  lineNumber: 172,
                   columnNumber: 9
                 },
                 this
               ),
               /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Divider, {}, void 0, !1, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 212,
+                lineNumber: 219,
                 columnNumber: 9
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Flex, { justify: "space-between", align: "center", inlineSize: "90%", children: [
                 washes && /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Text, { fontWeight: "semibold", color: "gray.400", fontSize: "sm", children: data.length > 0 ? `showing ${data.length} results` : "nenhuma lavagem foi encontrada" }, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 215,
+                  lineNumber: 222,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
@@ -4060,7 +4115,7 @@ function auth_home_default() {
                     borderRadius: "full",
                     rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_lu.LuExternalLink, {}, void 0, !1, {
                       fileName: "app/routes/_auth.home.tsx",
-                      lineNumber: 227,
+                      lineNumber: 234,
                       columnNumber: 24
                     }, this),
                     value: "EXPORT",
@@ -4070,14 +4125,14 @@ function auth_home_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.home.tsx",
-                    lineNumber: 221,
+                    lineNumber: 228,
                     columnNumber: 11
                   },
                   this
                 )
               ] }, void 0, !0, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 213,
+                lineNumber: 220,
                 columnNumber: 9
               }, this)
             ]
@@ -4086,7 +4141,7 @@ function auth_home_default() {
           !0,
           {
             fileName: "app/routes/_auth.home.tsx",
-            lineNumber: 158,
+            lineNumber: 165,
             columnNumber: 7
           },
           this
@@ -4100,44 +4155,53 @@ function auth_home_default() {
               /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.Head, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.Row, { children: [
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.LicensePlate, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 240,
+                  lineNumber: 247,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.ScheduledDate, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 241,
+                  lineNumber: 248,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.Status, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 242,
+                  lineNumber: 249,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.Note, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 243,
+                  lineNumber: 250,
                   columnNumber: 13
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.headData.Actions, {}, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 244,
+                  lineNumber: 251,
                   columnNumber: 13
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 239,
+                lineNumber: 246,
                 columnNumber: 11
               }, this) }, void 0, !1, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 238,
+                lineNumber: 245,
                 columnNumber: 9
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.Body, { onIntersecting: onLastRowIntersecting, children: data == null ? void 0 : data.map((w, i, arr) => /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.Row, { id: w == null ? void 0 : w.id, children: [
-                /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.bodyData.LicensePlate, { licensePlate: (w == null ? void 0 : w.id) ?? "" }, void 0, !1, {
-                  fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 252,
-                  columnNumber: 17
-                }, this),
+                /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
+                  washesTable.bodyData.LicensePlate,
+                  {
+                    licensePlate: w.vehicleId ?? ""
+                  },
+                  void 0,
+                  !1,
+                  {
+                    fileName: "app/routes/_auth.home.tsx",
+                    lineNumber: 259,
+                    columnNumber: 17
+                  },
+                  this
+                ),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
                   washesTable.bodyData.ScheduledDate,
                   {
@@ -4147,7 +4211,7 @@ function auth_home_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.home.tsx",
-                    lineNumber: 253,
+                    lineNumber: 262,
                     columnNumber: 17
                   },
                   this
@@ -4162,14 +4226,14 @@ function auth_home_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.home.tsx",
-                    lineNumber: 256,
+                    lineNumber: 265,
                     columnNumber: 17
                   },
                   this
                 ),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(washesTable.bodyData.Note, { note: (w == null ? void 0 : w.note) ?? "" }, void 0, !1, {
                   fileName: "app/routes/_auth.home.tsx",
-                  lineNumber: 260,
+                  lineNumber: 269,
                   columnNumber: 17
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
@@ -4182,18 +4246,18 @@ function auth_home_default() {
                   !1,
                   {
                     fileName: "app/routes/_auth.home.tsx",
-                    lineNumber: 261,
+                    lineNumber: 270,
                     columnNumber: 17
                   },
                   this
                 )
               ] }, w == null ? void 0 : w.id, !0, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 251,
+                lineNumber: 258,
                 columnNumber: 15
               }, this)) }, void 0, !1, {
                 fileName: "app/routes/_auth.home.tsx",
-                lineNumber: 248,
+                lineNumber: 255,
                 columnNumber: 9
               }, this)
             ]
@@ -4202,18 +4266,18 @@ function auth_home_default() {
           !0,
           {
             fileName: "app/routes/_auth.home.tsx",
-            lineNumber: 234,
+            lineNumber: 241,
             columnNumber: 7
           },
           this
         ),
         /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Flex, { inlineSize: "100%", justify: "center", paddingBlockEnd: 8, children: /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react56.Button, { variant: "solid", colorScheme: "blue", onClick: onLoadMore, children: "Carregar mais" }, void 0, !1, {
           fileName: "app/routes/_auth.home.tsx",
-          lineNumber: 271,
+          lineNumber: 280,
           columnNumber: 9
         }, this) }, void 0, !1, {
           fileName: "app/routes/_auth.home.tsx",
-          lineNumber: 270,
+          lineNumber: 279,
           columnNumber: 7
         }, this)
       ]
@@ -4222,7 +4286,7 @@ function auth_home_default() {
     !0,
     {
       fileName: "app/routes/_auth.home.tsx",
-      lineNumber: 149,
+      lineNumber: 156,
       columnNumber: 5
     },
     this
@@ -5278,7 +5342,7 @@ function __default() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-A3MWFENP.js", imports: ["/build/_shared/chunk-JMTNRVKS.js", "/build/_shared/chunk-RPYEFABZ.js", "/build/_shared/chunk-6Y4MOXXW.js", "/build/_shared/chunk-EDULEWIV.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-6QJJ3D23.js", imports: ["/build/_shared/chunk-HKFCHMVY.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-WWJ6QLXH.js", imports: ["/build/_shared/chunk-DLIGFWH4.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-ZXN74NV5.js", imports: ["/build/_shared/chunk-GY2OSEAB.js", "/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-XO5BRP32.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-VK3OGETJ.js", imports: ["/build/_shared/chunk-FZFY6NW6.js", "/build/_shared/chunk-HKFCHMVY.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-HTQMRZSD.js", imports: ["/build/_shared/chunk-DLIGFWH4.js", "/build/_shared/chunk-FZFY6NW6.js", "/build/_shared/chunk-HKFCHMVY.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/csv": { id: "routes/csv", parentId: "root", path: "csv", index: void 0, caseSensitive: void 0, module: "/build/routes/csv-6WKVSB6D.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-TNLJ3V6A.js", imports: ["/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-XO5BRP32.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-NKVPYVAI.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "8f86f05d", hmr: void 0, url: "/build/manifest-8F86F05D.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-A3MWFENP.js", imports: ["/build/_shared/chunk-JMTNRVKS.js", "/build/_shared/chunk-RPYEFABZ.js", "/build/_shared/chunk-6Y4MOXXW.js", "/build/_shared/chunk-EDULEWIV.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-6QJJ3D23.js", imports: ["/build/_shared/chunk-HKFCHMVY.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-WWJ6QLXH.js", imports: ["/build/_shared/chunk-DLIGFWH4.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-ZXN74NV5.js", imports: ["/build/_shared/chunk-GY2OSEAB.js", "/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-XO5BRP32.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-EILWGRHD.js", imports: ["/build/_shared/chunk-FZFY6NW6.js", "/build/_shared/chunk-HKFCHMVY.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-HTQMRZSD.js", imports: ["/build/_shared/chunk-DLIGFWH4.js", "/build/_shared/chunk-FZFY6NW6.js", "/build/_shared/chunk-HKFCHMVY.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/csv": { id: "routes/csv", parentId: "root", path: "csv", index: void 0, caseSensitive: void 0, module: "/build/routes/csv-6WKVSB6D.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-TNLJ3V6A.js", imports: ["/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-XO5BRP32.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-NKVPYVAI.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "2cdea732", hmr: void 0, url: "/build/manifest-2CDEA732.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !1, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

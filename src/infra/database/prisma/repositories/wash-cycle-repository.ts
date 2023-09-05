@@ -11,7 +11,13 @@ export class PrismaWashCycleRepository implements WashCycleRepository {
     });
   }
 
-  async find(id: string): Promise<WashCycle | null> {}
+  async find(id: string): Promise<WashCycle | null> {
+    const cycle = await prisma.washCycle.findUnique({ where: { id } });
+
+    if (!cycle) return null;
+
+    return PrismaWashCycleMapper.toDomain(cycle);
+  }
   async findNextCycleByLicensePlate(
     vehicleId: string,
   ): Promise<WashCycle | null> {
@@ -23,5 +29,13 @@ export class PrismaWashCycleRepository implements WashCycleRepository {
 
     return PrismaWashCycleMapper.toDomain(cycle);
   }
-  async update(id: string, data: Partial<WashCycle>): Promise<void> {}
+
+  async update(id: string, data: WashCycle): Promise<WashCycle> {
+    const cycle = await prisma.washCycle.update({
+      where: { id },
+      data: { ...PrismaWashCycleMapper.toPrisma(data) },
+    });
+
+    return PrismaWashCycleMapper.toDomain(cycle);
+  }
 }

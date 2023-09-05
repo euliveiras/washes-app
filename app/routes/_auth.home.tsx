@@ -11,13 +11,14 @@ import {
 } from "@remix-run/react";
 import { validateSessionId } from "src/infra/http/helpers/validate-session-id";
 import { findManyWashesController } from "src/infra/http/controllers/find-many-washes-controller";
-import { updateWashController } from "src/infra/http/controllers/update-wash-controller";
 import { commitSession, getSession } from "~/sessions";
 import { home } from "app/components/Home";
 import { washesTable } from "app/components/WashesTable";
 import { LuExternalLink } from "react-icons/lu";
 import type { Wash } from "@prisma/client";
 import { useEffect, useRef, useState } from "react";
+import { confirmWashController } from "src/infra/http/controllers/confirm-wash-controller";
+import { unconfirmWashController } from "src/infra/http/controllers/unconfirm-wash-controller";
 
 //export const headers: HeadersFunction = ({ parentHeaders }) => {
 //  const maxAge = parentHeaders.get("Cache-control") ?? `max-age=${60 * 60}`;
@@ -30,15 +31,21 @@ import { useEffect, useRef, useState } from "react";
 export async function action({ request }: ActionArgs) {
   const form = await request.formData();
   const id = form.get("id")?.toString();
-  const isCompleted = form.get("isCompleted") === "true";
+  const isCompleted = form.get("isCompleted");
+  let wash, error;
 
   if (!id) return json({ error: "" });
+  if (typeof isCompleted === "undefined") return json({ error: "" });
 
-  const { wash, error } = await updateWashController({
-    id,
-    data: { isCompleted },
-  });
-
+  if (isCompleted === "true") {
+    const data = await confirmWashController({ id });
+    wash = data.wash;
+    error = data.error;
+  } else {
+    const data = await unconfirmWashController({ id });
+    wash = data.wash;
+    error = data.error;
+  }
   if (error) {
     return json({ error: { message: error.message } });
   }
@@ -249,7 +256,9 @@ export default function () {
           {data?.map((w, i, arr) => {
             return (
               <washesTable.Row key={w?.id} id={w?.id}>
-                <washesTable.bodyData.LicensePlate licensePlate={w?.id ?? ""} />
+                <washesTable.bodyData.LicensePlate
+                  licensePlate={w.vehicleId ?? ""}
+                />
                 <washesTable.bodyData.ScheduledDate
                   scheduledDate={new Date(w?.scheduleDate ?? "")}
                 />
