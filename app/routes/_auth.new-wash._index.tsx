@@ -145,7 +145,6 @@ export default function NewWash() {
 
   function onFinish() {
     const params = { vehicle, driver, washes };
-
     submit(params, { method: "POST", encType: "application/json" });
   }
 

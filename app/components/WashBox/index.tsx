@@ -7,6 +7,7 @@ type WashBoxProps = {
   wash: {
     id: string;
     scheduleDate: string;
+    note?: string;
   };
 };
 
@@ -16,9 +17,10 @@ export function WashBox({ wash }: WashBoxProps) {
 
   return (
     <LinkBox.Container to={`/wash/${wash.id}`}>
-      <LinkBox.Content >
+      <LinkBox.Content>
         <LinkBox.Title>{title}</LinkBox.Title>
         <Text fontSize={"lg"}>{date}</Text>
+        {wash.note && <Text>{wash.note}</Text>}
       </LinkBox.Content>
       <LinkBox.Icon icon={<FaExternalLinkAlt size={16} />} />
     </LinkBox.Container>

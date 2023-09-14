@@ -361,9 +361,15 @@ function useStepper() {
 }
 
 // src/domain/shared/date-manipulator.ts
-var import_date_fns = require("date-fns"), import_locale = require("date-fns/locale");
+var import_date_fns = require("date-fns"), import_date_fns_tz = require("date-fns-tz"), import_locale = require("date-fns/locale"), timezone = "UTC";
 function wrapper() {
   return {
+    toZonedTime(date) {
+      return (0, import_date_fns_tz.utcToZonedTime)(date, timezone);
+    },
+    toUTC(date) {
+      return (0, import_date_fns_tz.zonedTimeToUtc)(date, timezone);
+    },
     isAfter(date, dateToCompare) {
       let x = (0, import_date_fns.parseISO)(date), y = (0, import_date_fns.parseISO)(dateToCompare);
       return (0, import_date_fns.isAfter)(x, y);
@@ -383,7 +389,7 @@ function wrapper() {
       );
     },
     parseDateToString(date) {
-      return (0, import_date_fns.formatISO)(date);
+      return date.toISOString();
     },
     addDaysToDate(date, amount) {
       return this.parseDateToString(
@@ -400,11 +406,14 @@ function wrapper() {
       );
     },
     format(date, format2) {
-      return typeof date == "string" ? (0, import_date_fns.format)(this.parseISOStringToDate(date), format2, {
+      return typeof date == "string" ? (0, import_date_fns_tz.format)(this.toZonedTime(date), format2, {
         locale: import_locale.ptBR
-      }) : (0, import_date_fns.format)(date, format2, {
+      }) : (0, import_date_fns_tz.format)(date, format2, {
         locale: import_locale.ptBR
       });
+    },
+    isToday(date) {
+      return typeof date == "string" ? (0, import_date_fns.isToday)(this.toZonedTime(date)) : (0, import_date_fns.isToday)(date);
     }
   };
 }
@@ -429,6 +438,9 @@ function addDays2(date, days) {
   }
   let newDate = dateManipulator.addDaysToDate(date, days);
   return parseISOStringToDate(newDate);
+}
+function isToday(date) {
+  return dateManipulator.isToday(date);
 }
 function useDate() {
   function format2(date, format3) {
@@ -573,132 +585,173 @@ function WashBox({ wash }) {
     /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(LinkBox.Content, { children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(LinkBox.Title, { children: title }, void 0, !1, {
         fileName: "app/components/WashBox/index.tsx",
-        lineNumber: 20,
+        lineNumber: 21,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react15.Text, { fontSize: "lg", children: date }, void 0, !1, {
         fileName: "app/components/WashBox/index.tsx",
-        lineNumber: 21,
+        lineNumber: 22,
         columnNumber: 9
+      }, this),
+      wash.note && /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_react15.Text, { children: wash.note }, void 0, !1, {
+        fileName: "app/components/WashBox/index.tsx",
+        lineNumber: 23,
+        columnNumber: 23
       }, this)
     ] }, void 0, !0, {
       fileName: "app/components/WashBox/index.tsx",
-      lineNumber: 19,
+      lineNumber: 20,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(LinkBox.Icon, { icon: /* @__PURE__ */ (0, import_jsx_dev_runtime9.jsxDEV)(import_fa.FaExternalLinkAlt, { size: 16 }, void 0, !1, {
       fileName: "app/components/WashBox/index.tsx",
-      lineNumber: 23,
+      lineNumber: 25,
       columnNumber: 27
     }, this) }, void 0, !1, {
       fileName: "app/components/WashBox/index.tsx",
-      lineNumber: 23,
+      lineNumber: 25,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/components/WashBox/index.tsx",
-    lineNumber: 18,
+    lineNumber: 19,
     columnNumber: 5
   }, this);
 }
 
 // app/components/NewWash/WashesContent/Container.tsx
-var import_react17 = require("react"), import_react18 = require("@remix-run/react"), import_jsx_dev_runtime10 = require("react/jsx-dev-runtime");
+var import_react17 = require("react"), import_react18 = require("@remix-run/react");
+var import_jsx_dev_runtime10 = require("react/jsx-dev-runtime");
 function Container2({
   addError,
   removeError,
   licensePlate,
   children
 }) {
-  let { data, submit } = (0, import_react18.useFetcher)();
-  return (0, import_react17.useEffect)(() => {
+  var _a;
+  let { data, submit } = (0, import_react18.useFetcher)(), actionData = (0, import_react18.useActionData)();
+  (0, import_react17.useEffect)(() => {
     submit({ licensePlate }, { action: "/washes-search" });
-  }, [submit, licensePlate]), (0, import_react17.useEffect)(() => {
-    (data == null ? void 0 : data.washes.length) > 0 ? addError() : removeError();
-  }, [data, addError, removeError]), /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react16.Grid, { blockSize: "100%", gridTemplateRows: "1fr auto", children: (data == null ? void 0 : data.washes.length) > 0 ? /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_jsx_dev_runtime10.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react16.Box, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react16.Alert, { status: "info", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react16.AlertIcon, {}, void 0, !1, {
-        fileName: "app/components/NewWash/WashesContent/Container.tsx",
-        lineNumber: 39,
-        columnNumber: 15
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react16.Text, { children: [
-        "H\xE1 lavagens ativas para o ve\xEDculo com placa",
-        /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(LinkHighlighted, { to: `/vehicle/${licensePlate}`, children: licensePlate }, void 0, !1, {
-          fileName: "app/components/NewWash/WashesContent/Container.tsx",
-          lineNumber: 42,
-          columnNumber: 17
-        }, this)
-      ] }, void 0, !0, {
-        fileName: "app/components/NewWash/WashesContent/Container.tsx",
-        lineNumber: 40,
-        columnNumber: 15
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/components/NewWash/WashesContent/Container.tsx",
-      lineNumber: 38,
-      columnNumber: 13
-    }, this) }, void 0, !1, {
-      fileName: "app/components/NewWash/WashesContent/Container.tsx",
-      lineNumber: 37,
-      columnNumber: 11
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
-      import_react16.Grid,
-      {
-        paddingBlockStart: 6,
-        gridTemplateColumns: ["1fr", "1fr", "1fr 1fr"],
-        gap: 4,
-        children: (data == null ? void 0 : data.washes) && (data == null ? void 0 : data.washes.map((w) => /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(WashBox, { wash: w }, w.id, !1, {
-          fileName: "app/components/NewWash/WashesContent/Container.tsx",
-          lineNumber: 55,
-          columnNumber: 24
-        }, this)))
-      },
-      void 0,
-      !1,
-      {
-        fileName: "app/components/NewWash/WashesContent/Container.tsx",
-        lineNumber: 48,
-        columnNumber: 11
-      },
-      this
-    )
-  ] }, void 0, !0, {
-    fileName: "app/components/NewWash/WashesContent/Container.tsx",
-    lineNumber: 36,
-    columnNumber: 9
-  }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_jsx_dev_runtime10.Fragment, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
+  }, [submit, licensePlate]);
+  let todayWash = (_a = data == null ? void 0 : data.washes) == null ? void 0 : _a.find((w) => isToday(w.scheduleDate) && w);
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
     import_react16.Grid,
     {
-      gridTemplateColumns: ["1fr", "1fr", "1fr 1fr"],
-      gap: 10,
-      paddingBlockEnd: 8,
+      blockSize: "100%",
       placeItems: "center",
-      children
+      gridAutoRows: "min-content",
+      gap: 8,
+      children: todayWash ? /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_jsx_dev_runtime10.Fragment, { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react16.Box, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react16.Alert, { status: "info", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react16.AlertIcon, {}, void 0, !1, {
+            fileName: "app/components/NewWash/WashesContent/Container.tsx",
+            lineNumber: 53,
+            columnNumber: 15
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react16.Text, { children: [
+            "H\xE1 uma lavagem hoje para o ve\xEDculo",
+            /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(LinkHighlighted, { to: `/vehicle/${licensePlate}`, children: licensePlate }, void 0, !1, {
+              fileName: "app/components/NewWash/WashesContent/Container.tsx",
+              lineNumber: 56,
+              columnNumber: 17
+            }, this)
+          ] }, void 0, !0, {
+            fileName: "app/components/NewWash/WashesContent/Container.tsx",
+            lineNumber: 54,
+            columnNumber: 15
+          }, this)
+        ] }, void 0, !0, {
+          fileName: "app/components/NewWash/WashesContent/Container.tsx",
+          lineNumber: 52,
+          columnNumber: 13
+        }, this) }, void 0, !1, {
+          fileName: "app/components/NewWash/WashesContent/Container.tsx",
+          lineNumber: 51,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
+          import_react16.Flex,
+          {
+            as: import_react18.Form,
+            action: "/home",
+            method: "POST",
+            justify: "center",
+            align: "center",
+            gap: 4,
+            flexDir: "column",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react16.Input, { type: "hidden", readOnly: !0, name: "id", value: todayWash.id }, void 0, !1, {
+                fileName: "app/components/NewWash/WashesContent/Container.tsx",
+                lineNumber: 71,
+                columnNumber: 13
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react16.Input, { type: "hidden", readOnly: !0, name: "isCompleted", value: "true" }, void 0, !1, {
+                fileName: "app/components/NewWash/WashesContent/Container.tsx",
+                lineNumber: 72,
+                columnNumber: 13
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(WashBox, { wash: todayWash }, void 0, !1, {
+                fileName: "app/components/NewWash/WashesContent/Container.tsx",
+                lineNumber: 73,
+                columnNumber: 13
+              }, this),
+              /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_react16.Button, { variant: "solid", colorScheme: "blue", type: "submit", children: "Confirmar lavagem?" }, void 0, !1, {
+                fileName: "app/components/NewWash/WashesContent/Container.tsx",
+                lineNumber: 74,
+                columnNumber: 13
+              }, this)
+            ]
+          },
+          void 0,
+          !0,
+          {
+            fileName: "app/components/NewWash/WashesContent/Container.tsx",
+            lineNumber: 62,
+            columnNumber: 11
+          },
+          this
+        )
+      ] }, void 0, !0, {
+        fileName: "app/components/NewWash/WashesContent/Container.tsx",
+        lineNumber: 50,
+        columnNumber: 9
+      }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(import_jsx_dev_runtime10.Fragment, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime10.jsxDEV)(
+        import_react16.Grid,
+        {
+          gridTemplateColumns: ["1fr", "1fr", "1fr 1fr"],
+          gap: 10,
+          paddingBlockEnd: 8,
+          placeItems: "center",
+          children
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/components/NewWash/WashesContent/Container.tsx",
+          lineNumber: 81,
+          columnNumber: 11
+        },
+        this
+      ) }, void 0, !1, {
+        fileName: "app/components/NewWash/WashesContent/Container.tsx",
+        lineNumber: 80,
+        columnNumber: 9
+      }, this)
     },
     void 0,
     !1,
     {
       fileName: "app/components/NewWash/WashesContent/Container.tsx",
-      lineNumber: 61,
-      columnNumber: 11
+      lineNumber: 43,
+      columnNumber: 5
     },
     this
-  ) }, void 0, !1, {
-    fileName: "app/components/NewWash/WashesContent/Container.tsx",
-    lineNumber: 60,
-    columnNumber: 9
-  }, this) }, void 0, !1, {
-    fileName: "app/components/NewWash/WashesContent/Container.tsx",
-    lineNumber: 34,
-    columnNumber: 5
-  }, this);
+  );
 }
 
 // app/components/NewWash/WashesContent/Form.tsx
 var import_react19 = require("@chakra-ui/react"), import_react20 = require("@remix-run/react"), import_jsx_dev_runtime11 = require("react/jsx-dev-runtime");
-function Form({
+function Form2({
   isCompleted,
   id,
   onChange,
@@ -878,7 +931,7 @@ function WashesContent({
           paddingInline: 4,
           paddingBlock: 8,
           children: /* @__PURE__ */ (0, import_jsx_dev_runtime12.jsxDEV)(
-            Form,
+            Form2,
             {
               id: w.id,
               onChange: setWashes,
@@ -926,7 +979,7 @@ var formatedDates = {
   firstDate: format(baseDate, "yyyy-MM-dd"),
   secDate: format(addDays2(baseDate, 7), "yyyy-MM-dd"),
   thirdDate: format(addDays2(baseDate, 14), "yyyy-MM-dd"),
-  fourthDate: format(addDays2(baseDate, 28), "yyyy-MM-dd")
+  fourthDate: format(addDays2(baseDate, 21), "yyyy-MM-dd")
 }, washesDefaultValue = [
   {
     id: 1,
@@ -2602,9 +2655,7 @@ var PrismaWashMapper = class {
     return {
       createdBy: wash.createdBy,
       cycleId: wash.cycleId,
-      scheduleDate: dateManipulator.parseDateToString(
-        new Date(wash.scheduleDate)
-      ),
+      scheduleDate: dateManipulator.parseDateToString(new Date(wash.scheduleDate)),
       vehicleId: wash.vehicleId.toUpperCase(),
       id: wash.id,
       isCompleted: wash.isCompleted,
@@ -3003,7 +3054,7 @@ function NewWash() {
           !1,
           {
             fileName: "app/routes/_auth.new-wash._index.tsx",
-            lineNumber: 190,
+            lineNumber: 189,
             columnNumber: 7
           },
           this
@@ -3029,7 +3080,7 @@ function NewWash() {
                 !1,
                 {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 200,
+                  lineNumber: 199,
                   columnNumber: 9
                 },
                 this
@@ -3047,7 +3098,7 @@ function NewWash() {
                   !1,
                   {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 211,
+                    lineNumber: 210,
                     columnNumber: 13
                   },
                   this
@@ -3065,14 +3116,14 @@ function NewWash() {
                   !1,
                   {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 219,
+                    lineNumber: 218,
                     columnNumber: 13
                   },
                   this
                 ),
                 activeStep === 2 && /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(DriverContent, { driver, setDriverData }, void 0, !1, {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 228,
+                  lineNumber: 227,
                   columnNumber: 13
                 }, this),
                 activeStep === 3 && /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(summary.Container, { children: [
@@ -3086,29 +3137,29 @@ function NewWash() {
                     !1,
                     {
                       fileName: "app/routes/_auth.new-wash._index.tsx",
-                      lineNumber: 232,
+                      lineNumber: 231,
                       columnNumber: 15
                     },
                     this
                   ),
                   /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(summary.Washes, { washes, goTo: () => setActiveStep(1) }, void 0, !1, {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 236,
+                    lineNumber: 235,
                     columnNumber: 15
                   }, this),
                   /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(summary.Driver, { driver, goTo: () => setActiveStep(2) }, void 0, !1, {
                     fileName: "app/routes/_auth.new-wash._index.tsx",
-                    lineNumber: 237,
+                    lineNumber: 236,
                     columnNumber: 15
                   }, this)
                 ] }, void 0, !0, {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 231,
+                  lineNumber: 230,
                   columnNumber: 13
                 }, this)
               ] }, void 0, !0, {
                 fileName: "app/routes/_auth.new-wash._index.tsx",
-                lineNumber: 209,
+                lineNumber: 208,
                 columnNumber: 9
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)(
@@ -3125,7 +3176,7 @@ function NewWash() {
                 !1,
                 {
                   fileName: "app/routes/_auth.new-wash._index.tsx",
-                  lineNumber: 241,
+                  lineNumber: 240,
                   columnNumber: 9
                 },
                 this
@@ -3136,7 +3187,7 @@ function NewWash() {
           !0,
           {
             fileName: "app/routes/_auth.new-wash._index.tsx",
-            lineNumber: 195,
+            lineNumber: 194,
             columnNumber: 7
           },
           this
@@ -3147,7 +3198,7 @@ function NewWash() {
     !0,
     {
       fileName: "app/routes/_auth.new-wash._index.tsx",
-      lineNumber: 177,
+      lineNumber: 176,
       columnNumber: 5
     },
     this
@@ -4205,7 +4256,7 @@ function auth_home_default() {
                 /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
                   washesTable.bodyData.ScheduledDate,
                   {
-                    scheduledDate: new Date((w == null ? void 0 : w.scheduleDate) ?? "")
+                    scheduledDate: (w == null ? void 0 : w.scheduleDate) ?? ""
                   },
                   void 0,
                   !1,
@@ -5342,7 +5393,7 @@ function __default() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-A3MWFENP.js", imports: ["/build/_shared/chunk-JMTNRVKS.js", "/build/_shared/chunk-RPYEFABZ.js", "/build/_shared/chunk-6Y4MOXXW.js", "/build/_shared/chunk-EDULEWIV.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-6QJJ3D23.js", imports: ["/build/_shared/chunk-HKFCHMVY.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-WWJ6QLXH.js", imports: ["/build/_shared/chunk-DLIGFWH4.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-ZXN74NV5.js", imports: ["/build/_shared/chunk-GY2OSEAB.js", "/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-XO5BRP32.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-EILWGRHD.js", imports: ["/build/_shared/chunk-FZFY6NW6.js", "/build/_shared/chunk-HKFCHMVY.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-HTQMRZSD.js", imports: ["/build/_shared/chunk-DLIGFWH4.js", "/build/_shared/chunk-FZFY6NW6.js", "/build/_shared/chunk-HKFCHMVY.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/csv": { id: "routes/csv", parentId: "root", path: "csv", index: void 0, caseSensitive: void 0, module: "/build/routes/csv-6WKVSB6D.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-TNLJ3V6A.js", imports: ["/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-XO5BRP32.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-NKVPYVAI.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "2cdea732", hmr: void 0, url: "/build/manifest-2CDEA732.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-A3MWFENP.js", imports: ["/build/_shared/chunk-JMTNRVKS.js", "/build/_shared/chunk-RPYEFABZ.js", "/build/_shared/chunk-6Y4MOXXW.js", "/build/_shared/chunk-EDULEWIV.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-6QJJ3D23.js", imports: ["/build/_shared/chunk-HKFCHMVY.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-WWJ6QLXH.js", imports: ["/build/_shared/chunk-DLIGFWH4.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-ZXN74NV5.js", imports: ["/build/_shared/chunk-GY2OSEAB.js", "/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-XO5BRP32.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-2EGNDXBJ.js", imports: ["/build/_shared/chunk-M4MDNJST.js", "/build/_shared/chunk-HKFCHMVY.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-MHFEBO5K.js", imports: ["/build/_shared/chunk-DLIGFWH4.js", "/build/_shared/chunk-M4MDNJST.js", "/build/_shared/chunk-HKFCHMVY.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/csv": { id: "routes/csv", parentId: "root", path: "csv", index: void 0, caseSensitive: void 0, module: "/build/routes/csv-6WKVSB6D.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-TNLJ3V6A.js", imports: ["/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-XO5BRP32.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-NKVPYVAI.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "7a575d3b", hmr: void 0, url: "/build/manifest-7A575D3B.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !1, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

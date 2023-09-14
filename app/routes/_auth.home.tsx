@@ -260,7 +260,7 @@ export default function () {
                   licensePlate={w.vehicleId ?? ""}
                 />
                 <washesTable.bodyData.ScheduledDate
-                  scheduledDate={new Date(w?.scheduleDate ?? "")}
+                  scheduledDate={w?.scheduleDate ?? ""}
                 />
                 <washesTable.bodyData.Status
                   status={w?.isCompleted === true ? "success" : "error"}

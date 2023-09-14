@@ -21,7 +21,7 @@ export const formatedDates = {
   firstDate: format(baseDate, "yyyy-MM-dd"),
   secDate: format(addDays(baseDate, 7), "yyyy-MM-dd"),
   thirdDate: format(addDays(baseDate, 14), "yyyy-MM-dd"),
-  fourthDate: format(addDays(baseDate, 28), "yyyy-MM-dd"),
+  fourthDate: format(addDays(baseDate, 21), "yyyy-MM-dd"),
 };
 
 export const washesDefaultValue = [

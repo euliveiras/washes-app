@@ -18,7 +18,6 @@ async function controller({ licensePlate }: { licensePlate: string }) {
   if (!washCycle) return { washCycle: null, washes: [] };
 
   const { washes } = await findWashesByCycleId.execute(washCycle.id);
-
   return {
     washCycle: HttpMapper.washCycle(washCycle),
     washes: washes.map((w) => HttpMapper.wash(w)),

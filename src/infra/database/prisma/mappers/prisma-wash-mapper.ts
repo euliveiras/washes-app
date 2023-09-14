@@ -18,9 +18,7 @@ export class PrismaWashMapper {
     return {
       createdBy: wash.createdBy,
       cycleId: wash.cycleId,
-      scheduleDate: dateManipulator.parseDateToString(
-        new Date(wash.scheduleDate),
-      ),
+      scheduleDate: dateManipulator.parseDateToString(new Date(wash.scheduleDate)),
       vehicleId: wash.vehicleId.toUpperCase(),
       id: wash.id,
       isCompleted: wash.isCompleted,

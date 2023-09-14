@@ -1,14 +1,18 @@
 import {
   addMonths,
-  formatISO,
   isAfter,
   isBefore,
   addDays,
   parseISO,
   isSunday,
   isSameDay,
-  format as dateFnsFormat,
+  isToday as dateFnsIsToday,
 } from "date-fns";
+import {
+  format as dateFnsFormat,
+  zonedTimeToUtc,
+  utcToZonedTime,
+} from "date-fns-tz";
 import { ptBR } from "date-fns/locale";
 
 type DateManipulator = {
@@ -21,10 +25,21 @@ type DateManipulator = {
   isSunday(date: string): boolean;
   isSameDay(date1: string, date2: string): boolean;
   format(date: string | Date, format: string): string;
+  isToday(date: string | Date): boolean;
+  toZonedTime(date: Date | string): Date;
+  toUTC(date: Date | string): Date;
 };
+
+const timezone = "UTC";
 
 function wrapper(): DateManipulator {
   return {
+    toZonedTime(date) {
+      return utcToZonedTime(date, timezone);
+    },
+    toUTC(date) {
+      return zonedTimeToUtc(date, timezone);
+    },
     isAfter(date: string, dateToCompare: string): boolean {
       const x = parseISO(date);
       const y = parseISO(dateToCompare);
@@ -47,8 +62,8 @@ function wrapper(): DateManipulator {
         addMonths(this.parseISOStringToDate(date), amount),
       );
     },
-    parseDateToString(date: Date): string {
-      return formatISO(date);
+    parseDateToString(date): string {
+      return date.toISOString();
     },
     addDaysToDate(date: string, amount): string {
       return this.parseDateToString(
@@ -66,13 +81,19 @@ function wrapper(): DateManipulator {
     },
     format(date, format) {
       if (typeof date === "string") {
-        return dateFnsFormat(this.parseISOStringToDate(date), format, {
+        return dateFnsFormat(this.toZonedTime(date), format, {
           locale: ptBR,
         });
       }
       return dateFnsFormat(date, format, {
         locale: ptBR,
       });
+    },
+    isToday(date) {
+      if (typeof date === "string") {
+        return dateFnsIsToday(this.toZonedTime(date));
+      }
+      return dateFnsIsToday(date);
     },
   };
 }

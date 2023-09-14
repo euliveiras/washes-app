@@ -22,6 +22,10 @@ export function addDays(date: Date | string, days: number): Date {
   return parseISOStringToDate(newDate);
 }
 
+export function isToday(date: Date | string): boolean {
+  return dateManipulator.isToday(date);
+}
+
 export function useDate() {
   function format(date: Date | string, format?: string): string {
     return dateManipulator.format(date, format ?? "yyyy-MM-dd");
