@@ -12,6 +12,8 @@ export async function loader({ request }: LoaderArgs) {
     licensePlate,
   });
 
+console.log(washCycle, washes)
+
   if (error) {
     return json({
       error: true,

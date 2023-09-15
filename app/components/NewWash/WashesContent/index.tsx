@@ -2,7 +2,7 @@ import { format, addDays } from "~/components/hooks/useDate";
 export { WashesContent } from "./WashesContent";
 
 export type Wash = {
-  id: string | number;
+  id: number;
   scheduleDate: string;
   note: string;
   isCompleted: boolean;
@@ -23,6 +23,10 @@ export const formatedDates = {
   thirdDate: format(addDays(baseDate, 14), "yyyy-MM-dd"),
   fourthDate: format(addDays(baseDate, 21), "yyyy-MM-dd"),
 };
+
+export function formatDate(date: Date) {
+  return format(date, "yyyy-MM-dd");
+}
 
 export const washesDefaultValue = [
   {

@@ -3,6 +3,15 @@ import type { User } from "domain/modules/user/entities/User";
 import type { Wash } from "domain/modules/wash/entities/Wash";
 import type { WashCycle } from "domain/modules/wash-cycle/entities/WashCycle";
 
+export type HttpWash = {
+  id: string;
+  scheduleDate: string;
+  createdBy: string;
+  isCompleted: boolean;
+  note?: string;
+  vehicleId: string;
+};
+
 export function toHttp(user: User) {
   return {
     id: user.id,
@@ -32,7 +41,7 @@ export class HttpMapper {
     };
   }
 
-  static wash(w: Wash): Partial<Wash> {
+  static wash(w: Wash): HttpWash {
     return {
       id: w.id,
       scheduleDate: w.scheduleDate,

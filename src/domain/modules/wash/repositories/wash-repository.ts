@@ -19,7 +19,7 @@ export type UpdateWashRepoAbstractMethodDTO = {
 };
 
 export abstract class WashRepository {
-  abstract create(wash: Wash): void;
+  abstract create(wash: Wash): Promise<void>;
   abstract createMany(washes: Wash[]): Promise<void>;
   abstract findById(id: string): Promise<Wash | null>;
   abstract update(id: string, data: Partial<Wash>): Promise<Wash | null>;

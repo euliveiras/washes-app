@@ -1,10 +1,7 @@
 import { Text, Box, Grid } from "@chakra-ui/react";
 import { useStepper } from "~/components/NewWash/Stepper";
 import type { Wash } from "~/components/NewWash/WashesContent";
-import {
-  WashesContent,
-  washesDefaultValue,
-} from "~/components/NewWash/WashesContent";
+import { WashesContent } from "~/components/NewWash/WashesContent";
 import {
   defaultVehicleState,
   VehicleContent,
@@ -20,23 +17,25 @@ import {
 } from "~/components/NewWash/DriverContent";
 import { summary } from "~/components/NewWash/SummaryContent";
 import type { ActionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { redirect, json } from "@remix-run/node";
 import { useActionData, useNavigate, useSubmit } from "@remix-run/react";
 import { useToast } from "~/components/hooks/useToast";
 import { createVehicleController } from "src/infra/http/controllers/create-vehicle-controller";
 import { initializeCycleController } from "src/infra/http/controllers/create-wash-cycle-controller";
 import { getSession } from "~/sessions";
 import { validateSessionId } from "src/infra/http/helpers/validate-session-id";
+import { createWashController } from "src/infra/http/controllers/create-wash-controller";
 
 export async function action({ request }: ActionArgs) {
   const jsonData = await request.json();
-  const vehicle = jsonData?.vehicle as Vehicle | null;
+  let vehicle = jsonData?.vehicle as Vehicle | null;
   const washes = jsonData?.washes as Wash[];
   const driver = jsonData?.driver as {
     name: string;
     phone: string;
     create: boolean;
   };
+  const cycleId = jsonData?.cycleId as string;
 
   if (!vehicle) {
     return json(
@@ -51,6 +50,8 @@ export async function action({ request }: ActionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   const token = session.get("token") ?? "";
   const { user } = await validateSessionId({ sessionId: token });
+
+  if (!user) throw redirect("/sign-up");
 
   if (vehicle.create) {
     const createdVehicle = await createVehicleController({
@@ -69,19 +70,26 @@ export async function action({ request }: ActionArgs) {
       );
     }
 
-    const initializedCycle = initializeCycleController({
-      createdBy: user?.id ?? "",
-      vehicleId: createdVehicle.vehicle.licensePlate,
-      washes,
-    });
+    vehicle = { ...vehicle, licensePlate: createdVehicle.vehicle.licensePlate };
+  }
 
-    if (initializedCycle.error) {
+  if (cycleId) {
+    const data = washes[0];
+    const { error } = createWashController({
+      cycleId,
+      createdBy: user.id,
+      scheduleDate: data.scheduleDate,
+      vehicleId: vehicle.licensePlate,
+      note: data.note,
+      isCompleted: data.isCompleted,
+    });
+    if (error) {
       return json(
         {
           error: true,
-          message: initializedCycle.error.message,
+          message: error.message,
         },
-        initializedCycle.error.statusCode,
+        error.statusCode,
       );
     }
   } else {
@@ -101,6 +109,7 @@ export async function action({ request }: ActionArgs) {
       );
     }
   }
+
   return json({ success: true, message: "Lavagens criadas" }, 201);
 }
 
@@ -110,7 +119,8 @@ export default function NewWash() {
   const { showErrorToast, showSuccessToast } = useToast();
   const [error, setError] = useState<boolean>(false);
   const [vehicle, setVehicle] = useState<Vehicle>(defaultVehicleState);
-  const [washes, setWashes] = useState<Wash[]>(washesDefaultValue);
+  const [washes, setWashes] = useState<Wash[]>([]);
+  const [cycleId, setCycleId] = useState<string | null>(null);
   const [driver, setDriver] = useState<Driver>(defaultDriverValue);
   const submit = useSubmit();
   const navigate = useNavigate();
@@ -123,6 +133,35 @@ export default function NewWash() {
   const removeError = useCallback(() => {
     setError(false);
   }, []);
+
+  function getWashesFormData(element: HTMLFormElement) {
+    const form = new FormData(element);
+    const scheduleDate = form.get("scheduleDate")?.toString() ?? "";
+    const note = form.get("note")?.toString() ?? "";
+    const isCompleted = form.get("isCompleted") === "";
+    const title = form.get("title")?.toString() ?? "";
+    const id = Number(form.get("id"));
+    return { scheduleDate, id, note, isCompleted, title };
+  }
+
+  function onNextStepButtonClick(fn?: Function) {
+    // washes step
+    if (activeStep === 1) {
+      const forms = document.querySelectorAll(".wash-form");
+      const input = document.querySelector(".cycleId") as HTMLInputElement;
+      const arr = [] as {
+        scheduleDate: string;
+        note: string;
+        isCompleted: boolean;
+        title: string;
+        id: number;
+      }[];
+      forms.forEach((f) => arr.push(getWashesFormData(f as HTMLFormElement)));
+      setWashes(arr);
+      setCycleId(input?.value);
+    }
+    goToNext();
+  }
 
   function setDriverData(v: Driver) {
     setDriver(v);
@@ -143,8 +182,27 @@ export default function NewWash() {
     });
   }
 
+  function removeWash(id: number) {
+    setWashes((s) => {
+      const arr = s.filter((w) => w.id !== id);
+      return arr;
+    });
+  }
+
+  function addSingleWash(
+    wash: {
+      scheduleDate: string;
+      note: string;
+      isCompleted: boolean;
+    },
+    cycleId: string,
+  ) {
+    setWashes([{ ...wash, id: 1, title: "" }]);
+    setCycleId(cycleId);
+  }
+
   function onFinish() {
-    const params = { vehicle, driver, washes };
+    const params = { vehicle, driver, washes, cycleId };
     submit(params, { method: "POST", encType: "application/json" });
   }
 
@@ -165,12 +223,12 @@ export default function NewWash() {
   const isVehicleDataValid = vehicle.licensePlate !== "" && vehicle.type !== "";
   const isDriverValid = true;
   const lowerThanLastStep = activeStep < steps.length - 1;
-  const isWashesValid = true;
 
-  const canProceed =
-    isVehicleDataValid && isDriverValid && isWashesValid && lowerThanLastStep;
+  const canProceed = isVehicleDataValid && isDriverValid && lowerThanLastStep;
 
   const canGoBack = activeStep > 0;
+
+  console.log(washes);
 
   return (
     <Grid
@@ -219,8 +277,9 @@ export default function NewWash() {
               washes={washes}
               setWashes={setWashesData}
               licensePlate={vehicle.licensePlate}
-              addError={addError}
-              removeError={removeError}
+              addSingleWash={addSingleWash}
+              removeWash={removeWash}
+              onNextStepClick={onNextStepButtonClick}
             />
           )}
           {activeStep === 2 && (
@@ -241,9 +300,9 @@ export default function NewWash() {
           isNextButtonDisable={error || !canProceed}
           isPreviousButtonDisable={!canGoBack}
           goBack={goToPrevious}
-          goNext={goToNext}
           onFinish={onFinish}
           isLastStep={steps.length - 1 === activeStep}
+          onNextStepClick={onNextStepButtonClick}
         />
       </Grid>
     </Grid>

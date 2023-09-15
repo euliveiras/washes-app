@@ -3,21 +3,24 @@ import type { FlexProps } from "@chakra-ui/react";
 type NewWashFooterProps = {
   containerProps?: FlexProps;
   goBack(): void;
-  goNext(): void;
   isPreviousButtonDisable: boolean;
   isNextButtonDisable: boolean;
   isLastStep: boolean;
   onFinish(): void;
+  onNextStepClick(): void;
 };
 export function NewWashFooter({
-  goNext,
   goBack,
   containerProps,
   isNextButtonDisable,
   isPreviousButtonDisable,
   isLastStep,
   onFinish,
+  onNextStepClick,
 }: NewWashFooterProps) {
+  function onNextStepButtonClick() {
+    onNextStepClick();
+  }
   return (
     <Flex
       placeSelf={"flex-end"}
@@ -57,7 +60,7 @@ export function NewWashFooter({
           name="step"
           variant="ghost"
           colorScheme={"blue"}
-          onClick={() => goNext()}
+          onClick={onNextStepButtonClick}
           isDisabled={isNextButtonDisable}
         >
           próximo

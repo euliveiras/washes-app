@@ -21,8 +21,9 @@ export class PrismaWashCycleRepository implements WashCycleRepository {
   async findNextCycleByLicensePlate(
     vehicleId: string,
   ): Promise<WashCycle | null> {
+    const todayDate = new Date().toISOString();
     const cycle = await prisma.washCycle.findFirst({
-      where: { vehicleId },
+      where: { AND: [{ vehicleId }, { endDate: { gte: todayDate } }] },
     });
 
     if (!cycle) return null;
