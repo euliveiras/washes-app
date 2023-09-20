@@ -2,14 +2,14 @@ import {
   LuPlus
 } from "/build/_shared/chunk-GY2OSEAB.js";
 import {
-  require_node
-} from "/build/_shared/chunk-G7CHZRZX.js";
-import {
   GenIcon,
   MdDensityMedium,
   MdOutlineNotificationsNone,
   MdOutlineSearch
 } from "/build/_shared/chunk-XO5BRP32.js";
+import {
+  require_edge
+} from "/build/_shared/chunk-J5LZUC2L.js";
 import {
   Avatar,
   Button,
@@ -50,7 +50,7 @@ import {
 } from "/build/_shared/chunk-PNG5AS42.js";
 
 // app/routes/_auth.tsx
-var import_node = __toESM(require_node());
+var import_remix = __toESM(require_edge());
 
 // node_modules/react-icons/bi/index.esm.js
 function BiHomeAlt(props) {
@@ -507,4 +507,4 @@ function auth_default() {
 export {
   auth_default as default
 };
-//# sourceMappingURL=/build/routes/_auth-LS4VJOLO.js.map
+//# sourceMappingURL=/build/routes/_auth-HDOZAATP.js.map

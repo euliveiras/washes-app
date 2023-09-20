@@ -2203,7 +2203,7 @@ var summary = {
 };
 
 // app/routes/_auth.new-wash._index.tsx
-var import_node = require("@remix-run/node"), import_react40 = require("@remix-run/react");
+var import_remix2 = require("@vercel/remix"), import_react40 = require("@remix-run/react");
 
 // app/components/hooks/useToast.ts
 var import_react36 = require("react"), import_react37 = require("@chakra-ui/react"), useToast = () => {
@@ -2947,7 +2947,7 @@ var import_jsx_dev_runtime21 = require("react/jsx-dev-runtime");
 async function action({ request }) {
   let jsonData = await request.json(), vehicle = jsonData == null ? void 0 : jsonData.vehicle, washes = jsonData == null ? void 0 : jsonData.washes, driver = jsonData == null ? void 0 : jsonData.driver, cycleId = jsonData == null ? void 0 : jsonData.cycleId;
   if (!vehicle)
-    return (0, import_node.json)(
+    return (0, import_remix2.json)(
       {
         error: !0,
         message: "Voc\xEA precisa fornecer o ve\xEDculo"
@@ -2956,7 +2956,7 @@ async function action({ request }) {
     );
   let token = (await getSession(request.headers.get("Cookie"))).get("token") ?? "", { user } = await validateSessionId({ sessionId: token });
   if (!user)
-    throw (0, import_node.redirect)("/sign-up");
+    throw (0, import_remix2.redirect)("/sign-up");
   if (vehicle.create) {
     let createdVehicle = await createVehicleController({
       type: vehicle.type,
@@ -2964,7 +2964,7 @@ async function action({ request }) {
       driver
     });
     if (createdVehicle.error)
-      return (0, import_node.json)(
+      return (0, import_remix2.json)(
         {
           error: !0,
           message: createdVehicle.error.message
@@ -2983,7 +2983,7 @@ async function action({ request }) {
       isCompleted: data.isCompleted
     });
     if (error)
-      return (0, import_node.json)(
+      return (0, import_remix2.json)(
         {
           error: !0,
           message: error.message
@@ -2997,7 +2997,7 @@ async function action({ request }) {
       washes
     });
     if (initializeCycleData.error)
-      return (0, import_node.json)(
+      return (0, import_remix2.json)(
         {
           error: !0,
           message: initializeCycleData.error.message
@@ -3005,7 +3005,7 @@ async function action({ request }) {
         initializeCycleData.error.statusCode
       );
   }
-  return (0, import_node.json)({ success: !0, message: "Lavagens criadas" }, 201);
+  return (0, import_remix2.json)({ success: !0, message: "Lavagens criadas" }, 201);
 }
 function NewWash() {
   let { Stepper: Stepper2, activeStep, steps: steps2, goToPrevious, goToNext, setActiveStep } = useStepper(), { showErrorToast, showSuccessToast } = useToast(), [error, setError] = (0, import_react39.useState)(!1), [vehicle, setVehicle] = (0, import_react39.useState)(defaultVehicleState), [washes, setWashes] = (0, import_react39.useState)([]), [cycleId, setCycleId] = (0, import_react39.useState)(null), [driver, setDriver] = (0, import_react39.useState)(defaultDriverValue), submit = (0, import_react40.useSubmit)(), navigate = (0, import_react40.useNavigate)(), data = (0, import_react40.useActionData)(), addError = (0, import_react39.useCallback)(() => {
@@ -3354,7 +3354,7 @@ async function loader3({ request }) {
   let { error, washCycle, washes } = await getNextWashesAndCycle({
     licensePlate
   });
-  return console.log(washCycle, washes), error ? (0, import_react_router3.json)({
+  return error ? (0, import_react_router3.json)({
     error: !0,
     message: error.message
   }) : (0, import_react_router3.json)({ washCycle, washes });
@@ -3367,7 +3367,7 @@ __export(auth_home_exports, {
   default: () => auth_home_default,
   loader: () => loader4
 });
-var import_react51 = require("@chakra-ui/react"), import_remix2 = require("@vercel/remix"), import_react52 = require("@remix-run/react");
+var import_react51 = require("@chakra-ui/react"), import_remix3 = require("@vercel/remix"), import_react52 = require("@remix-run/react");
 
 // src/domain/modules/wash/use-cases/find-washes.ts
 var FindWashes = class {
@@ -3957,9 +3957,9 @@ async function action2({ request }) {
   var _a;
   let form = await request.formData(), id = (_a = form.get("id")) == null ? void 0 : _a.toString(), isCompleted = form.get("isCompleted"), wash, error;
   if (!id)
-    return (0, import_remix2.json)({ error: "" });
+    return (0, import_remix3.json)({ error: "" });
   if (typeof isCompleted > "u")
-    return (0, import_remix2.json)({ error: "" });
+    return (0, import_remix3.json)({ error: "" });
   if (isCompleted === "true") {
     let data = await confirmWashController({ id });
     wash = data.wash, error = data.error;
@@ -3967,15 +3967,15 @@ async function action2({ request }) {
     let data = await unconfirmWashController({ id });
     wash = data.wash, error = data.error;
   }
-  return error ? (0, import_remix2.json)({ error: { message: error.message } }) : (0, import_remix2.json)({ wash });
+  return error ? (0, import_remix3.json)({ error: { message: error.message } }) : (0, import_remix3.json)({ wash });
 }
 async function loader4({ request }) {
   let url = new URL(request.url), params = new URLSearchParams(url.searchParams), session = await getSession(request.headers.get("Cookie")), licensePlate = params.get("licensePlate") ?? void 0, startDate = params.get("startDate") ?? void 0, endDate = params.get("endDate") ?? void 0, washStatus = params.get("status") ?? void 0, cursor = params.get("cursor") ?? void 0, token = session.get("token");
   if (!token)
-    throw (0, import_remix2.redirect)("/sign-in");
+    throw (0, import_remix3.redirect)("/sign-in");
   let { error, user } = await validateSessionId({ sessionId: token });
   if (error || !user)
-    throw session.unset("token"), (0, import_remix2.redirect)("/sign-in", {
+    throw session.unset("token"), (0, import_remix3.redirect)("/sign-in", {
       headers: {
         "Set-Cookie": await commitSession(session)
       }
@@ -3991,7 +3991,7 @@ async function loader4({ request }) {
     take: 4,
     cursor: { id: cursor }
   }, { washes } = await findManyWashesController(dto);
-  return (0, import_remix2.json)({ user, washes });
+  return (0, import_remix3.json)({ user, washes });
 }
 function auth_home_default() {
   var _a;
@@ -4376,7 +4376,7 @@ __export(sign_in_exports, {
   default: () => sign_in_default,
   loader: () => loader5
 });
-var import_react55 = require("@chakra-ui/react"), import_bs2 = require("react-icons/bs"), import_md3 = require("react-icons/md"), import_node2 = require("@remix-run/node"), import_react56 = require("@remix-run/react");
+var import_react55 = require("@chakra-ui/react"), import_bs2 = require("react-icons/bs"), import_md3 = require("react-icons/md"), import_remix4 = require("@vercel/remix"), import_react56 = require("@remix-run/react");
 
 // src/domain/shared/utils/hash-manipulator.ts
 var import_bcrypt = __toESM(require("bcrypt")), HashManipulator = class {
@@ -4473,7 +4473,7 @@ async function action3({ request }) {
     headers: {
       "Content-Type": "application/json"
     }
-  }) : (session.set("token", sessionId), (0, import_node2.redirect)("/home", {
+  }) : (session.set("token", sessionId), (0, import_remix4.redirect)("/home", {
     headers: {
       "Set-Cookie": await commitSession(session)
     }
@@ -4482,9 +4482,9 @@ async function action3({ request }) {
 async function loader5({ request }) {
   let token = (await getSession(request.headers.get("Cookie"))).get("token");
   if (!token)
-    return (0, import_node2.json)({});
+    return (0, import_remix4.json)({});
   let { user } = await validateSessionId({ sessionId: token });
-  return user ? (0, import_node2.redirect)("/home") : (0, import_node2.json)({});
+  return user ? (0, import_remix4.redirect)("/home") : (0, import_remix4.json)({});
 }
 function CustomInputGroup({
   icon,
@@ -4706,7 +4706,7 @@ __export(sign_up_exports, {
   action: () => action4,
   default: () => sign_up_default
 });
-var import_node3 = require("@remix-run/node"), import_react57 = require("@remix-run/react");
+var import_remix5 = require("@vercel/remix"), import_react57 = require("@remix-run/react");
 
 // src/domain/modules/user/use-cases/create-user.ts
 var CreateUser = class {
@@ -4741,88 +4741,87 @@ var import_jsx_dev_runtime46 = require("react/jsx-dev-runtime");
 async function action4({ request }) {
   let form = await request.formData(), username = form.get("username"), password = form.get("password"), email = form.get("email");
   if (typeof username != "string" || typeof password != "string" || typeof email != "string")
-    return new import_node3.Response(JSON.stringify({ error: "credentials is invalid" }), {
+    return new Response(JSON.stringify({ error: "credentials is invalid" }), {
       status: 400,
       headers: {
         "Content-Type": "application/json"
       }
     });
-  console.log(email, password, username);
   let { error } = await createUserController({ email, password, username });
-  return error ? (console.log(error), new import_node3.Response(null, {
+  return error ? new Response(null, {
     status: 400,
     statusText: error
-  })) : (0, import_node3.redirect)("/sign-in", 201);
+  }) : (0, import_remix5.redirect)("/sign-in", 201);
 }
 function sign_up_default() {
   let data = (0, import_react57.useActionData)();
   return /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("div", { children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("h1", { children: "Sign up" }, void 0, !1, {
       fileName: "app/routes/sign-up.tsx",
-      lineNumber: 41,
-      columnNumber: 13
+      lineNumber: 43,
+      columnNumber: 7
     }, this),
     data ? /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("p", { style: { color: "red" }, children: data.error }, void 0, !1, {
       fileName: "app/routes/sign-up.tsx",
-      lineNumber: 42,
-      columnNumber: 21
+      lineNumber: 44,
+      columnNumber: 15
     }, this) : null,
     /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)(import_react57.Form, { method: "POST", children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("label", { children: [
         "username",
         /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("input", { type: "text", name: "username" }, void 0, !1, {
           fileName: "app/routes/sign-up.tsx",
-          lineNumber: 46,
-          columnNumber: 21
+          lineNumber: 48,
+          columnNumber: 11
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/sign-up.tsx",
-        lineNumber: 44,
-        columnNumber: 17
+        lineNumber: 46,
+        columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("label", { children: [
         "email",
         /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("input", { type: "text", name: "email" }, void 0, !1, {
           fileName: "app/routes/sign-up.tsx",
-          lineNumber: 50,
-          columnNumber: 21
+          lineNumber: 52,
+          columnNumber: 11
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/sign-up.tsx",
-        lineNumber: 48,
-        columnNumber: 17
+        lineNumber: 50,
+        columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("label", { children: [
         "password",
         /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("input", { type: "password", name: "password" }, void 0, !1, {
           fileName: "app/routes/sign-up.tsx",
-          lineNumber: 54,
-          columnNumber: 21
+          lineNumber: 56,
+          columnNumber: 11
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/sign-up.tsx",
-        lineNumber: 52,
-        columnNumber: 17
+        lineNumber: 54,
+        columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("button", { type: "submit", children: "Logar" }, void 0, !1, {
         fileName: "app/routes/sign-up.tsx",
-        lineNumber: 56,
-        columnNumber: 17
+        lineNumber: 58,
+        columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)(import_react57.Link, { to: "/sign-in", children: "logar" }, void 0, !1, {
         fileName: "app/routes/sign-up.tsx",
-        lineNumber: 57,
-        columnNumber: 17
+        lineNumber: 59,
+        columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/sign-up.tsx",
-      lineNumber: 43,
-      columnNumber: 13
+      lineNumber: 45,
+      columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/sign-up.tsx",
-    lineNumber: 40,
-    columnNumber: 9
+    lineNumber: 42,
+    columnNumber: 5
   }, this);
 }
 
@@ -4831,9 +4830,9 @@ var index_exports = {};
 __export(index_exports, {
   loader: () => loader6
 });
-var import_node4 = require("@remix-run/node");
+var import_remix6 = require("@vercel/remix");
 async function loader6() {
-  return (0, import_node4.redirect)("/home");
+  return (0, import_remix6.redirect)("/home");
 }
 
 // app/routes/_auth.tsx
@@ -4843,7 +4842,7 @@ __export(auth_exports, {
   headers: () => headers,
   loader: () => loader7
 });
-var import_node5 = require("@remix-run/node"), import_react64 = require("@remix-run/react");
+var import_remix7 = require("@vercel/remix"), import_react64 = require("@remix-run/react");
 
 // app/components/Header.tsx
 var import_react61 = require("@chakra-ui/react"), import_bi = require("react-icons/bi"), import_md5 = require("react-icons/md"), import_lu2 = require("react-icons/lu"), import_react62 = require("@remix-run/react"), import_react63 = require("react");
@@ -5262,15 +5261,15 @@ var import_react65 = require("@chakra-ui/react"), import_jsx_dev_runtime51 = req
 async function loader7({ request }) {
   let session = await getSession(request.headers.get("Cookie")), url = new URL(request.url), token = session.get("token");
   if (!token)
-    throw (0, import_node5.redirect)("/sign-in");
+    throw (0, import_remix7.redirect)("/sign-in");
   let { error, user } = await validateSessionId({ sessionId: token });
   if (error || !user)
-    throw session.unset("token"), (0, import_node5.redirect)("/sign-in", {
+    throw session.unset("token"), (0, import_remix7.redirect)("/sign-in", {
       headers: {
         "Set-Cookie": await commitSession(session)
       }
     });
-  return (0, import_node5.json)(
+  return (0, import_remix7.json)(
     { path: url.pathname, user },
     {
       headers: {
@@ -5317,14 +5316,14 @@ var route_exports4 = {};
 __export(route_exports4, {
   loader: () => loader8
 });
-var import_remix3 = require("@vercel/remix"), import_node6 = require("@remix-run/node"), import_csv_stringify = require("csv-stringify");
+var import_remix8 = require("@vercel/remix"), import_node = require("@remix-run/node"), import_csv_stringify = require("csv-stringify");
 async function loader8({ request }) {
   let url = new URL(request.url), params = new URLSearchParams(url.searchParams), session = await getSession(request.headers.get("Cookie")), token = session.get("token"), licensePlate = params.get("licensePlate") ?? void 0, startDate = params.get("startDate") ?? void 0, endDate = params.get("endDate") ?? void 0, washStatus = params.get("status") ?? void 0;
   if (!token)
-    throw (0, import_remix3.redirect)("/sign-in");
+    throw (0, import_remix8.redirect)("/sign-in");
   let { error, user } = await validateSessionId({ sessionId: token });
   if (error || !user)
-    throw session.unset("token"), (0, import_remix3.redirect)("/sign-in", {
+    throw session.unset("token"), (0, import_remix8.redirect)("/sign-in", {
       headers: {
         "Set-Cookie": await commitSession(session)
       }
@@ -5352,9 +5351,9 @@ async function loader8({ request }) {
       scheduleDate: format((w == null ? void 0 : w.scheduleDate) ?? /* @__PURE__ */ new Date(), "d/LLLL"),
       status: w != null && w.isCompleted ? "LAVADO" : "N\xC3O LAVADO"
     })
-  ), console.log(washes.length);
+  );
   let formattedStartDate = startDate ? format(new Date(startDate), "d-MMM") : format(/* @__PURE__ */ new Date(), "d-MMM"), formattedEndDate = endDate ? "_" + format(new Date(endDate), "d-MMM") : "", filename = formattedStartDate + formattedEndDate + ".csv";
-  return output.end(), new import_node6.Response(output, {
+  return output.end(), new import_node.Response(output, {
     headers: {
       "Content-Type": "text/csv; charset=utf-8",
       "Content-Disposition": `attachment; filename=${filename}`
@@ -5418,7 +5417,7 @@ function __default() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-A3MWFENP.js", imports: ["/build/_shared/chunk-JMTNRVKS.js", "/build/_shared/chunk-RPYEFABZ.js", "/build/_shared/chunk-6Y4MOXXW.js", "/build/_shared/chunk-EDULEWIV.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-Y33UAL4U.js", imports: ["/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-CJM3FEAA.js", imports: ["/build/_shared/chunk-FVT23FZR.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-LS4VJOLO.js", imports: ["/build/_shared/chunk-GY2OSEAB.js", "/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-XO5BRP32.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-72DXZWRA.js", imports: ["/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-TYEO6NGY.js", imports: ["/build/_shared/chunk-FVT23FZR.js", "/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/csv": { id: "routes/csv", parentId: "root", path: "csv", index: void 0, caseSensitive: void 0, module: "/build/routes/csv-6WKVSB6D.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-PZT5WAYX.js", imports: ["/build/_shared/chunk-G7CHZRZX.js", "/build/_shared/chunk-XO5BRP32.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-NKVPYVAI.js", imports: ["/build/_shared/chunk-G7CHZRZX.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "f263b9ca", hmr: void 0, url: "/build/manifest-F263B9CA.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-A3MWFENP.js", imports: ["/build/_shared/chunk-JMTNRVKS.js", "/build/_shared/chunk-RPYEFABZ.js", "/build/_shared/chunk-6Y4MOXXW.js", "/build/_shared/chunk-EDULEWIV.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-Y33UAL4U.js", imports: ["/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-JUBXRLZY.js", imports: ["/build/_shared/chunk-FVT23FZR.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-HDOZAATP.js", imports: ["/build/_shared/chunk-GY2OSEAB.js", "/build/_shared/chunk-XO5BRP32.js", "/build/_shared/chunk-J5LZUC2L.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-ATTWGKYI.js", imports: ["/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-5AJSUQOG.js", imports: ["/build/_shared/chunk-FVT23FZR.js", "/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/csv": { id: "routes/csv", parentId: "root", path: "csv", index: void 0, caseSensitive: void 0, module: "/build/routes/csv-6WKVSB6D.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-QBNXLNGH.js", imports: ["/build/_shared/chunk-XO5BRP32.js", "/build/_shared/chunk-J5LZUC2L.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-EG3AQNE3.js", imports: ["/build/_shared/chunk-J5LZUC2L.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "35a953a1", hmr: void 0, url: "/build/manifest-35A953A1.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !1, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

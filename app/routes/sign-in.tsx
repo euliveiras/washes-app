@@ -13,8 +13,8 @@ import {
 } from "@chakra-ui/react";
 import { BsPerson } from "react-icons/bs";
 import { MdLockOutline, MdOutlineEmail } from "react-icons/md";
-import { redirect, json } from "@remix-run/node";
-import type { ActionArgs,LoaderArgs } from "@remix-run/node";
+import { redirect, json } from "@vercel/remix";
+import type { ActionArgs,LoaderArgs } from "@vercel/remix";
 import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { signInUserController } from "src/infra/http/controllers/sign-in-user-controller";
 import { validateSessionId } from "src/infra/http/helpers/validate-session-id";

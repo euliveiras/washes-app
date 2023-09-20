@@ -16,8 +16,8 @@ import {
   DriverContent,
 } from "~/components/NewWash/DriverContent";
 import { summary } from "~/components/NewWash/SummaryContent";
-import type { ActionArgs } from "@remix-run/node";
-import { redirect, json } from "@remix-run/node";
+import type { ActionArgs } from "@vercel/remix";
+import { redirect, json } from "@vercel/remix";
 import { useActionData, useNavigate, useSubmit } from "@remix-run/react";
 import { useToast } from "~/components/hooks/useToast";
 import { createVehicleController } from "src/infra/http/controllers/create-vehicle-controller";

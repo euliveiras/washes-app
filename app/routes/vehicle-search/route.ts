@@ -1,4 +1,4 @@
-import type { LoaderArgs } from "@remix-run/node";
+import type { LoaderArgs } from "@vercel/remix";
 import { json } from "react-router";
 import { findUniqueVehicleController } from "src/infra/http/controllers/find-unique-vehicle-controller";
 import { findVehicleController } from "src/infra/http/controllers/find-vehicle-controller";

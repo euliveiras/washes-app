@@ -1,4 +1,4 @@
-import { redirect, json } from "@remix-run/node";
+import { redirect, json } from "@vercel/remix";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { Header } from "~/components/Header";
 import type { LoaderArgs, HeadersFunction } from "@remix-run/node"; // or cloudflare/deno

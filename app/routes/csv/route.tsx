@@ -64,8 +64,6 @@ export async function loader({ request }: LoaderArgs) {
     }),
   );
 
-  console.log(washes.length);
-
   const formattedStartDate = startDate
     ? format(new Date(startDate), "d-MMM")
     : format(new Date(), "d-MMM");

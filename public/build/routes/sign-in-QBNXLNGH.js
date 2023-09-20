@@ -1,11 +1,11 @@
 import {
-  require_node
-} from "/build/_shared/chunk-G7CHZRZX.js";
-import {
   GenIcon,
   MdLockOutline,
   MdOutlineEmail
 } from "/build/_shared/chunk-XO5BRP32.js";
+import {
+  require_edge
+} from "/build/_shared/chunk-J5LZUC2L.js";
 import {
   Box,
   Button,
@@ -43,7 +43,7 @@ function BsPerson(props) {
 }
 
 // app/routes/sign-in.tsx
-var import_node = __toESM(require_node());
+var import_remix = __toESM(require_edge());
 
 // app/components/Footer.tsx
 var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
@@ -293,4 +293,4 @@ function sign_in_default() {
 export {
   sign_in_default as default
 };
-//# sourceMappingURL=/build/routes/sign-in-PZT5WAYX.js.map
+//# sourceMappingURL=/build/routes/sign-in-QBNXLNGH.js.map

@@ -1,4 +1,4 @@
-import { Text, Grid, HStack, Box } from "@chakra-ui/react";
+import { Text, Grid, HStack} from "@chakra-ui/react";
 import { LinkHighlighted } from "~/components/LinkHighlighted";
 
 export default function () {

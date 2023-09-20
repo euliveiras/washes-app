@@ -8,15 +8,15 @@ import {
   useDate
 } from "/build/_shared/chunk-2JBWI42H.js";
 import {
-  require_node
-} from "/build/_shared/chunk-G7CHZRZX.js";
-import {
   GenIcon,
   MdCheck,
   MdDirectionsCarFilled,
   MdPerson2,
   MdWaterDrop
 } from "/build/_shared/chunk-XO5BRP32.js";
+import {
+  require_edge
+} from "/build/_shared/chunk-J5LZUC2L.js";
 import {
   AbsoluteCenter,
   Alert,
@@ -1947,7 +1947,7 @@ var summary = {
 };
 
 // app/routes/_auth.new-wash._index.tsx
-var import_node = __toESM(require_node());
+var import_remix = __toESM(require_edge());
 
 // app/components/hooks/useToast.ts
 var import_react28 = __toESM(require_react());
@@ -2265,4 +2265,4 @@ function NewWash() {
 export {
   NewWash as default
 };
-//# sourceMappingURL=/build/routes/_auth.new-wash._index-TYEO6NGY.js.map
+//# sourceMappingURL=/build/routes/_auth.new-wash._index-5AJSUQOG.js.map

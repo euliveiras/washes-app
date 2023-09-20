@@ -1,4 +1,4 @@
-import type { LoaderArgs } from "@remix-run/node";
+import type { LoaderArgs } from "@vercel/remix";
 import { json } from "react-router";
 import { getNextWashesAndCycle } from "src/infra/http/controllers/get-next-washes-and-cycle.controller";
 
@@ -11,8 +11,6 @@ export async function loader({ request }: LoaderArgs) {
   const { error, washCycle, washes } = await getNextWashesAndCycle({
     licensePlate,
   });
-
-console.log(washCycle, washes)
 
   if (error) {
     return json({

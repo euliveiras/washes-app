@@ -1,4 +1,4 @@
-import type { LoaderArgs } from "@remix-run/node";
+import type { LoaderArgs } from "@vercel/remix";
 import { json } from "react-router";
 
 const mocks = [{ name: "matheus", phones: ["12313123"] }];
