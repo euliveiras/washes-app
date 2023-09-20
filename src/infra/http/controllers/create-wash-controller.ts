@@ -34,3 +34,4 @@ interface InitializeCycleDTO extends AsyncWrapperError {
 export function createWashController(data: ControllerDTO): InitializeCycleDTO {
   return asyncWrapper(() => controller(data));
 }
+

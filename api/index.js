@@ -2635,8 +2635,8 @@ var PrismaWashRepository = class {
     take = 10,
     skip = 1
   }) {
-    let washes, startDate = filters.startDate ? dateManipulator.parseDateToString(new Date(filters.startDate)) : void 0, endDate = filters.endDate ? dateManipulator.parseDateToString(new Date(filters.endDate)) : void 0, scheduleDate = {};
-    startDate && endDate && (scheduleDate.gte = startDate, scheduleDate.lte = endDate);
+    let washes, startDate = filters.startDate ? dateManipulator.parseDateToString(new Date(filters.startDate)) : dateManipulator.parseDateToString(/* @__PURE__ */ new Date()), endDate = filters.endDate ? dateManipulator.parseDateToString(new Date(filters.endDate)) : void 0, scheduleDate = {};
+    startDate && (scheduleDate.gte = startDate), endDate && (scheduleDate.lte = endDate);
     let where = {
       createdBy: filters.createdBy,
       vehicleId: filters.vehicleId,

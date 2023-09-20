@@ -26,17 +26,15 @@ export class PrismaWashRepository implements WashRepository {
     let washes;
     const startDate = filters.startDate
       ? dateManipulator.parseDateToString(new Date(filters.startDate))
-      : undefined;
+      : dateManipulator.parseDateToString(new Date());
     const endDate = filters.endDate
       ? dateManipulator.parseDateToString(new Date(filters.endDate))
       : undefined;
 
     const scheduleDate = {} as { gte?: string; lte?: string };
 
-    if (startDate && endDate) {
-      scheduleDate.gte = startDate;
-      scheduleDate.lte = endDate;
-    }
+    if (startDate) scheduleDate.gte = startDate;
+    if (endDate) scheduleDate.lte = endDate;
 
     const where = {
       createdBy: filters.createdBy,
