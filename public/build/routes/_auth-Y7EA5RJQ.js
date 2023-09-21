@@ -479,7 +479,7 @@ function auth_default() {
     {
       gridTemplateRows: "auto 1fr",
       gridTemplateColumns: "100%",
-      blockSize: "100vh",
+      blockSize: "100dvh",
       gap: 2,
       children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime5.jsxDEV)(Header, { label: path != null ? path : "/", user }, void 0, false, {
@@ -507,4 +507,4 @@ function auth_default() {
 export {
   auth_default as default
 };
-//# sourceMappingURL=/build/routes/_auth-HDOZAATP.js.map
+//# sourceMappingURL=/build/routes/_auth-Y7EA5RJQ.js.map

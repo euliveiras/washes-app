@@ -4724,7 +4724,8 @@ function sign_in_default() {
 var sign_up_exports = {};
 __export(sign_up_exports, {
   action: () => action4,
-  default: () => sign_up_default
+  default: () => sign_up_default,
+  loader: () => loader6
 });
 var import_remix5 = require("@vercel/remix"), import_react57 = require("@remix-run/react");
 
@@ -4773,35 +4774,26 @@ async function action4({ request }) {
     statusText: error
   }) : (0, import_remix5.redirect)("/sign-in", 201);
 }
+async function loader6() {
+  return (0, import_remix5.redirect)("/sign-in");
+}
 function sign_up_default() {
   let data = (0, import_react57.useActionData)();
   return /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("div", { children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("h1", { children: "Sign up" }, void 0, !1, {
       fileName: "app/routes/sign-up.tsx",
-      lineNumber: 43,
+      lineNumber: 47,
       columnNumber: 7
     }, this),
     data ? /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("p", { style: { color: "red" }, children: data.error }, void 0, !1, {
       fileName: "app/routes/sign-up.tsx",
-      lineNumber: 44,
+      lineNumber: 48,
       columnNumber: 15
     }, this) : null,
     /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)(import_react57.Form, { method: "POST", children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("label", { children: [
         "username",
         /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("input", { type: "text", name: "username" }, void 0, !1, {
-          fileName: "app/routes/sign-up.tsx",
-          lineNumber: 48,
-          columnNumber: 11
-        }, this)
-      ] }, void 0, !0, {
-        fileName: "app/routes/sign-up.tsx",
-        lineNumber: 46,
-        columnNumber: 9
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("label", { children: [
-        "email",
-        /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("input", { type: "text", name: "email" }, void 0, !1, {
           fileName: "app/routes/sign-up.tsx",
           lineNumber: 52,
           columnNumber: 11
@@ -4812,8 +4804,8 @@ function sign_up_default() {
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("label", { children: [
-        "password",
-        /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("input", { type: "password", name: "password" }, void 0, !1, {
+        "email",
+        /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("input", { type: "text", name: "email" }, void 0, !1, {
           fileName: "app/routes/sign-up.tsx",
           lineNumber: 56,
           columnNumber: 11
@@ -4823,24 +4815,36 @@ function sign_up_default() {
         lineNumber: 54,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("button", { type: "submit", children: "Logar" }, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("label", { children: [
+        "password",
+        /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("input", { type: "password", name: "password" }, void 0, !1, {
+          fileName: "app/routes/sign-up.tsx",
+          lineNumber: 60,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, !0, {
         fileName: "app/routes/sign-up.tsx",
         lineNumber: 58,
         columnNumber: 9
       }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)("button", { type: "submit", children: "Logar" }, void 0, !1, {
+        fileName: "app/routes/sign-up.tsx",
+        lineNumber: 62,
+        columnNumber: 9
+      }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime46.jsxDEV)(import_react57.Link, { to: "/sign-in", children: "logar" }, void 0, !1, {
         fileName: "app/routes/sign-up.tsx",
-        lineNumber: 59,
+        lineNumber: 63,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/sign-up.tsx",
-      lineNumber: 45,
+      lineNumber: 49,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/sign-up.tsx",
-    lineNumber: 42,
+    lineNumber: 46,
     columnNumber: 5
   }, this);
 }
@@ -4848,10 +4852,10 @@ function sign_up_default() {
 // app/routes/_index.tsx
 var index_exports = {};
 __export(index_exports, {
-  loader: () => loader6
+  loader: () => loader7
 });
 var import_remix6 = require("@vercel/remix");
-async function loader6() {
+async function loader7() {
   return (0, import_remix6.redirect)("/home");
 }
 
@@ -4860,7 +4864,7 @@ var auth_exports = {};
 __export(auth_exports, {
   default: () => auth_default,
   headers: () => headers,
-  loader: () => loader7
+  loader: () => loader8
 });
 var import_remix7 = require("@vercel/remix"), import_react64 = require("@remix-run/react");
 
@@ -5278,7 +5282,7 @@ function Header({ label, user }) {
 var import_react65 = require("@chakra-ui/react"), import_jsx_dev_runtime51 = require("react/jsx-dev-runtime"), headers = ({ loaderHeaders }) => ({
   "Cache-Control": loaderHeaders.get("Cache-control") ?? "max-age=3600"
 });
-async function loader7({ request }) {
+async function loader8({ request }) {
   let session = await getSession(request.headers.get("Cookie")), url = new URL(request.url), token = session.get("token");
   if (!token)
     throw (0, import_remix7.redirect)("/sign-in");
@@ -5305,7 +5309,7 @@ function auth_default() {
     {
       gridTemplateRows: "auto 1fr",
       gridTemplateColumns: "100%",
-      blockSize: "100vh",
+      blockSize: "100dvh",
       gap: 2,
       children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime51.jsxDEV)(Header, { label: path ?? "/", user }, void 0, !1, {
@@ -5334,10 +5338,10 @@ function auth_default() {
 // app/routes/csv/route.tsx
 var route_exports4 = {};
 __export(route_exports4, {
-  loader: () => loader8
+  loader: () => loader9
 });
 var import_remix8 = require("@vercel/remix"), import_node = require("@remix-run/node"), import_csv_stringify = require("csv-stringify");
-async function loader8({ request }) {
+async function loader9({ request }) {
   let url = new URL(request.url), params = new URLSearchParams(url.searchParams), session = await getSession(request.headers.get("Cookie")), token = session.get("token"), licensePlate = params.get("licensePlate") ?? void 0, startDate = params.get("startDate") ?? void 0, endDate = params.get("endDate") ?? void 0, washStatus = params.get("status") ?? void 0;
   if (!token)
     throw (0, import_remix8.redirect)("/sign-in");
@@ -5437,7 +5441,7 @@ function __default() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-A3MWFENP.js", imports: ["/build/_shared/chunk-JMTNRVKS.js", "/build/_shared/chunk-RPYEFABZ.js", "/build/_shared/chunk-6Y4MOXXW.js", "/build/_shared/chunk-EDULEWIV.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-JTY4YUEU.js", imports: ["/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-JUBXRLZY.js", imports: ["/build/_shared/chunk-FVT23FZR.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-HDOZAATP.js", imports: ["/build/_shared/chunk-GY2OSEAB.js", "/build/_shared/chunk-XO5BRP32.js", "/build/_shared/chunk-J5LZUC2L.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-ATTWGKYI.js", imports: ["/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-5AJSUQOG.js", imports: ["/build/_shared/chunk-FVT23FZR.js", "/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/csv": { id: "routes/csv", parentId: "root", path: "csv", index: void 0, caseSensitive: void 0, module: "/build/routes/csv-6WKVSB6D.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-RIW6BJUN.js", imports: ["/build/_shared/chunk-XO5BRP32.js", "/build/_shared/chunk-J5LZUC2L.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-EG3AQNE3.js", imports: ["/build/_shared/chunk-J5LZUC2L.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "7f7a5c04", hmr: void 0, url: "/build/manifest-7F7A5C04.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-A3MWFENP.js", imports: ["/build/_shared/chunk-JMTNRVKS.js", "/build/_shared/chunk-RPYEFABZ.js", "/build/_shared/chunk-6Y4MOXXW.js", "/build/_shared/chunk-EDULEWIV.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-JTY4YUEU.js", imports: ["/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-JUBXRLZY.js", imports: ["/build/_shared/chunk-FVT23FZR.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-Y7EA5RJQ.js", imports: ["/build/_shared/chunk-GY2OSEAB.js", "/build/_shared/chunk-XO5BRP32.js", "/build/_shared/chunk-J5LZUC2L.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-ATTWGKYI.js", imports: ["/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-5AJSUQOG.js", imports: ["/build/_shared/chunk-FVT23FZR.js", "/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/csv": { id: "routes/csv", parentId: "root", path: "csv", index: void 0, caseSensitive: void 0, module: "/build/routes/csv-6WKVSB6D.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-RIW6BJUN.js", imports: ["/build/_shared/chunk-XO5BRP32.js", "/build/_shared/chunk-J5LZUC2L.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-IDSYCLRE.js", imports: ["/build/_shared/chunk-J5LZUC2L.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "48a3afec", hmr: void 0, url: "/build/manifest-48A3AFEC.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !1, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
