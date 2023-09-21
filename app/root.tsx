@@ -1,7 +1,7 @@
 // root.tsx
 import React, { useContext, useEffect } from "react";
 import { withEmotionCache } from "@emotion/react";
-import {ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 import {
   Links,
@@ -62,6 +62,11 @@ const Document = withEmotionCache(
     return (
       <html lang="en">
         <head>
+          <meta charSet="utf-8" />
+          <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1"
+          />
           <Meta />
           <Links />
           {serverStyleData?.map(({ key, ids, css }) => (
