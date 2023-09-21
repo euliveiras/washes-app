@@ -35,6 +35,10 @@ export async function action({ request }: ActionArgs) {
   return redirect("/sign-in", 201);
 }
 
+export async function loader() {
+  return redirect("/sign-in");
+}
+
 export default function () {
   const data = useActionData<typeof action>();
 
