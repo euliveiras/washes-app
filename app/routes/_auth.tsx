@@ -51,8 +51,8 @@ export default function () {
     <Grid
       gridTemplateRows={"auto 1fr"}
       gridTemplateColumns="100%"
-      blockSize="100vh"
-gap={2}
+      blockSize="100dvh"
+      gap={2}
     >
       <Header label={path ?? "/"} user={user} />
       <Outlet />
