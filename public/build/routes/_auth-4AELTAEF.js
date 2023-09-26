@@ -37,6 +37,7 @@ import {
 } from "/build/_shared/chunk-FQ5UBCHZ.js";
 import {
   Link,
+  useFetcher,
   useLoaderData
 } from "/build/_shared/chunk-RPYEFABZ.js";
 import "/build/_shared/chunk-6Y4MOXXW.js";
@@ -58,11 +59,11 @@ function BiHomeAlt(props) {
 }
 
 // app/components/Header.tsx
-var import_react6 = __toESM(require_react());
+var import_react7 = __toESM(require_react());
 
 // app/components/SearchInput.tsx
 var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
-function SearchInput() {
+function SearchInput({ inputGroupProps, inputProps }) {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(
     InputGroup,
     {
@@ -70,6 +71,7 @@ function SearchInput() {
       role: "group",
       sx: { "input:focus ~ div": { svg: { color: "blackAlpha.900" } } },
       maxInlineSize: 96,
+      ...inputGroupProps,
       children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(
           Input,
@@ -78,13 +80,14 @@ function SearchInput() {
             borderRadius: "full",
             focusBorderColor: "blackAlpha.900",
             type: "search",
-            name: "query"
+            name: "query",
+            ...inputProps
           },
           void 0,
           false,
           {
             fileName: "app/components/SearchInput.tsx",
-            lineNumber: 12,
+            lineNumber: 19,
             columnNumber: 7
           },
           this
@@ -102,13 +105,13 @@ function SearchInput() {
           false,
           {
             fileName: "app/components/SearchInput.tsx",
-            lineNumber: 20,
+            lineNumber: 28,
             columnNumber: 9
           },
           this
         ) }, void 0, false, {
           fileName: "app/components/SearchInput.tsx",
-          lineNumber: 19,
+          lineNumber: 27,
           columnNumber: 7
         }, this)
       ]
@@ -117,7 +120,7 @@ function SearchInput() {
     true,
     {
       fileName: "app/components/SearchInput.tsx",
-      lineNumber: 6,
+      lineNumber: 12,
       columnNumber: 5
     },
     this
@@ -132,6 +135,10 @@ function RxChevronDown(props) {
 // app/components/Avatar.tsx
 var import_jsx_dev_runtime2 = __toESM(require_jsx_dev_runtime());
 function Avatar2({ containerProps, avatarProps, user }) {
+  const { submit } = useFetcher();
+  function signOut() {
+    submit({}, { action: "/session-sign-out", method: "POST" });
+  }
   return /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(
     HStack,
     {
@@ -142,37 +149,37 @@ function Avatar2({ containerProps, avatarProps, user }) {
         user && /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(Menu, { children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(MenuButton, { as: Button, variant: "ghost", rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(RxChevronDown, {}, void 0, false, {
             fileName: "app/components/Avatar.tsx",
-            lineNumber: 31,
+            lineNumber: 38,
             columnNumber: 62
           }, this), children: user.username }, void 0, false, {
             fileName: "app/components/Avatar.tsx",
-            lineNumber: 31,
+            lineNumber: 38,
             columnNumber: 11
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(MenuList, { children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(MenuItem, { children: "Configura\xE7\xF5es" }, void 0, false, {
               fileName: "app/components/Avatar.tsx",
-              lineNumber: 35,
+              lineNumber: 42,
               columnNumber: 13
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(MenuItem, { as: Text, color: "red.400", children: "Sair" }, void 0, false, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(MenuItem, { as: Text, color: "red.400", onClick: signOut, children: "Sair" }, void 0, false, {
               fileName: "app/components/Avatar.tsx",
-              lineNumber: 36,
+              lineNumber: 43,
               columnNumber: 13
             }, this)
           ] }, void 0, true, {
             fileName: "app/components/Avatar.tsx",
-            lineNumber: 34,
+            lineNumber: 41,
             columnNumber: 11
           }, this)
         ] }, void 0, true, {
           fileName: "app/components/Avatar.tsx",
-          lineNumber: 30,
+          lineNumber: 37,
           columnNumber: 9
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime2.jsxDEV)(Avatar, { size: "md", name: "Natan", ...avatarProps }, void 0, false, {
           fileName: "app/components/Avatar.tsx",
-          lineNumber: 40,
+          lineNumber: 49,
           columnNumber: 7
         }, this)
       ]
@@ -181,7 +188,7 @@ function Avatar2({ containerProps, avatarProps, user }) {
     true,
     {
       fileName: "app/components/Avatar.tsx",
-      lineNumber: 24,
+      lineNumber: 31,
       columnNumber: 5
     },
     this
@@ -287,7 +294,7 @@ function Drawer2({ isOpen, onClose, finalFocusRef, user }) {
 var import_jsx_dev_runtime4 = __toESM(require_jsx_dev_runtime());
 function Header({ label, user }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = (0, import_react6.useRef)(null);
+  const btnRef = (0, import_react7.useRef)(null);
   return /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(
     Grid,
     {
@@ -335,7 +342,7 @@ function Header({ label, user }) {
             lineNumber: 40,
             columnNumber: 9
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(SearchInput, {}, void 0, false, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime4.jsxDEV)(SearchInput, { inputProps: { isDisabled: true } }, void 0, false, {
             fileName: "app/components/Header.tsx",
             lineNumber: 54,
             columnNumber: 9
@@ -507,4 +514,4 @@ function auth_default() {
 export {
   auth_default as default
 };
-//# sourceMappingURL=/build/routes/_auth-Y7EA5RJQ.js.map
+//# sourceMappingURL=/build/routes/_auth-4AELTAEF.js.map

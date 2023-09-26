@@ -9,7 +9,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { RxChevronDown } from "react-icons/rx";
-import type { ChakraProps, AvatarProps, TextProps } from "@chakra-ui/react";
+import type { ChakraProps, AvatarProps } from "@chakra-ui/react";
+import { useFetcher } from "@remix-run/react";
 
 type ComponentProps = {
   avatarProps?: AvatarProps;
@@ -20,6 +21,12 @@ type ComponentProps = {
 };
 
 export function Avatar({ containerProps, avatarProps, user }: ComponentProps) {
+  const { submit } = useFetcher();
+
+  function signOut() {
+    submit({}, { action: "/session-sign-out", method: "POST" });
+  }
+
   return (
     <HStack
       paddingInline={2}
@@ -33,7 +40,9 @@ export function Avatar({ containerProps, avatarProps, user }: ComponentProps) {
           </MenuButton>
           <MenuList>
             <MenuItem>Configurações</MenuItem>
-            <MenuItem as={Text} color="red.400">Sair</MenuItem>
+            <MenuItem as={Text} color="red.400" onClick={signOut}>
+              Sair
+            </MenuItem>
           </MenuList>
         </Menu>
       )}

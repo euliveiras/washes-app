@@ -51,7 +51,7 @@ export function Header({ label, user }: HeaderProps) {
             {label}
           </Text>
         </HStack>
-        <SearchInput />
+        <SearchInput inputProps={{ isDisabled: true }} />
       </HStack>
       <HStack justifySelf={"flex-end"} spacing={1}>
         <Button
@@ -65,7 +65,7 @@ export function Header({ label, user }: HeaderProps) {
           sx={{ span: { marginInlineEnd: ["0"] } }}
           leftIcon={<LuPlus size={"1.25em"} />}
           // onClick={onNewWashModalOpen}
-          to="/new-wash"
+          to={"/new-wash"}
           // ref={newWashModalRef}
         >
           <Text display={["none", "block"]}>Nova lavagem</Text>

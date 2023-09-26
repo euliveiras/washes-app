@@ -2890,11 +2890,9 @@ var PrismaUserRepository = class {
       ...user
     }) : null;
   }
-  async update(userId, data) {
+  async update(props, data) {
     await prisma.user.update({
-      where: {
-        id: userId
-      },
+      where: props,
       data
     });
   }
@@ -3250,6 +3248,39 @@ function NewWash() {
   );
 }
 
+// app/routes/session-sign-out/index.ts
+var session_sign_out_exports = {};
+__export(session_sign_out_exports, {
+  action: () => action2
+});
+var import_remix3 = require("@vercel/remix");
+
+// src/domain/modules/user/use-cases/remove-session.ts
+var RemoveSession = class {
+  constructor(userDB) {
+    this.userDB = userDB;
+  }
+  async execute(props) {
+    await this.userDB.update(props, { sessionId: null });
+  }
+};
+
+// src/infra/http/controllers/sign-out-controller.ts
+async function controller4(props) {
+  let prismaUserRepository = new PrismaUserRepository();
+  await new RemoveSession(prismaUserRepository).execute(props);
+}
+var signOutController = (data) => asyncWrapper(() => controller4(data));
+
+// app/routes/session-sign-out/index.ts
+async function action2({ request }) {
+  let session = await getSession(request.headers.get("Cookie")), sessionId = session.get("token");
+  if (!sessionId)
+    return {};
+  let { error } = signOutController({ sessionId });
+  return error ? (console.log(error), {}) : (session.unset("token"), (0, import_remix3.redirect)("/sign-in"));
+}
+
 // app/routes/vehicle-search/route.ts
 var route_exports = {};
 __export(route_exports, {
@@ -3268,12 +3299,12 @@ var FindUniqueLicensePlate = class {
 };
 
 // src/infra/http/controllers/find-unique-vehicle-controller.ts
-async function controller4({ licensePlate }) {
+async function controller5({ licensePlate }) {
   let prismaVehicleRepo = new PrismaVehicleRepository(), data = await new FindUniqueLicensePlate(prismaVehicleRepo).execute({ plate: licensePlate });
   return { vehicle: data ? HttpMapper.vehicle(data) : null };
 }
 async function findUniqueVehicleController(data) {
-  return asyncWrapper(() => controller4(data));
+  return asyncWrapper(() => controller5(data));
 }
 
 // src/domain/modules/vehicle/use-cases/find-license-plate.ts
@@ -3287,12 +3318,12 @@ var FindLicensePlate = class {
 };
 
 // src/infra/http/controllers/find-vehicle-controller.ts
-async function controller5({ licensePlate }) {
+async function controller6({ licensePlate }) {
   let prismaVehicleRepo = new PrismaVehicleRepository();
   return { results: (await new FindLicensePlate(prismaVehicleRepo).execute({ plate: licensePlate })).map((v) => HttpMapper.vehicle(v)) };
 }
 async function findVehicleController(data) {
-  return asyncWrapper(() => controller5(data));
+  return asyncWrapper(() => controller6(data));
 }
 
 // app/routes/vehicle-search/route.ts
@@ -3352,7 +3383,7 @@ var FindWashesByCycleId = class {
 };
 
 // src/infra/http/controllers/get-next-washes-and-cycle.controller.ts
-async function controller6({ licensePlate }) {
+async function controller7({ licensePlate }) {
   let washCycleRepo = new PrismaWashCycleRepository(), washRepo = new PrismaWashRepository(), findNextCycleByLicensePlate = new FindNextCycleByLicensePlate(
     washCycleRepo
   ), findWashesByCycleId = new FindWashesByCycleId(washRepo), { washCycle } = await findNextCycleByLicensePlate.execute(licensePlate);
@@ -3364,7 +3395,7 @@ async function controller6({ licensePlate }) {
     washes: washes.map((w) => HttpMapper.wash(w))
   };
 }
-var getNextWashesAndCycle = (data) => asyncWrapper(() => controller6(data));
+var getNextWashesAndCycle = (data) => asyncWrapper(() => controller7(data));
 
 // app/routes/washes-search/route.ts
 async function loader3({ request }) {
@@ -3383,11 +3414,11 @@ async function loader3({ request }) {
 // app/routes/_auth.home.tsx
 var auth_home_exports = {};
 __export(auth_home_exports, {
-  action: () => action2,
+  action: () => action3,
   default: () => auth_home_default,
   loader: () => loader4
 });
-var import_react51 = require("@chakra-ui/react"), import_remix3 = require("@vercel/remix"), import_react52 = require("@remix-run/react");
+var import_react51 = require("@chakra-ui/react"), import_remix4 = require("@vercel/remix"), import_react52 = require("@remix-run/react");
 
 // src/domain/modules/wash/use-cases/find-washes.ts
 var FindWashes = class {
@@ -3400,7 +3431,7 @@ var FindWashes = class {
 };
 
 // src/infra/http/controllers/find-many-washes-controller.ts
-async function controller7({
+async function controller8({
   filters: { createdBy, endDate, startDate, status: washStatus, vehicleId },
   skip,
   cursor,
@@ -3423,7 +3454,7 @@ async function controller7({
   });
   return { washes: washes.map((w) => HttpMapper.wash(w)) };
 }
-var findManyWashesController = (data) => asyncWrapper(() => controller7(data));
+var findManyWashesController = (data) => asyncWrapper(() => controller8(data));
 
 // app/components/Home/Container.tsx
 var import_react41 = require("@chakra-ui/react"), import_jsx_dev_runtime22 = require("react/jsx-dev-runtime");
@@ -3973,13 +4004,13 @@ var unconfirmWashController = ({ id }) => asyncWrapper(async () => {
 
 // app/routes/_auth.home.tsx
 var import_jsx_dev_runtime43 = require("react/jsx-dev-runtime");
-async function action2({ request }) {
+async function action3({ request }) {
   var _a;
   let form = await request.formData(), id = (_a = form.get("id")) == null ? void 0 : _a.toString(), isCompleted = form.get("isCompleted"), wash, error;
   if (!id)
-    return (0, import_remix3.json)({ error: "" });
+    return (0, import_remix4.json)({ error: "" });
   if (typeof isCompleted > "u")
-    return (0, import_remix3.json)({ error: "" });
+    return (0, import_remix4.json)({ error: "" });
   if (isCompleted === "true") {
     let data = await confirmWashController({ id });
     wash = data.wash, error = data.error;
@@ -3987,15 +4018,15 @@ async function action2({ request }) {
     let data = await unconfirmWashController({ id });
     wash = data.wash, error = data.error;
   }
-  return error ? (0, import_remix3.json)({ error: { message: error.message } }) : (0, import_remix3.json)({ wash });
+  return error ? (0, import_remix4.json)({ error: { message: error.message } }) : (0, import_remix4.json)({ wash });
 }
 async function loader4({ request }) {
   let url = new URL(request.url), params = new URLSearchParams(url.searchParams), session = await getSession(request.headers.get("Cookie")), licensePlate = params.get("licensePlate") ?? void 0, startDate = params.get("startDate") ?? void 0, endDate = params.get("endDate") ?? void 0, washStatus = params.get("status") ?? void 0, cursor = params.get("cursor") ?? void 0, token = session.get("token");
   if (!token)
-    throw (0, import_remix3.redirect)("/sign-in");
+    throw (0, import_remix4.redirect)("/sign-in");
   let { error, user } = await validateSessionId({ sessionId: token });
   if (error || !user)
-    throw session.unset("token"), (0, import_remix3.redirect)("/sign-in", {
+    throw session.unset("token"), (0, import_remix4.redirect)("/sign-in", {
       headers: {
         "Set-Cookie": await commitSession(session)
       }
@@ -4011,7 +4042,7 @@ async function loader4({ request }) {
     take: 4,
     cursor: { id: cursor }
   }, { washes } = await findManyWashesController(dto);
-  return (0, import_remix3.json)({ user, washes });
+  return (0, import_remix4.json)({ user, washes });
 }
 function auth_home_default() {
   var _a;
@@ -4392,11 +4423,11 @@ function auth_home_default() {
 // app/routes/sign-in.tsx
 var sign_in_exports = {};
 __export(sign_in_exports, {
-  action: () => action3,
+  action: () => action4,
   default: () => sign_in_default,
   loader: () => loader5
 });
-var import_react55 = require("@chakra-ui/react"), import_bs2 = require("react-icons/bs"), import_md3 = require("react-icons/md"), import_remix4 = require("@vercel/remix"), import_react56 = require("@remix-run/react");
+var import_react55 = require("@chakra-ui/react"), import_bs2 = require("react-icons/bs"), import_md3 = require("react-icons/md"), import_remix5 = require("@vercel/remix"), import_react56 = require("@remix-run/react");
 
 // src/domain/shared/utils/hash-manipulator.ts
 var import_bcrypt = __toESM(require("bcrypt")), HashManipulator = class {
@@ -4478,7 +4509,7 @@ function Footer() {
 
 // app/routes/sign-in.tsx
 var import_jsx_dev_runtime45 = require("react/jsx-dev-runtime");
-async function action3({ request }) {
+async function action4({ request }) {
   let form = await request.formData(), email = form.get("email"), password = form.get("password"), session = await getSession(request.headers.get("Cookie"));
   if (typeof password != "string" || typeof email != "string")
     return new Response(JSON.stringify({ error: "credentials is invalid" }), {
@@ -4493,7 +4524,7 @@ async function action3({ request }) {
     headers: {
       "Content-Type": "application/json"
     }
-  }) : (session.set("token", sessionId), (0, import_remix4.redirect)("/home", {
+  }) : (session.set("token", sessionId), (0, import_remix5.redirect)("/home", {
     headers: {
       "Set-Cookie": await commitSession(session)
     }
@@ -4502,9 +4533,9 @@ async function action3({ request }) {
 async function loader5({ request }) {
   let token = (await getSession(request.headers.get("Cookie"))).get("token");
   if (!token)
-    return (0, import_remix4.json)({});
+    return (0, import_remix5.json)({});
   let { user } = await validateSessionId({ sessionId: token });
-  return user ? (0, import_remix4.redirect)("/home") : (0, import_remix4.json)({});
+  return user ? (0, import_remix5.redirect)("/home") : (0, import_remix5.json)({});
 }
 function CustomInputGroup({
   icon,
@@ -4723,11 +4754,11 @@ function sign_in_default() {
 // app/routes/sign-up.tsx
 var sign_up_exports = {};
 __export(sign_up_exports, {
-  action: () => action4,
+  action: () => action5,
   default: () => sign_up_default,
   loader: () => loader6
 });
-var import_remix5 = require("@vercel/remix"), import_react57 = require("@remix-run/react");
+var import_remix6 = require("@vercel/remix"), import_react57 = require("@remix-run/react");
 
 // src/domain/modules/user/use-cases/create-user.ts
 var CreateUser = class {
@@ -4759,7 +4790,7 @@ async function createUserController({ username, email, password }) {
 
 // app/routes/sign-up.tsx
 var import_jsx_dev_runtime46 = require("react/jsx-dev-runtime");
-async function action4({ request }) {
+async function action5({ request }) {
   let form = await request.formData(), username = form.get("username"), password = form.get("password"), email = form.get("email");
   if (typeof username != "string" || typeof password != "string" || typeof email != "string")
     return new Response(JSON.stringify({ error: "credentials is invalid" }), {
@@ -4772,10 +4803,10 @@ async function action4({ request }) {
   return error ? new Response(null, {
     status: 400,
     statusText: error
-  }) : (0, import_remix5.redirect)("/sign-in", 201);
+  }) : (0, import_remix6.redirect)("/sign-in", 201);
 }
 async function loader6() {
-  return (0, import_remix5.redirect)("/sign-in");
+  return (0, import_remix6.redirect)("/sign-in");
 }
 function sign_up_default() {
   let data = (0, import_react57.useActionData)();
@@ -4854,9 +4885,9 @@ var index_exports = {};
 __export(index_exports, {
   loader: () => loader7
 });
-var import_remix6 = require("@vercel/remix");
+var import_remix7 = require("@vercel/remix");
 async function loader7() {
-  return (0, import_remix6.redirect)("/home");
+  return (0, import_remix7.redirect)("/home");
 }
 
 // app/routes/_auth.tsx
@@ -4866,14 +4897,14 @@ __export(auth_exports, {
   headers: () => headers,
   loader: () => loader8
 });
-var import_remix7 = require("@vercel/remix"), import_react64 = require("@remix-run/react");
+var import_remix8 = require("@vercel/remix"), import_react65 = require("@remix-run/react");
 
 // app/components/Header.tsx
-var import_react61 = require("@chakra-ui/react"), import_bi = require("react-icons/bi"), import_md5 = require("react-icons/md"), import_lu2 = require("react-icons/lu"), import_react62 = require("@remix-run/react"), import_react63 = require("react");
+var import_react62 = require("@chakra-ui/react"), import_bi = require("react-icons/bi"), import_md5 = require("react-icons/md"), import_lu2 = require("react-icons/lu"), import_react63 = require("@remix-run/react"), import_react64 = require("react");
 
 // app/components/SearchInput.tsx
 var import_react58 = require("@chakra-ui/react"), import_md4 = require("react-icons/md"), import_jsx_dev_runtime47 = require("react/jsx-dev-runtime");
-function SearchInput2() {
+function SearchInput2({ inputGroupProps, inputProps }) {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime47.jsxDEV)(
     import_react58.InputGroup,
     {
@@ -4881,6 +4912,7 @@ function SearchInput2() {
       role: "group",
       sx: { "input:focus ~ div": { svg: { color: "blackAlpha.900" } } },
       maxInlineSize: 96,
+      ...inputGroupProps,
       children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime47.jsxDEV)(
           import_react58.Input,
@@ -4889,13 +4921,14 @@ function SearchInput2() {
             borderRadius: "full",
             focusBorderColor: "blackAlpha.900",
             type: "search",
-            name: "query"
+            name: "query",
+            ...inputProps
           },
           void 0,
           !1,
           {
             fileName: "app/components/SearchInput.tsx",
-            lineNumber: 12,
+            lineNumber: 19,
             columnNumber: 7
           },
           this
@@ -4913,13 +4946,13 @@ function SearchInput2() {
           !1,
           {
             fileName: "app/components/SearchInput.tsx",
-            lineNumber: 20,
+            lineNumber: 28,
             columnNumber: 9
           },
           this
         ) }, void 0, !1, {
           fileName: "app/components/SearchInput.tsx",
-          lineNumber: 19,
+          lineNumber: 27,
           columnNumber: 7
         }, this)
       ]
@@ -4928,7 +4961,7 @@ function SearchInput2() {
     !0,
     {
       fileName: "app/components/SearchInput.tsx",
-      lineNumber: 6,
+      lineNumber: 12,
       columnNumber: 5
     },
     this
@@ -4936,11 +4969,15 @@ function SearchInput2() {
 }
 
 // app/components/Drawer.tsx
-var import_react60 = require("@chakra-ui/react");
+var import_react61 = require("@chakra-ui/react");
 
 // app/components/Avatar.tsx
-var import_react59 = require("@chakra-ui/react"), import_rx = require("react-icons/rx"), import_jsx_dev_runtime48 = require("react/jsx-dev-runtime");
+var import_react59 = require("@chakra-ui/react"), import_rx = require("react-icons/rx"), import_react60 = require("@remix-run/react"), import_jsx_dev_runtime48 = require("react/jsx-dev-runtime");
 function Avatar({ containerProps, avatarProps, user }) {
+  let { submit } = (0, import_react60.useFetcher)();
+  function signOut() {
+    submit({}, { action: "/session-sign-out", method: "POST" });
+  }
   return /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(
     import_react59.HStack,
     {
@@ -4951,37 +4988,37 @@ function Avatar({ containerProps, avatarProps, user }) {
         user && /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react59.Menu, { children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react59.MenuButton, { as: import_react59.Button, variant: "ghost", rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_rx.RxChevronDown, {}, void 0, !1, {
             fileName: "app/components/Avatar.tsx",
-            lineNumber: 31,
+            lineNumber: 38,
             columnNumber: 62
           }, this), children: user.username }, void 0, !1, {
             fileName: "app/components/Avatar.tsx",
-            lineNumber: 31,
+            lineNumber: 38,
             columnNumber: 11
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react59.MenuList, { children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react59.MenuItem, { children: "Configura\xE7\xF5es" }, void 0, !1, {
               fileName: "app/components/Avatar.tsx",
-              lineNumber: 35,
+              lineNumber: 42,
               columnNumber: 13
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react59.MenuItem, { as: import_react59.Text, color: "red.400", children: "Sair" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react59.MenuItem, { as: import_react59.Text, color: "red.400", onClick: signOut, children: "Sair" }, void 0, !1, {
               fileName: "app/components/Avatar.tsx",
-              lineNumber: 36,
+              lineNumber: 43,
               columnNumber: 13
             }, this)
           ] }, void 0, !0, {
             fileName: "app/components/Avatar.tsx",
-            lineNumber: 34,
+            lineNumber: 41,
             columnNumber: 11
           }, this)
         ] }, void 0, !0, {
           fileName: "app/components/Avatar.tsx",
-          lineNumber: 30,
+          lineNumber: 37,
           columnNumber: 9
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime48.jsxDEV)(import_react59.Avatar, { size: "md", name: "Natan", ...avatarProps }, void 0, !1, {
           fileName: "app/components/Avatar.tsx",
-          lineNumber: 40,
+          lineNumber: 49,
           columnNumber: 7
         }, this)
       ]
@@ -4990,7 +5027,7 @@ function Avatar({ containerProps, avatarProps, user }) {
     !0,
     {
       fileName: "app/components/Avatar.tsx",
-      lineNumber: 24,
+      lineNumber: 31,
       columnNumber: 5
     },
     this
@@ -5001,28 +5038,28 @@ function Avatar({ containerProps, avatarProps, user }) {
 var import_jsx_dev_runtime49 = require("react/jsx-dev-runtime");
 function Drawer({ isOpen, onClose, finalFocusRef, user }) {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(
-    import_react60.Drawer,
+    import_react61.Drawer,
     {
       isOpen,
       placement: "right",
       onClose,
       finalFocusRef,
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react60.DrawerOverlay, {}, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react61.DrawerOverlay, {}, void 0, !1, {
           fileName: "app/components/Drawer.tsx",
           lineNumber: 33,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react60.DrawerContent, { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react60.DrawerCloseButton, { top: 4 }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react61.DrawerContent, { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react61.DrawerCloseButton, { top: 4 }, void 0, !1, {
             fileName: "app/components/Drawer.tsx",
             lineNumber: 35,
             columnNumber: 9
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(
-            import_react60.DrawerHeader,
+            import_react61.DrawerHeader,
             {
-              as: import_react60.HStack,
+              as: import_react61.HStack,
               inlineSize: "min-content",
               paddingBlock: 2,
               paddingInline: 4,
@@ -5053,18 +5090,18 @@ function Drawer({ isOpen, onClose, finalFocusRef, user }) {
             },
             this
           ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react60.DrawerBody, {}, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react61.DrawerBody, {}, void 0, !1, {
             fileName: "app/components/Drawer.tsx",
             lineNumber: 50,
             columnNumber: 9
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react60.DrawerFooter, { children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react60.Button, { variant: "outline", mr: 3, onClick: onClose, children: "Cancel" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react61.DrawerFooter, { children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react61.Button, { variant: "outline", mr: 3, onClick: onClose, children: "Cancel" }, void 0, !1, {
               fileName: "app/components/Drawer.tsx",
               lineNumber: 53,
               columnNumber: 11
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react60.Button, { colorScheme: "blue", children: "Save" }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime49.jsxDEV)(import_react61.Button, { colorScheme: "blue", children: "Save" }, void 0, !1, {
               fileName: "app/components/Drawer.tsx",
               lineNumber: 56,
               columnNumber: 11
@@ -5095,9 +5132,9 @@ function Drawer({ isOpen, onClose, finalFocusRef, user }) {
 // app/components/Header.tsx
 var import_jsx_dev_runtime50 = require("react/jsx-dev-runtime");
 function Header({ label, user }) {
-  let { isOpen, onOpen, onClose } = (0, import_react61.useDisclosure)(), btnRef = (0, import_react63.useRef)(null);
+  let { isOpen, onOpen, onClose } = (0, import_react62.useDisclosure)(), btnRef = (0, import_react64.useRef)(null);
   return /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(
-    import_react61.Grid,
+    import_react62.Grid,
     {
       maxH: "120px",
       inlineSize: "100%",
@@ -5107,10 +5144,10 @@ function Header({ label, user }) {
       paddingBlock: 4,
       paddingInline: 1,
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react61.HStack, { spacing: [6], children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react61.HStack, { spacing: 1, children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react62.HStack, { spacing: [6], children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react62.HStack, { spacing: 1, children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(
-              import_react61.IconButton,
+              import_react62.IconButton,
               {
                 variant: "ghost",
                 "aria-label": "go to home",
@@ -5121,7 +5158,7 @@ function Header({ label, user }) {
                   lineNumber: 46,
                   columnNumber: 19
                 }, this),
-                as: import_react62.Link,
+                as: import_react63.Link,
                 to: "/home"
               },
               void 0,
@@ -5133,7 +5170,7 @@ function Header({ label, user }) {
               },
               this
             ),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react61.Text, { letterSpacing: "wider", fontWeight: "bold", fontSize: "md", children: label }, void 0, !1, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react62.Text, { letterSpacing: "wider", fontWeight: "bold", fontSize: "md", children: label }, void 0, !1, {
               fileName: "app/components/Header.tsx",
               lineNumber: 50,
               columnNumber: 11
@@ -5143,7 +5180,7 @@ function Header({ label, user }) {
             lineNumber: 40,
             columnNumber: 9
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(SearchInput2, {}, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(SearchInput2, { inputProps: { isDisabled: !0 } }, void 0, !1, {
             fileName: "app/components/Header.tsx",
             lineNumber: 54,
             columnNumber: 9
@@ -5153,11 +5190,11 @@ function Header({ label, user }) {
           lineNumber: 39,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react61.HStack, { justifySelf: "flex-end", spacing: 1, children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react62.HStack, { justifySelf: "flex-end", spacing: 1, children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(
-            import_react61.Button,
+            import_react62.Button,
             {
-              as: import_react62.Link,
+              as: import_react63.Link,
               marginInline: 1,
               variant: "solid",
               colorScheme: "blue",
@@ -5171,7 +5208,7 @@ function Header({ label, user }) {
                 columnNumber: 21
               }, this),
               to: "/new-wash",
-              children: /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react61.Text, { display: ["none", "block"], children: "Nova lavagem" }, void 0, !1, {
+              children: /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react62.Text, { display: ["none", "block"], children: "Nova lavagem" }, void 0, !1, {
                 fileName: "app/components/Header.tsx",
                 lineNumber: 71,
                 columnNumber: 11
@@ -5187,7 +5224,7 @@ function Header({ label, user }) {
             this
           ),
           /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(
-            import_react61.IconButton,
+            import_react62.IconButton,
             {
               variant: "ghost",
               colorScheme: "blackAlpha",
@@ -5209,7 +5246,7 @@ function Header({ label, user }) {
             },
             this
           ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react61.Divider, { borderLeftWidth: 2, orientation: "vertical" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(import_react62.Divider, { borderLeftWidth: 2, orientation: "vertical" }, void 0, !1, {
             fileName: "app/components/Header.tsx",
             lineNumber: 81,
             columnNumber: 9
@@ -5220,7 +5257,7 @@ function Header({ label, user }) {
             columnNumber: 9
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime50.jsxDEV)(
-            import_react61.IconButton,
+            import_react62.IconButton,
             {
               display: ["flex", "flex", "none"],
               variant: "ghost",
@@ -5279,21 +5316,21 @@ function Header({ label, user }) {
 }
 
 // app/routes/_auth.tsx
-var import_react65 = require("@chakra-ui/react"), import_jsx_dev_runtime51 = require("react/jsx-dev-runtime"), headers = ({ loaderHeaders }) => ({
+var import_react66 = require("@chakra-ui/react"), import_jsx_dev_runtime51 = require("react/jsx-dev-runtime"), headers = ({ loaderHeaders }) => ({
   "Cache-Control": loaderHeaders.get("Cache-control") ?? "max-age=3600"
 });
 async function loader8({ request }) {
   let session = await getSession(request.headers.get("Cookie")), url = new URL(request.url), token = session.get("token");
   if (!token)
-    throw (0, import_remix7.redirect)("/sign-in");
+    throw (0, import_remix8.redirect)("/sign-in");
   let { error, user } = await validateSessionId({ sessionId: token });
   if (error || !user)
-    throw session.unset("token"), (0, import_remix7.redirect)("/sign-in", {
+    throw session.unset("token"), (0, import_remix8.redirect)("/sign-in", {
       headers: {
         "Set-Cookie": await commitSession(session)
       }
     });
-  return (0, import_remix7.json)(
+  return (0, import_remix8.json)(
     { path: url.pathname, user },
     {
       headers: {
@@ -5303,9 +5340,9 @@ async function loader8({ request }) {
   );
 }
 function auth_default() {
-  let { path, user } = (0, import_react64.useLoaderData)();
+  let { path, user } = (0, import_react65.useLoaderData)();
   return /* @__PURE__ */ (0, import_jsx_dev_runtime51.jsxDEV)(
-    import_react65.Grid,
+    import_react66.Grid,
     {
       gridTemplateRows: "auto 1fr",
       gridTemplateColumns: "100%",
@@ -5317,7 +5354,7 @@ function auth_default() {
           lineNumber: 57,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime51.jsxDEV)(import_react64.Outlet, {}, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime51.jsxDEV)(import_react65.Outlet, {}, void 0, !1, {
           fileName: "app/routes/_auth.tsx",
           lineNumber: 58,
           columnNumber: 7
@@ -5340,14 +5377,14 @@ var route_exports4 = {};
 __export(route_exports4, {
   loader: () => loader9
 });
-var import_remix8 = require("@vercel/remix"), import_node = require("@remix-run/node"), import_csv_stringify = require("csv-stringify");
+var import_remix9 = require("@vercel/remix"), import_node = require("@remix-run/node"), import_csv_stringify = require("csv-stringify");
 async function loader9({ request }) {
   let url = new URL(request.url), params = new URLSearchParams(url.searchParams), session = await getSession(request.headers.get("Cookie")), token = session.get("token"), licensePlate = params.get("licensePlate") ?? void 0, startDate = params.get("startDate") ?? void 0, endDate = params.get("endDate") ?? void 0, washStatus = params.get("status") ?? void 0;
   if (!token)
-    throw (0, import_remix8.redirect)("/sign-in");
+    throw (0, import_remix9.redirect)("/sign-in");
   let { error, user } = await validateSessionId({ sessionId: token });
   if (error || !user)
-    throw session.unset("token"), (0, import_remix8.redirect)("/sign-in", {
+    throw session.unset("token"), (0, import_remix9.redirect)("/sign-in", {
       headers: {
         "Set-Cookie": await commitSession(session)
       }
@@ -5390,11 +5427,11 @@ var __exports = {};
 __export(__exports, {
   default: () => __default
 });
-var import_react66 = require("@chakra-ui/react");
+var import_react67 = require("@chakra-ui/react");
 var import_jsx_dev_runtime52 = require("react/jsx-dev-runtime");
 function __default() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(
-    import_react66.Grid,
+    import_react67.Grid,
     {
       placeContent: "center",
       placeItems: "center",
@@ -5402,18 +5439,18 @@ function __default() {
       inlineSize: "100%",
       gap: 4,
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(import_react66.Text, { fontSize: "lg", children: "Essa p\xE1gina n\xE3o existe :(" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(import_react67.Text, { fontSize: "lg", children: "Essa p\xE1gina n\xE3o existe :(" }, void 0, !1, {
           fileName: "app/routes/$.tsx",
           lineNumber: 13,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(import_react66.HStack, { spacing: 1, children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(import_react66.Text, { fontSize: "lg", children: "Go back" }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(import_react67.HStack, { spacing: 1, children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(import_react67.Text, { fontSize: "lg", children: "Go back" }, void 0, !1, {
             fileName: "app/routes/$.tsx",
             lineNumber: 15,
             columnNumber: 9
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(LinkHighlighted, { to: "/home", children: /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(import_react66.Text, { fontSize: "lg", children: "/ home" }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(LinkHighlighted, { to: "/home", children: /* @__PURE__ */ (0, import_jsx_dev_runtime52.jsxDEV)(import_react67.Text, { fontSize: "lg", children: "/ home" }, void 0, !1, {
             fileName: "app/routes/$.tsx",
             lineNumber: 17,
             columnNumber: 11
@@ -5441,7 +5478,7 @@ function __default() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-A3MWFENP.js", imports: ["/build/_shared/chunk-JMTNRVKS.js", "/build/_shared/chunk-RPYEFABZ.js", "/build/_shared/chunk-6Y4MOXXW.js", "/build/_shared/chunk-EDULEWIV.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-JTY4YUEU.js", imports: ["/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-JUBXRLZY.js", imports: ["/build/_shared/chunk-FVT23FZR.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-Y7EA5RJQ.js", imports: ["/build/_shared/chunk-GY2OSEAB.js", "/build/_shared/chunk-XO5BRP32.js", "/build/_shared/chunk-J5LZUC2L.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-ATTWGKYI.js", imports: ["/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-5AJSUQOG.js", imports: ["/build/_shared/chunk-FVT23FZR.js", "/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/csv": { id: "routes/csv", parentId: "root", path: "csv", index: void 0, caseSensitive: void 0, module: "/build/routes/csv-6WKVSB6D.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-RIW6BJUN.js", imports: ["/build/_shared/chunk-XO5BRP32.js", "/build/_shared/chunk-J5LZUC2L.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-IDSYCLRE.js", imports: ["/build/_shared/chunk-J5LZUC2L.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "48a3afec", hmr: void 0, url: "/build/manifest-48A3AFEC.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-A3MWFENP.js", imports: ["/build/_shared/chunk-JMTNRVKS.js", "/build/_shared/chunk-RPYEFABZ.js", "/build/_shared/chunk-6Y4MOXXW.js", "/build/_shared/chunk-EDULEWIV.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-JTY4YUEU.js", imports: ["/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-JUBXRLZY.js", imports: ["/build/_shared/chunk-FVT23FZR.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-4AELTAEF.js", imports: ["/build/_shared/chunk-GY2OSEAB.js", "/build/_shared/chunk-XO5BRP32.js", "/build/_shared/chunk-J5LZUC2L.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-ATTWGKYI.js", imports: ["/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-5AJSUQOG.js", imports: ["/build/_shared/chunk-FVT23FZR.js", "/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/csv": { id: "routes/csv", parentId: "root", path: "csv", index: void 0, caseSensitive: void 0, module: "/build/routes/csv-6WKVSB6D.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/session-sign-out": { id: "routes/session-sign-out", parentId: "root", path: "session-sign-out", index: void 0, caseSensitive: void 0, module: "/build/routes/session-sign-out-7JIPKAHA.js", imports: void 0, hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-RIW6BJUN.js", imports: ["/build/_shared/chunk-XO5BRP32.js", "/build/_shared/chunk-J5LZUC2L.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-IDSYCLRE.js", imports: ["/build/_shared/chunk-J5LZUC2L.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "38deae64", hmr: void 0, url: "/build/manifest-38DEAE64.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !1, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
@@ -5460,6 +5497,14 @@ var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postc
     index: !0,
     caseSensitive: void 0,
     module: auth_new_wash_index_exports
+  },
+  "routes/session-sign-out": {
+    id: "routes/session-sign-out",
+    parentId: "root",
+    path: "session-sign-out",
+    index: void 0,
+    caseSensitive: void 0,
+    module: session_sign_out_exports
   },
   "routes/vehicle-search": {
     id: "routes/vehicle-search",

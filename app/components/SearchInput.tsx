@@ -1,13 +1,20 @@
+import type { InputProps, InputGroupProps } from "@chakra-ui/react";
 import { Input, InputGroup, InputRightElement, Icon } from "@chakra-ui/react";
 import { MdOutlineSearch } from "react-icons/md";
 
-export function SearchInput() {
+type SearchInputProps = {
+  inputProps?: InputProps;
+  inputGroupProps?: InputGroupProps;
+};
+
+export function SearchInput({ inputGroupProps, inputProps }: SearchInputProps) {
   return (
     <InputGroup
       display={["none", "none", "block"]}
       role="group"
       sx={{ "input:focus ~ div": { svg: { color: "blackAlpha.900" } } }}
       maxInlineSize={96}
+      {...inputGroupProps}
     >
       <Input
         placeholder="Procure qualquer coisa"
@@ -15,6 +22,7 @@ export function SearchInput() {
         focusBorderColor="blackAlpha.900"
         type="search"
         name="query"
+        {...inputProps}
       />
       <InputRightElement pointerEvents={"none"} fontSize={26}>
         <Icon
