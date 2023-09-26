@@ -33,7 +33,7 @@ export class CreateSession {
 
         if (!user.sessionId) throw new Error("Something went wrong with creation of token");
 
-        await this.userDB.update(user.id, { sessionId: user.sessionId });
+        await this.userDB.update({ id: user.id }, { sessionId: user.sessionId });
 
         return { sessionId: user.sessionId, user };
     }
