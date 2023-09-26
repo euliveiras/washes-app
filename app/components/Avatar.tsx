@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { RxChevronDown } from "react-icons/rx";
 import type { ChakraProps, AvatarProps } from "@chakra-ui/react";
-import { useFetcher } from "@remix-run/react";
+import { Link, useFetcher } from "@remix-run/react";
 
 type ComponentProps = {
   avatarProps?: AvatarProps;
@@ -39,7 +39,9 @@ export function Avatar({ containerProps, avatarProps, user }: ComponentProps) {
             {user.username}
           </MenuButton>
           <MenuList>
-            <MenuItem>Configurações</MenuItem>
+            <MenuItem as={Link} to="/configuration">
+              Configurações
+            </MenuItem>
             <MenuItem as={Text} color="red.400" onClick={signOut}>
               Sair
             </MenuItem>

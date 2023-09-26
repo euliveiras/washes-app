@@ -13,7 +13,6 @@ export async function action({ request }: ActionArgs) {
   const { error } = signOutController({ sessionId });
 
   if (error) {
-    console.log(error);
     return {};
   }
 
