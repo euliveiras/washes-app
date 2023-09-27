@@ -255,7 +255,10 @@ export default function () {
         <washesTable.Body onIntersecting={onLastRowIntersecting}>
           {data?.map((w, i, arr) => {
             return (
-              <washesTable.Row key={w?.id} id={w?.id}>
+              <washesTable.Row
+                key={w?.id}
+                id={w?.id}
+              >
                 <washesTable.bodyData.LicensePlate
                   licensePlate={w.vehicleId ?? ""}
                 />

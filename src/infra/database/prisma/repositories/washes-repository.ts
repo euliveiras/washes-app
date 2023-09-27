@@ -76,6 +76,12 @@ export class PrismaWashRepository implements WashRepository {
     const data = washes.map((w) => PrismaWashMapper.toPrisma(w));
     await prisma.wash.createMany({ data });
   }
-  async findById(id: string): Promise<Wash | null> {}
+  async findById(id: string): Promise<Wash | null> {
+    const wash = await prisma.wash.findUnique({ where: { id } });
+
+    if (!wash) return null;
+
+    return PrismaWashMapper.toDomain(wash);
+  }
   async update(id: string, data: Partial<Wash>): Promise<Wash | null> {}
 }

@@ -1,4 +1,5 @@
 import { Tbody, Td } from "@chakra-ui/react";
+import type { TableRowProps } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 import { useEffect, useRef } from "react";
 
@@ -7,7 +8,7 @@ type TableCellsProps = {
   onIntersecting(lastElement?: Element): void;
 };
 
-export function TableData({ children }: { children: ReactNode }) {
+export function TableData({ children }: TableRowProps & { children: ReactNode }) {
   return <Td>{children}</Td>;
 }
 

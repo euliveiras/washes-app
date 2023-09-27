@@ -10,21 +10,23 @@ import {
 import { BiHomeAlt } from "react-icons/bi";
 import { MdOutlineNotificationsNone, MdDensityMedium } from "react-icons/md";
 import { LuPlus } from "react-icons/lu";
-import { Link } from "@remix-run/react";
+import { Link, useLocation, useParams } from "@remix-run/react";
 import { useRef } from "react";
 import { SearchInput } from "./SearchInput";
 import { Drawer } from "./Drawer";
 import { Avatar } from "./Avatar";
 
 type HeaderProps = {
-  label: string;
   user: {
     username: string;
   };
 };
-export function Header({ label, user }: HeaderProps) {
+export function Header({ user }: HeaderProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const location = useLocation();
   const btnRef = useRef<HTMLButtonElement>(null);
+
+  const str = "/" + location.pathname.split("/")[1];
 
   return (
     <Grid
@@ -47,8 +49,12 @@ export function Header({ label, user }: HeaderProps) {
             as={Link}
             to={"/home"}
           />
-          <Text letterSpacing={"wider"} fontWeight={"bold"} fontSize={"md"}>
-            {label}
+          <Text
+            letterSpacing={"wider"}
+            fontWeight={"bold"}
+            fontSize={["sm", "md"]}
+          >
+            {str}
           </Text>
         </HStack>
         <SearchInput inputProps={{ isDisabled: true }} />

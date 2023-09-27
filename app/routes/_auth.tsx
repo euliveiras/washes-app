@@ -36,7 +36,7 @@ export async function loader({ request }: LoaderArgs) {
   }
 
   return json(
-    { path: url.pathname, user },
+    {  user },
     {
       headers: {
         "Cache-Control": `max-age=${60 * 60}`,
@@ -46,7 +46,7 @@ export async function loader({ request }: LoaderArgs) {
 }
 
 export default function () {
-  const { path, user } = useLoaderData<typeof loader>();
+  const {  user } = useLoaderData<typeof loader>();
   return (
     <Grid
       gridTemplateRows={"auto 1fr"}
@@ -54,7 +54,7 @@ export default function () {
       blockSize="100dvh"
       gap={2}
     >
-      <Header label={path ?? "/"} user={user} />
+      <Header user={user} />
       <Outlet />
     </Grid>
   );

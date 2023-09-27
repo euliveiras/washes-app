@@ -18,6 +18,7 @@ function CancelButton() {
       colorScheme={"red"}
       borderRadius="full"
       icon={<MdClose size={20} />}
+      onClick={(e) => e.stopPropagation()}
     />
   );
 }
@@ -32,6 +33,7 @@ function ConfirmButton() {
       colorScheme={"green"}
       borderRadius="full"
       icon={<MdOutlineCheck size={20} />}
+      onClick={(e) => e.stopPropagation()}
     />
   );
 }
