@@ -30,6 +30,8 @@ async function controller({ data, id }: DTO) {
     );
   }
 
+// if scheduleDate then we need to check if new date is higher than washCycle end date
+
   const { wash } = await updateWash.execute({ data, id });
 
   return { wash: HttpMapper.wash(wash) };

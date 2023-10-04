@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 
 type TableCellsProps = {
   children: ReactNode;
-  onIntersecting(lastElement?: Element): void;
+  onIntersecting?(lastElement?: Element): void;
 };
 
 export function TableData({ children }: TableRowProps & { children: ReactNode }) {
@@ -25,7 +25,7 @@ export function Body({ children, onIntersecting }: TableCellsProps) {
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) onIntersecting(element);
+        if (entry.isIntersecting && onIntersecting) onIntersecting(element);
       });
     }, options);
 

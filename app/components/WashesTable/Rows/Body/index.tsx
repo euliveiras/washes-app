@@ -33,7 +33,7 @@ export function Body({
   onIntersecting,
 }: {
   children: ReactNode;
-  onIntersecting(lastElement?: Element): void;
+  onIntersecting?(lastElement?: Element): void;
 }) {
   return <table.Body onIntersecting={onIntersecting}>{children}</table.Body>;
 }

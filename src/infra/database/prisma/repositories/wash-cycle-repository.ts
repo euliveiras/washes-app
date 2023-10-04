@@ -11,8 +11,17 @@ export class PrismaWashCycleRepository implements WashCycleRepository {
     });
   }
 
-  async find(id: string): Promise<WashCycle | null> {
-    const cycle = await prisma.washCycle.findUnique({ where: { id } });
+  async find(props: {
+    id?: string;
+    washesId?: string[];
+  }): Promise<WashCycle | null> {
+    const where = { id: props.id, washesId: { contains: "" } };
+
+    if (props.washesId) where.washesId.contains = props.washesId.toString();
+
+    const cycle = await prisma.washCycle.findFirst({
+      where,
+    });
 
     if (!cycle) return null;
 
