@@ -149,11 +149,11 @@ function CustomInput({
 }) {
   return (
     <Grid
-      gridTemplateColumns={"20% 60%"}
+      gridTemplateColumns={"30% 70%"}
       alignItems="center"
       placeContent={"space-between"}
-      marginBlockStart={6}
-      maxInlineSize="100%"
+      marginBlockStart={3}
+      maxInlineSize={"460px"}
     >
       <Text fontWeight={"bold"} letterSpacing="tighter">
         {label}
@@ -168,13 +168,43 @@ function CustomInput({
 }
 
 function Driver({ driver }: { driver: string }) {
-  return driver ? (
-    <>
-      <Text>Motorista</Text>
-      <Text>{driver}</Text>
-    </>
+  const [showForm, setShowForm] = useState(false);
+  if (driver)
+    return (
+      <>
+        <Text>Motorista</Text>
+        <Text>{driver}</Text>
+      </>
+    );
+
+  return showForm ? (
+    <Flex
+      flexDir="column"
+      lineHeight={1}
+      justify="space-between"
+      blockSize={"100%"}
+    >
+      <Text
+        color="blue.600"
+        fontWeight={"bold"}
+        fontSize="lg"
+        marginBlockStart={[0, 0, 8]}
+      >
+        Motorista
+      </Text>
+      <Box>
+        <CustomInput label="nome" value={""} editing={true} />
+        <CustomInput label="telefone" value={""} editing={true} />
+      </Box>
+    </Flex>
   ) : (
-    <Button colorScheme={"blue"} variant="outline" size="sm">
+    <Button
+      colorScheme={"blue"}
+      variant="outline"
+      size="sm"
+      maxInlineSize={"260px"}
+      onClick={() => setShowForm(true)}
+    >
       Adicionar motorista
     </Button>
   );
@@ -224,8 +254,20 @@ export default function () {
   const formattedDate = format(wash.scheduleDate, "d 'de' MMMM");
 
   return (
-    <Grid gridTemplateColumns={"100%"} padding={4}>
-      <Grid gap={8}>
+    <Grid
+      gridTemplateColumns={"100%"}
+      paddingBlock={4}
+      paddingInline={[4, 4, 16]}
+      gap={8}
+      placeContent="center"
+    >
+      <Grid
+        gap={12}
+        gridAutoFlow={["row", "row", "column"]}
+        gridAutoRows={["auto", "auto", "100%"]}
+        alignItems="center"
+        justifyContent={"space-between"}
+      >
         <Box>
           <Box lineHeight={"shorter"}>
             <PageLabel label={"lavagem"} />
@@ -248,14 +290,10 @@ export default function () {
             />
           </Box>
         </Box>
-        <Box>
-          <Driver driver={wash.driver} />
-        </Box>
-        <Box>
-          <Plate plate={wash.vehicleId} />
-        </Box>
+        <Driver driver={wash.driver} />
+        <Plate plate={wash.vehicleId} />
       </Grid>
-      <Flex flexDir="column" gap={1} paddingBlock={4}>
+      <Flex flexDir="column" gap={1} paddingBlockEnd={4}>
         <Text fontSize={"x-large"} fontWeight="semibold" color="blue.600">
           Ciclo de lavagem
         </Text>

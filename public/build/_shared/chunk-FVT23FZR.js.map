@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../app/components/LinkHighlighted.tsx"],
+  "sourcesContent": ["import { Link, Box } from \"@chakra-ui/react\";\nimport type { LinkProps } from \"@chakra-ui/react\";\nimport type { ReactNode } from \"react\";\nimport { Link as RouterLink } from \"react-router-dom\";\n\ntype Props = {\n  to: string;\n  children: ReactNode;\n  LinkProps?: LinkProps;\n};\n\nexport function LinkHighlighted({ to, children, LinkProps }: Props) {\n  return (\n    <Link marginInline={1} {...LinkProps} as={RouterLink} to={to}>\n      <Box\n        position={\"relative\"}\n        inlineSize=\"fit-content\"\n        zIndex={1}\n        _before={{\n          content: \"''\",\n          position: \"absolute\",\n          width: \"calc(100% + 4px)\",\n          height: \"60%\",\n          left: \"-2px\",\n          bottom: \"0\",\n          zIndex: \"-1\",\n          transform: \"rotate(-2deg)\",\n          bgColor: \"#D6BCFA\",\n        }}\n      >\n        {children}\n      </Box>\n    </Link>\n  );\n}\n"],
+  "mappings": ";;;;;;;;;;;;;;AAGA;AAWM;AAHC,SAAS,gBAAgB,EAAE,IAAI,UAAU,UAAU,GAAU;AAClE,SACE,mDAACA,OAAA,EAAK,cAAc,GAAI,GAAG,WAAW,IAAI,MAAY,IACpD;AAAA,IAAC;AAAA;AAAA,MACC,UAAU;AAAA,MACV,YAAW;AAAA,MACX,QAAQ;AAAA,MACR,SAAS;AAAA,QACP,SAAS;AAAA,QACT,UAAU;AAAA,QACV,OAAO;AAAA,QACP,QAAQ;AAAA,QACR,MAAM;AAAA,QACN,QAAQ;AAAA,QACR,QAAQ;AAAA,QACR,WAAW;AAAA,QACX,SAAS;AAAA,MACX;AAAA,MAEC;AAAA;AAAA,IAhBH;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,EAiBA,KAlBF;AAAA;AAAA;AAAA;AAAA,SAmBA;AAEJ;",
+  "names": ["Link"]
+}
