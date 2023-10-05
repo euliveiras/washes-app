@@ -3344,10 +3344,13 @@ var findWashCycleController = (data) => asyncWrapper(() => controller6(data));
 
 // app/components/Table/Body.tsx
 var import_react41 = require("@chakra-ui/react"), import_react42 = require("react"), import_jsx_dev_runtime22 = require("react/jsx-dev-runtime");
-function TableData({ children }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_react41.Td, { children }, void 0, !1, {
+function TableData({
+  children,
+  ...rest
+}) {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_react41.Td, { ...rest, children }, void 0, !1, {
     fileName: "app/components/Table/Body.tsx",
-    lineNumber: 12,
+    lineNumber: 15,
     columnNumber: 10
   }, this);
 }
@@ -3366,7 +3369,7 @@ function Body({ children, onIntersecting }) {
     return element && observer.observe(element), () => element && observer.unobserve(element);
   }, [onIntersecting, ref]), /* @__PURE__ */ (0, import_jsx_dev_runtime22.jsxDEV)(import_react41.Tbody, { ref, children }, void 0, !1, {
     fileName: "app/components/Table/Body.tsx",
-    lineNumber: 36,
+    lineNumber: 39,
     columnNumber: 10
   }, this);
 }
@@ -3622,11 +3625,11 @@ function Driver3({ driver }) {
 
 // app/components/WashesTable/Rows/Body/LicensePlate.tsx
 var import_jsx_dev_runtime36 = require("react/jsx-dev-runtime");
-function LicensePlate2({ licensePlate }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)(table.Data, { children: licensePlate }, void 0, !1, {
+function LicensePlate2({ licensePlate, ...rest }) {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime36.jsxDEV)(table.Data, { ...rest, children: licensePlate }, void 0, !1, {
     fileName: "app/components/WashesTable/Rows/Body/LicensePlate.tsx",
-    lineNumber: 8,
-    columnNumber: 9
+    lineNumber: 9,
+    columnNumber: 10
   }, this);
 }
 
@@ -3884,7 +3887,7 @@ var unconfirmWashController = ({ id }) => asyncWrapper(async () => {
 var import_jsx_dev_runtime42 = require("react/jsx-dev-runtime");
 async function action3({ request }) {
   var _a;
-  let form = await request.formData(), id = (_a = form.get("id")) == null ? void 0 : _a.toString(), isCompleted = form.get("isCompleted"), wash, error;
+  let form = await request.formData(), id = (_a = form.get("id")) == null ? void 0 : _a.toString(), isCompleted = form.get("isCompleted"), error;
   return id ? typeof isCompleted > "u" ? (0, import_node.json)({ error: "" }) : (isCompleted === "true" ? error = (await confirmWashController({ id })).error : error = (await unconfirmWashController({ id })).error, error ? (0, import_node.json)({ error: { message: error.message } }) : (0, import_node.json)({})) : (0, import_node.json)({ error: "" });
 }
 async function loader({ params }) {
@@ -3921,17 +3924,17 @@ async function loader({ params }) {
   });
 }
 function PageLabel({ label }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Text, { children: label }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Text, { color: "gray.500", fontSize: "sm", fontWeight: "semibold", children: label }, void 0, !1, {
     fileName: "app/routes/_auth.wash.$id.tsx",
-    lineNumber: 89,
-    columnNumber: 10
+    lineNumber: 91,
+    columnNumber: 5
   }, this);
 }
 function PageTitle({ title }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Text, { children: title }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Text, { fontSize: "xx-large", fontWeight: "bold", children: title }, void 0, !1, {
     fileName: "app/routes/_auth.wash.$id.tsx",
-    lineNumber: 93,
-    columnNumber: 10
+    lineNumber: 99,
+    columnNumber: 5
   }, this);
 }
 function PageEditButton({ isEditing }) {
@@ -3940,7 +3943,7 @@ function PageEditButton({ isEditing }) {
     {
       rightIcon: /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_md3.MdModeEditOutline, {}, void 0, !1, {
         fileName: "app/routes/_auth.wash.$id.tsx",
-        lineNumber: 101,
+        lineNumber: 110,
         columnNumber: 18
       }, this),
       variant: "ghost",
@@ -3952,23 +3955,23 @@ function PageEditButton({ isEditing }) {
     !1,
     {
       fileName: "app/routes/_auth.wash.$id.tsx",
-      lineNumber: 100,
+      lineNumber: 109,
       columnNumber: 5
     },
     this
   );
 }
 function Plate({ plate }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_jsx_dev_runtime42.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Text, { children: "Placa" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Box, { lineHeight: 1, children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Text, { color: "blue.600", fontWeight: "bold", fontSize: "lg", children: "Placa" }, void 0, !1, {
       fileName: "app/routes/_auth.wash.$id.tsx",
-      lineNumber: 114,
+      lineNumber: 123,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Flex, { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Text, { children: plate }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Flex, { align: "center", gap: 2, children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Text, { fontWeight: "semibold", children: plate }, void 0, !1, {
         fileName: "app/routes/_auth.wash.$id.tsx",
-        lineNumber: 116,
+        lineNumber: 127,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(
@@ -3977,7 +3980,7 @@ function Plate({ plate }) {
           "aria-label": "go to licenseplate page",
           icon: /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_lia.LiaExternalLinkAltSolid, { size: 24 }, void 0, !1, {
             fileName: "app/routes/_auth.wash.$id.tsx",
-            lineNumber: 119,
+            lineNumber: 130,
             columnNumber: 17
           }, this),
           colorScheme: "blue",
@@ -3987,175 +3990,217 @@ function Plate({ plate }) {
         !1,
         {
           fileName: "app/routes/_auth.wash.$id.tsx",
-          lineNumber: 117,
+          lineNumber: 128,
           columnNumber: 9
         },
         this
       )
     ] }, void 0, !0, {
       fileName: "app/routes/_auth.wash.$id.tsx",
-      lineNumber: 115,
+      lineNumber: 126,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/_auth.wash.$id.tsx",
-    lineNumber: 113,
+    lineNumber: 122,
     columnNumber: 5
   }, this);
 }
 function CustomInput({
   label,
   value,
-  placeholder
+  placeholder,
+  editing = !1
 }) {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Flex, { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Text, { children: label }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(
+    import_react52.Grid,
+    {
+      gridTemplateColumns: "20% 60%",
+      alignItems: "center",
+      placeContent: "space-between",
+      marginBlockStart: 6,
+      maxInlineSize: "100%",
+      children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Text, { fontWeight: "bold", letterSpacing: "tighter", children: label }, void 0, !1, {
+          fileName: "app/routes/_auth.wash.$id.tsx",
+          lineNumber: 158,
+          columnNumber: 7
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(
+          import_react52.Input,
+          {
+            defaultValue: value,
+            placeholder,
+            disabled: !editing
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/_auth.wash.$id.tsx",
+            lineNumber: 161,
+            columnNumber: 7
+          },
+          this
+        )
+      ]
+    },
+    void 0,
+    !0,
+    {
       fileName: "app/routes/_auth.wash.$id.tsx",
-      lineNumber: 139,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Input, { defaultValue: value, placeholder }, void 0, !1, {
-      fileName: "app/routes/_auth.wash.$id.tsx",
-      lineNumber: 140,
-      columnNumber: 7
-    }, this)
-  ] }, void 0, !0, {
-    fileName: "app/routes/_auth.wash.$id.tsx",
-    lineNumber: 138,
-    columnNumber: 5
-  }, this);
+      lineNumber: 151,
+      columnNumber: 5
+    },
+    this
+  );
 }
 function Driver4({ driver }) {
   return driver ? /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_jsx_dev_runtime42.Fragment, { children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Text, { children: "Motorista" }, void 0, !1, {
       fileName: "app/routes/_auth.wash.$id.tsx",
-      lineNumber: 148,
+      lineNumber: 173,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Text, { children: driver }, void 0, !1, {
       fileName: "app/routes/_auth.wash.$id.tsx",
-      lineNumber: 149,
+      lineNumber: 174,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/_auth.wash.$id.tsx",
-    lineNumber: 147,
+    lineNumber: 172,
     columnNumber: 5
   }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Button, { colorScheme: "blue", variant: "outline", size: "sm", children: "Adicionar motorista" }, void 0, !1, {
     fileName: "app/routes/_auth.wash.$id.tsx",
-    lineNumber: 152,
+    lineNumber: 177,
     columnNumber: 5
   }, this);
 }
 function auth_wash_id_default() {
   let { wash, error, washCycle, cycleWashes } = (0, import_react51.useLoaderData)(), [isEditing] = (0, import_react53.useState)(!1);
-  return console.log(wash, washCycle, cycleWashes), !wash || error ? /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Text, { children: (error == null ? void 0 : error.message) ?? "Alguma coisa deu errado. Por favor, atualize a p\xE1gina" }, void 0, !1, {
-    fileName: "app/routes/_auth.wash.$id.tsx",
-    lineNumber: 192,
-    columnNumber: 7
-  }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Grid, { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Grid, { children: [
+  if (console.log(wash, washCycle, cycleWashes), !wash || error)
+    return /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Text, { children: (error == null ? void 0 : error.message) ?? "Alguma coisa deu errado. Por favor, atualize a p\xE1gina" }, void 0, !1, {
+      fileName: "app/routes/_auth.wash.$id.tsx",
+      lineNumber: 217,
+      columnNumber: 7
+    }, this);
+  let formattedDate = format(wash.scheduleDate, "d 'de' MMMM");
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Grid, { gridTemplateColumns: "100%", padding: 4, children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Grid, { gap: 8, children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Box, { children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Box, { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Box, { lineHeight: "shorter", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(PageLabel, { label: "lavagem" }, void 0, !1, {
             fileName: "app/routes/_auth.wash.$id.tsx",
-            lineNumber: 204,
+            lineNumber: 231,
             columnNumber: 13
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Flex, { children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(PageTitle, { title: wash.scheduleDate }, void 0, !1, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Flex, { align: "center", gap: 0, children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(PageTitle, { title: formattedDate }, void 0, !1, {
               fileName: "app/routes/_auth.wash.$id.tsx",
-              lineNumber: 206,
+              lineNumber: 233,
               columnNumber: 15
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(PageEditButton, { isEditing }, void 0, !1, {
               fileName: "app/routes/_auth.wash.$id.tsx",
-              lineNumber: 207,
+              lineNumber: 234,
               columnNumber: 15
             }, this)
           ] }, void 0, !0, {
             fileName: "app/routes/_auth.wash.$id.tsx",
-            lineNumber: 205,
+            lineNumber: 232,
             columnNumber: 13
           }, this)
         ] }, void 0, !0, {
           fileName: "app/routes/_auth.wash.$id.tsx",
-          lineNumber: 203,
+          lineNumber: 230,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Box, { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(CustomInput, { label: "data da lavagem", value: wash.scheduleDate }, void 0, !1, {
-            fileName: "app/routes/_auth.wash.$id.tsx",
-            lineNumber: 211,
-            columnNumber: 13
-          }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(
             CustomInput,
             {
-              label: "nota",
-              value: wash.note,
-              placeholder: "adicione uma nota"
+              label: "data da lavagem",
+              value: wash.scheduleDate,
+              editing: isEditing
             },
             void 0,
             !1,
             {
               fileName: "app/routes/_auth.wash.$id.tsx",
-              lineNumber: 212,
+              lineNumber: 238,
+              columnNumber: 13
+            },
+            this
+          ),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(
+            CustomInput,
+            {
+              label: "nota",
+              value: wash.note,
+              placeholder: "adicione uma nota",
+              editing: isEditing
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/_auth.wash.$id.tsx",
+              lineNumber: 243,
               columnNumber: 13
             },
             this
           )
         ] }, void 0, !0, {
           fileName: "app/routes/_auth.wash.$id.tsx",
-          lineNumber: 210,
+          lineNumber: 237,
           columnNumber: 11
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/_auth.wash.$id.tsx",
-        lineNumber: 202,
+        lineNumber: 229,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Box, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(Driver4, { driver: wash.driver }, void 0, !1, {
         fileName: "app/routes/_auth.wash.$id.tsx",
-        lineNumber: 220,
+        lineNumber: 252,
         columnNumber: 11
       }, this) }, void 0, !1, {
         fileName: "app/routes/_auth.wash.$id.tsx",
-        lineNumber: 219,
+        lineNumber: 251,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Box, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(Plate, { plate: wash.vehicleId }, void 0, !1, {
         fileName: "app/routes/_auth.wash.$id.tsx",
-        lineNumber: 223,
+        lineNumber: 255,
         columnNumber: 11
       }, this) }, void 0, !1, {
         fileName: "app/routes/_auth.wash.$id.tsx",
-        lineNumber: 222,
+        lineNumber: 254,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/_auth.wash.$id.tsx",
-      lineNumber: 201,
+      lineNumber: 228,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Box, { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Text, { children: "Ciclo de lavagem" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Flex, { flexDir: "column", gap: 1, paddingBlock: 4, children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(import_react52.Text, { fontSize: "x-large", fontWeight: "semibold", color: "blue.600", children: "Ciclo de lavagem" }, void 0, !1, {
         fileName: "app/routes/_auth.wash.$id.tsx",
-        lineNumber: 227,
+        lineNumber: 259,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(washesTable.Table, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(washesTable.Body, { children: cycleWashes == null ? void 0 : cycleWashes.map((w) => /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(washesTable.Row, { id: w == null ? void 0 : w.id, children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(washesTable.Table, { children: /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(washesTable.Body, { children: cycleWashes == null ? void 0 : cycleWashes.map((w) => w.id === wash.id ? /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(washesTable.Row, { id: w == null ? void 0 : w.id, fontSize: "lg", children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(
           washesTable.bodyData.LicensePlate,
           {
+            fontWeight: "bold",
             licensePlate: w.vehicleId ?? ""
           },
           void 0,
           !1,
           {
             fileName: "app/routes/_auth.wash.$id.tsx",
-            lineNumber: 233,
-            columnNumber: 19
+            lineNumber: 268,
+            columnNumber: 21
           },
           this
         ),
@@ -4168,8 +4213,8 @@ function auth_wash_id_default() {
           !1,
           {
             fileName: "app/routes/_auth.wash.$id.tsx",
-            lineNumber: 236,
-            columnNumber: 19
+            lineNumber: 272,
+            columnNumber: 21
           },
           this
         ),
@@ -4183,15 +4228,15 @@ function auth_wash_id_default() {
           !1,
           {
             fileName: "app/routes/_auth.wash.$id.tsx",
-            lineNumber: 239,
-            columnNumber: 19
+            lineNumber: 275,
+            columnNumber: 21
           },
           this
         ),
         /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(washesTable.bodyData.Note, { note: (w == null ? void 0 : w.note) ?? "" }, void 0, !1, {
           fileName: "app/routes/_auth.wash.$id.tsx",
-          lineNumber: 243,
-          columnNumber: 19
+          lineNumber: 281,
+          columnNumber: 21
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(
           washesTable.bodyData.Actions,
@@ -4203,32 +4248,100 @@ function auth_wash_id_default() {
           !1,
           {
             fileName: "app/routes/_auth.wash.$id.tsx",
-            lineNumber: 244,
-            columnNumber: 19
+            lineNumber: 282,
+            columnNumber: 21
           },
           this
         )
       ] }, w == null ? void 0 : w.id, !0, {
         fileName: "app/routes/_auth.wash.$id.tsx",
-        lineNumber: 232,
-        columnNumber: 17
+        lineNumber: 267,
+        columnNumber: 19
+      }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(washesTable.Row, { id: w == null ? void 0 : w.id, children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(
+          washesTable.bodyData.LicensePlate,
+          {
+            licensePlate: w.vehicleId ?? ""
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/_auth.wash.$id.tsx",
+            lineNumber: 291,
+            columnNumber: 21
+          },
+          this
+        ),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(
+          washesTable.bodyData.ScheduledDate,
+          {
+            scheduledDate: (w == null ? void 0 : w.scheduleDate) ?? ""
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/_auth.wash.$id.tsx",
+            lineNumber: 294,
+            columnNumber: 21
+          },
+          this
+        ),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(
+          washesTable.bodyData.Status,
+          {
+            status: (w == null ? void 0 : w.isCompleted) === !0 ? "success" : "error",
+            label: (w == null ? void 0 : w.isCompleted) === !0 ? "Confirmado" : "Atrasada"
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/_auth.wash.$id.tsx",
+            lineNumber: 297,
+            columnNumber: 21
+          },
+          this
+        ),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(washesTable.bodyData.Note, { note: (w == null ? void 0 : w.note) ?? "" }, void 0, !1, {
+          fileName: "app/routes/_auth.wash.$id.tsx",
+          lineNumber: 303,
+          columnNumber: 21
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime42.jsxDEV)(
+          washesTable.bodyData.Actions,
+          {
+            isCompleted: w == null ? void 0 : w.isCompleted,
+            id: w == null ? void 0 : w.id
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/_auth.wash.$id.tsx",
+            lineNumber: 304,
+            columnNumber: 21
+          },
+          this
+        )
+      ] }, w == null ? void 0 : w.id, !0, {
+        fileName: "app/routes/_auth.wash.$id.tsx",
+        lineNumber: 290,
+        columnNumber: 19
       }, this)) }, void 0, !1, {
         fileName: "app/routes/_auth.wash.$id.tsx",
-        lineNumber: 229,
+        lineNumber: 263,
         columnNumber: 11
       }, this) }, void 0, !1, {
         fileName: "app/routes/_auth.wash.$id.tsx",
-        lineNumber: 228,
+        lineNumber: 262,
         columnNumber: 9
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/_auth.wash.$id.tsx",
-      lineNumber: 226,
+      lineNumber: 258,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/_auth.wash.$id.tsx",
-    lineNumber: 200,
+    lineNumber: 227,
     columnNumber: 5
   }, this);
 }
@@ -5922,7 +6035,7 @@ function __default() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-A3MWFENP.js", imports: ["/build/_shared/chunk-JMTNRVKS.js", "/build/_shared/chunk-RPYEFABZ.js", "/build/_shared/chunk-6Y4MOXXW.js", "/build/_shared/chunk-EDULEWIV.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-JTY4YUEU.js", imports: ["/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-JUBXRLZY.js", imports: ["/build/_shared/chunk-FVT23FZR.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-4DME7Z7U.js", imports: ["/build/_shared/chunk-YEYAHZMF.js", "/build/_shared/chunk-J5LZUC2L.js", "/build/_shared/chunk-S7SDDI2X.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-HRZTHCNK.js", imports: ["/build/_shared/chunk-B5L5I6SZ.js", "/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-O47O6BQ6.js", imports: ["/build/_shared/chunk-FVT23FZR.js", "/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.wash.$id": { id: "routes/_auth.wash.$id", parentId: "routes/_auth", path: "wash/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.wash.$id-JTZ3LQYN.js", imports: ["/build/_shared/chunk-B5L5I6SZ.js", "/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/csv": { id: "routes/csv", parentId: "root", path: "csv", index: void 0, caseSensitive: void 0, module: "/build/routes/csv-6WKVSB6D.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/session-sign-out": { id: "routes/session-sign-out", parentId: "root", path: "session-sign-out", index: void 0, caseSensitive: void 0, module: "/build/routes/session-sign-out-7JIPKAHA.js", imports: void 0, hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-SEJGWUX2.js", imports: ["/build/_shared/chunk-J5LZUC2L.js", "/build/_shared/chunk-S7SDDI2X.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-IDSYCLRE.js", imports: ["/build/_shared/chunk-J5LZUC2L.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "68c22ad5", hmr: void 0, url: "/build/manifest-68C22AD5.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-A3MWFENP.js", imports: ["/build/_shared/chunk-JMTNRVKS.js", "/build/_shared/chunk-RPYEFABZ.js", "/build/_shared/chunk-6Y4MOXXW.js", "/build/_shared/chunk-EDULEWIV.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-JTY4YUEU.js", imports: ["/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-JUBXRLZY.js", imports: ["/build/_shared/chunk-FVT23FZR.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth": { id: "routes/_auth", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/_auth-4DME7Z7U.js", imports: ["/build/_shared/chunk-YEYAHZMF.js", "/build/_shared/chunk-J5LZUC2L.js", "/build/_shared/chunk-S7SDDI2X.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.home": { id: "routes/_auth.home", parentId: "routes/_auth", path: "home", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.home-WRGR6GPR.js", imports: ["/build/_shared/chunk-I7ELGWBU.js", "/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.new-wash._index": { id: "routes/_auth.new-wash._index", parentId: "routes/_auth", path: "new-wash", index: !0, caseSensitive: void 0, module: "/build/routes/_auth.new-wash._index-O47O6BQ6.js", imports: ["/build/_shared/chunk-FVT23FZR.js", "/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_auth.wash.$id": { id: "routes/_auth.wash.$id", parentId: "routes/_auth", path: "wash/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.wash.$id-AL737DLI.js", imports: ["/build/_shared/chunk-I7ELGWBU.js", "/build/_shared/chunk-2JBWI42H.js", "/build/_shared/chunk-FQ5UBCHZ.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-QW5LNJTG.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/csv": { id: "routes/csv", parentId: "root", path: "csv", index: void 0, caseSensitive: void 0, module: "/build/routes/csv-6WKVSB6D.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/driver-search": { id: "routes/driver-search", parentId: "root", path: "driver-search", index: void 0, caseSensitive: void 0, module: "/build/routes/driver-search-L2FXCMML.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/session-sign-out": { id: "routes/session-sign-out", parentId: "root", path: "session-sign-out", index: void 0, caseSensitive: void 0, module: "/build/routes/session-sign-out-7JIPKAHA.js", imports: void 0, hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-in": { id: "routes/sign-in", parentId: "root", path: "sign-in", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-in-SEJGWUX2.js", imports: ["/build/_shared/chunk-J5LZUC2L.js", "/build/_shared/chunk-S7SDDI2X.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/sign-up": { id: "routes/sign-up", parentId: "root", path: "sign-up", index: void 0, caseSensitive: void 0, module: "/build/routes/sign-up-IDSYCLRE.js", imports: ["/build/_shared/chunk-J5LZUC2L.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vehicle-search": { id: "routes/vehicle-search", parentId: "root", path: "vehicle-search", index: void 0, caseSensitive: void 0, module: "/build/routes/vehicle-search-T3SYH5Y2.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/washes-search": { id: "routes/washes-search", parentId: "root", path: "washes-search", index: void 0, caseSensitive: void 0, module: "/build/routes/washes-search-ZLYUHAXX.js", imports: void 0, hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "d83c0086", hmr: void 0, url: "/build/manifest-D83C0086.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !0, v2_headers: !1, v2_meta: !0, v2_normalizeFormMethod: !0, v2_routeConvention: !0 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

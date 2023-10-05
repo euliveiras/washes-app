@@ -1,4 +1,5 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
+import { format } from "~/components/hooks/useDate";
 import { useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { findWashByIdController } from "src/infra/http/controllers/find-unique-wash-controller";
@@ -23,7 +24,7 @@ export async function action({ request }: ActionArgs) {
   const form = await request.formData();
   const id = form.get("id")?.toString();
   const isCompleted = form.get("isCompleted");
-  let wash, error;
+  let error;
 
   if (!id) return json({ error: "" });
   if (typeof isCompleted === "undefined") return json({ error: "" });
@@ -86,11 +87,19 @@ export async function loader({ params }: LoaderArgs) {
 }
 
 function PageLabel({ label }: { label: string }) {
-  return <Text>{label}</Text>;
+  return (
+    <Text color={"gray.500"} fontSize={"sm"} fontWeight={"semibold"}>
+      {label}
+    </Text>
+  );
 }
 
 function PageTitle({ title }: { title: string }) {
-  return <Text>{title}</Text>;
+  return (
+    <Text fontSize={"xx-large"} fontWeight={"bold"}>
+      {title}
+    </Text>
+  );
 }
 
 function PageEditButton({ isEditing }: { isEditing: boolean }) {
@@ -110,10 +119,12 @@ function PageEditButton({ isEditing }: { isEditing: boolean }) {
 
 function Plate({ plate }: { plate: string }) {
   return (
-    <>
-      <Text>Placa</Text>
-      <Flex>
-        <Text>{plate}</Text>
+    <Box lineHeight={1}>
+      <Text color="blue.600" fontWeight={"bold"} fontSize="lg">
+        Placa
+      </Text>
+      <Flex align="center" gap={2}>
+        <Text fontWeight={"semibold"}>{plate}</Text>
         <IconButton
           aria-label="go to licenseplate page"
           icon={<LiaExternalLinkAltSolid size={24} />}
@@ -121,7 +132,7 @@ function Plate({ plate }: { plate: string }) {
           variant="ghost"
         />
       </Flex>
-    </>
+    </Box>
   );
 }
 
@@ -129,16 +140,30 @@ function CustomInput({
   label,
   value,
   placeholder,
+  editing = false,
 }: {
   label: string;
   value: string;
   placeholder?: string;
+  editing: boolean;
 }) {
   return (
-    <Flex>
-      <Text>{label}</Text>
-      <Input defaultValue={value} placeholder={placeholder} />
-    </Flex>
+    <Grid
+      gridTemplateColumns={"20% 60%"}
+      alignItems="center"
+      placeContent={"space-between"}
+      marginBlockStart={6}
+      maxInlineSize="100%"
+    >
+      <Text fontWeight={"bold"} letterSpacing="tighter">
+        {label}
+      </Text>
+      <Input
+        defaultValue={value}
+        placeholder={placeholder}
+        disabled={!editing}
+      />
+    </Grid>
   );
 }
 
@@ -196,23 +221,30 @@ export default function () {
     );
   }
 
+  const formattedDate = format(wash.scheduleDate, "d 'de' MMMM");
+
   return (
-    <Grid>
-      <Grid>
+    <Grid gridTemplateColumns={"100%"} padding={4}>
+      <Grid gap={8}>
         <Box>
-          <Box>
+          <Box lineHeight={"shorter"}>
             <PageLabel label={"lavagem"} />
-            <Flex>
-              <PageTitle title={wash.scheduleDate} />
+            <Flex align="center" gap={0}>
+              <PageTitle title={formattedDate} />
               <PageEditButton isEditing={isEditing} />
             </Flex>
           </Box>
           <Box>
-            <CustomInput label="data da lavagem" value={wash.scheduleDate} />
+            <CustomInput
+              label="data da lavagem"
+              value={wash.scheduleDate}
+              editing={isEditing}
+            />
             <CustomInput
               label="nota"
               value={wash.note}
               placeholder={"adicione uma nota"}
+              editing={isEditing}
             />
           </Box>
         </Box>
@@ -223,34 +255,62 @@ export default function () {
           <Plate plate={wash.vehicleId} />
         </Box>
       </Grid>
-      <Box>
-        <Text>Ciclo de lavagem</Text>
+      <Flex flexDir="column" gap={1} paddingBlock={4}>
+        <Text fontSize={"x-large"} fontWeight="semibold" color="blue.600">
+          Ciclo de lavagem
+        </Text>
         <washesTable.Table>
           <washesTable.Body>
             {cycleWashes?.map((w) => {
-              return (
-                <washesTable.Row key={w?.id} id={w?.id}>
-                  <washesTable.bodyData.LicensePlate
-                    licensePlate={w.vehicleId ?? ""}
-                  />
-                  <washesTable.bodyData.ScheduledDate
-                    scheduledDate={w?.scheduleDate ?? ""}
-                  />
-                  <washesTable.bodyData.Status
-                    status={w?.isCompleted === true ? "success" : "error"}
-                    label={w?.isCompleted === true ? "Confirmado" : "Atrasada"}
-                  />
-                  <washesTable.bodyData.Note note={w?.note ?? ""} />
-                  <washesTable.bodyData.Actions
-                    isCompleted={w?.isCompleted}
-                    id={w?.id}
-                  />
-                </washesTable.Row>
-              );
+              if (w.id === wash.id)
+                return (
+                  <washesTable.Row key={w?.id} id={w?.id} fontSize={"lg"}>
+                    <washesTable.bodyData.LicensePlate
+                      fontWeight={"bold"}
+                      licensePlate={w.vehicleId ?? ""}
+                    />
+                    <washesTable.bodyData.ScheduledDate
+                      scheduledDate={w?.scheduleDate ?? ""}
+                    />
+                    <washesTable.bodyData.Status
+                      status={w?.isCompleted === true ? "success" : "error"}
+                      label={
+                        w?.isCompleted === true ? "Confirmado" : "Atrasada"
+                      }
+                    />
+                    <washesTable.bodyData.Note note={w?.note ?? ""} />
+                    <washesTable.bodyData.Actions
+                      isCompleted={w?.isCompleted}
+                      id={w?.id}
+                    />
+                  </washesTable.Row>
+                );
+              else
+                return (
+                  <washesTable.Row key={w?.id} id={w?.id}>
+                    <washesTable.bodyData.LicensePlate
+                      licensePlate={w.vehicleId ?? ""}
+                    />
+                    <washesTable.bodyData.ScheduledDate
+                      scheduledDate={w?.scheduleDate ?? ""}
+                    />
+                    <washesTable.bodyData.Status
+                      status={w?.isCompleted === true ? "success" : "error"}
+                      label={
+                        w?.isCompleted === true ? "Confirmado" : "Atrasada"
+                      }
+                    />
+                    <washesTable.bodyData.Note note={w?.note ?? ""} />
+                    <washesTable.bodyData.Actions
+                      isCompleted={w?.isCompleted}
+                      id={w?.id}
+                    />
+                  </washesTable.Row>
+                );
             })}
           </washesTable.Body>
         </washesTable.Table>
-      </Box>
+      </Flex>
     </Grid>
   );
 }
