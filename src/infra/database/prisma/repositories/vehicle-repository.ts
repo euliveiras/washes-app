@@ -9,6 +9,14 @@ export class PrismaVehicleRepository implements VehicleRepository {
       data: PrismaVehicleMapper.toPrisma(vehicle),
     });
   }
+
+  async update(licensePlate: string, data: Partial<Vehicle>): Promise<void> {
+    await prisma.vehicle.update({
+      where: { licensePlate },
+      data: { ...data, driver: JSON.stringify({ name: data.driver?.name, phones: data.driver?.phones }) },
+    });
+  }
+
   async findByLicensePlate(str: string): Promise<Vehicle | null> {
     const licensePlate = str.toUpperCase();
     const data = await prisma.vehicle.findUnique({

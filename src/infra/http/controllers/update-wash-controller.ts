@@ -19,22 +19,16 @@ async function controller({ data, id }: DTO) {
 
   if (!id) throw new AppError("Você precisar fornecer o campo 'createdBy", 400);
 
-  if (
-    typeof data.isCompleted === "undefined" &&
-    !data.note &&
-    !data.scheduleDate
-  ) {
-    throw new AppError(
-      "Você precisar fornecer pelo menos um campo para update",
-      400,
-    );
+  if (typeof data.isCompleted === "boolean" || data.note || data.scheduleDate) {
+    const { wash } = await updateWash.execute({ data, id });
+
+    return { wash: HttpMapper.wash(wash) };
   }
 
-// if scheduleDate then we need to check if new date is higher than washCycle end date
-
-  const { wash } = await updateWash.execute({ data, id });
-
-  return { wash: HttpMapper.wash(wash) };
+  throw new AppError(
+    "Você precisar fornecer pelo menos um campo para update",
+    400,
+  );
 }
 
 export const updateWashController = (data: DTO) => {

@@ -21,14 +21,26 @@ import { findWashCycleController } from "src/infra/http/controllers/find-wash-cy
 import { washesTable } from "~/components/WashesTable";
 import { confirmWashController } from "src/infra/http/controllers/confirm-wash-controller";
 import { unconfirmWashController } from "src/infra/http/controllers/unconfirm-wash-controller";
+import { updateVehicleController } from "src/infra/http/controllers/update-vehicle-controller";
 
-export async function action({ request }: ActionArgs) {
+export async function action({ request, params }: ActionArgs) {
   const form = await request.formData();
   const id = form.get("id")?.toString();
+  const licensePlate = form.get("LICENSE_PLATE")?.toString();
+  const action = form.get("ACTION")?.toString();
+  const driverName = form.get("DRIVER_NAME")?.toString();
+  const driverPhone = form.get("DRIVER_PHONE")?.toString();
   const isCompleted = form.get("isCompleted");
   let error;
 
+  if (action === "ADD_DRIVER" && driverName && driverPhone && licensePlate) {
+    const driver = { name: driverName, phones: [driverPhone] };
+    await updateVehicleController({ data: { driver }, licensePlate });
+    return json({});
+  }
+
   if (!id) return json({ error: "" });
+
   if (typeof isCompleted === "undefined") return json({ error: "" });
 
   if (isCompleted === "true") {
@@ -170,7 +182,13 @@ function CustomInput({
   );
 }
 
-function Driver({ driver }: { driver: string }) {
+function Driver({
+  driver,
+  licenseplate,
+}: {
+  driver: string;
+  licenseplate: string;
+}) {
   const [showForm, setShowForm] = useState(false);
   if (driver)
     return (
@@ -209,6 +227,7 @@ function Driver({ driver }: { driver: string }) {
             name="DRIVER_PHONE"
             editing={true}
           />
+          <input type="hidden" name="LICENSE_PLATE" value={licenseplate} />
         </Box>
       </Flex>
       <Button
@@ -268,8 +287,6 @@ export default function () {
   };
   const [isEditing] = useState(false);
 
-  console.log(wash, washCycle, cycleWashes);
-
   if (!wash || error) {
     return (
       <Text>
@@ -294,7 +311,6 @@ export default function () {
         gridAutoFlow={["row", "row", "column"]}
         gridAutoRows={["auto", "auto", "100%"]}
         alignItems="center"
-        justifyContent={"space-between"}
       >
         <Flex flexDir="column" gap={6}>
           <Box lineHeight={"shorter"}>
@@ -318,7 +334,6 @@ export default function () {
             />
           </Box>
         </Flex>
-        <Driver driver={wash.driver} />
         <Plate plate={wash.vehicleId} />
       </Grid>
       <Divider marginBlockStart={4} />
