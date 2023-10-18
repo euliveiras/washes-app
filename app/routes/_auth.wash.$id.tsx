@@ -1,11 +1,13 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { format } from "~/components/hooks/useDate";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, Form } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { findWashByIdController } from "src/infra/http/controllers/find-unique-wash-controller";
+import type { InputProps } from "@chakra-ui/react";
 import {
   Box,
   Button,
+  Divider,
   Flex,
   Grid,
   IconButton,
@@ -141,12 +143,12 @@ function CustomInput({
   value,
   placeholder,
   editing = false,
+  ...rest
 }: {
   label: string;
   value: string;
-  placeholder?: string;
   editing: boolean;
-}) {
+} & InputProps) {
   return (
     <Grid
       gridTemplateColumns={"30% 70%"}
@@ -162,6 +164,7 @@ function CustomInput({
         defaultValue={value}
         placeholder={placeholder}
         disabled={!editing}
+        {...rest}
       />
     </Grid>
   );
@@ -178,31 +181,56 @@ function Driver({ driver }: { driver: string }) {
     );
 
   return showForm ? (
-    <Flex
-      flexDir="column"
-      lineHeight={1}
-      justify="space-between"
-      blockSize={"100%"}
-    >
-      <Text
-        color="blue.600"
-        fontWeight={"bold"}
-        fontSize="lg"
-        marginBlockStart={[0, 0, 8]}
+    <Flex as={Form} method="PUT" flexDir="column" gap={8}>
+      <Flex
+        flexDir="column"
+        lineHeight={1}
+        justify="space-between"
+        blockSize={"100%"}
       >
-        Motorista
-      </Text>
-      <Box>
-        <CustomInput label="nome" value={""} editing={true} />
-        <CustomInput label="telefone" value={""} editing={true} />
-      </Box>
+        <Text
+          color="blue.600"
+          fontWeight={"bold"}
+          fontSize="lg"
+          marginBlockStart={[0, 0, 8]}
+        >
+          Motorista
+        </Text>
+        <Box>
+          <CustomInput
+            label="nome"
+            value={""}
+            name="DRIVER_NAME"
+            editing={true}
+          />
+          <CustomInput
+            label="telefone"
+            value={""}
+            name="DRIVER_PHONE"
+            editing={true}
+          />
+        </Box>
+      </Flex>
+      <Button
+        type="submit"
+        name="ACTION"
+        value="ADD_DRIVER"
+        colorScheme={"blue"}
+        variant="solid"
+        size="sm"
+        paddingInline={8}
+        width={"fit-content"}
+      >
+        Salvar
+      </Button>
     </Flex>
   ) : (
     <Button
       colorScheme={"blue"}
-      variant="outline"
+      variant="solid"
       size="sm"
-      maxInlineSize={"260px"}
+      width={"fit-content"}
+      paddingInline={8}
       onClick={() => setShowForm(true)}
     >
       Adicionar motorista
@@ -268,7 +296,7 @@ export default function () {
         alignItems="center"
         justifyContent={"space-between"}
       >
-        <Box>
+        <Flex flexDir="column" gap={6}>
           <Box lineHeight={"shorter"}>
             <PageLabel label={"lavagem"} />
             <Flex align="center" gap={0}>
@@ -289,10 +317,11 @@ export default function () {
               editing={isEditing}
             />
           </Box>
-        </Box>
+        </Flex>
         <Driver driver={wash.driver} />
         <Plate plate={wash.vehicleId} />
       </Grid>
+      <Divider marginBlockStart={4} />
       <Flex flexDir="column" gap={1} paddingBlockEnd={4}>
         <Text fontSize={"x-large"} fontWeight="semibold" color="blue.600">
           Ciclo de lavagem
