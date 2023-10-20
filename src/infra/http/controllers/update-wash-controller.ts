@@ -17,7 +17,7 @@ async function controller({ data, id }: DTO) {
   const washRepo = new PrismaWashRepository();
   const updateWash = new UpdateWash(washRepo);
 
-  if (!id) throw new AppError("Você precisar fornecer o campo 'createdBy", 400);
+  if (!id) throw new AppError("Você fornecer o id da lavagem", 400);
 
   if (typeof data.isCompleted === "boolean" || data.note || data.scheduleDate) {
     const { wash } = await updateWash.execute({ data, id });

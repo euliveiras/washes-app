@@ -1,37 +1,51 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
-import { format } from "~/components/hooks/useDate";
-import { useLoaderData, Form } from "@remix-run/react";
-import { json } from "@remix-run/node";
+import { redirect, json } from "@remix-run/node";
+import { format, parseDateToString } from "~/components/hooks/useDate";
+import { Link, useFetcher, useLoaderData } from "@remix-run/react";
 import { findWashByIdController } from "src/infra/http/controllers/find-unique-wash-controller";
-import type { InputProps } from "@chakra-ui/react";
 import {
   Box,
-  Button,
   Divider,
   Flex,
   Grid,
   IconButton,
-  Input,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
-import { MdModeEditOutline } from "react-icons/md";
 import { LiaExternalLinkAltSolid } from "react-icons/lia";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { findWashCycleController } from "src/infra/http/controllers/find-wash-cycle-controller";
 import { washesTable } from "~/components/WashesTable";
 import { confirmWashController } from "src/infra/http/controllers/confirm-wash-controller";
 import { unconfirmWashController } from "src/infra/http/controllers/unconfirm-wash-controller";
 import { updateVehicleController } from "src/infra/http/controllers/update-vehicle-controller";
+import { InputWithLabel } from "~/components/LabelWithInput";
+import { PageEditButton, PageLabel, PageTitle } from "~/components/Page";
+import { updateWashController } from "src/infra/http/controllers/update-wash-controller";
 
 export async function action({ request, params }: ActionArgs) {
   const form = await request.formData();
   const id = form.get("id")?.toString();
   const licensePlate = form.get("LICENSE_PLATE")?.toString();
   const action = form.get("ACTION")?.toString();
+  const note = form.get("WASH_NOTE")?.toString();
+  const scheduleDate = form.get("WASH_SCHEDULEDATE")?.toString();
   const driverName = form.get("DRIVER_NAME")?.toString();
   const driverPhone = form.get("DRIVER_PHONE")?.toString();
   const isCompleted = form.get("isCompleted");
   let error;
+
+  if (!params.id) throw redirect("/home");
+
+  if (action === "UPDATE_WASH" && note && scheduleDate) {
+    const formattedDate = parseDateToString(
+      new Date(format(scheduleDate, "yyyy-MM-dd")),
+    );
+    updateWashController({
+      id: params.id,
+      data: { note, scheduleDate: formattedDate },
+    });
+  }
 
   if (action === "ADD_DRIVER" && driverName && driverPhone && licensePlate) {
     const driver = { name: driverName, phones: [driverPhone] };
@@ -100,37 +114,6 @@ export async function loader({ params }: LoaderArgs) {
   });
 }
 
-function PageLabel({ label }: { label: string }) {
-  return (
-    <Text color={"gray.500"} fontSize={"sm"} fontWeight={"semibold"}>
-      {label}
-    </Text>
-  );
-}
-
-function PageTitle({ title }: { title: string }) {
-  return (
-    <Text fontSize={"xx-large"} fontWeight={"bold"}>
-      {title}
-    </Text>
-  );
-}
-
-function PageEditButton({ isEditing }: { isEditing: boolean }) {
-  const buttonProps = isEditing ? { color: "gray.400" } : { color: "blue.400" };
-  const buttonText = isEditing ? "salvar" : "editar";
-  return (
-    <Button
-      rightIcon={<MdModeEditOutline />}
-      variant="ghost"
-      fontSize={"sm"}
-      {...buttonProps}
-    >
-      {buttonText}
-    </Button>
-  );
-}
-
 function Plate({ plate }: { plate: string }) {
   return (
     <Box lineHeight={1}>
@@ -140,6 +123,8 @@ function Plate({ plate }: { plate: string }) {
       <Flex align="center" gap={2}>
         <Text fontWeight={"semibold"}>{plate}</Text>
         <IconButton
+          as={Link}
+          to={`/vehicle/${plate}`}
           aria-label="go to licenseplate page"
           icon={<LiaExternalLinkAltSolid size={24} />}
           colorScheme="blue"
@@ -150,17 +135,31 @@ function Plate({ plate }: { plate: string }) {
   );
 }
 
-function CustomInput({
-  label,
-  value,
-  placeholder,
-  editing = false,
-  ...rest
+function WashDateInput({
+  isEditing,
+  date,
 }: {
-  label: string;
-  value: string;
-  editing: boolean;
-} & InputProps) {
+  isEditing: boolean;
+  date: string;
+}) {
+  const formattedDate = format(date, "yyyy-MM-dd");
+  const minDate = format(new Date(), "yyyy-MM-dd");
+  return (
+    <InputWithLabel
+      labelProps={{ label: "data da lavagem" }}
+      inputProps={{
+        defaultValue: formattedDate,
+        type: "date",
+        min: minDate,
+        marginInline: "auto",
+        name: "WASH_SCHEDULEDATE",
+      }}
+      editing={isEditing}
+    />
+  );
+}
+
+function WashNote({ note, isEditing }: { note: string; isEditing: boolean }) {
   return (
     <Grid
       gridTemplateColumns={"30% 70%"}
@@ -170,90 +169,16 @@ function CustomInput({
       maxInlineSize={"460px"}
     >
       <Text fontWeight={"bold"} letterSpacing="tighter">
-        {label}
+        nota
       </Text>
-      <Input
-        defaultValue={value}
-        placeholder={placeholder}
-        disabled={!editing}
-        {...rest}
-      />
+      <Textarea
+        resize={"none"}
+        name="WASH_NOTE"
+        defaultValue={note}
+        isDisabled={!isEditing}
+        placeholder="escreva uma nota sobre esta lavagem"
+      ></Textarea>
     </Grid>
-  );
-}
-
-function Driver({
-  driver,
-  licenseplate,
-}: {
-  driver: string;
-  licenseplate: string;
-}) {
-  const [showForm, setShowForm] = useState(false);
-  if (driver)
-    return (
-      <>
-        <Text>Motorista</Text>
-        <Text>{driver}</Text>
-      </>
-    );
-
-  return showForm ? (
-    <Flex as={Form} method="PUT" flexDir="column" gap={8}>
-      <Flex
-        flexDir="column"
-        lineHeight={1}
-        justify="space-between"
-        blockSize={"100%"}
-      >
-        <Text
-          color="blue.600"
-          fontWeight={"bold"}
-          fontSize="lg"
-          marginBlockStart={[0, 0, 8]}
-        >
-          Motorista
-        </Text>
-        <Box>
-          <CustomInput
-            label="nome"
-            value={""}
-            name="DRIVER_NAME"
-            editing={true}
-          />
-          <CustomInput
-            label="telefone"
-            value={""}
-            name="DRIVER_PHONE"
-            editing={true}
-          />
-          <input type="hidden" name="LICENSE_PLATE" value={licenseplate} />
-        </Box>
-      </Flex>
-      <Button
-        type="submit"
-        name="ACTION"
-        value="ADD_DRIVER"
-        colorScheme={"blue"}
-        variant="solid"
-        size="sm"
-        paddingInline={8}
-        width={"fit-content"}
-      >
-        Salvar
-      </Button>
-    </Flex>
-  ) : (
-    <Button
-      colorScheme={"blue"}
-      variant="solid"
-      size="sm"
-      width={"fit-content"}
-      paddingInline={8}
-      onClick={() => setShowForm(true)}
-    >
-      Adicionar motorista
-    </Button>
   );
 }
 
@@ -285,7 +210,7 @@ export default function () {
     };
     error?: { message: string };
   };
-  const [isEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   if (!wash || error) {
     return (
@@ -297,6 +222,11 @@ export default function () {
   }
 
   const formattedDate = format(wash.scheduleDate, "d 'de' MMMM");
+  const fetcher = useFetcher();
+
+  function isEditingSetFn() {
+    setIsEditing(bool => !bool);
+  }
 
   return (
     <Grid
@@ -312,26 +242,40 @@ export default function () {
         gridAutoRows={["auto", "auto", "100%"]}
         alignItems="center"
       >
-        <Flex flexDir="column" gap={6}>
+        <Flex
+          id="WASH_FORM"
+          as={fetcher.Form}
+          onSubmit={isEditingSetFn}
+          method="PUT"
+          flexDir="column"
+          gap={6}
+        >
           <Box lineHeight={"shorter"}>
             <PageLabel label={"lavagem"} />
             <Flex align="center" gap={0}>
               <PageTitle title={formattedDate} />
-              <PageEditButton isEditing={isEditing} />
+              {isEditing ? (
+                <PageEditButton
+                  key="submit"
+                  isEditing={isEditing}
+                  type="submit"
+                  name="ACTION"
+                  value="UPDATE_WASH"
+                  form="WASH_FORM"
+                />
+              ) : (
+                <PageEditButton
+                  key="button"
+                  isEditing={isEditing}
+                  onClick={isEditingSetFn}
+                  type="button"
+                />
+              )}
             </Flex>
           </Box>
           <Box>
-            <CustomInput
-              label="data da lavagem"
-              value={wash.scheduleDate}
-              editing={isEditing}
-            />
-            <CustomInput
-              label="nota"
-              value={wash.note}
-              placeholder={"adicione uma nota"}
-              editing={isEditing}
-            />
+            <WashDateInput date={wash.scheduleDate} isEditing={isEditing} />
+            <WashNote note={wash.note} isEditing={isEditing} />
           </Box>
         </Flex>
         <Plate plate={wash.vehicleId} />

@@ -13,7 +13,13 @@ export class PrismaVehicleRepository implements VehicleRepository {
   async update(licensePlate: string, data: Partial<Vehicle>): Promise<void> {
     await prisma.vehicle.update({
       where: { licensePlate },
-      data: { ...data, driver: JSON.stringify({ name: data.driver?.name, phones: data.driver?.phones }) },
+      data: {
+        ...data,
+        driver: JSON.stringify({
+          name: data.driver?.name,
+          phones: data.driver?.phones,
+        }),
+      },
     });
   }
 

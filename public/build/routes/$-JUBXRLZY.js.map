@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../app/routes/$.tsx"],
-  "sourcesContent": ["import { Text, Grid, HStack} from \"@chakra-ui/react\";\nimport { LinkHighlighted } from \"~/components/LinkHighlighted\";\n\nexport default function () {\n  return (\n    <Grid\n      placeContent=\"center\"\n      placeItems=\"center\"\n      blockSize={\"100dvh\"}\n      inlineSize=\"100%\"\n      gap={4}\n    >\n      <Text fontSize=\"lg\">Essa p\u00E1gina n\u00E3o existe :(</Text>\n      <HStack spacing={1}>\n        <Text fontSize=\"lg\">Go back</Text>\n        <LinkHighlighted to=\"/home\">\n          <Text fontSize=\"lg\">/ home</Text>\n        </LinkHighlighted>\n      </HStack>\n    </Grid>\n  );\n}\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;AAYM;AATS,SAAR,YAAoB;AACzB,SACE;AAAA,IAAC;AAAA;AAAA,MACC,cAAa;AAAA,MACb,YAAW;AAAA,MACX,WAAW;AAAA,MACX,YAAW;AAAA,MACX,KAAK;AAAA,MAEL;AAAA,2DAAC,QAAK,UAAS,MAAK,+CAApB;AAAA;AAAA;AAAA;AAAA,eAA6C;AAAA,QAC7C,mDAAC,UAAO,SAAS,GACf;AAAA,6DAAC,QAAK,UAAS,MAAK,uBAApB;AAAA;AAAA;AAAA;AAAA,iBAA2B;AAAA,UAC3B,mDAAC,mBAAgB,IAAG,SAClB,6DAAC,QAAK,UAAS,MAAK,sBAApB;AAAA;AAAA;AAAA;AAAA,iBAA0B,KAD5B;AAAA;AAAA;AAAA;AAAA,iBAEA;AAAA,aAJF;AAAA;AAAA;AAAA;AAAA,eAKA;AAAA;AAAA;AAAA,IAbF;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,EAcA;AAEJ;",
-  "names": []
-}
